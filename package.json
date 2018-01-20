@@ -16,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/FullyHatter/fully-hatter/issues"
   },
-  "homepage": "https://github.com/FullyHatter/fully-hatter#readme"
+  "homepage": "https://github.com/FullyHatter/fully-hatter#readme",
+  "dependencies": {
+    "handlebars": "^4.0.11"
+  }
 }
