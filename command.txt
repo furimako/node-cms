@@ -1,8 +1,0 @@
-
-ssh-keygen -R 160.16.127.75
-ssh 160.16.127.75
-
-
-# npm package
-npm install -g pug
-npm install -g showdown
