@@ -4,7 +4,7 @@ module.exports = class Pages {
         this.pages = new Map()
     }
     
-    addPage (title, urlPath, contentPath=false) {
+    addPage (title, description, urlPath, contentPath=false) {
         const fs = require('fs')
         let content_html
 
@@ -19,7 +19,7 @@ module.exports = class Pages {
         
         const mustache = require('mustache')
         const TEMPLATE = fs.readFileSync('./static/template.mustache', 'utf8')
-        let html = mustache.render(TEMPLATE, {'title': title, 'body': content_html})
+        let html = mustache.render(TEMPLATE, {'description': description, 'title': title, 'body': content_html})
         this.pages.set(urlPath, html)
     }
     
