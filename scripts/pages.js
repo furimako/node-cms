@@ -4,25 +4,30 @@ module.exports = class Pages {
         this.pages = new Map()
     }
     
-    addPage (template, title, path) {
+    addPage (title, urlPath, contentPath=false) {
         const fs = require('fs')
-        const marked = require('marked')
-        const mustache = require('mustache')
-        marked.setOptions({
-          breaks: true
-        })
+        let content_html
 
-        let markdown = fs.readFileSync('./static/markdown' + path + '.md', 'utf8')
-        let html = marked(markdown)
-        let html_rendered = mustache.render(template, {'title': title, 'body': html})
-        this.pages.set(path, html_rendered)
+        if (contentPath) {
+            content_html = fs.readFileSync(contentPath, 'utf8')
+        } else {
+            let markdown = fs.readFileSync('./static/markdown' + urlPath + '.md', 'utf8')
+            const marked = require('marked')
+            marked.setOptions({breaks: true})
+            content_html = marked(markdown)
+        }
+        
+        const mustache = require('mustache')
+        const TEMPLATE = fs.readFileSync('./static/template.mustache', 'utf8')
+        let html = mustache.render(TEMPLATE, {'title': title, 'body': content_html})
+        this.pages.set(urlPath, html)
     }
     
-    has (path) {
-        return this.pages.has(path)
+    has (urlPath) {
+        return this.pages.has(urlPath)
     }
     
-    get (path) {
-        return this.pages.get(path)
+    get (urlPath) {
+        return this.pages.get(urlPath)
     }
 }
