@@ -24,11 +24,18 @@ module.exports = class Pages {
         this.pages.set(urlPath, HTML)
     }
     
-    addBinary (urlPath, contentType) {
+    addBinary (urlPath) {
         const fs = require('fs')
         const BINARY = fs.readFileSync('.' + urlPath)
         this.pages.set(urlPath, BINARY)
-        this.contentTypes.set(urlPath, contentType)
+        
+        if (urlPath.match(/\.png$/)) {
+            this.contentTypes.set(urlPath, 'image/png')
+        } else if (urlPath.match(/\.woff$/)) {
+            this.contentTypes.set(urlPath, 'application/font-woff woff')
+        } else if (urlPath.match(/\.eot$/)) {
+            this.contentTypes.set(urlPath, 'application/vnd.ms-fontobject eot')
+        }
     }
     
     has (urlPath) {
