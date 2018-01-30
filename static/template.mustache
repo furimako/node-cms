@@ -3,8 +3,27 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
-        <meta name="description" content={{description}}>
+        <meta name="viewport" content="width+device-width">
+        <meta name="theme-color" content="RoyalBlue">
+        <link rel="icon" href="/images/icon/icon.png">
+        <style>
+            @font-face {
+                font-family: 'JP';
+                src: url(/font/dartsfont.woff) format('woff'), url(/font/dartsfont.eot) format('eot');
+            }
+            body {
+                background-color: #333333;
+                color: white;
+                font-family: 'JP';
+            }
+            h1, h3 {
+                /* font-weight: bold; */
+            }
+            a {color: #99FFFF}
+        </style>
+        
         <title>{{title}} - Fully Hatter の秘密の部屋</title>
+        <meta name="description" content={{description}}>
     </head>
     <body>
         {{{body}}}
