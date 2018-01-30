@@ -1,6 +1,5 @@
 
 const http = require('http')
-const url = require('url')
 const Pages = require('./scripts/pages')
 
 // Create pages
@@ -58,6 +57,11 @@ pages.addPage(
     '/ideology/ideal-way-to-live-life'
 )
 
+let binaries = new Pages()
+binaries.addBinary('/images/icon/icon.png', 'image/png')
+binaries.addBinary('/font/dartsfont.woff', 'application/font-woff woff')
+binaries.addBinary('/font/dartsfont.eot', 'application/vnd.ms-fontobject eot')
+
 // Start server
 let server = http.createServer(requestListenerFunction)
 server.listen(8128)
@@ -65,10 +69,19 @@ console.log('Server Start')
 
 
 function requestListenerFunction(request, response) {
-    let path = url.parse(request.url).pathname
-    if (pages.has(path)) {
-        response.end(pages.get(path))
+    const urlPath = request.url
+    
+    if (pages.has(urlPath)) {
+        response.end(pages.get(urlPath))
+        console.log(`response page (path: ${urlPath})`)
+        
+    } else if (binaries.has(urlPath)) {
+        response.writeHead(200, {'Content-Type' : binaries.contentType(urlPath)});
+        response.end(binaries.get(urlPath))
+        console.log(`response binary (path: ${urlPath})`)
+        
     } else {
         response.end(pages.get(false))
+        console.log(`response no-found (path: ${urlPath})`)
     }
 }
