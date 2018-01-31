@@ -72,15 +72,17 @@ function requestListenerFunction(request, response) {
     const urlPath = request.url
     
     if (pages.has(urlPath)) {
+        response.writeHead(200, {'Content-Type' : 'text/html'})
         response.end(pages.get(urlPath))
         console.log(`response page (path: ${urlPath})`)
         
     } else if (binaries.has(urlPath)) {
-        response.writeHead(200, {'Content-Type' : binaries.contentType(urlPath)});
+        response.writeHead(200, {'Content-Type' : binaries.contentType(urlPath)})
         response.end(binaries.get(urlPath))
         console.log(`response binary (path: ${urlPath})`)
         
     } else {
+        response.writeHead(404, {'Content-Type' : 'text/html'})
         response.end(pages.get(false))
         console.log(`response no-found (path: ${urlPath})`)
     }

@@ -15,7 +15,7 @@ module.exports = class Pages {
         if (contentPath) {
             contentHTML = fs.readFileSync(contentPath, 'utf8')
         } else {
-            const MARKDOWN = fs.readFileSync('./static/markdown' + urlPath + '.md', 'utf8')
+            const MARKDOWN = fs.readFileSync('./static' + urlPath + '.md', 'utf8')
             contentHTML = marked(MARKDOWN)
         }
         
