@@ -18,7 +18,10 @@
   },
   "homepage": "https://github.com/FullyHatter/fully-hatter#readme",
   "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.3.1",
     "marked": "^0.3.12",
-    "mustache": "^2.3.0"
+    "mustache": "^2.3.0",
+    "popper.js": "^1.12.9"
   }
 }
