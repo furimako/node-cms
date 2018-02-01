@@ -31,10 +31,6 @@ module.exports = class Pages {
         
         if (urlPath.match(/\.png$/)) {
             this.contentTypes.set(urlPath, 'image/png')
-        } else if (urlPath.match(/\.woff$/)) {
-            this.contentTypes.set(urlPath, 'application/font-woff woff')
-        } else if (urlPath.match(/\.eot$/)) {
-            this.contentTypes.set(urlPath, 'application/vnd.ms-fontobject eot')
         }
     }
     
