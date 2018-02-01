@@ -59,8 +59,6 @@ pages.addPage(
 
 let binaries = new Pages()
 binaries.addBinary('/images/icon/icon.png')
-binaries.addBinary('/font/dartsfont.woff')
-binaries.addBinary('/font/dartsfont.eot')
 
 // Start server
 let server = http.createServer(requestListenerFunction)
