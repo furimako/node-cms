@@ -7,22 +7,38 @@
         <meta name="theme-color" content="RoyalBlue">
         <link rel="icon" href="/images/icon/icon.png">
         
-        <script type="text/javascript" src="//typesquare.com/accessor/script/typesquare.js?QywkW4Nex48%3D&fadein=10" charset="utf-8"></script>
+        <script type="text/javascript" src="//typesquare.com/accessor/script/typesquare.js?QywkW4Nex48%3D&fadein=5" charset="utf-8"></script>
         <style>
-            body {
+            * {
                 background-color: #333333;
                 color: white;
                 font-family: "Hiragino Mincho W2 JIS2004";
             }
-            a {
-                color: #99FFFF;
-            }
+            
+            body > h1 {margin-left: 60px;}
+            body > p {margin-left: 30px;}
+            a {color: #99FFFF;}
+            a:visited {color: #75A9FF;}
+            a:hover {color: #FFC7AF;}
         </style>
         
         <title>{{title}} - Fully Hatter の秘密の部屋</title>
         <meta name="description" content={{description}}>
     </head>
     <body>
+        <header>
+            Fully Hatter の秘密の部屋
+        </header>
+        
         {{{body}}}
+        
+        <footer>
+            <small>
+                Powered by <a href="https://nodejs.org">Node.js</a>
+                , <a href="https://github.com/janl/mustache.js">mustache.js</a>
+                , <a href="https://github.com/chjj/marked">marked</a>
+                and <a href="https://www.pakutaso.com/">ぱくたそ</a>
+            </small>
+        </footer>
     </body>
 </html>
