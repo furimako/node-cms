@@ -58,7 +58,7 @@ pages.addPage(
 )
 
 let binaries = new Pages()
-binaries.addBinary('/images/icon/icon.png')
+binaries.addBinary('/favicon.png')
 
 // Start server
 let server = http.createServer(requestListenerFunction)
