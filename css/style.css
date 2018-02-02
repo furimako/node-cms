@@ -5,19 +5,35 @@
     font-family: "Hiragino Kaku Gothic W0 JIS2004";
 }
 
-a {color: #99FFFF;}
-a:visited {color: #75A9FF;}
-a:hover {color: #FFC7AF;}
-
 body > * {
     margin-left: 30px;
+    margin-right: 30px;
     font-size: x-small;
 }
-body > header {
+
+.header-container {display: flex;}
+.header-container > a {flex: 1 1 0;}
+header {
+    text-align: center;
     font-size: x-large;
 }
+.header-navi-active {
+    background-color: white;
+    color: #333333;
+    border-style: solid;
+    border-width: thin;
+    border-color: #EEEEEE;
+
+}
+.header-navi {
+    border-style: solid;
+    border-width: thin;
+    border-color: #222222;
+}
+
 body > h1 {
     margin-left: 60px;
+    margin-right: 30px;
     font-size: xx-large;
 }
 body > h2 {
@@ -25,4 +41,9 @@ body > h2 {
 }
 body > footer {
     margin-left: 60px;
+    margin-right: 30px;
 }
+
+a {color: #99FFFF;}
+a:visited {color: #75A9FF;}
+a:hover {color: #FFC7AF;}

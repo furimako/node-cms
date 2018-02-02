@@ -8,7 +8,24 @@ pages.addPage(
     'Home',
     'キミの知らない世界を見せよう。',
     '/',
-    './static/index.html'
+    './static/home.html'
+)
+pages.addPage(
+    'World',
+    'Fully Hatter の頭の中。',
+    '/world',
+    './static/world.html'
+)
+pages.addPage(
+    'Story',
+    'Fully Hatter のお話。',
+    '/story',
+    './static/story.html'
+)
+pages.addPage(
+    'About',
+    'このサイトについて。Fully Hatter について。',
+    '/about'
 )
 pages.addPage(
     'No Found',
