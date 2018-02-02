@@ -24,6 +24,16 @@ module.exports = class Pages {
         this.pages.set(urlPath, HTML)
     }
     
+    addText (urlPath) {
+        const fs = require('fs')
+        const TEXT = fs.readFileSync('.' + urlPath, 'utf8')
+        this.pages.set(urlPath, TEXT)
+        
+        if (urlPath.match(/\.css$/)) {
+            this.contentTypes.set(urlPath, 'text/css')
+        }
+    }
+    
     addBinary (urlPath) {
         const fs = require('fs')
         const BINARY = fs.readFileSync('.' + urlPath)
