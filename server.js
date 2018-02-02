@@ -1,6 +1,6 @@
 
 const http = require('http')
-const Pages = require('./scripts/pages')
+const Pages = require('./js/pages')
 
 // Create pages
 let pages = new Pages()
@@ -58,6 +58,7 @@ pages.addPage(
 )
 
 let binaries = new Pages()
+binaries.addText('/css/style.css')
 binaries.addBinary('/favicon.png')
 
 // Start server

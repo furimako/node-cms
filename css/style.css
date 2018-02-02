@@ -1,0 +1,28 @@
+
+* {
+    background-color: #333333;
+    color: white;
+    font-family: "Hiragino Kaku Gothic W0 JIS2004";
+}
+
+a {color: #99FFFF;}
+a:visited {color: #75A9FF;}
+a:hover {color: #FFC7AF;}
+
+body > * {
+    margin-left: 30px;
+    font-size: x-small;
+}
+body > header {
+    font-size: x-large;
+}
+body > h1 {
+    margin-left: 60px;
+    font-size: xx-large;
+}
+body > h2 {
+    font-size: large;
+}
+body > footer {
+    margin-left: 60px;
+}
