@@ -19,42 +19,42 @@ pages.addPage(
 pages.addPage(
     '「幸せ」を目指してはいけない',
     '多くの人は「幸せ」を求めて日々生きているのではないだろうか。',
-    '/ideology/your-goal'
+    '/world/your-goal'
 )
 pages.addPage(
     'あなたにとっての「幸せ」は？',
     '「幸せ」の定義は何でしょうか？ あなたが気づいていない、「幸せ」の一つの姿について。',
-    '/ideology/happiness'
+    '/world/happiness'
 )
 pages.addPage(
     '今を生きるためのちょっとしたヒント',
     '私のメモ帳の中身。気をつけないと忘れてしまうこと。でもとっても大切なこと。',
-    '/ideology/tips-for-your-life'
+    '/world/tips-for-your-life'
 )
 pages.addPage(
     '「自由」に生きてはいけない',
     'きっとキミは思うだろう。そんなはずはない！ と。でもいつかキミはこう思うだろう。確かにそうかもしれない、と。',
-    '/ideology/freedom'
+    '/world/freedom'
 )
 pages.addPage(
     '「大人」について',
     'あなたは本当に「大人」ですか？',
-    '/ideology/grown-up'
+    '/world/grown-up'
 )
 pages.addPage(
     '理想の「教育」',
     '「歴史のテスト」を憎むすべての人に、このページを捧げます。',
-    '/ideology/education'
+    '/world/education'
 )
 pages.addPage(
     '「哲学」は無意味である (仮)',
     '「この世界はどうして存在するのだろう？」Fully Hatter が答えましょう。',
-    '/ideology/philosophy'
+    '/world/philosophy'
 )
 pages.addPage(
     '「一番」を目指してはいけない',
     '「一番」を目指さずに、いったい何を目指すべきだというのか！ そんなあなたのためのページです。',
-    '/ideology/ideal-way-to-live-life'
+    '/world/ideal-way-to-live-life'
 )
 
 let binaries = new Pages()
