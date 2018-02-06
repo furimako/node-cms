@@ -3,20 +3,44 @@
 <html lang="ja">
     <head>
         <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="/node_modules/bulma/css/bulma.css">
+        
         <meta name="description" content={{description}}>
-        <meta name="viewport" content="width+device-width">
         <meta name="theme-color" content="RoyalBlue">
         <link rel="icon" href="/favicon.png">
-        <link rel="stylesheet" href="/css/style.css">
-        <script type="text/javascript" src="//typesquare.com/accessor/script/typesquare.js?QywkW4Nex48%3D&fadein=5" charset="utf-8"></script>
         <title>{{title}} - Fully Hatter の秘密の部屋</title>
     </head>
     <body>
-        {{{body}}}
-        <footer>
-            <small>
-                Powered by <a href="https://nodejs.org">Node.js</a>, <a href="https://github.com/janl/mustache.js">mustache.js</a>, <a href="https://github.com/chjj/marked">marked</a> and <a href="https://www.pakutaso.com/">ぱくたそ</a>
-            </small>
+        <header>
+            <section class="hero">
+                <div class="hero-body">
+                    <div class="container">
+                        <div class="title is-pulled-right is-3">Fully Hatter の秘密の部屋</div>
+                        <div class="subtitle is-pulled-right is-5">キミの知らない世界を見せよう</div>
+                        <h1 class="title is-1">{{title}}</h1>
+                    </div>
+                </div>
+                <div class="hero-foot">
+                    {{{pagination}}}
+                </div>
+                
+            </section>
+        </header>
+
+        <body>
+            <section class="section">
+                <div class="container">
+                    <div class="content">
+                        {{{body}}}
+                    </div>
+                    {{{pagination}}}
+                </div>
+            </section>
+        </body>
+
+        <footer class="footer">
+            Powered by <a href="https://nodejs.org">Node.js</a>, <a href="https://github.com/janl/mustache.js">mustache.js</a>, <a href="https://github.com/chjj/marked">marked</a>, <a href="https://bulma.io/">Bulma</a> and <a href="https://www.pakutaso.com/">ぱくたそ</a>
         </footer>
     </body>
 </html>
