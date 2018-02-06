@@ -5,7 +5,7 @@ module.exports = class Pages {
         this.contentTypes = new Map()
     }
     
-    addPage (title, description, urlPath, contentPath=false) {
+    addHTML (urlPath, title, description, contentPath=false) {
         const fs = require('fs')
         const mustache = require('mustache')
         const marked = require('marked')
@@ -22,6 +22,50 @@ module.exports = class Pages {
         const TEMPLATE = fs.readFileSync('./static/template.mustache', 'utf8')
         const HTML = mustache.render(TEMPLATE, {'description': description, 'title': title, 'body': contentHTML})
         this.pages.set(urlPath, HTML)
+    }
+    
+    addHTMLs (urlPath, title, ...descriptions) {
+        const fs = require('fs')
+        const mustache = require('mustache')
+        const marked = require('marked')
+        marked.setOptions({breaks: true})
+        
+        let markdowns = []
+        for (let i in descriptions) {
+            markdowns[i] = fs.readFileSync('./static' + urlPath + '-' + (parseInt(i) + 1) + '.md', 'utf8')
+        }
+        
+        const TEMPLATE = fs.readFileSync('./static/template.mustache', 'utf8')
+        for (let i in descriptions) {
+            let pagination = `
+                <nav class="pagination" role="navigation" aria-label="pagination">
+                    <ul class="pagination-list">`
+            for (let j in descriptions) {
+                if (i === j) {
+                    pagination += `
+                        <li>
+                            <a class="pagination-link is-current" href="${urlPath + '-' + (parseInt(j) + 1)}">${parseInt(j) + 1}</a>
+                        </li>`
+                } else {
+                    pagination += `
+                        <li>
+                            <a class="pagination-link" href="${urlPath + '-' + (parseInt(j) + 1)}">${parseInt(j) + 1}</a>
+                        </li>`
+                }
+            }
+            pagination += `</ul></nav>`
+            const HTML = mustache.render(
+                TEMPLATE,
+                {
+                    'description': descriptions[i],
+                    'title': (title + ' ' + (parseInt(i) + 1)),
+                    'body': marked(markdowns[i]),
+                    'pagination': pagination
+                }
+            )
+            this.pages.set(urlPath + '-' + (parseInt(i) + 1), HTML)
+        }
+        
     }
     
     addText (urlPath) {
