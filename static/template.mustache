@@ -1,46 +1,63 @@
-
 <!DOCTYPE HTML>
 <html lang="ja">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="/node_modules/bulma/css/bulma.css">
-        
-        <meta name="description" content={{description}}>
-        <meta name="theme-color" content="RoyalBlue">
-        <link rel="icon" href="/favicon.png">
-        <title>{{title}} - Fully Hatter の秘密の部屋</title>
-    </head>
-    <body>
-        <header>
-            <section class="hero">
-                <div class="hero-body">
-                    <div class="container">
-                        <div class="title is-pulled-right is-3">Fully Hatter の秘密の部屋</div>
-                        <div class="subtitle is-pulled-right is-5">キミの知らない世界を見せよう</div>
-                        <h1 class="title is-1">{{title}}</h1>
-                    </div>
-                </div>
-                <div class="hero-foot">
-                    {{{pagination}}}
-                </div>
-                
-            </section>
-        </header>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="/node_modules/bulma/css/bulma.css">
 
-        <body>
-            <section class="section">
+    <meta name="description" content= {{description}}>
+    <meta name="theme-color" content="RoyalBlue">
+    <link rel="icon" href="/icon/favicon.png">
+    <title>{{title}} - Fully Hatter の秘密の部屋</title>
+</head>
+
+<body>
+    <header>
+        <section class="hero">
+            <div class="hero-head">
+                <nav class="navbar is-pulled-right" role="navigation" aria-label="main navigation">
+                    <div class="navbar-brand">
+                        <a class="navbar-item" href="/">
+                            <div class="title is-3">Fully Hatter の秘密の部屋</div>
+                        </a>
+                        <a class="navbar-item" href="https://twitter.com/FullyHatter">
+                            <figure class="image is-24x24">
+                                <img src="/icon/twitter.png" alt="Twitter logo">
+                            </figure>
+                        </a>
+                        <a class="navbar-item" href="https://github.com/FullyHatter">
+                            <figure class="image is-24x24">
+                                <img src="/icon/github.png" alt="GitHub logo">
+                            </figure>
+                        </a>
+                    </div>
+                </nav>
+            </div>
+            <div class="hero-body">
                 <div class="container">
-                    <div class="content">
-                        {{{body}}}
-                    </div>
-                    {{{pagination}}}
+                    <h1 class="title is-2">{{title}}</h1>
                 </div>
-            </section>
-        </body>
+            </div>
+            <div class="hero-foot">
+                {{{pagination}}}
+            </div>
+        </section>
+    </header>
 
-        <footer class="footer">
-            Powered by <a href="https://nodejs.org">Node.js</a>, <a href="https://github.com/janl/mustache.js">mustache.js</a>, <a href="https://github.com/chjj/marked">marked</a>, <a href="https://bulma.io/">Bulma</a> and <a href="https://www.pakutaso.com/">ぱくたそ</a>
-        </footer>
+    <body>
+        <section class="section">
+            <div class="container">
+                <div class="content">
+                    {{{body}}}
+                </div>
+                {{{pagination}}}
+            </div>
+        </section>
     </body>
+
+    <footer class="footer">
+        Powered by <a href="https://nodejs.org">Node.js</a>, <a href="https://github.com/janl/mustache.js">mustache.js</a>, <a href="https://github.com/chjj/marked">marked</a>, <a href="https://bulma.io/">Bulma</a> and <a href="https://www.pakutaso.com/">ぱくたそ</a><br>
+        このウェブサイトのソースコードは <a href="https://github.com/FullyHatter/fully-hatter">こちら</a>
+    </footer>
+</body>
 </html>
