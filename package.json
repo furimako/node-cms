@@ -1,7 +1,7 @@
 {
   "name": "fully-hatter",
   "version": "1.0.0",
-  "description": "The website for Fully Hatter by Fully Hatter of Fully Hatter",
+  "description": "The website for Fully Hatter",
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
