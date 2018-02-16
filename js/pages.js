@@ -12,12 +12,30 @@ module.exports = class Pages {
         
         if (views) {
             for (let view of views) {
-                if(view.numOfChapters) {
-                    this.addHTMLs(view)
-                } else {
-                    this.addHTML(view)
-                }
+                this.add(view)
             }
+        }
+    }
+    
+    add(view) {
+        if (!view.urlPath) {
+            this.addHTML(view)
+            
+        } else if (view.urlPath.match(/\.css$/)) {
+            const TEXT = this.fs.readFileSync('.' + view.urlPath, 'utf8')
+            this.pages.set(view.urlPath, TEXT)
+            this.contentTypes.set(view.urlPath, 'text/css')
+            
+        } else if (view.urlPath.match(/\.png$/)) {
+            const BINARY = this.fs.readFileSync('.' + view.urlPath)
+            this.pages.set(view.urlPath, BINARY)
+            this.contentTypes.set(view.urlPath, 'image/png')
+            
+        } else if (view.numOfChapters) {
+            this.addHTMLs(view)
+            
+        } else {
+            this.addHTML(view)
         }
     }
     
@@ -32,6 +50,7 @@ module.exports = class Pages {
         
         const HTML = this.mustache.render(this.TEMPLATE, {'description': view.description, 'title': view.title, 'body': contentHTML})
         this.pages.set(view.urlPath, HTML)
+        this.contentTypes.set(view.urlPath, 'text/html')
     }
 
     addHTMLs (view) {
@@ -68,24 +87,7 @@ module.exports = class Pages {
                 }
             )
             this.pages.set(view.urlPath + '-' + parseInt(i), HTML)
-        }
-    }
-    
-    addText (urlPath) {
-        const TEXT = this.fs.readFileSync('.' + urlPath, 'utf8')
-        this.pages.set(urlPath, TEXT)
-        
-        if (urlPath.match(/\.css$/)) {
-            this.contentTypes.set(urlPath, 'text/css')
-        }
-    }
-    
-    addBinary (urlPath) {
-        const BINARY = this.fs.readFileSync('.' + urlPath)
-        this.pages.set(urlPath, BINARY)
-        
-        if (urlPath.match(/\.png$/)) {
-            this.contentTypes.set(urlPath, 'image/png')
+            this.contentTypes.set(view.urlPath + '-' + parseInt(i), 'text/html')
         }
     }
     

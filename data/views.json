@@ -7,12 +7,6 @@
         "filePath": "./static/home.html"
     },
     {
-        "urlPath": "/",
-        "title": "Home",
-        "description": "キミの知らない世界を見せよう。",
-        "filePath": "./static/home.html"
-    },
-    {
         "urlPath": false,
         "title": "No Found",
         "description": "",
@@ -95,5 +89,10 @@
         "title": "ひとり",
         "description": "第{{chapter}}話。彗星の日に起こる不思議な出来事。[全3話]",
         "numOfChapters": 3
-    }
+    },
+    {"urlPath": "/node_modules/bulma/css/bulma.css"},
+    {"urlPath": "/icon/favicon.png"},
+    {"urlPath": "/icon/twitter.png"},
+    {"urlPath": "/icon/github.png"},
+    {"urlPath": "/icon/person.png"}
 ]
