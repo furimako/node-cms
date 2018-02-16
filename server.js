@@ -12,6 +12,7 @@ elements.addText('/node_modules/bulma/css/bulma.css')
 elements.addBinary('/icon/favicon.png')
 elements.addBinary('/icon/twitter.png')
 elements.addBinary('/icon/github.png')
+elements.addBinary('/icon/person.png')
 
 // Start server
 let server = http.createServer(requestListenerFunction)
