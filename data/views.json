@@ -4,95 +4,113 @@
         "urlPath": "/",
         "title": "Home",
         "description": "キミの知らない世界を見せよう。",
-        "filePath": "./static/home.html"
+        "filePath": "./static/home.html",
+        "form": true
     },
     {
         "urlPath": false,
         "title": "No Found",
         "description": "",
-        "filePath": "./static/no-found.html"
+        "filePath": "./static/no-found.html",
+        "form": false
     },
     {
         "urlPath": "/about",
         "title": "About",
-        "description": "このサイトについて。Fully Hatter について。"
+        "description": "このサイトについて。Fully Hatter について。",
+        "form": false
     },
     {
         "urlPath": "/world/your-goal",
         "title": "「幸せ」を目指してはいけない",
-        "description": "多くの人は「幸せ」を求めて日々生きているのではないだろうか。"
+        "description": "多くの人は「幸せ」を求めて日々生きているのではないだろうか。",
+        "form": true
     },
     {
         "urlPath": "/world/happiness",
         "title": "あなたにとっての「幸せ」は？",
-        "description": "「幸せ」の定義は何でしょうか？ あなたが気づいていない、「幸せ」の一つの姿について。"
+        "description": "「幸せ」の定義は何でしょうか？ あなたが気づいていない、「幸せ」の一つの姿について。",
+        "form": true
     },
     {
         "urlPath": "/world/tips-for-your-life",
         "title": "今を生きるためのちょっとしたヒント",
-        "description": "私のメモ帳の中身。気をつけないと忘れてしまうこと。でもとっても大切なこと。"
+        "description": "私のメモ帳の中身。気をつけないと忘れてしまうこと。でもとっても大切なこと。",
+        "form": true
     },
     {
         "urlPath": "/world/freedom",
         "title": "「自由」に生きてはいけない",
-        "description": "きっとキミは思うだろう。そんなはずはない！ と。でもいつかキミはこう思うだろう。確かにそうかもしれない、と。"
+        "description": "きっとキミは思うだろう。そんなはずはない！ と。でもいつかキミはこう思うだろう。確かにそうかもしれない、と。",
+        "form": true
     },
     {
         "urlPath": "/world/grown-up",
         "title": "「大人」について",
-        "description": "あなたは本当に「大人」ですか？"
+        "description": "あなたは本当に「大人」ですか？",
+        "form": true
     },
     {
         "urlPath": "/world/education",
         "title": "理想の「教育」",
-        "description": "「歴史のテスト」を憎むすべての人に、このページを捧げます。"
+        "description": "「歴史のテスト」を憎むすべての人に、このページを捧げます。",
+        "form": true
     },
     {
         "urlPath": "/world/philosophy",
         "title": "「哲学」は無意味である (仮)",
-        "description": "「この世界はどうして存在するのだろう？」Fully Hatter が答えましょう。"
+        "description": "「この世界はどうして存在するのだろう？」Fully Hatter が答えましょう。",
+        "form": true
     },
     {
         "urlPath": "/world/ideal-way-to-live-life",
         "title": "「一番」を目指してはいけない",
-        "description": "「一番」を目指さずに、いったい何を目指すべきだというのか！ そんなあなたのためのページです。"
+        "description": "「一番」を目指さずに、いったい何を目指すべきだというのか！ そんなあなたのためのページです。",
+        "form": true
     },
     {
         "urlPath": "/story/science-fiction/dear-you",
         "title": "自由なキミへ",
-        "description": "一通の謎の手紙。拾ったのはあなた。[1話 完結]"
+        "description": "一通の謎の手紙。拾ったのはあなた。[1話 完結]",
+        "form": false
     },
     {
         "urlPath": "/story/science-fiction/over-the-superposition",
         "title": "量子の導き",
         "description": "第{{chapter}}話。そう遠くない未来、言語がひとつに統一された頃のお話。[全5話]",
-        "numOfChapters": 5
+        "numOfChapters": 5,
+        "form": false
     },
     {
         "urlPath": "/story/mystery/nightmare",
         "title": "ナイトメア",
-        "description": "遊園地が舞台のちょっと怖いお話。[1話 完結]"
+        "description": "遊園地が舞台のちょっと怖いお話。[1話 完結]",
+        "form": false
     },
     {
         "urlPath": "/story/mystery/the-dark-and-cold-place",
         "title": "暗くて寒い場所",
-        "description": "部屋の明かりが消せないある女性のお話。ホラー系が苦手な人は絶対に読まないで下さい。[1話 完結]"
+        "description": "部屋の明かりが消せないある女性のお話。ホラー系が苦手な人は絶対に読まないで下さい。[1話 完結]",
+        "form": false
     },
     {
         "urlPath": "/story/comedy/baby-s-suffering",
         "title": "稚児の苦悩",
         "description": "第{{chapter}}話。私は赤ちゃんである。[全2話]",
-        "numOfChapters": 2
+        "numOfChapters": 2,
+        "form": false
     },
     {
         "urlPath": "/story/comedy/one-man",
         "title": "ひとり",
         "description": "第{{chapter}}話。彗星の日に起こる不思議な出来事。[全3話]",
-        "numOfChapters": 3
+        "numOfChapters": 3,
+        "form": false
     },
     {"urlPath": "/node_modules/bulma/css/bulma.css"},
-    {"urlPath": "/icon/favicon.png"},
-    {"urlPath": "/icon/twitter.png"},
-    {"urlPath": "/icon/github.png"},
-    {"urlPath": "/icon/person.png"}
+    {"urlPath": "/images/icon/favicon.png"},
+    {"urlPath": "/images/icon/person.png"},
+    {"urlPath": "/images/icon/bulma.png"},
+    {"urlPath": "/images/icon/twitter.png"},
+    {"urlPath": "/images/icon/github.png"}
 ]

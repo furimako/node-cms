@@ -45,10 +45,22 @@ module.exports = class Pages {
             contentHTML = this.fs.readFileSync(view.filePath, 'utf8')
         } else {
             const MARKDOWN = this.fs.readFileSync('./static' + view.urlPath + '.md', 'utf8')
-            contentHTML = this.marked(MARKDOWN)
+            contentHTML = '<div class="content">' + this.marked(MARKDOWN) + '</div>'
         }
         
-        const HTML = this.mustache.render(this.TEMPLATE, {'description': view.description, 'title': view.title, 'body': contentHTML})
+        let formHTML = ''
+        if (view.form) {
+            formHTML = this.fs.readFileSync('./static/form.html', 'utf8')
+        }
+        
+        const HTML = this.mustache.render(this.TEMPLATE,
+            {
+                'description': view.description,
+                'title': view.title,
+                'body': contentHTML,
+                'form': formHTML
+            }
+        )
         this.pages.set(view.urlPath, HTML)
         this.contentTypes.set(view.urlPath, 'text/html')
     }
@@ -60,30 +72,29 @@ module.exports = class Pages {
         }
         
         for (let i = 1; i <= view.numOfChapters; i++) {
-            let pagination = `
-                <nav class="pagination" role="navigation" aria-label="pagination">
-                    <ul class="pagination-list">`
+            let pagination = `<nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
             for (let j = 1; j <= view.numOfChapters; j++) {
                 if (i === j) {
-                    pagination += `
-                        <li>
-                            <a class="pagination-link is-current" href="${view.urlPath + '-' + parseInt(j)}">${parseInt(j)}</a>
-                        </li>`
+                    pagination += `<li><a class="pagination-link is-current" href="${view.urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
                 } else {
-                    pagination += `
-                        <li>
-                            <a class="pagination-link" href="${view.urlPath + '-' + parseInt(j)}">${parseInt(j)}</a>
-                        </li>`
+                    pagination += `<li><a class="pagination-link" href="${view.urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
                 }
             }
             pagination += `</ul></nav>`
+            
+            let formHTML = ''
+            if (view.form) {
+                formHTML = this.fs.readFileSync('./static/form.html', 'utf8')
+            }
+            
             const HTML = this.mustache.render(
                 this.TEMPLATE,
                 {
                     'description': this.mustache.render(view.description, {'chapter': i}),
                     'title': (view.title + ' ' + parseInt(i)),
-                    'body': this.marked(markdowns[i]),
-                    'pagination': pagination
+                    'body': '<div class="content">' + this.marked(markdowns[i]) + '</div>',
+                    'pagination': pagination,
+                    'form': formHTML
                 }
             )
             this.pages.set(view.urlPath + '-' + parseInt(i), HTML)
