@@ -7,7 +7,7 @@
 
     <meta name="description" content= {{description}}>
     <meta name="theme-color" content="RoyalBlue">
-    <link rel="icon" href="/icon/favicon.png">
+    <link rel="icon" href="/images/icon/favicon.png">
     <title>{{title}} - Fully Hatter の秘密の部屋</title>
 </head>
 
@@ -22,12 +22,12 @@
                         </a>
                         <a class="navbar-item" href="https://twitter.com/FullyHatter">
                             <figure class="image is-24x24">
-                                <img src="/icon/twitter.png" alt="Twitter logo">
+                                <img src="/images/icon/twitter.png" alt="Twitter logo">
                             </figure>
                         </a>
                         <a class="navbar-item" href="https://github.com/FullyHatter">
                             <figure class="image is-24x24">
-                                <img src="/icon/github.png" alt="GitHub logo">
+                                <img src="/images/icon/github.png" alt="GitHub logo">
                             </figure>
                         </a>
                     </div>
@@ -47,48 +47,23 @@
     <body>
         <section class="section">
             <div class="container">
-                <div class="content">
-                    {{{body}}}
-                </div>
-                {{{pagination}}}
+                {{{body}}}
             </div>
         </section>
         <section class="section">
             <div class="container">
-                <div class="field">
-                    <label class="label is-small">名前</label>
-                    <div class="control is-small has-icons-left">
-                        <input class="input" type="text" placeholder="Fully Hatter" maxlength="20">
-                        <span class="icon is-small">
-                            <figure class="image is-16x16">
-                                <img src="/icon/person.png" alt="person logo">
-                            </figure>
-                        </span>
-                    </div>
-                    <p class="help is-small">偽名推奨</p>
-                </div>
-                <div class="field">
-                    <label class="label is-small">コメント</label>
-                    <div class="control is-small">
-                        <textarea class="textarea" placeholder="ご自由にどうぞ" maxlength="1000"></textarea>
-                    </div>
-                </div>
-                <div class="field is-grouped">
-                    <div class="control">
-                        <button class="button is-small is-link">送信</button>
-                    </div>
-                    <div class="control">
-                        <button class="button is-small is-text">キャンセル</button>
-                    </div>
-                </div>
+                {{{pagination}}}
+                {{{form}}}
             </div>
         </section>
     </body>
 
     <footer class="footer">
-        <a class="twitter-follow-button" href="https://twitter.com/FullyHatter">
-            Follow @FullyHatter
-        </a>
+        <div>
+            <a href="https://bulma.io">
+                <img src="/images/icon/bulma.png" alt="Made with Bulma" width="128" height="24">
+            </a>
+        </div>
         <div>
             Powered by <a href="https://nodejs.org">Node.js</a>, <a href="https://github.com/janl/mustache.js">mustache.js</a>, <a href="https://github.com/chjj/marked">marked</a>, <a href="https://bulma.io/">Bulma</a> and <a href="https://www.pakutaso.com/">ぱくたそ</a><br>
             このウェブサイトのソースコードは <a href="https://github.com/FullyHatter/fully-hatter">こちら</a>
