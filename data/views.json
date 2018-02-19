@@ -107,7 +107,7 @@
         "numOfChapters": 3,
         "form": false
     },
-    {"urlPath": "/node_modules/bulma/css/bulma.css"},
+    {"urlPath": "/styles.css"},
     {"urlPath": "/images/icon/favicon.png"},
     {"urlPath": "/images/icon/person.png"},
     {"urlPath": "/images/icon/bulma.png"},

@@ -21,9 +21,12 @@ module.exports = class Pages {
         if (!view.urlPath) {
             this.addHTML(view)
             
-        } else if (view.urlPath.match(/\.css$/)) {
-            const TEXT = this.fs.readFileSync('.' + view.urlPath, 'utf8')
-            this.pages.set(view.urlPath, TEXT)
+        } else if (view.urlPath === "/styles.css") {
+            const SCSS = this.fs.readFileSync('./static/styles.scss', 'utf8')
+            
+            const sass = require('node-sass')
+            const STYLES = sass.renderSync({data: SCSS})
+            this.pages.set(view.urlPath, STYLES.css)
             this.contentTypes.set(view.urlPath, 'text/css')
             
         } else if (view.urlPath.match(/\.png$/)) {
