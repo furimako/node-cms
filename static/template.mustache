@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="/node_modules/bulma/css/bulma.css">
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/earlyaccess/hannari.css" rel="stylesheet">
 
     <meta name="description" content= {{description}}>
     <meta name="theme-color" content="RoyalBlue">
@@ -13,7 +14,7 @@
 
 <body>
     <header>
-        <section class="hero">
+        <section class="hero is-dark">
             <div class="hero-head">
                 <nav class="navbar is-pulled-right" role="navigation" aria-label="main navigation">
                     <div class="navbar-brand">
@@ -44,19 +45,17 @@
         </section>
     </header>
 
-    <body>
-        <section class="section">
-            <div class="container">
-                {{{body}}}
-            </div>
-        </section>
-        <section class="section">
-            <div class="container">
-                {{{pagination}}}
-                {{{form}}}
-            </div>
-        </section>
-    </body>
+    <section class="section">
+        <div class="container">
+            {{{body}}}
+        </div>
+    </section>
+    <section class="section">
+        <div class="container">
+            {{{pagination}}}
+            {{{form}}}
+        </div>
+    </section>
 
     <footer class="footer">
         <div class="container">
