@@ -48,7 +48,7 @@ module.exports = class Pages {
             contentHTML = this.fs.readFileSync(view.filePath, 'utf8')
         } else {
             const MARKDOWN = this.fs.readFileSync('./static' + view.urlPath + '.md', 'utf8')
-            contentHTML = '<div class="content">' + this.marked(MARKDOWN) + '</div>'
+            contentHTML = '<section class="section"><div class="container"><div class="content">' + this.marked(MARKDOWN) + '</div></div></section>'
         }
         
         let formHTML = ''
@@ -95,7 +95,7 @@ module.exports = class Pages {
                 {
                     'description': this.mustache.render(view.description, {'chapter': i}),
                     'title': (view.title + ' ' + parseInt(i)),
-                    'body': '<div class="content">' + this.marked(markdowns[i]) + '</div>',
+                    'body': '<section class="section"><div class="container"><div class="content">' + this.marked(markdowns[i]) + '</div></div></section>',
                     'pagination': pagination,
                     'form': formHTML
                 }
