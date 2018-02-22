@@ -64,6 +64,12 @@ module.exports = class Pages {
                 'form': formHTML
             }
         )
+        
+        if (view.hasImage) {
+            const IMAGE = this.fs.readFileSync('./images' + view.urlPath + '.jpg')
+            this.pages.set(view.urlPath + '.jpg', IMAGE)
+            this.contentTypes.set(view.urlPath + '.jpg', 'image/jpeg')
+        }
         this.pages.set(view.urlPath, HTML)
         this.contentTypes.set(view.urlPath, 'text/html')
     }
@@ -75,7 +81,7 @@ module.exports = class Pages {
         }
         
         for (let i = 1; i <= view.numOfChapters; i++) {
-            let pagination = `<nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
+            let pagination = `<section class="section"><nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
             for (let j = 1; j <= view.numOfChapters; j++) {
                 if (i === j) {
                     pagination += `<li><a class="pagination-link is-current" href="${view.urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
@@ -83,7 +89,7 @@ module.exports = class Pages {
                     pagination += `<li><a class="pagination-link" href="${view.urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
                 }
             }
-            pagination += `</ul></nav>`
+            pagination += `</ul></nav></section>`
             
             let formHTML = ''
             if (view.form) {
@@ -102,6 +108,12 @@ module.exports = class Pages {
             )
             this.pages.set(view.urlPath + '-' + parseInt(i), HTML)
             this.contentTypes.set(view.urlPath + '-' + parseInt(i), 'text/html')
+        }
+        
+        if (view.hasImage) {
+            const IMAGE = this.fs.readFileSync('./images' + view.urlPath + '.jpg')
+            this.pages.set(view.urlPath + '.jpg', IMAGE)
+            this.contentTypes.set(view.urlPath + '.jpg', 'image/jpeg')
         }
     }
     

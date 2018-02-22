@@ -11,14 +11,12 @@
         "urlPath": false,
         "title": "No Found",
         "description": "",
-        "filePath": "./static/no-found.html",
-        "form": false
+        "filePath": "./static/no-found.html"
     },
     {
         "urlPath": "/about",
         "title": "About",
-        "description": "このサイトについて。Fully Hatter について。",
-        "form": false
+        "description": "このサイトについて。Fully Hatter について。"
     },
     {
         "urlPath": "/world/your-goal",
@@ -72,40 +70,40 @@
         "urlPath": "/story/science-fiction/dear-you",
         "title": "自由なキミへ",
         "description": "一通の謎の手紙。拾ったのはあなた。[1話 完結]",
-        "form": false
+        "hasImage": true
     },
     {
         "urlPath": "/story/science-fiction/over-the-superposition",
         "title": "量子の導き",
         "description": "第{{chapter}}話。そう遠くない未来、言語がひとつに統一された頃のお話。[全5話]",
         "numOfChapters": 5,
-        "form": false
+        "hasImage": true
     },
     {
         "urlPath": "/story/mystery/nightmare",
         "title": "ナイトメア",
         "description": "遊園地が舞台のちょっと怖いお話。[1話 完結]",
-        "form": false
+        "hasImage": true
     },
     {
         "urlPath": "/story/mystery/the-dark-and-cold-place",
         "title": "暗くて寒い場所",
-        "description": "部屋の明かりが消せないある女性のお話。ホラー系が苦手な人は絶対に読まないで下さい。[1話 完結]",
-        "form": false
+        "description": "部屋の明かりが消せないある女性のお話。[1話 完結]",
+        "hasImage": true
     },
     {
         "urlPath": "/story/comedy/baby-s-suffering",
         "title": "稚児の苦悩",
         "description": "第{{chapter}}話。私は赤ちゃんである。[全2話]",
         "numOfChapters": 2,
-        "form": false
+        "hasImage": true
     },
     {
         "urlPath": "/story/comedy/one-man",
         "title": "ひとり",
         "description": "第{{chapter}}話。彗星の日に起こる不思議な出来事。[全3話]",
         "numOfChapters": 3,
-        "form": false
+        "hasImage": true
     },
     {"urlPath": "/styles.css"},
     {"urlPath": "/images/icon/favicon.png"},
