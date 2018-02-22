@@ -1,7 +1,10 @@
 
-// 1. Import the initial variables
 @import "./node_modules/bulma/sass/utilities/initial-variables";
 @import "./node_modules/bulma/sass/utilities/functions";
+
+$pagination-current-color: findColorInvert($grey-dark);
+$pagination-current-background-color: $grey-dark;
+$pagination-current-border-color: $grey-dark;
 
 * {font-family: "Sawarabi Gothic";}
 .title {font-family: "Cinzel Decorative", cursive;}
