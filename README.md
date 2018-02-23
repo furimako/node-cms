@@ -1,27 +1,24 @@
 
-
 # Fully Hatter の秘密の部屋
-## キミの知らない世界を見せよう
-This is the website for Fully Hatter.
+This is the website for Fully Hatter based on pure [Node.js] **without** [Express framework].
 
 ## TODO
-- コメント機能実装
-- 自動翻訳
-- Fully Hatter の本棚
-- 掲示板
+- implement [comment function]
+- implement [auto translation]
+- make [Fully Hatter の本棚] page
+- make [掲示板] page
 
 ## NOTE
-- DNS
-- 確認: Android, iOS, PC
-- mustache テンプレートちゃんと設定されている？？
-- リダイレクト
-- readme
-- google の検索結果表示設定
-- Twitter, Facebook シェア用のテンプレート
-- Twitter のツイート表示
-- リンク集
-- FFT的なゲーム
+- DNS setting
+- check on PC, Android and iOS
+- check whether all mustache template tags work correctly
+- redirect
+- view setting (google search result)
+- view setting (for Twitter share)
+- view setting (for Facebook share)
+- GitHub API
+- add some games (like FFT ?)
 - Express, React, Vue
 
-### Memo
+## Memo
 ssh 160.16.127.75
