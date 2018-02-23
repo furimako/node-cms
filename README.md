@@ -5,7 +5,6 @@
 This is the website for Fully Hatter.
 
 ## TODO
-- フォローボタン、いいねボタン
 - コメント機能実装
 - 自動翻訳
 - Fully Hatter の本棚
