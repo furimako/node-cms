@@ -19,7 +19,7 @@
   "homepage": "https://github.com/FullyHatter/fully-hatter#readme",
   "dependencies": {
     "bulma": "^0.6.2",
-    "marked": "^0.3.14",
+    "marked": "^0.3.16",
     "mustache": "^2.3.0",
     "node-sass": "^4.7.2"
   }
