@@ -51,9 +51,9 @@ module.exports = class Pages {
             contentHTML = '<section class="section"><div class="container"><div class="content">' + this.marked(MARKDOWN) + '</div></div></section>'
         }
         
-        let formHTML = ''
-        if (view.form) {
-            formHTML = this.fs.readFileSync('./static/form.html', 'utf8')
+        let commentsHTML = ''
+        if (view.comments) {
+            commentsHTML = this.fs.readFileSync('./static/comments.html', 'utf8')
         }
         
         const HTML = this.mustache.render(this.TEMPLATE,
@@ -61,7 +61,7 @@ module.exports = class Pages {
                 'description': view.description,
                 'title': view.title,
                 'body': contentHTML,
-                'form': formHTML
+                'comments': commentsHTML
             }
         )
         
@@ -91,9 +91,9 @@ module.exports = class Pages {
             }
             pagination += `</ul></nav></section>`
             
-            let formHTML = ''
-            if (view.form) {
-                formHTML = this.fs.readFileSync('./static/form.html', 'utf8')
+            let commentsHTML = ''
+            if (view.comments) {
+                commentsHTML = this.fs.readFileSync('./static/comments.html', 'utf8')
             }
             
             const HTML = this.mustache.render(
@@ -103,7 +103,7 @@ module.exports = class Pages {
                     'title': (view.title + ' ' + parseInt(i)),
                     'body': '<section class="section"><div class="container"><div class="content">' + this.marked(markdowns[i]) + '</div></div></section>',
                     'pagination': pagination,
-                    'form': formHTML
+                    'comments': commentsHTML
                 }
             )
             this.pages.set(view.urlPath + '-' + parseInt(i), HTML)
