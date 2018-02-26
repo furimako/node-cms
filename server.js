@@ -14,12 +14,15 @@ console.log('Server Start')
 
 
 function requestListenerFunction(request, response) {
-    const urlPath = request.url
+    console.log(`get request from ${request.url}`)
+    const urlPath = url.parse(request.url, true)
     
     if (pages.has(urlPath)) {
         response.writeHead(200, {'Content-Type' : pages.contentType(urlPath)})
         response.end(pages.get(urlPath))
         console.log(`response page (path: ${urlPath})`)
+        
+    } else if (urlPath === '/comments') {
         
     } else {
         response.writeHead(404, {'Content-Type' : 'text/html'})
