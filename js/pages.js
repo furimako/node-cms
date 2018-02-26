@@ -53,7 +53,9 @@ module.exports = class Pages {
         
         let commentsHTML = ''
         if (view.comments) {
-            commentsHTML = this.fs.readFileSync('./static/comments.html', 'utf8')
+            this.pages.set(view.urlPath + '/comments', false)
+            TEMPLATE_COMMENTS = this.fs.readFileSync('./static/comments.mustache', 'utf8')
+            commentsHTML = this.mustache.render(TEMPLATE_COMMENTS,{'urlPath': view.urlPath})
         }
         
         const HTML = this.mustache.render(this.TEMPLATE,
@@ -91,19 +93,13 @@ module.exports = class Pages {
             }
             pagination += `</ul></nav></section>`
             
-            let commentsHTML = ''
-            if (view.comments) {
-                commentsHTML = this.fs.readFileSync('./static/comments.html', 'utf8')
-            }
-            
             const HTML = this.mustache.render(
                 this.TEMPLATE,
                 {
                     'description': this.mustache.render(view.description, {'chapter': i}),
                     'title': (view.title + ' ' + parseInt(i)),
                     'body': '<section class="section"><div class="container"><div class="content">' + this.marked(markdowns[i]) + '</div></div></section>',
-                    'pagination': pagination,
-                    'comments': commentsHTML
+                    'pagination': pagination
                 }
             )
             this.pages.set(view.urlPath + '-' + parseInt(i), HTML)
