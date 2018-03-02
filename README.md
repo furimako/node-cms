@@ -3,6 +3,8 @@
 This is the website for Fully Hatter based on pure [Node.js] **without** [Express framework].
 
 ## TODO
+- try catch
+- change Map to object (and render with object)
 - implement [comment function]
     - validate name & comment
     - jump to location in page after comment
