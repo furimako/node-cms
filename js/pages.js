@@ -1,127 +1,163 @@
+const fs = require('fs')
+const r = require('rethinkdb')
+const mustache = require('mustache')
+const marked = require('marked')
+marked.setOptions({
+    breaks: true
+})
+const sass = require('node-sass')
+
+const TEMPLATE = fs.readFileSync('./static/template.mustache', 'utf8')
+const TEMPLATE_COMMENTSFIELD = fs.readFileSync('./static/comments-field.mustache', 'utf8')
+const TEMPLATE_COMMENT = fs.readFileSync('./static/comment.mustache', 'utf8')
+
+
+class Page {
+    constructor(urlPath, contentType, descriptions, hasComments, page) {
+        this.urlPath = urlPath
+        this.contentType = contentType
+        this.descriptions = descriptions
+        this.hasComments = hasComments
+        this.page = page
+    }
+
+    writeToResponse(response) {
+        if (this.page) {
+            response.end(this.page)
+        }
+
+        const urlPath = this.urlPath
+        const descriptions = this.descriptions
+
+        if (this.hasComments) {
+            let connection = null
+            r.connect({ host: 'localhost', port: 28015 }, function(err, conn) {
+                if (err) throw err
+                connection = conn
+
+                r.db('FullyHatter').table('comments').filter({ urlPath: urlPath }).run(
+                    connection,
+                    function(err, cursor) {
+                        if (err) throw err
+                        cursor.toArray(function(err, result) {
+                            if (err) throw err
+
+                            let commentsHTML = ''
+                            for (let comment of result) {
+                                commentsHTML += mustache.render(TEMPLATE_COMMENT, comment)
+                            }
+                            descriptions.comments = mustache.render(
+                                TEMPLATE_COMMENTSFIELD, {
+                                    'urlPath': urlPath,
+                                    'comments': commentsHTML
+                                }
+                            )
+                            const html = mustache.render(TEMPLATE, descriptions)
+                            response.end(html)
+                        })
+                    }
+                )
+            })
+        } else {
+            const html = mustache.render(TEMPLATE, descriptions)
+            response.end(html)
+        }
+    }
+}
+
 
 module.exports = class Pages {
-    constructor(views) {
+    constructor() {
         this.pages = new Map()
-        this.contentTypes = new Map()
-        
-        this.fs = require('fs')
-        this.mustache = require('mustache')
-        this.marked = require('marked')
-        this.marked.setOptions({breaks: true})
-        this.TEMPLATE = this.fs.readFileSync('./static/template.mustache', 'utf8')
-        
-        if (views) {
-            for (let view of views) {
-                this.add(view)
-            }
-        }
-    }
-    
-    add(view) {
-        if (!view.urlPath) {
-            this.addHTML(view)
-            
-        } else if (view.urlPath === "/styles.css") {
-            const SCSS = this.fs.readFileSync('./static/styles.scss', 'utf8')
-            
-            const sass = require('node-sass')
-            const STYLES = sass.renderSync({data: SCSS})
-            this.pages.set(view.urlPath, STYLES.css)
-            this.contentTypes.set(view.urlPath, 'text/css')
-            
-        } else if (view.urlPath.match(/\.png$/)) {
-            const BINARY = this.fs.readFileSync('.' + view.urlPath)
-            this.pages.set(view.urlPath, BINARY)
-            this.contentTypes.set(view.urlPath, 'image/png')
-            
-        } else if (view.numOfChapters) {
-            this.addHTMLs(view)
-            
-        } else {
-            this.addHTML(view)
-        }
-    }
-    
-    addHTML (view) {
-        let contentHTML
-        if (view.filePath) {
-            contentHTML = this.fs.readFileSync(view.filePath, 'utf8')
-        } else {
-            const MARKDOWN = this.fs.readFileSync('./static' + view.urlPath + '.md', 'utf8')
-            contentHTML = '<section class="section"><div class="container"><div class="content">' + this.marked(MARKDOWN) + '</div></div></section>'
-        }
-        
-        let commentsHTML = ''
-        if (view.comments) {
-            this.pages.set(view.urlPath + '/comments', false)
-            TEMPLATE_COMMENTS = this.fs.readFileSync('./static/comments.mustache', 'utf8')
-            commentsHTML = this.mustache.render(TEMPLATE_COMMENTS,{'urlPath': view.urlPath})
-        }
-        
-        const HTML = this.mustache.render(this.TEMPLATE,
-            {
-                'description': view.description,
-                'title': view.title,
-                'body': contentHTML,
-                'comments': commentsHTML
-            }
-        )
-        
-        if (view.hasImage) {
-            const IMAGE = this.fs.readFileSync('./images' + view.urlPath + '.jpg')
-            this.pages.set(view.urlPath + '.jpg', IMAGE)
-            this.contentTypes.set(view.urlPath + '.jpg', 'image/jpeg')
-        }
-        this.pages.set(view.urlPath, HTML)
-        this.contentTypes.set(view.urlPath, 'text/html')
     }
 
-    addHTMLs (view) {
-        let markdowns = []
-        for (let i = 1; i <= view.numOfChapters; i++) {
-            markdowns[i] = this.fs.readFileSync('./static' + view.urlPath + '-' + parseInt(i) + '.md', 'utf8')
-        }
-        
-        for (let i = 1; i <= view.numOfChapters; i++) {
-            let pagination = `<section class="section"><nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
-            for (let j = 1; j <= view.numOfChapters; j++) {
-                if (i === j) {
-                    pagination += `<li><a class="pagination-link is-current" href="${view.urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
+    add(views) {
+        for (const view of views) {
+            const urlPath = view.urlPath
+            const hasComments = view.comments
+            let contentType = ''
+            let descriptions = {}
+            let page = ''
+
+            if (urlPath === '/styles.css') {
+                // CSS
+                const SCSS = fs.readFileSync('./static/styles.scss', 'utf8')
+                contentType = 'text/css'
+                page = sass.renderSync({ data: SCSS }).css
+                this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+
+            } else if (urlPath.match(/\.png$/)) {
+                // PNG
+                contentType = 'image/png'
+                page = fs.readFileSync('.' + urlPath)
+                this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+
+            } else if (urlPath.match(/\.jpg$/)) {
+                // JPEG
+                contentType = 'image/jpeg'
+                page = fs.readFileSync('.' + urlPath)
+                this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+
+            } else {
+                // HTML
+                contentType = 'text/html'
+
+                if (view.filePath) {
+                    const contentHTML = fs.readFileSync(view.filePath, 'utf8')
+
+                    descriptions.description = view.description
+                    descriptions.title = view.title
+                    descriptions.body = contentHTML
+                    this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+
+                } else if (view.numOfChapters) {
+                    let markdowns = []
+                    for (let i = 1; i <= view.numOfChapters; i++) {
+                        markdowns[i] = fs.readFileSync('./static' + urlPath + '-' + parseInt(i) + '.md', 'utf8')
+                    }
+
+                    for (let i = 1; i <= view.numOfChapters; i++) {
+                        let pagination = `<section class="section"><nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
+                        for (let j = 1; j <= view.numOfChapters; j++) {
+                            if (i === j) {
+                                pagination += `<li><a class="pagination-link is-current" href="${urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
+                            } else {
+                                pagination += `<li><a class="pagination-link" href="${urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
+                            }
+                        }
+                        pagination += `</ul></nav></section>`
+
+                        descriptions.description = mustache.render(view.description, { 'chapter': i })
+                        descriptions.title = view.title + ' ' + parseInt(i)
+                        descriptions.body = '<section class="section"><div class="container"><div class="content">' + marked(markdowns[i]) + '</div></div></section>'
+                        descriptions.pagination = pagination
+                        this.pages.set(urlPath + '-' + parseInt(i), new Page(urlPath + '-' + parseInt(i), contentType, descriptions, hasComments, page))
+                    }
                 } else {
-                    pagination += `<li><a class="pagination-link" href="${view.urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
+                    const MARKDOWN = fs.readFileSync('./static' + urlPath + '.md', 'utf8')
+                    const contentHTML = '<section class="section"><div class="container"><div class="content">' + marked(MARKDOWN) + '</div></div></section>'
+
+                    descriptions.description = view.description
+                    descriptions.title = view.title
+                    descriptions.body = contentHTML
+                    this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+                    if (view.comments) {
+                        this.pages.set(urlPath + '/comment', false)
+                    }
                 }
             }
-            pagination += `</ul></nav></section>`
-            
-            const HTML = this.mustache.render(
-                this.TEMPLATE,
-                {
-                    'description': this.mustache.render(view.description, {'chapter': i}),
-                    'title': (view.title + ' ' + parseInt(i)),
-                    'body': '<section class="section"><div class="container"><div class="content">' + this.marked(markdowns[i]) + '</div></div></section>',
-                    'pagination': pagination
-                }
-            )
-            this.pages.set(view.urlPath + '-' + parseInt(i), HTML)
-            this.contentTypes.set(view.urlPath + '-' + parseInt(i), 'text/html')
-        }
-        
-        if (view.hasImage) {
-            const IMAGE = this.fs.readFileSync('./images' + view.urlPath + '.jpg')
-            this.pages.set(view.urlPath + '.jpg', IMAGE)
-            this.contentTypes.set(view.urlPath + '.jpg', 'image/jpeg')
         }
     }
-    
-    has (urlPath) {
+
+    has(urlPath) {
         return this.pages.has(urlPath)
     }
-    
-    get (urlPath) {
-        return this.pages.get(urlPath)
+
+    writeToResponse(response, urlPath) {
+        return this.pages.get(urlPath).writeToResponse(response)
     }
-    
-    contentType (urlPath) {
-        return this.contentTypes.get(urlPath)
+
+    contentType(urlPath) {
+        return this.pages.get(urlPath).contentType
     }
 }
