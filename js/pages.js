@@ -39,12 +39,16 @@ class Page {
                     connection,
                     function(err, cursor) {
                         if (err) throw err
-                        cursor.toArray(function(err, result) {
+                        cursor.toArray(function(err, commentObjList) {
                             if (err) throw err
 
                             let commentsHTML = ''
-                            for (let comment of result) {
-                                commentsHTML += mustache.render(TEMPLATE_COMMENT, comment)
+                            for (let commentObj of commentObjList) {
+                                let date = commentObj.date
+                                commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
+                                commentObj.comment = mustache.render('{{commentText}}', { commentText: commentObj.comment })
+                                commentObj.comment = marked(commentObj.comment)
+                                commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
                             }
                             descriptions.comments = mustache.render(
                                 TEMPLATE_COMMENTSFIELD, {
