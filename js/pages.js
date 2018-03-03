@@ -71,6 +71,18 @@ module.exports = class Pages {
         this.pages = new Map()
     }
 
+    has(urlPath) {
+        return this.pages.has(urlPath)
+    }
+
+    writeToResponse(response, urlPath) {
+        this.pages.get(urlPath).writeToResponse(response)
+    }
+
+    contentType(urlPath) {
+        return this.pages.get(urlPath).contentType
+    }
+
     add(views) {
         for (const view of views) {
             const urlPath = view.urlPath
@@ -114,23 +126,10 @@ module.exports = class Pages {
                     let markdowns = []
                     for (let i = 1; i <= view.numOfChapters; i++) {
                         markdowns[i] = fs.readFileSync('./static' + urlPath + '-' + parseInt(i) + '.md', 'utf8')
-                    }
-
-                    for (let i = 1; i <= view.numOfChapters; i++) {
-                        let pagination = `<section class="section"><nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
-                        for (let j = 1; j <= view.numOfChapters; j++) {
-                            if (i === j) {
-                                pagination += `<li><a class="pagination-link is-current" href="${urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
-                            } else {
-                                pagination += `<li><a class="pagination-link" href="${urlPath + '-' + parseInt(j)}">${parseInt(j)}</a></li>`
-                            }
-                        }
-                        pagination += `</ul></nav></section>`
-
                         descriptions.description = mustache.render(view.description, { 'chapter': i })
                         descriptions.title = view.title + ' ' + parseInt(i)
                         descriptions.body = '<section class="section"><div class="container"><div class="content">' + marked(markdowns[i]) + '</div></div></section>'
-                        descriptions.pagination = pagination
+                        descriptions.pagination = this.getPagination(urlPath, i, view.numOfChapters)
                         this.pages.set(urlPath + '-' + parseInt(i), new Page(urlPath + '-' + parseInt(i), contentType, descriptions, hasComments, page))
                     }
                 } else {
@@ -149,15 +148,16 @@ module.exports = class Pages {
         }
     }
 
-    has(urlPath) {
-        return this.pages.has(urlPath)
-    }
-
-    writeToResponse(response, urlPath) {
-        return this.pages.get(urlPath).writeToResponse(response)
-    }
-
-    contentType(urlPath) {
-        return this.pages.get(urlPath).contentType
+    getPagination(urlPath, chapter, numOfChapters) {
+        let pagination = `<section class="section"><nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
+        for (let i = 1; i <= numOfChapters; i++) {
+            if (i === chapter) {
+                pagination += `<li><a class="pagination-link is-current" href="${urlPath + '-' + parseInt(i)}">${parseInt(i)}</a></li>`
+            } else {
+                pagination += `<li><a class="pagination-link" href="${urlPath + '-' + parseInt(i)}">${parseInt(i)}</a></li>`
+            }
+            pagination += `</ul></nav></section>`
+        }
+        return pagination
     }
 }
