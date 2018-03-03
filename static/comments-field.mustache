@@ -3,43 +3,40 @@
 <section class="section">
     <div class="container">
         <h2 class="title is-4">Comments</h2>
-        <p>どなたでもご自由に書き込んでください。</p>
+        <p>
+            どなたでもご自由に書き込んでください。
+            <br>
+            Fully Hatter が、愛には愛で、剣には剣でご返事いたします。
+        </p>
         <br>
-        <p>Fully Hatter が、愛には愛で、剣には剣でご返事いたします。</p>
+        <form method="post" action="{{urlPath}}/comment">
+            <div class="field">
+                <label class="label is-small">名前</label>
+                <div class="control is-small has-icons-left">
+                    <input class="input" type="text" name="name" placeholder="偽名推奨" maxlength="20">
+                    <span class="icon is-small">
+                        <figure class="image is-16x16">
+                            <img src="/images/icon/person.png" alt="person logo">
+                        </figure>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label is-small">コメント</label>
+                <div class="control is-small">
+                    <textarea class="textarea" name="comment" placeholder="ご自由にどうぞ" maxlength="1000"></textarea>
+                </div>
+            </div>
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button class="button is-primary is-small">送信</button>
+                </div>
+            </div>
+        </form>
         <br>
         <br>
+        {{{comments}}}
     </div>
-    <form method="post" action="{{urlPath}}/comment">
-        <div class="field">
-            <label class="label is-small">名前</label>
-            <div class="control is-small has-icons-left">
-                <input class="input" type="text" name="name" placeholder="Fully Hatter" maxlength="20">
-                <span class="icon is-small">
-                    <figure class="image is-16x16">
-                        <img src="/images/icon/person.png" alt="person logo">
-                    </figure>
-                </span>
-            </div>
-            <p class="help is-small">偽名推奨</p>
-        </div>
-
-        <div class="field">
-            <label class="label is-small">コメント</label>
-            <div class="control is-small">
-                <textarea class="textarea" name="comment" placeholder="ご自由にどうぞ" maxlength="1000"></textarea>
-            </div>
-        </div>
-
-        <div class="field is-grouped">
-            <div class="control">
-                <button class="button is-small is-link">送信</button>
-            </div>
-            <div class="control">
-                <button class="button is-small is-text">キャンセル</button>
-            </div>
-        </div>
-    </form>
-</section>
-<section class="section">
-    {{{comments}}}
 </section>
