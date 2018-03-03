@@ -4,8 +4,8 @@ This is the website for Fully Hatter based on pure [Node.js] **without** [Expres
 
 ## TODO
 - try catch
-- change Map to object (and render with object)
 - implement [comment function]
+    - comment view
     - validate name & comment
     - jump to location in page after comment
 - make [掲示板] page
