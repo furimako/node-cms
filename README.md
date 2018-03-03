@@ -3,11 +3,13 @@
 This is the website for Fully Hatter based on pure [Node.js] **without** [Express framework].
 
 ## TODO
-- try catch
+- error handling (try catch)
+- color of links and etc.
 - implement [comment function]
-    - comment view
     - validate name & comment
     - jump to location in page after comment
+
+- refactoring
 - make [掲示板] page
 - make [Fully Hatter の本棚] page
 - write [評価制度]
@@ -34,3 +36,4 @@ This is the website for Fully Hatter based on pure [Node.js] **without** [Expres
 
 ## Memo
 ssh 160.16.127.75
+
