@@ -50,7 +50,7 @@ function requestListenerFunction(request, response) {
 
                     r.db('FullyHatter').table('comments').insert({
                         urlPath: urlPath,
-                        timestamp: r.now().inTimezone("+09:00"),
+                        date: new Date(),
                         name: postData.name,
                         comment: postData.comment
                     }).run(connection, function(err, res) {
