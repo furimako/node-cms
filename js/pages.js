@@ -42,7 +42,6 @@ class Page {
                         cursor.toArray(function(err, commentObjList) {
                             if (err) throw err
 
-                            console.log(commentObjList)
                             const sortedList = commentObjList.sort((commentObj1, commentObj2) =>
                                 commentObj1.date.getTime() - commentObj2.date.getTime()
                             )
