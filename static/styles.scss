@@ -2,6 +2,9 @@
 @import "./node_modules/bulma/sass/utilities/initial-variables";
 @import "./node_modules/bulma/sass/utilities/functions";
 
+$blue: #6495ED;
+$link-hover: #FFA500;
+
 $pagination-current-color: findColorInvert($grey-dark);
 $pagination-current-background-color: $grey-dark;
 $pagination-current-border-color: $grey-dark;
