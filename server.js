@@ -59,7 +59,7 @@ function requestListenerFunction(request, response) {
                     })
                 })
             })
-            response.writeHead(302, { Location: urlPath })
+            response.writeHead(302, { Location: urlPath + '#comments-field' })
             pages.writeToResponse(response, urlPath)
             console.log(`redirect (path: ${urlPath})`)
 
