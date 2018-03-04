@@ -20,12 +20,12 @@ const views_story = JSON.parse(json_story)
 pages.add(views_story)
 
 // Start server
-const server = http.createServer(requestListenerFunction)
+const server = http.createServer(requestListener)
 server.listen(8128)
 console.log('Server Start')
 
 
-function requestListenerFunction(request, response) {
+function requestListener(request, response) {
     console.log(`get request from ${request.url}`)
     let urlPath = url.parse(request.url, true).pathname
 
@@ -42,38 +42,42 @@ function requestListenerFunction(request, response) {
             request.on('end', () => {
                 const postData = qs.parse(body)
                 console.log(`get message [name: ${postData.name}, comment: ${postData.comment}`)
-
-                let connection = null
-                r.connect({ host: 'localhost', port: 28015 }, function(err, conn) {
-                    if (err) throw err
-                    connection = conn
-
-                    r.db('FullyHatter').table('comments').insert({
-                        urlPath: urlPath,
-                        date: new Date(),
-                        name: postData.name,
-                        comment: postData.comment
-                    }).run(connection, function(err, res) {
-                        if (err) throw err
-                        console.log(JSON.stringify(res))
-                    })
-                })
+                writeToDB(urlPath, postData)
             })
             response.writeHead(302, { Location: urlPath + '#comments-field' })
-            pages.writeToResponse(response, urlPath)
+            pages.writeEndToResponse(response, urlPath)
             console.log(`redirect (path: ${urlPath})`)
 
         } else {
             // GET
             response.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            pages.writeToResponse(response, urlPath)
+            pages.writeEndToResponse(response, urlPath)
             console.log(`response page (path: ${urlPath})`)
         }
 
 
     } else {
+        // When pages no found
         response.writeHead(404, { 'Content-Type': 'text/html' })
-        pages.writeToResponse(response, '/no-found')
+        pages.writeEndToResponse(response, '/no-found')
         console.log(`response no-found (path: ${urlPath})`)
     }
+}
+
+function writeToDB(urlPath, postData) {
+    let connection = null
+    r.connect({ host: 'localhost', port: 28015 }, function(err, conn) {
+        if (err) throw err
+        connection = conn
+
+        r.db('FullyHatter').table('comments').insert({
+            urlPath: urlPath,
+            date: new Date(),
+            name: postData.name,
+            comment: postData.comment
+        }).run(connection, function(err, res) {
+            if (err) throw err
+            console.log(JSON.stringify(res))
+        })
+    })
 }
