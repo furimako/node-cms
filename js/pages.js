@@ -21,7 +21,7 @@ class Page {
         this.page = page
     }
 
-    writeToResponse(response) {
+    writeEndToResponse(response) {
         if (this.page) {
             response.end(this.page)
         }
@@ -82,8 +82,8 @@ module.exports = class Pages {
         return this.pages.has(urlPath)
     }
 
-    writeToResponse(response, urlPath) {
-        this.pages.get(urlPath).writeToResponse(response)
+    writeEndToResponse(response, urlPath) {
+        this.pages.get(urlPath).writeEndToResponse(response)
     }
 
     contentType(urlPath) {
