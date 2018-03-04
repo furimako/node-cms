@@ -42,8 +42,12 @@ class Page {
                         cursor.toArray(function(err, commentObjList) {
                             if (err) throw err
 
+                            console.log(commentObjList)
+                            const sortedList = commentObjList.sort((commentObj1, commentObj2) =>
+                                commentObj1.date.getTime() - commentObj2.date.getTime()
+                            )
                             let commentsHTML = ''
-                            for (let commentObj of commentObjList) {
+                            for (let commentObj of sortedList) {
                                 let date = commentObj.date
                                 commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
                                 commentObj.comment = mustache.render('{{commentText}}', { commentText: commentObj.comment })
