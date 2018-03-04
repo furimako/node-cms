@@ -2,18 +2,16 @@
 # Fully Hatter の秘密の部屋
 This is the website for Fully Hatter based on pure [Node.js] **without** [Express framework].
 
-## TODO
-- error handling (try catch)
-- color of links and etc.
-- implement [comment function]
-    - validate name & comment
-    - jump to location in page after comment
 
-- refactoring
+## TODO
+- home picture
+- DB
+    - add comments(real data)
+    - backup
+- error handling (try catch)
 - make [掲示板] page
 - make [Fully Hatter の本棚] page
 - write [評価制度]
-
 - setup production env (AWS)
     - create db setting file
     - logging
@@ -31,9 +29,7 @@ This is the website for Fully Hatter based on pure [Node.js] **without** [Expres
     - GitHub API
 - add some games (like FFT ?)
 - Express, React, Vue
-- twitter api
 
 
 ## Memo
 ssh 160.16.127.75
-
