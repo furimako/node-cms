@@ -160,8 +160,8 @@ module.exports = class Pages {
             } else {
                 pagination += `<li><a class="pagination-link" href="${urlPath + '-' + parseInt(i)}">${parseInt(i)}</a></li>`
             }
-            pagination += `</ul></nav></section>`
         }
+        pagination += `</ul></nav></section>`
         return pagination
     }
 }
