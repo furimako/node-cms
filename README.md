@@ -4,7 +4,6 @@ This is the website for Fully Hatter based on pure [Node.js] **without** [Expres
 
 
 ## TODO
-- home picture
 - DB
     - add comments(real data)
     - backup
