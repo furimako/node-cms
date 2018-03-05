@@ -48,7 +48,7 @@ class Page {
                             let commentsHTML = ''
                             for (let commentObj of sortedList) {
                                 let date = commentObj.date
-                                commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${date.getHours()}:${date.getMinutes()}`
+                                commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${('00' + date.getHours()).slice(-2)}:${('00' + date.getMinutes()).slice(-2)}`
                                 commentObj.comment = mustache.render('{{commentText}}', { commentText: commentObj.comment })
                                 commentObj.comment = marked(commentObj.comment)
                                 commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
