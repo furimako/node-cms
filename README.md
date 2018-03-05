@@ -1,6 +1,6 @@
 
 # Fully Hatter の秘密の部屋
-This is the website for Fully Hatter based on pure [Node.js] **without** [Express framework].
+This is the website(Japanese) for Fully Hatter based on pure [Node.js](https://nodejs.org) **without** [Express](https://expressjs.com/).
 
 
 ## TODO
@@ -8,6 +8,8 @@ This is the website for Fully Hatter based on pure [Node.js] **without** [Expres
     - add comments(real data)
     - backup
 - error handling (try catch)
+    - error html
+    - rock db
 - make [掲示板] page
 - make [Fully Hatter の本棚] page
 - write [評価制度]
@@ -26,8 +28,8 @@ This is the website for Fully Hatter based on pure [Node.js] **without** [Expres
     - view setting (for Twitter share)
     - view setting (for Facebook share)
     - GitHub API
-- add some games (like FFT ?)
-- Express, React, Vue
+- Express
+- add some games (like FFT ? React, Vue)
 
 
 ## Memo
