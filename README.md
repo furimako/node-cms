@@ -4,6 +4,8 @@ This is the website(Japanese) for Fully Hatter based on pure [Node.js](https://n
 
 
 ## TODO
+- twitter timeline
+- handlebars
 - DB
     - add comments(real data)
     - backup
@@ -12,6 +14,7 @@ This is the website(Japanese) for Fully Hatter based on pure [Node.js](https://n
     - rock db
 - make [掲示板] page
 - make [Fully Hatter の本棚] page
+- scripts for local (ssh, install git)
 - write [評価制度]
 - setup production env (AWS)
     - create db setting file
