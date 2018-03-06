@@ -1,6 +1,6 @@
 
 # Fully Hatter の秘密の部屋
-This is the website(Japanese) for Fully Hatter based on pure [Node.js](https://nodejs.org) **without** [Express](https://expressjs.com/).
+This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org) **without** [Express](https://expressjs.com/).
 
 
 ## TODO
