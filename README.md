@@ -4,6 +4,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 
 ## TODO
+- Fully Hatter へのむちゃぶり
 - twitter timeline
 - handlebars
 - DB
@@ -37,3 +38,11 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 ## Memo
 ssh 160.16.127.75
+
+production init
+    install git
+    git clone
+    install node
+    npm install
+    install rethinkdb
+    install python driver
