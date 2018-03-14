@@ -8,7 +8,6 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 ## TODO
 - Fully Hatter へのむちゃぶり
-- handlebars
 - mongoDB
     - refactoring (add method for db connection)
     - add comments(real data)
