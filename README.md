@@ -7,7 +7,6 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 
 ## TODO
-- change color of background
 - Fully Hatter へのむちゃぶり
 - handlebars
 - mongoDB
@@ -19,6 +18,9 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     - rock db
 - make [掲示板] page
 - make [Fully Hatter の本棚] page
+- links
+    - http://www.kt.rim.or.jp/~hisashim/gabriel/WorseIsBetter.ja.html
+    - https://postd.cc/the-best-programming-language-or-how-to-stop-worrying-and-love-the-code/
 
 
 ## After production
@@ -44,7 +46,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     - view setting (google search result)
     - view setting (for Twitter share)
     - view setting (for Facebook share)
-- Express
+- Express, mongoose
 - add some games (like FFT ? React, Vue)
 
 
