@@ -20,6 +20,7 @@
   "dependencies": {
     "bulma": "^0.6.2",
     "marked": "^0.3.17",
+    "mongodb": "^3.0.4",
     "mustache": "^2.3.0",
     "node-sass": "^4.7.2",
     "rethinkdb": "^2.3.3"
