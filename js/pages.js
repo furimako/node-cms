@@ -1,5 +1,7 @@
 const fs = require('fs')
-const r = require('rethinkdb')
+const MongoClient = require('mongodb').MongoClient
+const assert = require('assert')
+const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
 const mustache = require('mustache')
 const marked = require('marked')
 marked.setOptions({
@@ -8,69 +10,8 @@ marked.setOptions({
 const sass = require('node-sass')
 
 const TEMPLATE = fs.readFileSync('./static/template.mustache', 'utf8')
-const TEMPLATE_COMMENTSFIELD = fs.readFileSync('./static/comments-field.mustache', 'utf8')
 const TEMPLATE_COMMENT = fs.readFileSync('./static/comment.mustache', 'utf8')
-
-
-class Page {
-    constructor(urlPath, contentType, descriptions, hasComments, page) {
-        this.urlPath = urlPath
-        this.contentType = contentType
-        this.descriptions = descriptions
-        this.hasComments = hasComments
-        this.page = page
-    }
-
-    writeEndToResponse(response) {
-        if (this.page) {
-            response.end(this.page)
-        }
-
-        const urlPath = this.urlPath
-        const descriptions = this.descriptions
-
-        if (this.hasComments) {
-            let connection = null
-            r.connect({ host: 'localhost', port: 28015 }, function(err, conn) {
-                if (err) throw err
-                connection = conn
-
-                r.db('FullyHatter').table('comments').filter({ urlPath: urlPath }).run(
-                    connection,
-                    function(err, cursor) {
-                        if (err) throw err
-                        cursor.toArray(function(err, commentObjList) {
-                            if (err) throw err
-
-                            const sortedList = commentObjList.sort((commentObj1, commentObj2) =>
-                                commentObj1.date.getTime() - commentObj2.date.getTime()
-                            )
-                            let commentsHTML = ''
-                            for (let commentObj of sortedList) {
-                                let date = commentObj.date
-                                commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${('00' + date.getHours()).slice(-2)}:${('00' + date.getMinutes()).slice(-2)}`
-                                commentObj.comment = mustache.render('{{commentText}}', { commentText: commentObj.comment })
-                                commentObj.comment = marked(commentObj.comment)
-                                commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
-                            }
-                            descriptions.comments = mustache.render(
-                                TEMPLATE_COMMENTSFIELD, {
-                                    'urlPath': urlPath,
-                                    'comments': commentsHTML
-                                }
-                            )
-                            const html = mustache.render(TEMPLATE, descriptions)
-                            response.end(html)
-                        })
-                    }
-                )
-            })
-        } else {
-            const html = mustache.render(TEMPLATE, descriptions)
-            response.end(html)
-        }
-    }
-}
+const TEMPLATE_COMMENTSFIELD = fs.readFileSync('./static/comments-field.mustache', 'utf8')
 
 
 module.exports = class Pages {
@@ -82,8 +23,8 @@ module.exports = class Pages {
         return this.pages.has(urlPath)
     }
 
-    writeEndToResponse(response, urlPath) {
-        this.pages.get(urlPath).writeEndToResponse(response)
+    addEndToResponse(response, urlPath) {
+        return this.pages.get(urlPath).addEndToResponse(response)
     }
 
     contentType(urlPath) {
@@ -167,4 +108,66 @@ module.exports = class Pages {
         pagination += `</ul></nav></section>`
         return pagination
     }
+}
+
+
+class Page {
+    constructor(urlPath, contentType, descriptions, hasComments, page) {
+        this.urlPath = urlPath
+        this.contentType = contentType
+        this.descriptions = descriptions
+        this.hasComments = hasComments
+        this.page = page
+    }
+
+    addEndToResponse(response) {
+        if (this.page) {
+            response.end(this.page)
+            return
+        }
+
+        const urlPath = this.urlPath
+        const descriptions = this.descriptions
+
+        if (this.hasComments) {
+            MongoClient.connect(mongoUrl, (err, db) => {
+                assert.equal(null, err)
+                console.log('Connected successfully to server')
+                addEndToResponseFromDB(response, urlPath, descriptions, db, () => { db.close() })
+            })
+        } else {
+            response.end(mustache.render(TEMPLATE, descriptions))
+        }
+    }
+}
+
+
+let addEndToResponseFromDB = (response, urlPath, descriptions, db, callback) => {
+    let collection = db.db('fully-hatter').collection('comments')
+    collection.find({ 'urlPath': urlPath }).toArray((err, docs) => {
+        assert.equal(err, null)
+        console.log("Found the following records")
+        console.log(docs)
+
+        const commentObjList = docs.sort((commentObj1, commentObj2) =>
+            commentObj1.date.getTime() - commentObj2.date.getTime()
+        )
+
+        let commentsHTML = ''
+        for (let commentObj of commentObjList) {
+            let date = commentObj.date
+            commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${('00' + date.getHours()).slice(-2)}:${('00' + date.getMinutes()).slice(-2)}`
+            commentObj.comment = mustache.render('{{commentText}}', { commentText: commentObj.comment })
+            commentObj.comment = marked(commentObj.comment)
+            commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
+        }
+        descriptions.comments = mustache.render(
+            TEMPLATE_COMMENTSFIELD, {
+                'urlPath': urlPath,
+                'comments': commentsHTML
+            }
+        )
+        response.end(mustache.render(TEMPLATE, descriptions))
+        callback(docs)
+    })
 }
