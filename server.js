@@ -2,8 +2,11 @@ const fs = require('fs')
 const http = require('http')
 const url = require('url')
 const qs = require('querystring')
-const r = require('rethinkdb')
+const MongoClient = require('mongodb').MongoClient
+const assert = require('assert')
+const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
 const Pages = require('./js/pages')
+
 
 let pages = new Pages()
 
@@ -18,6 +21,7 @@ pages.add(views_world)
 const json_story = fs.readFileSync('./data/views-story.json', 'utf8')
 const views_story = JSON.parse(json_story)
 pages.add(views_story)
+
 
 // Start server
 const server = http.createServer(requestListener)
@@ -42,16 +46,21 @@ function requestListener(request, response) {
             request.on('end', () => {
                 const postData = qs.parse(body)
                 console.log(`get message [name: ${postData.name}, comment: ${postData.comment}`)
-                writeToDB(urlPath, postData)
+
+                MongoClient.connect(mongoUrl, (err, db) => {
+                    assert.equal(null, err)
+                    console.log('Connected successfully to server')
+                    insertCommentToDB(urlPath, postData, db, () => { db.close() })
+                })
             })
             response.writeHead(302, { Location: urlPath + '#comments-field' })
-            pages.writeEndToResponse(response, urlPath)
+            pages.addEndToResponse(response, urlPath)
             console.log(`redirect (path: ${urlPath})`)
 
         } else {
             // GET
             response.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            pages.writeEndToResponse(response, urlPath)
+            pages.addEndToResponse(response, urlPath)
             console.log(`response page (path: ${urlPath})`)
         }
 
@@ -59,25 +68,26 @@ function requestListener(request, response) {
     } else {
         // When pages no found
         response.writeHead(404, { 'Content-Type': 'text/html' })
-        pages.writeEndToResponse(response, '/no-found')
+        pages.addEndToResponse(response, '/no-found')
         console.log(`response no-found (path: ${urlPath})`)
     }
 }
 
-function writeToDB(urlPath, postData) {
-    let connection = null
-    r.connect({ host: 'localhost', port: 28015 }, function(err, conn) {
-        if (err) throw err
-        connection = conn
 
-        r.db('FullyHatter').table('comments').insert({
-            urlPath: urlPath,
-            date: new Date(),
-            name: postData.name,
-            comment: postData.comment
-        }).run(connection, function(err, res) {
-            if (err) throw err
-            console.log(JSON.stringify(res))
-        })
+let insertCommentToDB = (urlPath, postData, db, callback) => {
+    let objList = [{
+        urlPath,
+        date: new Date(),
+        name: postData.name,
+        comment: postData.comment
+    }]
+
+    let collection = db.db('fully-hatter').collection('comments')
+    collection.insertMany(objList, (err, result) => {
+        assert.equal(err, null)
+        assert.equal(1, result.result.n)
+        assert.equal(1, result.ops.length)
+        console.log(`Inserted ${objList.length} document(s) into the collection`)
+        callback(result)
     })
 }
