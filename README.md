@@ -7,11 +7,9 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 
 ## TODO
+- console.log の整理
 - Fully Hatter へのむちゃぶり
-- mongoDB
-    - refactoring (add method for db connection)
-    - add comments(real data)
-    - backup
+- mongoDB backup
 - error handling (try catch)
     - error html
     - rock db
@@ -25,16 +23,10 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 ## After production
 - scripts for local (ssh, install git)
 - setup production env (AWS)
+    - db backup
     - create db setting file
     - logging
-    - npm scripts for automation (init node & db & git, start db & service)
-    - scripts (production init)
-        - install git
-        - git clone
-        - install node
-        - npm install
-        - install rethinkdb
-        - install python driver
+    - npm scripts for automation (start db & service)
     - setup mail
     - forever
     - DNS setting
