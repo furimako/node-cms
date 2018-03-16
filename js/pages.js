@@ -5,6 +5,10 @@ const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
 const mustache = require('mustache')
 const marked = require('marked')
 marked.setOptions({
+    breaks: true
+})
+const markedSanitized = require('marked')
+markedSanitized.setOptions({
     breaks: true,
     sanitize: true
 })
@@ -164,7 +168,7 @@ let addEndToResponseFromDB = (response, urlPath, descriptions, db, callback) => 
             commentObj.comment = commentObj.comment.replace(/_/g, '＿')
             commentObj.comment = commentObj.comment.replace(/</g, '＜')
             commentObj.comment = commentObj.comment.replace(/>/g, '＞')
-            commentObj.comment = marked(commentObj.comment)
+            commentObj.comment = markedSanitized(commentObj.comment)
             commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
         }
         descriptions.comments = mustache.render(
