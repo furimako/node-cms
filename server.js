@@ -36,10 +36,16 @@ function requestListener(request, response) {
     let urlPath = url.parse(request.url, true).pathname
 
     if (pages.has(urlPath)) {
-        if (urlPath.endsWith('/comment') && request.method == 'POST') {
-            urlPath = urlPath.slice(0, -8)
+        // GET
+        response.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+        pages.addEndToResponse(response, urlPath)
+        logging.info(`    L response page (url: ${urlPath})`)
+        return
 
-            // POST
+    } else if (urlPath.endsWith('/comment') && request.method == 'POST') {
+        // POST
+        urlPath = urlPath.slice(0, -8)
+        if (pages.has(urlPath)) {
             let body = ''
             request.on('data', (data) => {
                 body += data
@@ -58,21 +64,14 @@ function requestListener(request, response) {
             response.writeHead(302, { Location: urlPath + '#comments-field' })
             pages.addEndToResponse(response, urlPath)
             logging.info(`    L redirect (url: ${urlPath})`)
-
-        } else {
-            // GET
-            response.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            pages.addEndToResponse(response, urlPath)
-            logging.info(`    L response page (url: ${urlPath})`)
+            return
         }
-
-
-    } else {
-        // When pages no found
-        response.writeHead(404, { 'Content-Type': 'text/html' })
-        pages.addEndToResponse(response, '/no-found')
-        logging.info(`    L response no-found (url: ${urlPath})`)
     }
+
+    // When pages no found
+    response.writeHead(404, { 'Content-Type': 'text/html' })
+    pages.addEndToResponse(response, '/no-found')
+    logging.info(`    L response no-found (url: ${urlPath})`)
 }
 
 
