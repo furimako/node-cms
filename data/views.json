@@ -18,6 +18,13 @@
         "comments": true
     },
     {
+        "filePath": "./static/bookshelf.html",
+        "urlPath": "/bookshelf",
+        "title": "Fully Hatter の本棚",
+        "description": "Fully Hatterの人生を変えた本や映画などを紹介。",
+        "comments": true
+    },
+    {
         "filePath": "./static/no-found.html",
         "urlPath": "/no-found",
         "title": "No Found",
