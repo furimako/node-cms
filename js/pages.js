@@ -7,11 +7,6 @@ const marked = require('marked')
 marked.setOptions({
     breaks: true
 })
-const markedSanitized = require('marked')
-markedSanitized.setOptions({
-    breaks: true,
-    sanitize: true
-})
 const sass = require('node-sass')
 const logging = require('./logging')
 
@@ -168,7 +163,7 @@ let addEndToResponseFromDB = (response, urlPath, descriptions, db, callback) => 
             commentObj.comment = commentObj.comment.replace(/_/g, '＿')
             commentObj.comment = commentObj.comment.replace(/</g, '＜')
             commentObj.comment = commentObj.comment.replace(/>/g, '＞')
-            commentObj.comment = markedSanitized(commentObj.comment)
+            commentObj.comment = marked(commentObj.comment)
             commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
         }
         descriptions.comments = mustache.render(
