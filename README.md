@@ -7,12 +7,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 
 ## TODO
-- console.log の整理
 - Fully Hatter へのむちゃぶり
-- mongoDB backup
-- error handling (try catch)
-    - error html
-    - rock db
 - make [掲示板] page
 - make [Fully Hatter の本棚] page
 - links
@@ -37,7 +32,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     - view setting (google search result)
     - view setting (for Twitter share)
     - view setting (for Facebook share)
-- Express, mongoose
+- Express, mongoose, logging
 - add some games (like FFT ? React, Vue)
 
 
