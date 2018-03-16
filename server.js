@@ -5,6 +5,7 @@ const qs = require('querystring')
 const MongoClient = require('mongodb').MongoClient
 const assert = require('assert')
 const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
+const logging = require('./js/logging')
 const Pages = require('./js/pages')
 
 
@@ -25,12 +26,13 @@ pages.add(views_story)
 
 // Start server
 const server = http.createServer(requestListener)
-server.listen(8128)
-console.log('Server Start')
+let port = 8128
+server.listen(port)
+logging.info(`started server (port: ${port})`)
 
 
 function requestListener(request, response) {
-    console.log(`get request from ${request.url}`)
+    logging.info(`get request (url: ${request.url})`)
     let urlPath = url.parse(request.url, true).pathname
 
     if (pages.has(urlPath)) {
@@ -45,23 +47,23 @@ function requestListener(request, response) {
 
             request.on('end', () => {
                 const postData = qs.parse(body)
-                console.log(`get message [name: ${postData.name}, comment: ${postData.comment}`)
+                logging.info(`    L get message [name: ${postData.name}, comment: ${postData.comment}`)
 
                 MongoClient.connect(mongoUrl, (err, db) => {
                     assert.equal(null, err)
-                    console.log('Connected successfully to server')
+                    logging.info('    L connected successfully to server')
                     insertCommentToDB(urlPath, postData, db, () => { db.close() })
                 })
             })
             response.writeHead(302, { Location: urlPath + '#comments-field' })
             pages.addEndToResponse(response, urlPath)
-            console.log(`redirect (path: ${urlPath})`)
+            logging.info(`    L redirect (url: ${urlPath})`)
 
         } else {
             // GET
             response.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
             pages.addEndToResponse(response, urlPath)
-            console.log(`response page (path: ${urlPath})`)
+            logging.info(`    L response page (url: ${urlPath})`)
         }
 
 
@@ -69,7 +71,7 @@ function requestListener(request, response) {
         // When pages no found
         response.writeHead(404, { 'Content-Type': 'text/html' })
         pages.addEndToResponse(response, '/no-found')
-        console.log(`response no-found (path: ${urlPath})`)
+        logging.info(`    L response no-found (url: ${urlPath})`)
     }
 }
 
@@ -82,12 +84,13 @@ let insertCommentToDB = (urlPath, postData, db, callback) => {
         comment: postData.comment
     }]
 
-    let collection = db.db('fully-hatter').collection('comments')
+    const collectionStr = 'comments'
+    let collection = db.db('fully-hatter').collection(collectionStr)
     collection.insertMany(objList, (err, result) => {
         assert.equal(err, null)
         assert.equal(1, result.result.n)
         assert.equal(1, result.ops.length)
-        console.log(`Inserted ${objList.length} document(s) into the collection`)
+        logging.info(`    L inserted ${objList.length} document(s) into the collection ${collectionStr}`)
         callback(result)
     })
 }
