@@ -7,8 +7,8 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 
 ## TODO
-- Fully Hatter へのむちゃぶり
 - make [掲示板] page
+    - marked
 - make [Fully Hatter の本棚] page
 - links
     - http://www.kt.rim.or.jp/~hisashim/gabriel/WorseIsBetter.ja.html
