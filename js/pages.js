@@ -89,9 +89,6 @@ module.exports = class Pages {
                     descriptions.title = view.title
                     descriptions.body = contentHTML
                     this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
-                    if (view.comments) {
-                        this.pages.set(urlPath + '/comment', false)
-                    }
                 }
             }
         }
