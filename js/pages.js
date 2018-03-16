@@ -5,7 +5,8 @@ const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
 const mustache = require('mustache')
 const marked = require('marked')
 marked.setOptions({
-    breaks: true
+    breaks: true,
+    sanitize: true
 })
 const sass = require('node-sass')
 const logging = require('./logging')
@@ -157,7 +158,12 @@ let addEndToResponseFromDB = (response, urlPath, descriptions, db, callback) => 
         for (let commentObj of commentObjList) {
             let date = commentObj.date
             commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${('00' + date.getHours()).slice(-2)}:${('00' + date.getMinutes()).slice(-2)}`
-            commentObj.comment = mustache.render('{{commentText}}', { commentText: commentObj.comment })
+            commentObj.comment = commentObj.comment.replace(/\*/g, '＊')
+            commentObj.comment = commentObj.comment.replace(/\-/g, 'ー')
+            commentObj.comment = commentObj.comment.replace(/#/g, '＃')
+            commentObj.comment = commentObj.comment.replace(/_/g, '＿')
+            commentObj.comment = commentObj.comment.replace(/</g, '＜')
+            commentObj.comment = commentObj.comment.replace(/>/g, '＞')
             commentObj.comment = marked(commentObj.comment)
             commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
         }
