@@ -8,6 +8,7 @@ marked.setOptions({
     breaks: true
 })
 const sass = require('node-sass')
+const logging = require('./logging')
 
 const TEMPLATE = fs.readFileSync('./static/template.mustache', 'utf8')
 const TEMPLATE_COMMENT = fs.readFileSync('./static/comment.mustache', 'utf8')
@@ -132,7 +133,7 @@ class Page {
         if (this.hasComments) {
             MongoClient.connect(mongoUrl, (err, db) => {
                 assert.equal(null, err)
-                console.log('Connected successfully to server')
+                logging.info('    L connected successfully to server')
                 addEndToResponseFromDB(response, urlPath, descriptions, db, () => { db.close() })
             })
         } else {
@@ -146,8 +147,7 @@ let addEndToResponseFromDB = (response, urlPath, descriptions, db, callback) => 
     let collection = db.db('fully-hatter').collection('comments')
     collection.find({ 'urlPath': urlPath }).toArray((err, docs) => {
         assert.equal(err, null)
-        console.log("Found the following records")
-        console.log(docs)
+        logging.info(`    L found ${docs.length} document(s)`)
 
         const commentObjList = docs.sort((commentObj1, commentObj2) =>
             commentObj1.date.getTime() - commentObj2.date.getTime()
