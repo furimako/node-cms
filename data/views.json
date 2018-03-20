@@ -18,11 +18,34 @@
         "comments": true
     },
     {
-        "filePath": "./static/bookshelf.html",
-        "urlPath": "/bookshelf",
+        "filePath": "./static/bookshelf/books.html",
+        "urlPath": "/bookshelf/books",
         "title": "Fully Hatter の本棚",
-        "description": "Fully Hatterの人生を変えた本や映画などを紹介。",
-        "comments": true
+        "description": "Fully Hatterの人生を変えた本をご紹介。"
+    },
+    {
+        "filePath": "./static/bookshelf/movies.html",
+        "urlPath": "/bookshelf/movies",
+        "title": "Fully Hatter の本棚",
+        "description": "Fully Hatterのお気に入りの映画をご紹介。"
+    },
+    {
+        "filePath": "./static/bookshelf/comics.html",
+        "urlPath": "/bookshelf/comics",
+        "title": "Fully Hatter の本棚",
+        "description": "Fully Hatterが愛したマンガをご紹介。"
+    },
+    {
+        "filePath": "./static/bookshelf/ted.html",
+        "urlPath": "/bookshelf/ted",
+        "title": "Fully Hatter の本棚",
+        "description": "Fully Hatterに衝撃を与えたTED TALKをご紹介。"
+    },
+    {
+        "filePath": "./static/bookshelf/links.html",
+        "urlPath": "/bookshelf/links",
+        "title": "Fully Hatter の本棚",
+        "description": "Fully Hatterが感動したウェブサイトをご紹介。"
     },
     {
         "filePath": "./static/no-found.html",
@@ -30,10 +53,17 @@
         "title": "No Found",
         "description": ""
     },
+    
     {"urlPath": "/styles.css"},
     {"urlPath": "/images/icon/favicon.png"},
-    {"urlPath": "/images/icon/person.png"},
-    {"urlPath": "/images/icon/bulma.png"},
     {"urlPath": "/images/icon/twitter.png"},
-    {"urlPath": "/images/icon/github.png"}
+    {"urlPath": "/images/icon/github.png"},
+    {"urlPath": "/images/icon/bulma.png"},
+    {"urlPath": "/images/icon/person.png"},
+    
+    {"urlPath": "/images/icon/book.png"},
+    {"urlPath": "/images/icon/movie.png"},
+    {"urlPath": "/images/icon/comic.png"},
+    {"urlPath": "/images/icon/ted.png"},
+    {"urlPath": "/images/icon/web-site.png"}
 ]
