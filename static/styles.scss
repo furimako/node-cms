@@ -1,23 +1,29 @@
 
+// Import the initial variables of Bulma
 @import "./node_modules/bulma/sass/utilities/initial-variables";
 @import "./node_modules/bulma/sass/utilities/functions";
 
+
+// Set Color
 $dark: #333333;
 $blue: #007acc;
+$link-hover: #ff8000;  // orange
 
-// orange
-$link-hover: #ff8000;
+body { background-color: #ffffff; }  // white
+$background: #d9d9d9;  // grey
+$border: #a6a6a6;  // dark-grey
 
-// grey
-$background: #cccccc;
-$border: #a6a6a6;
+$box-background-color: #e6e6e6;
 
 $pagination-current-color: findColorInvert($grey-dark);
 $pagination-current-background-color: $grey-dark;
 $pagination-current-border-color: $grey-dark;
 
+
+// Set Font & Color
 * { font-family: "Sawarabi Gothic"; }
 .title { font-family: "Cinzel Decorative", cursive; }
+
 #hero-orange {
     font-family: "Cinzel Decorative", cursive;
     color: #ffa366;
@@ -27,7 +33,6 @@ $pagination-current-border-color: $grey-dark;
     color: $link-hover;
 }
 
-// light grey
-body { background-color: #f2f2f2; }
 
+// Import the rest of Bulma
 @import "./node_modules/bulma/bulma";
