@@ -4,34 +4,54 @@
 @import "./node_modules/bulma/sass/utilities/functions";
 
 
-// Set Color
-$dark: #333333;
-$blue: #007acc;
-$link-hover: #ff8000;  // orange
+// Color Setting
+$black: #000000;
+$grey-dark: #1a1a1a;
+$grey: #333333;
+$grey-light: #4d4d4d;
 
-body { background-color: #ffffff; }  // white
-$background: #d9d9d9;  // grey
-$border: #a6a6a6;  // dark-grey
+.hero {
+    background-image: url(/images/background-image.jpg);
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-color: $black;
+}
+$navbar-item-hover-background-color: $grey-dark;
+body { background-color: $grey-dark; }
+$background: $grey;
+$border: $grey-light;
 
-$box-background-color: #e6e6e6;
+$title-color: $white;
+$text: $white-bis;
+$text-strong: $white;
+$label-color: $white;
+$link: #80aaff;
+$orange: #ffb366;
+$link-hover: $orange;
 
-$pagination-current-color: findColorInvert($grey-dark);
-$pagination-current-background-color: $grey-dark;
-$pagination-current-border-color: $grey-dark;
+$box-background-color: transparent;
+$box-shadow: 0 2px 3px rgba($white, 0.1), 0 0 0 1px rgba($white, 0.1);
+$box-padding: 1rem;
+
+$pagination-current-background-color: $white;
+$pagination-current-border-color: $white;
+$pagination-current-color: findColorInvert($white);
+$pagination-color: $white;
+
+$tabs-link-active-border-bottom-color: $orange;
+$tabs-link-active-color: $orange;
 
 
-// Set Font & Color
+// Font Setting
+.title {
+    font-family: "Cinzel Decorative", cursive;
+    color: $white;
+}
+.orange-title {
+    font-family: "Cinzel Decorative", cursive;
+    color: $orange;
+}
 * { font-family: "Sawarabi Gothic"; }
-.title { font-family: "Cinzel Decorative", cursive; }
-
-#hero-orange {
-    font-family: "Cinzel Decorative", cursive;
-    color: #ffa366;
-}
-#footer-orange {
-    font-family: "Cinzel Decorative", cursive;
-    color: $link-hover;
-}
 
 
 // Import the rest of Bulma

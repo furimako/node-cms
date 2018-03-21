@@ -55,15 +55,11 @@
     },
     
     {"urlPath": "/styles.css"},
+    {"urlPath": "/images/background-image.jpg"},
+    
     {"urlPath": "/images/icon/favicon.png"},
     {"urlPath": "/images/icon/twitter.png"},
     {"urlPath": "/images/icon/github.png"},
     {"urlPath": "/images/icon/bulma.png"},
-    {"urlPath": "/images/icon/person.png"},
-    
-    {"urlPath": "/images/icon/book.png"},
-    {"urlPath": "/images/icon/movie.png"},
-    {"urlPath": "/images/icon/comic.png"},
-    {"urlPath": "/images/icon/ted.png"},
-    {"urlPath": "/images/icon/web-site.png"}
+    {"urlPath": "/images/icon/person.png"}
 ]
