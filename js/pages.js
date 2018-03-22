@@ -150,8 +150,11 @@ let addEndToResponseFromDB = (response, urlPath, descriptions, db, callback) => 
             commentObj1.date.getTime() - commentObj2.date.getTime()
         )
 
+        let count = 0
         let commentsHTML = ''
         for (let commentObj of commentObjList) {
+            count++
+            commentObj.number = count
             let date = commentObj.date
             commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${('00' + date.getHours()).slice(-2)}:${('00' + date.getMinutes()).slice(-2)}`
             commentObj.comment = commentObj.comment.replace(/\*/g, '＊')
