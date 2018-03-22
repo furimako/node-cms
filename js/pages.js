@@ -157,13 +157,8 @@ let addEndToResponseFromDB = (response, urlPath, descriptions, db, callback) => 
             commentObj.number = count
             let date = commentObj.date
             commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${('00' + date.getHours()).slice(-2)}:${('00' + date.getMinutes()).slice(-2)}`
-            commentObj.comment = commentObj.comment.replace(/\*/g, '＊')
-            commentObj.comment = commentObj.comment.replace(/\-/g, 'ー')
-            commentObj.comment = commentObj.comment.replace(/#/g, '＃')
-            commentObj.comment = commentObj.comment.replace(/_/g, '＿')
-            commentObj.comment = commentObj.comment.replace(/</g, '＜')
-            commentObj.comment = commentObj.comment.replace(/>/g, '＞')
-            commentObj.comment = marked(commentObj.comment)
+            commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
+            commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
             commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
         }
         descriptions.comments = mustache.render(
