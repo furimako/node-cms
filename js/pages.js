@@ -62,6 +62,7 @@ module.exports = class Pages {
             } else {
                 // HTML
                 contentType = 'text/html'
+                descriptions.isHome = 'is-content'
 
                 if (view.filePath) {
                     const contentHTML = fs.readFileSync(view.filePath, 'utf8')
@@ -69,6 +70,9 @@ module.exports = class Pages {
                     descriptions.description = view.description
                     descriptions.title = view.title
                     descriptions.body = contentHTML
+                    if (urlPath === '/') {
+                        descriptions.isHome = 'is-home'
+                    }
                     this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
 
                 } else if (view.numOfChapters) {

@@ -6,28 +6,29 @@
 
 // Color Setting
 $black: #000000;
-$grey-dark: #1a1a1a;
-$grey: #333333;
-$grey-light: #4d4d4d;
+$dark: #262626;
+$grey: #404040;
 
-.hero {
+.is-home {
     background-image: url(/images/background-image.jpg);
-    background-size: contain;
+    background-size: 100%;
     background-repeat: no-repeat;
     background-color: $black;
 }
-$navbar-item-hover-background-color: $grey-dark;
-body { background-color: $grey-dark; }
-$background: $grey;
-$border: $grey-light;
+.is-content { background-color: $black; }
+
+$navbar-item-hover-background-color: $black;
+body { background-color: $black; }
+$background: $dark;
+$border: $grey;
 
 $title-color: $white;
 $text: $white-bis;
 $text-strong: $white;
 $label-color: $white;
 $link: #80aaff;
-$orange: #ffb366;
-$link-hover: $orange;
+$red: #ff99c2;
+$link-hover: $red;
 
 $box-background-color: transparent;
 $box-shadow: 0 2px 3px rgba($white, 0.1), 0 0 0 1px rgba($white, 0.1);
@@ -38,8 +39,8 @@ $pagination-current-border-color: $white;
 $pagination-current-color: findColorInvert($white);
 $pagination-color: $white;
 
-$tabs-link-active-border-bottom-color: $orange;
-$tabs-link-active-color: $orange;
+$tabs-link-active-border-bottom-color: $red;
+$tabs-link-active-color: $red;
 
 
 // Font Setting
@@ -47,9 +48,9 @@ $tabs-link-active-color: $orange;
     font-family: "Cinzel Decorative", cursive;
     color: $white;
 }
-.orange-title {
+.red-title {
     font-family: "Cinzel Decorative", cursive;
-    color: $orange;
+    color: $red;
 }
 * { font-family: "Sawarabi Gothic"; }
 
