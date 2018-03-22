@@ -58,8 +58,6 @@
     {"urlPath": "/images/background-image.jpg"},
     
     {"urlPath": "/images/icon/favicon.png"},
-    {"urlPath": "/images/icon/twitter.png"},
-    {"urlPath": "/images/icon/github.png"},
     {"urlPath": "/images/icon/bulma.png"},
     {"urlPath": "/images/icon/person.png"}
 ]
