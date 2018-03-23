@@ -7,4 +7,4 @@
 
 # $1 = start, stop or restart
 sudo service mongod $1
-cat /var/log/mongodb/mongod.log
+echo 'you can see the log with [cat /var/log/mongodb/mongod.log]'
