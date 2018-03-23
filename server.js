@@ -26,7 +26,7 @@ pages.add(views_story)
 
 // Start server
 const server = http.createServer(requestListener)
-let port = 8128
+let port = 80
 server.listen(port)
 logging.info(`started server (port: ${port})`)
 
