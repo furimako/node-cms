@@ -1,4 +1,4 @@
 
 #!/bin/sh
 
-sudo mongodump --out ./data/dump/$(date +%Y%m%d-%H%M%S)/
+sudo mongodump --out ./dump/$(date +%Y%m%d-%H%M%S)/
