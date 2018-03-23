@@ -1,5 +1,6 @@
 
 [
+    { "urlPath": "/styles.css" },
     {
         "filePath": "./static/home.html",
         "urlPath": "/",
@@ -52,12 +53,5 @@
         "urlPath": "/no-found",
         "title": "No Found",
         "description": ""
-    },
-    
-    {"urlPath": "/styles.css"},
-    {"urlPath": "/images/background-image.jpg"},
-    
-    {"urlPath": "/images/icon/favicon.png"},
-    {"urlPath": "/images/icon/bulma.png"},
-    {"urlPath": "/images/icon/person.png"}
+    }
 ]

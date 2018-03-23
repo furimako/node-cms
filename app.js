@@ -1,14 +1,12 @@
 const fs = require('fs')
 const http = require('http')
-const url = require('url')
+const parse = require('url').parse
+const join = require('path').join
 const qs = require('querystring')
-const MongoClient = require('mongodb').MongoClient
-const assert = require('assert')
-const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
 const logging = require('./js/logging')
+const mongodbDriver = require('./js/mongodb_driver')
 const Pages = require('./js/pages')
-
-
+const root = __dirname
 let pages = new Pages()
 
 const json = fs.readFileSync('./data/views.json', 'utf8')
@@ -28,18 +26,18 @@ pages.add(views_story)
 const server = http.createServer(requestListener)
 let port = 8128
 server.listen(port)
-logging.info(`started server (port: ${port})`)
+logging.info(`started server [port: ${port}]`)
 
 
-function requestListener(request, response) {
-    let urlPath = url.parse(request.url, true).pathname
-    logging.info(`get request (url: ${urlPath})`)
+function requestListener(request, res) {
+    let urlPath = parse(request.url).pathname
+    logging.info(`request [url: ${urlPath}]`)
 
     if (pages.has(urlPath)) {
         if (request.method === 'GET') {
-            response.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            pages.addEndToResponse(response, urlPath)
-            logging.info(`    L response page`)
+            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+            pages.addEndToResponse(res, urlPath)
+            logging.info(`    L response page (GET)`)
 
         } else if (request.method === 'POST') {
             let body = ''
@@ -50,42 +48,41 @@ function requestListener(request, response) {
             request.on('end', () => {
                 const postData = qs.parse(body)
                 logging.info(`    L get message [name: ${postData.name}, comment: ${postData.comment}`)
-
-                MongoClient.connect(mongoUrl, (err, db) => {
-                    assert.equal(null, err)
-                    logging.info('    L connected successfully to server')
-                    insertCommentToDB(urlPath, postData, db, () => { db.close() })
-                })
+                mongodbDriver.insert(urlPath, postData)
             })
 
-            response.writeHead(302, { Location: urlPath + '#comments-field' })
-            pages.addEndToResponse(response, urlPath)
-            logging.info(`    L redirect`)
+            res.writeHead(302, { Location: urlPath + '#comments-field' })
+            pages.addEndToResponse(res, urlPath)
+            logging.info(`    L response page (POST)`)
         }
     } else {
-        // When pages no found
-        response.writeHead(404, { 'Content-Type': 'text/html' })
-        pages.addEndToResponse(response, '/no-found')
-        logging.info(`    L response no-found`)
+        let absPath = join(root, 'images', urlPath)
+        fs.stat(absPath, (err, stat) => {
+            if (err) {
+                if (err.code === 'ENOENT') {
+                    // When pages no found
+                    res.writeHead(404, { 'Content-Type': 'text/html' })
+                    pages.addEndToResponse(res, '/no-found')
+                    logging.info(`    L response no-found`)
+
+                } else {
+                    // Internal Server Error
+                    res.statusCode = 500
+                    res.end('Internal Server Error')
+                    logging.error(`internal server error (stat error)`)
+                }
+            } else {
+                // Static files
+                res.setHeader('Content-Length', stat.size)
+                let stream = fs.createReadStream(absPath)
+                stream.pipe(res)
+
+                stream.on('error', (err) => {
+                    res.statusCode = 500
+                    res.end('Internal Server Error')
+                    logging.error(`internal server error (static file stream error)`)
+                })
+            }
+        })
     }
-}
-
-
-let insertCommentToDB = (urlPath, postData, db, callback) => {
-    let objList = [{
-        urlPath,
-        date: new Date(),
-        name: postData.name,
-        comment: postData.comment
-    }]
-
-    const collectionStr = 'comments'
-    let collection = db.db('fully-hatter').collection(collectionStr)
-    collection.insertMany(objList, (err, result) => {
-        assert.equal(err, null)
-        assert.equal(1, result.result.n)
-        assert.equal(1, result.ops.length)
-        logging.info(`    L inserted ${objList.length} document(s) into the collection ${collectionStr}`)
-        callback(result)
-    })
 }

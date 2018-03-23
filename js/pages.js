@@ -24,8 +24,8 @@ module.exports = class Pages {
         return this.pages.has(urlPath)
     }
 
-    addEndToResponse(response, urlPath) {
-        return this.pages.get(urlPath).addEndToResponse(response)
+    addEndToResponse(res, urlPath) {
+        return this.pages.get(urlPath).addEndToResponse(res)
     }
 
     contentType(urlPath) {
@@ -45,18 +45,6 @@ module.exports = class Pages {
                 const SCSS = fs.readFileSync('./static/styles.scss', 'utf8')
                 contentType = 'text/css'
                 page = sass.renderSync({ data: SCSS }).css
-                this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
-
-            } else if (urlPath.match(/\.png$/)) {
-                // PNG
-                contentType = 'image/png'
-                page = fs.readFileSync('.' + urlPath)
-                this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
-
-            } else if (urlPath.match(/\.jpg$/)) {
-                // JPEG
-                contentType = 'image/jpeg'
-                page = fs.readFileSync('.' + urlPath)
                 this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
 
             } else {
@@ -122,9 +110,9 @@ class Page {
         this.page = page
     }
 
-    addEndToResponse(response) {
+    addEndToResponse(res) {
         if (this.page) {
-            response.end(this.page)
+            res.end(this.page)
             return
         }
 
@@ -135,16 +123,16 @@ class Page {
             MongoClient.connect(mongoUrl, (err, db) => {
                 assert.equal(null, err)
                 logging.info('    L connected successfully to server')
-                addEndToResponseFromDB(response, urlPath, descriptions, db, () => { db.close() })
+                addEndToResponseFromDB(res, urlPath, descriptions, db, () => { db.close() })
             })
         } else {
-            response.end(mustache.render(TEMPLATE, descriptions))
+            res.end(mustache.render(TEMPLATE, descriptions))
         }
     }
 }
 
 
-let addEndToResponseFromDB = (response, urlPath, descriptions, db, callback) => {
+let addEndToResponseFromDB = (res, urlPath, descriptions, db, callback) => {
     let collection = db.db('fully-hatter').collection('comments')
     collection.find({ 'urlPath': urlPath }).toArray((err, docs) => {
         assert.equal(err, null)
@@ -171,7 +159,7 @@ let addEndToResponseFromDB = (response, urlPath, descriptions, db, callback) => 
                 'comments': commentsHTML
             }
         )
-        response.end(mustache.render(TEMPLATE, descriptions))
+        res.end(mustache.render(TEMPLATE, descriptions))
         callback(docs)
     })
 }

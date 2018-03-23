@@ -5,16 +5,10 @@
         "description": "一通の謎の手紙。拾ったのはあなた。[1話 完結]"
     },
     {
-        "urlPath": "/images/story/science-fiction/dear-you.jpg"
-    },
-    {
         "urlPath": "/story/science-fiction/over-the-superposition",
         "title": "量子の導き",
         "description": "第{{chapter}}話。そう遠くない未来、言語がひとつに統一された頃のお話。[全5話]",
         "numOfChapters": 5
-    },
-    {
-        "urlPath": "/images/story/science-fiction/over-the-superposition.jpg"
     },
     {
         "urlPath": "/story/mystery/nightmare",
@@ -22,15 +16,9 @@
         "description": "遊園地が舞台のちょっと怖いお話。[1話 完結]"
     },
     {
-        "urlPath": "/images/story/mystery/nightmare.jpg"
-    },
-    {
         "urlPath": "/story/mystery/the-dark-and-cold-place",
         "title": "暗くて寒い場所",
         "description": "部屋の明かりが消せないある女性のお話。[1話 完結]"
-    },
-    {
-        "urlPath": "/images/story/mystery/the-dark-and-cold-place.jpg"
     },
     {
         "urlPath": "/story/comedy/baby-s-suffering",
@@ -39,15 +27,9 @@
         "numOfChapters": 2
     },
     {
-        "urlPath": "/images/story/comedy/baby-s-suffering.jpg"
-    },
-    {
         "urlPath": "/story/comedy/one-man",
         "title": "ひとり",
         "description": "第{{chapter}}話。彗星の日に起こる不思議な出来事。[全3話]",
         "numOfChapters": 3
-    },
-    {
-        "urlPath": "/images/story/comedy/one-man.jpg"
     }
 ]
