@@ -5,4 +5,4 @@
 # macOS
 # 
 
-sudo ssh -i "/Users/furimako/.ssh/LightsailDefaultPrivateKey-ap-northeast-1.pem" ubuntu@13.231.102.152
+sudo ssh -i "/Users/furimako/.ssh/LightsailDefaultPrivateKey-ap-northeast-1.pem" ubuntu@54.248.65.211
