@@ -5,40 +5,26 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 ## How to Run this website
 - local (macOS)
-
->> bash scripts/local/mongod.sh
-
+>> bash scripts/local/mongod.sh  
 >> node app.js
-
 - production (ubuntu 16.04)
-
->> bash scripts/production/mongod.sh start
-
+>> bash scripts/production/mongod.sh start  
 >> npm start
 
 
 ## TODO
-Timezone
-
-prod
-    サーバー停止
-        bash scripts/production/mongod.sh stop (forever??)
-        forever stop app.js
-    毎週
-        reboot app.js
-        change log file name (with date)
-        db backup
+- Timezone
+- everyday
+    - reboot app.js
+    - rotate log file
+    - db backup
 
 
-
-
+# NOTE
 - DNS setting
 - favicon
 - 黒一色で本当に良い？ ピンクの色はあれでいい？
 - update [about] page
-
-
-# NOTE
 - setup mail
 - implement [auto translation]
 - check on PC, Android and iOS
