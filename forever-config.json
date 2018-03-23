@@ -1,13 +1,5 @@
 [
   {
-    "uid": "mongod",
-    "append": true,
-    "watch": true,
-    "script": "mongod.sh",
-    "sourceDir": "/home/ubuntu/fully-hatter/scripts/production",
-    "args": ["start"]
-  },
-  {
     "uid": "server",
     "append": true,
     "watch": true,
