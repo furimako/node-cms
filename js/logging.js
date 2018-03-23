@@ -1,6 +1,6 @@
 module.exports = {
     info: (msg) => console.log(`[${getTimestamp(new Date())}] [INFO] ${msg}`),
-    error: (msg) => console.log(`[${getTimestamp(new Date())}] [ERROR] ${msg}`)
+    error: (msg) => console.error(`[${getTimestamp(new Date())}] [ERROR] ${msg}`)
 }
 
 let getTimestamp = (date) => {
