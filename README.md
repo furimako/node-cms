@@ -3,14 +3,20 @@
 This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org) without [Express](https://expressjs.com/).
 
 
+## How to Run this website
+- local (macOS)
+>> bash scripts/local/mongod.sh
+>> node app.js
+
+- production (ubuntu 16.04)
+>> bash scripts/production/mongod.sh start
+>> npm start
+
+
 ## TODO
 Timezone
-app.js 死なない問題
 
 prod
-    サーバー起動時
-        bash scripts/production/mongod.sh start (forever??)
-        forever start app.js
     サーバー停止
         bash scripts/production/mongod.sh stop (forever??)
         forever stop app.js
