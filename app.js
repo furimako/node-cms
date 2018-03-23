@@ -3,21 +3,21 @@ const http = require('http')
 const parse = require('url').parse
 const join = require('path').join
 const qs = require('querystring')
-const logging = require('./js/logging')
-const mongodbDriver = require('./js/mongodb_driver')
-const Pages = require('./js/pages')
+const logging = require('./server/logging')
+const mongodbDriver = require('./server/mongodb_driver')
+const Pages = require('./server/pages')
 const root = __dirname
 let pages = new Pages()
 
-const json = fs.readFileSync('./data/views.json', 'utf8')
+const json = fs.readFileSync('./server/views/views.json', 'utf8')
 const views = JSON.parse(json)
 pages.add(views)
 
-const json_world = fs.readFileSync('./data/views-world.json', 'utf8')
+const json_world = fs.readFileSync('./server/views/views-world.json', 'utf8')
 const views_world = JSON.parse(json_world)
 pages.add(views_world)
 
-const json_story = fs.readFileSync('./data/views-story.json', 'utf8')
+const json_story = fs.readFileSync('./server/views/views-story.json', 'utf8')
 const views_story = JSON.parse(json_story)
 pages.add(views_story)
 
