@@ -5,19 +5,19 @@
 # Ubuntu 16.04
 # 
 
-echo 'confirm crontab & forever list'
+echo '[info] confirm crontab & forever list'
 crontab -l
 forever list
 
-echo 'stop Server'
+echo '[info] stop Server'
 forever stop server
 
-echo 'backup mongoDB'
+echo '[info] backup mongoDB'
 bash /home/ubuntu/fully-hatter/scripts/production/mongodump.sh
 
-echo 'start Server'
+echo '[info] start Server'
 cd /home/ubuntu/fully-hatter
 npm start
 
-echo 'confirm forever list'
+echo '[info] confirm forever list'
 forever list
