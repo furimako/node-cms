@@ -10,7 +10,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 - production (ubuntu 16.04)
 >> bash scripts/production/mongod.sh start  
->> npm start
+>> npm start  
 >> crontab cron.config
 
 
@@ -22,17 +22,18 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 ### TODO
 - how to know comments
-
 - DNS setting
+    - google analytics
+    - google search console
 - appearance
     - favicon
     - 黒一色で本当に良い？ ピンクの色はあれでいい？
     - words sizes
     - update [about] page
     - check whether all mustache template tags work correctly
-- implement [auto translation]
 - view setting (google search, Twitter & Facebook share)
 
 
 ### NOTE
+- implement [auto translation]
 - add some games with Vue or React (like FFT ?)
