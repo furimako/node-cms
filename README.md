@@ -9,9 +9,10 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 >> node app.js
 
 - production (ubuntu 16.04)
+>> rename '[sample]mailer.js' and input password
 >> bash scripts/production/mongod.sh start  
 >> npm start  
->> crontab cron.config
+>> crontab config/cron.config
 
 
 ## Error check
@@ -21,6 +22,8 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 
 ### TODO
+- cron & password
+
 - how to know comments
 - DNS setting
     - google analytics
