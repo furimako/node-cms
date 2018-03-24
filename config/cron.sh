@@ -5,20 +5,19 @@
 # Ubuntu 16.04
 # 
 
-# stop Server
+echo 'confirm crontab & forever list'
+crontab -l
+forever list
+
+echo 'stop Server'
 forever stop server
 
-# backup DB
+echo 'backup mongoDB'
 bash /home/ubuntu/fully-hatter/scripts/production/mongodump.sh
 
-# rotate log files
-# DATE=$(date +%Y%m%d-%H%M%S)
-# mkdir /home/ubuntu/fully-hatter/log/archives/${DATE}
-# cd /home/ubuntu/fully-hatter/log
-# mv forever.log ./archives/${DATE}/forever.log
-# mv stdout.log ./archives/${DATE}/stdout.log
-# mv stderr.log ./archives/${DATE}/stderr.log
-
-# start Server
+echo 'start Server'
 cd /home/ubuntu/fully-hatter
 npm start
+
+echo 'confirm forever list'
+forever list
