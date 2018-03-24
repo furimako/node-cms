@@ -1,14 +1,15 @@
 const fs = require('fs')
-const MongoClient = require('mongodb').MongoClient
-const assert = require('assert')
-const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
 const mustache = require('mustache')
 const marked = require('marked')
 marked.setOptions({
     breaks: true
 })
 const sass = require('node-sass')
+const MongoClient = require('mongodb').MongoClient
+const assert = require('assert')
+const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
 const logging = require('./logging')
+const dateString = require('./date_string')
 
 const TEMPLATE = fs.readFileSync('./static/template.mustache', 'utf8')
 const TEMPLATE_COMMENT = fs.readFileSync('./static/comment.mustache', 'utf8')
@@ -147,8 +148,7 @@ let addEndToResponseFromDB = (res, urlPath, descriptions, db, callback) => {
         for (let commentObj of commentObjList) {
             count++
             commentObj.number = count
-            let date = commentObj.date
-            commentObj.timestamp = `${date.getFullYear()}/${date.getMonth()+1}/${date.getDate()} ${('00' + date.getHours()).slice(-2)}:${('00' + date.getMinutes()).slice(-2)}`
+            commentObj.timestamp = dateString.str(commentObj.date)
             commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
             commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
             commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
