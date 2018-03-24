@@ -1,17 +1,19 @@
 const fs = require('fs')
 const http = require('http')
 const parse = require('url').parse
-const join = require('path').join
 const qs = require('querystring')
 const logging = require('./server/logging')
 const Pages = require('./server/pages')
 const mongodbDriver = require('./server/mongodb_driver')
-const root = __dirname
 let pages = new Pages()
 
 const json = fs.readFileSync('./server/views/views.json', 'utf8')
 const views = JSON.parse(json)
 pages.add(views)
+
+const json_images = fs.readFileSync('./server/views/views-images.json', 'utf8')
+const views_images = JSON.parse(json_images)
+pages.add(views_images)
 
 const json_world = fs.readFileSync('./server/views/views-world.json', 'utf8')
 const views_world = JSON.parse(json_world)
@@ -56,34 +58,9 @@ function requestListener(request, res) {
             logging.info(`    L response page (POST)`)
         }
     } else {
-        let absPath = join(root, 'images', urlPath)
-        fs.stat(absPath, (err, stat) => {
-            if (err) {
-                if (err.code === 'ENOENT') {
-                    // When pages no found
-                    res.writeHead(404, { 'Content-Type': 'text/html' })
-                    pages.addEndToResponse(res, '/no-found')
-                    logging.info(`    L response no-found`)
-
-                } else {
-                    // Internal Server Error
-                    res.statusCode = 500
-                    res.end('Internal Server Error')
-                    logging.error(`internal server error (stat error)`)
-                }
-            } else {
-                // Static files
-                res.setHeader('Content-Length', stat.size)
-                let stream = fs.createReadStream(absPath)
-                stream.pipe(res)
-                logging.info(`    L response static file`)
-
-                stream.on('error', (err) => {
-                    res.statusCode = 500
-                    res.end('Internal Server Error')
-                    logging.error(`internal server error (static file stream error)`)
-                })
-            }
-        })
+        // When pages no found
+        res.writeHead(404, { 'Content-Type': 'text/html' })
+        pages.addEndToResponse(res, '/no-found')
+        logging.info(`    L response no-found`)
     }
 }
