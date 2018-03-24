@@ -76,6 +76,7 @@ function requestListener(request, res) {
                 res.setHeader('Content-Length', stat.size)
                 let stream = fs.createReadStream(absPath)
                 stream.pipe(res)
+                logging.info(`    L response static file`)
 
                 stream.on('error', (err) => {
                     res.statusCode = 500
