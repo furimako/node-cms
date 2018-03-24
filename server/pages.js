@@ -33,6 +33,10 @@ module.exports = class Pages {
         return this.pages.get(urlPath).contentType
     }
 
+    title(urlPath) {
+        return this.pages.get(urlPath).title()
+    }
+
     add(views) {
         for (const view of views) {
             const urlPath = view.urlPath
@@ -83,7 +87,7 @@ module.exports = class Pages {
                         desc.description = mustache.render(view.description, { 'chapter': i })
                         desc.title = view.title + ' ' + parseInt(i)
                         desc.body = '<section class="section"><div class="container"><div class="content">' + marked(markdown) + '</div></div></section>'
-                        desc.pagination = this.getPagination(urlPath, i, view.numOfChapters)
+                        desc.pagination = this.pagination(urlPath, i, view.numOfChapters)
                         this.pages.set(urlPath + '-' + parseInt(i), new Page(urlPath + '-' + parseInt(i), contentType, desc, hasComments, page))
                     }
                 } else {
@@ -99,7 +103,7 @@ module.exports = class Pages {
         }
     }
 
-    getPagination(urlPath, chapter, numOfChapters) {
+    pagination(urlPath, chapter, numOfChapters) {
         let pagination = `<section class="section"><nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
         for (let i = 1; i <= numOfChapters; i++) {
             if (i === chapter) {
@@ -121,6 +125,10 @@ class Page {
         this.descriptions = descriptions
         this.hasComments = hasComments
         this.page = page
+    }
+
+    title() {
+        return this.descriptions.title
     }
 
     addEndToResponse(res) {
@@ -149,7 +157,7 @@ let addEndToResponseFromDB = (res, urlPath, descriptions, db, callback) => {
     let collection = db.db('fully-hatter').collection('comments')
     collection.find({ 'urlPath': urlPath }).toArray((err, docs) => {
         assert.equal(err, null)
-        logging.info(`    L found ${docs.length} document(s)`)
+        logging.info(`    L found ${docs.length} comment(s)`)
 
         const commentObjList = docs.sort((commentObj1, commentObj2) =>
             commentObj1.date.getTime() - commentObj2.date.getTime()
