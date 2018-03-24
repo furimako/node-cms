@@ -55,13 +55,13 @@ module.exports = class Pages {
             } else if (urlPath.match(/\.png$/)) {
                 // PNG
                 contentType = 'image/png'
-                page = fs.readFileSync('./images' + urlPath)
+                page = fs.readFileSync('./static' + urlPath)
                 this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
 
             } else if (urlPath.match(/\.jpg$/)) {
                 // JPEG
                 contentType = 'image/jpeg'
-                page = fs.readFileSync('./images' + urlPath)
+                page = fs.readFileSync('./static' + urlPath)
                 this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
 
             } else {
