@@ -4,8 +4,8 @@ const parse = require('url').parse
 const join = require('path').join
 const qs = require('querystring')
 const logging = require('./server/logging')
-const mongodbDriver = require('./server/mongodb_driver')
 const Pages = require('./server/pages')
+const mongodbDriver = require('./server/mongodb_driver')
 const root = __dirname
 let pages = new Pages()
 
