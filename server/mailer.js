@@ -1,4 +1,7 @@
+const fs = require('fs')
 const nodemailer = require('nodemailer')
+const logging = require('./logging')
+const pass = fs.readFileSync('./conf/password.txt', 'utf8')
 
 module.exports = {
     send: (subject, text) => {
@@ -9,7 +12,7 @@ module.exports = {
                 secure: true, // true for 465, false for other ports
                 auth: {
                     user: 'furimako@gmail.com',
-                    pass: 'PLEASE INPUT THE PASSWORD HERE!'
+                    pass
                 }
             })
 
@@ -24,7 +27,7 @@ module.exports = {
                 if (err) {
                     return console.log(err)
                 }
-                console.log(`    L sent mail (${info.messageId})`)
+                logging.info(`    L sent mail (${info.messageId})`)
             })
         })
     }
