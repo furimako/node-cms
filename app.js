@@ -3,6 +3,7 @@ const http = require('http')
 const parse = require('url').parse
 const qs = require('querystring')
 const logging = require('./server/logging')
+const mailer = require('./server/mailer')
 const Pages = require('./server/pages')
 const mongodbDriver = require('./server/mongodb_driver')
 let pages = new Pages()
@@ -39,7 +40,6 @@ function requestListener(request, res) {
         if (request.method === 'GET') {
             res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
             pages.addEndToResponse(res, urlPath)
-            logging.info(`    L response page (GET)`)
 
         } else if (request.method === 'POST') {
             let body = ''
@@ -50,6 +50,10 @@ function requestListener(request, res) {
             request.on('end', () => {
                 const postData = qs.parse(body)
                 logging.info(`    L get message [name: ${postData.name}, comment: ${postData.comment}`)
+                mailer.send(
+                    `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
+                    `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
+                )
                 mongodbDriver.insert(urlPath, postData)
             })
 

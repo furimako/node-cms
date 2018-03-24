@@ -22,6 +22,7 @@
     "marked": "^0.3.18",
     "mongodb": "^3.0.4",
     "mustache": "^2.3.0",
-    "node-sass": "^4.8.3"
+    "node-sass": "^4.8.3",
+    "nodemailer": "^4.6.3"
   }
 }
