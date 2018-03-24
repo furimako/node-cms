@@ -13,7 +13,7 @@ bash /home/ubuntu/fully-hatter/scripts/production/mongodump.sh
 
 # rotate log files
 DATE=$(date +%Y%m%d-%H%M%S)
-mkdir /home/ubuntu/fully-hatter/log/${DATE}
+mkdir /home/ubuntu/fully-hatter/log/archives/${DATE}
 cd /home/ubuntu/fully-hatter/log
 mv forever.log ./archives/${DATE}/forever.log
 mv stdout.log ./archives/${DATE}/stdout.log
