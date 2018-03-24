@@ -1,0 +1,14 @@
+[
+    { "urlPath": "/background-image.jpg" },
+
+    { "urlPath": "/icon/favicon.png" },
+    { "urlPath": "/icon/bulma.png" },
+    { "urlPath": "/icon/person.png" },
+
+    { "urlPath": "/story/science-fiction/dear-you.jpg" },
+    { "urlPath": "/story/science-fiction/over-the-superposition.jpg" },
+    { "urlPath": "/story/mystery/nightmare.jpg" },
+    { "urlPath": "/story/mystery/the-dark-and-cold-place.jpg" },
+    { "urlPath": "/story/comedy/baby-s-suffering.jpg" },
+    { "urlPath": "/story/comedy/one-man.jpg" }
+]
