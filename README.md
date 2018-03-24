@@ -9,7 +9,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 >> node app.js
 
 - production (ubuntu 16.04)
->> rename '[sample]mailer.js' and input password
+>> rename '[sample]password.txt' and input password  
 >> bash scripts/production/mongod.sh start  
 >> npm start  
 >> crontab config/cron.config
@@ -17,17 +17,16 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 ## Error check
 - mongoDB
-- Server (forever)
+    - bash scripts/production/mongolog.sh
+- Server
+    - forever list
+    - tail log/forever.log
 - cron
+    - crontab -l
+    - tail log/cron.log
 
 
 ### TODO
-- cron & password
-
-- how to know comments
-- DNS setting
-    - google analytics
-    - google search console
 - appearance
     - favicon
     - 黒一色で本当に良い？ ピンクの色はあれでいい？
@@ -35,8 +34,11 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     - update [about] page
     - check whether all mustache template tags work correctly
 - view setting (google search, Twitter & Facebook share)
+- implement [auto translation]
 
 
 ### NOTE
-- implement [auto translation]
+- DNS setting
+    - google analytics
+    - google search console
 - add some games with Vue or React (like FFT ?)
