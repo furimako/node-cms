@@ -1,4 +1,4 @@
 /node_modules
 /mongodb_data
-/server/mailer.js
+/conf/password.txt
 /log/**/*.log
