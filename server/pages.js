@@ -88,13 +88,13 @@ module.exports = class Pages {
                         descriptions.cssPath = '/css/styles-others.css'
                         descriptions.description = mustache.render(view.description, { 'chapter': i })
                         descriptions.title = view.title + ' ' + parseInt(i)
-                        descriptions.body = '<section class="section"><div class="container"><div class="content">' + marked(markdown) + '</div></div></section>'
+                        descriptions.body = '<section class="section"><div class="container"><div class="content is-small">' + marked(markdown) + '</div></div></section>'
                         descriptions.pagination = this.pagination(urlPath, i, view.numOfChapters)
                         this.pages.set(urlPath + '-' + parseInt(i), new Page(urlPath + '-' + parseInt(i), contentType, descriptions, hasComments, page))
                     }
                 } else {
                     const MARKDOWN = fs.readFileSync('./static' + urlPath + '.md', 'utf8')
-                    const contentHTML = '<section class="section"><div class="container"><div class="content">' + marked(MARKDOWN) + '</div></div></section>'
+                    const contentHTML = '<section class="section"><div class="container"><div class="content is-small">' + marked(MARKDOWN) + '</div></div></section>'
                     descriptions.body = contentHTML
                     this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
                 }
