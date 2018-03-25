@@ -1,0 +1,10 @@
+
+.hero {
+    background-image: url(/images/background-image.jpg);
+    background-size: 100%;
+    background-repeat: no-repeat;
+    background-color: $black;
+}
+
+$navbar-item-hover-background-color: $black;
+body { background-color: $black; }

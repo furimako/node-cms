@@ -1,0 +1,13 @@
+
+// import the initial variables of Bulma
+@import "./node_modules/bulma/sass/utilities/initial-variables";
+@import "./node_modules/bulma/sass/utilities/functions";
+
+
+// import home
+@import "./static/scss/common.scss";
+@import "./static/scss/others.scss";
+
+
+// import the rest of Bulma
+@import "./node_modules/bulma/bulma";
