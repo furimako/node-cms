@@ -1,0 +1,42 @@
+
+<hr>
+<section class="section" id="comments-field">
+    <div class="container">
+        <h2 class="title is-4">Comments</h2>
+        <p>
+            どなたでもご自由に書き込んでください。
+            <br>
+            Fully Hatter が、愛には愛で、剣には剣でご返事いたします。
+        </p>
+        <br>
+        <form method="post" action="{{urlPath}}">
+            <div class="field">
+                <label class="label is-small">名前</label>
+                <div class="control is-small has-icons-left">
+                    <input class="input" type="text" name="name" placeholder="偽名推奨" maxlength="20" required>
+                    <span class="icon is-small">
+                        <figure class="image is-16x16">
+                            <img src="/images/icon/person.png" alt="person icon">
+                        </figure>
+                    </span>
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label is-small">コメント</label>
+                <div class="control is-small">
+                    <textarea class="textarea" name="comment" placeholder="ご自由にどうぞ" maxlength="900" required></textarea>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary">送信</button>
+                </div>
+            </div>
+        </form>
+        <br>
+        <br>
+        {{{comments}}}
+    </div>
+</section>
