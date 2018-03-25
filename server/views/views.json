@@ -1,6 +1,4 @@
-
 [
-    { "urlPath": "/styles.css" },
     {
         "filePath": "./static/home.html",
         "urlPath": "/",

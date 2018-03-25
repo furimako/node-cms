@@ -9,20 +9,15 @@ const mongodbDriver = require('./server/mongodb_driver')
 let pages = new Pages()
 
 const json = fs.readFileSync('./server/views/views.json', 'utf8')
-const views = JSON.parse(json)
-pages.add(views)
-
+const json_css = fs.readFileSync('./server/views/views-css.json', 'utf8')
 const json_images = fs.readFileSync('./server/views/views-images.json', 'utf8')
-const views_images = JSON.parse(json_images)
-pages.add(views_images)
-
 const json_world = fs.readFileSync('./server/views/views-world.json', 'utf8')
-const views_world = JSON.parse(json_world)
-pages.add(views_world)
-
 const json_story = fs.readFileSync('./server/views/views-story.json', 'utf8')
-const views_story = JSON.parse(json_story)
-pages.add(views_story)
+pages.add(JSON.parse(json))
+pages.add(JSON.parse(json_css))
+pages.add(JSON.parse(json_images))
+pages.add(JSON.parse(json_world))
+pages.add(JSON.parse(json_story))
 
 
 // Start server

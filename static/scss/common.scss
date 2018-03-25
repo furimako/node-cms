@@ -1,26 +1,11 @@
 
-// Import the initial variables of Bulma
-@import "./node_modules/bulma/sass/utilities/initial-variables";
-@import "./node_modules/bulma/sass/utilities/functions";
-
-
 // Color Setting
 $black: #000000;
-$dark: #262626;
-$grey: #404040;
-
-.is-home {
-    background-image: url(/images/background-image.jpg);
-    background-size: 100%;
-    background-repeat: no-repeat;
-    background-color: $black;
-}
-.is-content { background-color: $black; }
-
-$navbar-item-hover-background-color: $black;
-body { background-color: $black; }
-$background: $dark;
-$border: $grey;
+$grey-dark: #1a1a1a;
+$grey: #333333;
+$grey-light: #4d4d4d;
+$background: $grey;
+$border: $grey-light;
 
 $title-color: $white;
 $text: $white-bis;
@@ -53,7 +38,3 @@ $tabs-link-active-color: $red;
     color: $red;
 }
 * { font-family: "Sawarabi Gothic"; }
-
-
-// Import the rest of Bulma
-@import "./node_modules/bulma/bulma";
