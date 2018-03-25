@@ -6,6 +6,7 @@
         "description": "キミの知らない世界を見せよう。"
     },
     {
+        "filePath": "./static/about.html",
         "urlPath": "/about",
         "title": "About",
         "description": "このサイトについて。Fully Hatter について。"
