@@ -1,7 +1,7 @@
 const fs = require('fs')
 const nodemailer = require('nodemailer')
 const logging = require('./logging')
-const pass = fs.readFileSync('./conf/password.txt', 'utf8')
+const pass = fs.readFileSync('./config/password.txt', 'utf8')
 
 module.exports = {
     send: (subject, text) => {
