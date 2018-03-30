@@ -2,7 +2,6 @@
 # Fully Hatter の秘密の部屋
 This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org) without [Express](https://expressjs.com/).
 
-
 ## How to Run This Website
 - local (macOS)
 >> bash scripts/local/mongod.sh  
@@ -12,8 +11,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 >> rename '[sample]password.txt' and input password  
 >> bash scripts/production/mongod.sh start  
 >> npm start  
->> crontab config/cron.config
-
+>> crontab config/crontab/crontab.config
 
 ## Error check
 - mongoDB
@@ -26,19 +24,13 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     - tail log/cron.log
 
 
-### TODO
-- appearance
-    - favicon
-    - 黒一色で本当に良い？ ピンクの色はあれでいい？
-    - words sizes
-    - update [about] page
-    - check whether all mustache template tags work correctly
+
+## TODO
+- Fully Hatter のノート
+    - 機械学習まとめ
+
+
+## NOTE
 - view setting (google search, Twitter & Facebook share)
-- implement [auto translation]
-
-
-### NOTE
-- DNS setting
-    - google analytics
-    - google search console
+- nodemailer
 - add some games with Vue or React (like FFT ?)
