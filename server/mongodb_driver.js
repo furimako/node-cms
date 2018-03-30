@@ -15,12 +15,14 @@ module.exports = {
 
 
 let insertCommentToDB = (urlPath, postData, db, callback) => {
-    let objList = [{
-        urlPath,
-        date: new Date(),
-        name: postData.name,
-        comment: postData.comment
-    }]
+    let objList = [
+        {
+            urlPath,
+            date: new Date(),
+            name: postData.name,
+            comment: postData.comment
+        },
+    ]
 
     const collectionStr = 'comments'
     let collection = db.db('fully-hatter').collection(collectionStr)
