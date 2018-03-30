@@ -2,29 +2,30 @@ const fs = require('fs')
 const http = require('http')
 const parse = require('url').parse
 const qs = require('querystring')
+const JSON5 = require('json5')
 const logging = require('./server/logging')
 const mailer = require('./server/mailer')
 const Pages = require('./server/pages')
 const mongodbDriver = require('./server/mongodb_driver')
 let pages = new Pages()
 
-const json = fs.readFileSync('./server/views/views.json', 'utf8')
-const json_css = fs.readFileSync('./server/views/views-css.json', 'utf8')
-const json_images = fs.readFileSync('./server/views/views-images.json', 'utf8')
-const json_world = fs.readFileSync('./server/views/views-world.json', 'utf8')
-const json_story = fs.readFileSync('./server/views/views-story.json', 'utf8')
-pages.add(JSON.parse(json))
-pages.add(JSON.parse(json_css))
-pages.add(JSON.parse(json_images))
-pages.add(JSON.parse(json_world))
-pages.add(JSON.parse(json_story))
+const json5 = fs.readFileSync('./server/views/views.json5', 'utf8')
+const json5_css = fs.readFileSync('./server/views/views-css.json5', 'utf8')
+const json5_images = fs.readFileSync('./server/views/views-images.json5', 'utf8')
+const json5_world = fs.readFileSync('./server/views/views-world.json5', 'utf8')
+const json5_story = fs.readFileSync('./server/views/views-story.json5', 'utf8')
+pages.add(JSON5.parse(json5))
+pages.add(JSON5.parse(json5_css))
+pages.add(JSON5.parse(json5_images))
+pages.add(JSON5.parse(json5_world))
+pages.add(JSON5.parse(json5_story))
 
 
 // Start server
 const server = http.createServer(requestListener)
-let port = 8128
-server.listen(port)
-logging.info(`started server [port: ${port}]`)
+const PORT = 8128
+server.listen(PORT)
+logging.info(`started server [port: ${PORT}]`)
 
 
 function requestListener(request, res) {

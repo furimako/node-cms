@@ -1,4 +1,4 @@
 /node_modules
 /mongodb_data
-/conf/password.txt
+/config/password.txt
 /log/**/*.log
