@@ -2,9 +2,7 @@ const fs = require('fs')
 const path = require('path')
 const mustache = require('mustache')
 const marked = require('marked')
-marked.setOptions({
-    breaks: true
-})
+marked.setOptions({ breaks: true })
 const sass = require('node-sass')
 const MongoClient = require('mongodb').MongoClient
 const assert = require('assert')
@@ -82,15 +80,15 @@ module.exports = class Pages {
                     this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
 
                 } else if (view.numOfChapters) {
-                    for (let i = 1; i <= view.numOfChapters; i++) {
-                        let markdown = fs.readFileSync('./static' + urlPath + '-' + parseInt(i) + '.md', 'utf8')
-                        let descriptions = {}
+                    for (let i = 1; i <= view.numOfChapters; i += 1) {
+                        let markdown = fs.readFileSync('./static' + urlPath + '-' + parseInt(i, 10) + '.md', 'utf8')
+                        descriptions = {}
                         descriptions.cssPath = '/css/styles-others.css'
                         descriptions.description = mustache.render(view.description, { 'chapter': i })
-                        descriptions.title = view.title + ' ' + parseInt(i)
+                        descriptions.title = view.title + ' ' + parseInt(i, 10)
                         descriptions.body = '<section class="section"><div class="container"><div class="content is-small">' + marked(markdown) + '</div></div></section>'
-                        descriptions.pagination = this.pagination(urlPath, i, view.numOfChapters)
-                        this.pages.set(urlPath + '-' + parseInt(i), new Page(urlPath + '-' + parseInt(i), contentType, descriptions, hasComments, page))
+                        descriptions.pagination = Pages.pagination(urlPath, i, view.numOfChapters)
+                        this.pages.set(urlPath + '-' + parseInt(i, 10), new Page(urlPath + '-' + parseInt(i, 10), contentType, descriptions, hasComments, page))
                     }
                 } else {
                     const MARKDOWN = fs.readFileSync('./static' + urlPath + '.md', 'utf8')
@@ -102,17 +100,17 @@ module.exports = class Pages {
         }
     }
 
-    pagination(urlPath, chapter, numOfChapters) {
-        let pagination = `<section class="section"><nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
-        for (let i = 1; i <= numOfChapters; i++) {
+    static pagination(urlPath, chapter, numOfChapters) {
+        let paginationHTML = `<section class="section"><nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
+        for (let i = 1; i <= numOfChapters; i += 1) {
             if (i === chapter) {
-                pagination += `<li><a class="pagination-link is-current" href="${urlPath + '-' + parseInt(i)}">${parseInt(i)}</a></li>`
+                paginationHTML += `<li><a class="pagination-link is-current" href="${urlPath + '-' + parseInt(i, 10)}">${parseInt(i, 10)}</a></li>`
             } else {
-                pagination += `<li><a class="pagination-link" href="${urlPath + '-' + parseInt(i)}">${parseInt(i)}</a></li>`
+                paginationHTML += `<li><a class="pagination-link" href="${urlPath + '-' + parseInt(i, 10)}">${parseInt(i, 10)}</a></li>`
             }
         }
-        pagination += `</ul></nav></section>`
-        return pagination
+        paginationHTML += `</ul></nav></section>`
+        return paginationHTML
     }
 }
 
@@ -154,18 +152,18 @@ class Page {
 
 let addEndToResponseFromDB = (res, urlPath, descriptions, db, callback) => {
     let collection = db.db('fully-hatter').collection('comments')
-    collection.find({ 'urlPath': urlPath }).toArray((err, docs) => {
+    collection.find({ urlPath }).toArray((err, docs) => {
         assert.equal(err, null)
         logging.info(`    L found ${docs.length} comment(s)`)
 
-        const commentObjList = docs.sort((commentObj1, commentObj2) =>
-            commentObj1.date.getTime() - commentObj2.date.getTime()
+        const commentObjList = docs.sort(
+            (commentObj1, commentObj2) => commentObj1.date.getTime() - commentObj2.date.getTime()
         )
 
         let count = 0
         let commentsHTML = ''
         for (let commentObj of commentObjList) {
-            count++
+            count += 1
             commentObj.number = count
             commentObj.timestamp = dateString.str(commentObj.date)
             commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
@@ -174,7 +172,7 @@ let addEndToResponseFromDB = (res, urlPath, descriptions, db, callback) => {
         }
         descriptions.comments = mustache.render(
             TEMPLATE_COMMENTSFIELD, {
-                'urlPath': urlPath,
+                urlPath,
                 'comments': commentsHTML
             }
         )
