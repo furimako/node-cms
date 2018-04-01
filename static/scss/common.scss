@@ -12,11 +12,11 @@ $text: $white-bis;
 $text-strong: $white;
 $label-color: $white;
 $link: #80aaff;
-$red: #ff99c2;
-$link-hover: $red;
+$orange: #ff99c2;
+$link-hover: $orange;
 
-$button-color: $red;
-$button-border-color: $red;
+$button-color: $orange;
+$button-border-color: $orange;
 $button-background-color: transparent;
 
 $box-background-color: transparent;
@@ -28,8 +28,8 @@ $pagination-current-border-color: $white;
 $pagination-current-color: findColorInvert($white);
 $pagination-color: $white;
 
-$tabs-link-active-border-bottom-color: $red;
-$tabs-link-active-color: $red;
+$tabs-link-active-border-bottom-color: $orange;
+$tabs-link-active-color: $orange;
 
 
 // Font Setting
@@ -37,9 +37,9 @@ $tabs-link-active-color: $red;
     font-family: "Cinzel Decorative", cursive;
     color: $white;
 }
-.red-title {
+.orange-title {
     font-family: "Cinzel Decorative", cursive;
-    color: $red;
+    color: $orange;
 }
 * { font-family: "Sawarabi Gothic"; }
 p, figcaption, .box { font-size: 14px; }
