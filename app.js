@@ -30,8 +30,8 @@ logging.info(`started server [port: ${HTTP_PORT}]`)
 // Start HTTPS server
 const HTTPS_PORT = 8129
 let options = {
-    key: fs.readFileSync('./config/ssl/private-key.pem'),
-    cert: fs.readFileSync('./config/ssl/key-cert.pem')
+    key: fs.readFileSync('./config/ssl/dummy-key.pem'),
+    cert: fs.readFileSync('./config/ssl/dummy-cert.pem')
 }
 https.createServer(
     options,
