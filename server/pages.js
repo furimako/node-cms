@@ -13,6 +13,7 @@ const dateString = require('./date_string')
 const TEMPLATE = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const TEMPLATE_COMMENT = fs.readFileSync('./static/template/comment.mustache', 'utf8')
 const TEMPLATE_COMMENTSFIELD = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
+const URL = 'http://furimako.com'
 
 
 module.exports = class Pages {
@@ -66,6 +67,7 @@ module.exports = class Pages {
             } else {
                 // HTML
                 contentType = 'text/html'
+                descriptions.url = URL + urlPath
                 descriptions.cssPath = '/css/styles-others.css'
                 descriptions.description = view.description
                 descriptions.title = view.title
@@ -83,6 +85,7 @@ module.exports = class Pages {
                     for (let i = 1; i <= view.numOfChapters; i += 1) {
                         let markdown = fs.readFileSync('./static' + urlPath + '-' + parseInt(i, 10) + '.md', 'utf8')
                         descriptions = {}
+                        descriptions.url = URL + urlPath + '-' + parseInt(i, 10)
                         descriptions.cssPath = '/css/styles-others.css'
                         descriptions.description = mustache.render(view.description, { 'chapter': i })
                         descriptions.title = view.title + ' ' + parseInt(i, 10)
