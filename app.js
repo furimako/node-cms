@@ -1,5 +1,4 @@
 const fs = require('fs')
-const net = require('net')
 const http = require('http')
 const https = require('https')
 const parse = require('url').parse
@@ -24,12 +23,12 @@ pages.add(JSON5.parse(json5_story))
 
 
 // Start HTTP server
-const HTTP_PORT = 8129
+const HTTP_PORT = 8128
 http.createServer(httpRequestListener).listen(HTTP_PORT)
 logging.info(`started server [port: ${HTTP_PORT}]`)
 
 // Start HTTPS server
-const HTTPS_PORT = 8130
+const HTTPS_PORT = 8129
 let options = {
     key: fs.readFileSync('./config/ssl/private-key.pem'),
     cert: fs.readFileSync('./config/ssl/key-cert.pem')
@@ -43,26 +42,6 @@ https.createServer(
         logging.info(`    L redirect from https to http [url: ${urlPath}]`)
     }
 ).listen(HTTPS_PORT)
-
-// Proxy settings
-net.createServer(tcpConnection).listen(8128)
-
-function tcpConnection(conn) {
-    conn.once(
-        'data',
-        (buf) => {
-            // A TLS handshake record starts with byte 22.
-            let address = (buf[0] === 22) ? HTTPS_PORT : HTTP_PORT
-            let proxy = net.createConnection(
-                address,
-                () => {
-                    proxy.write(buf)
-                    conn.pipe(proxy).pipe(conn)
-                }
-            )
-        }
-    )
-}
 
 
 function httpRequestListener(req, res) {
