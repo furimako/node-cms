@@ -8,7 +8,7 @@
     {
         urlPath: "/world/happiness",
         title: "あなたにとっての「幸せ」は？",
-        description: "「幸せ」の定義は何でしょうか？ あなたが気づいていない、「幸せ」の一つの姿について。",
+        description: "「幸せ」の定義は何でしょうか？あなたが気づいていない「幸せ」の一つの姿について。",
         comments: true,
     },
     {
@@ -20,7 +20,7 @@
     {
         urlPath: "/world/freedom",
         title: "「自由」に生きてはいけない",
-        description: "そんなはずはない！ と思うあなたのためのページです。",
+        description: "そんなはずはない！と思うあなたのためのページです。",
         comments: true,
     },
     {
@@ -38,13 +38,13 @@
     {
         urlPath: "/world/philosophy",
         title: "「哲学」は無意味である (仮)",
-        description: "「この世界はどうして存在するのだろう？」Fully Hatter が答えましょう。",
+        description: "「この世界はどうして存在するのだろう？」私が答えましょう。",
         comments: true,
     },
     {
         urlPath: "/world/ideal-way-to-live-life",
         title: "「一番」を目指してはいけない",
-        description: "「一番」を目指さず何を目指すべきだというのか！ そんなあなたのためのページです。",
+        description: "「一番」を目指さず何を目指すべきだというのか！そんなあなたのためのページです。",
         comments: true,
     },
     {
