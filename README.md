@@ -8,7 +8,9 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 >> node app.js
 
 - production (ubuntu 16.04)
->> rename '[sample]password.txt' and input password  
+>> create 'config/password.txt'  
+>> create 'config/ssl/private-key.pem'  
+>> create 'config/ssl/key-cert.pem'  
 >> bash scripts/production/mongod.sh start  
 >> npm start  
 >> crontab config/crontab/crontab.config
