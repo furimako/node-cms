@@ -1,6 +1,4 @@
 /node_modules
 /mongodb_data
 /config/password.txt
-/config/ssl/private-key.pem
-/config/ssl/key-cert.pem
 /log/**/*.log
