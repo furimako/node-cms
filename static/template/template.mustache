@@ -1,27 +1,38 @@
 
 <!DOCTYPE HTML>
 <html lang="ja">
-<head>
+<head prefix="og: http://ogp.me/ns#">
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-103228670-1"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
+        function gtag(){ dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'UA-103228670-1');
     </script>
 
+    <!-- OGP -->
+    <meta property="og:title" content={{title}}>
+    <meta property="og:type" content="article">
+    <meta property="og:url" content={{url}}>
+    <meta property="og:image" content="http://furimako.com/images/background-image.jpg">
+    <meta property="og:image:type" content="image/jpeg" />
+    <!-- <meta property="og:image:width" content="400" />
+    <meta property="og:image:height" content="300" /> -->
+    <meta property="og:image:alt" content="Fully Hatter の秘密の部屋のイメージ" />
+    <meta property="og:description" content={{description}}>
+    <meta property="og:locale" content="ja_JP">
+    <meta property="og:site_name" content="Fully Hatter の秘密の部屋">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:site" content="@FullyHatter">
+    <meta name="twitter:creator" content="@FullyHatter">
+    <meta property="fb:app_id" content="1649170041836572">
+
+    <!-- Other settings -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content= {{description}}>
-    
-    <!-- OGP -->
-    <meta property="og:title" content="Fully Hatter の秘密の部屋">
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="http://54.248.65.211:8128/">
-    <meta property="og:image" content="http://54.248.65.211:8128/images/background-image.jpg">
-    <meta property="fb:app_id" content="1649170041836572">
-    
     <title>{{title}} - Fully Hatter の秘密の部屋</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/sawarabimincho.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700,900">
