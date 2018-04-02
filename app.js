@@ -1,5 +1,7 @@
 const fs = require('fs')
+const net = require('net')
 const http = require('http')
+const https = require('https')
 const parse = require('url').parse
 const qs = require('querystring')
 const JSON5 = require('json5')
@@ -21,29 +23,64 @@ pages.add(JSON5.parse(json5_world))
 pages.add(JSON5.parse(json5_story))
 
 
-// Start server
-const server = http.createServer(requestListener)
-const PORT = 8128
-server.listen(PORT)
-logging.info(`started server [port: ${PORT}]`)
+// Start HTTP server
+const HTTP_PORT = 8129
+http.createServer(httpRequestListener).listen(HTTP_PORT)
+logging.info(`started server [port: ${HTTP_PORT}]`)
+
+// Start HTTPS server
+const HTTPS_PORT = 8130
+let options = {
+    key: fs.readFileSync('./config/ssl/private-key.pem'),
+    cert: fs.readFileSync('./config/ssl/key-cert.pem')
+}
+https.createServer(
+    options,
+    (req, res) => {
+        let urlPath = parse(req.url).pathname
+        res.writeHead(302, { Location: 'http://furimako.com' + urlPath })
+        res.end()
+        logging.info(`    L redirect from https to http [url: ${urlPath}]`)
+    }
+).listen(HTTPS_PORT)
+
+// Proxy settings
+net.createServer(tcpConnection).listen(8128)
+
+function tcpConnection(conn) {
+    conn.once(
+        'data',
+        (buf) => {
+            // A TLS handshake record starts with byte 22.
+            let address = (buf[0] === 22) ? HTTPS_PORT : HTTP_PORT
+            let proxy = net.createConnection(
+                address,
+                () => {
+                    proxy.write(buf)
+                    conn.pipe(proxy).pipe(conn)
+                }
+            )
+        }
+    )
+}
 
 
-function requestListener(request, res) {
-    let urlPath = parse(request.url).pathname
+function httpRequestListener(req, res) {
+    let urlPath = parse(req.url).pathname
     logging.info(`request [url: ${urlPath}]`)
 
     if (pages.has(urlPath)) {
-        if (request.method === 'GET') {
+        if (req.method === 'GET') {
             res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
             pages.addEndToResponse(res, urlPath)
 
-        } else if (request.method === 'POST') {
+        } else if (req.method === 'POST') {
             let body = ''
-            request.on('data', (data) => {
+            req.on('data', (data) => {
                 body += data
             })
 
-            request.on('end', () => {
+            req.on('end', () => {
                 const postData = qs.parse(body)
                 logging.info(`    L get message [name: ${postData.name}, comment: ${postData.comment}`)
                 mailer.send(
