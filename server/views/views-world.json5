@@ -20,7 +20,7 @@
     {
         urlPath: "/world/freedom",
         title: "「自由」に生きてはいけない",
-        description: "きっとキミは思うだろう。そんなはずはない！ と。でもいつかキミはこう思うだろう。確かにそうかもしれない、と。",
+        description: "そんなはずはない！ と思うあなたのためのページです。",
         comments: true,
     },
     {
