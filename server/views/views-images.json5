@@ -1,5 +1,6 @@
 [
     { urlPath: "/images/background-image.jpg" },
+    { urlPath: "/images/background-image-og.jpg" },
 
     { urlPath: "/images/icon/favicon.png" },
     { urlPath: "/images/icon/bulma.png" },
