@@ -31,13 +31,7 @@
         "camelcase": 0,
         "capitalized-comments": 0,
         "class-methods-use-this": 2,
-        "comma-dangle": [2, {
-            "arrays": "always-multiline",
-            "objects": "ignore",
-            "imports": "ignore",
-            "exports": "ignore",
-            "functions": "ignore"
-        }],
+        "comma-dangle": [2, "never"],
         "comma-spacing": [
             2,
             {
