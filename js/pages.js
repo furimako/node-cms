@@ -83,7 +83,7 @@ module.exports = class Pages {
 
                 } else if (view.numOfChapters) {
                     for (let i = 1; i <= view.numOfChapters; i += 1) {
-                        let markdown = fs.readFileSync('./static' + urlPath + '-' + parseInt(i, 10) + '.md', 'utf8')
+                        let markdown = fs.readFileSync('./static/contents' + urlPath + '-' + parseInt(i, 10) + '.md', 'utf8')
                         descriptions = {}
                         descriptions.url = URL + urlPath + '-' + parseInt(i, 10)
                         descriptions.cssPath = '/css/styles-others.css'
@@ -94,7 +94,7 @@ module.exports = class Pages {
                         this.pages.set(urlPath + '-' + parseInt(i, 10), new Page(urlPath + '-' + parseInt(i, 10), contentType, descriptions, hasComments, page))
                     }
                 } else {
-                    const MARKDOWN = fs.readFileSync('./static' + urlPath + '.md', 'utf8')
+                    const MARKDOWN = fs.readFileSync('./static/contents' + urlPath + '.md', 'utf8')
                     const contentHTML = '<section class="section"><div class="container"><div class="content is-small">' + marked(MARKDOWN) + '</div></div></section>'
                     descriptions.body = contentHTML
                     this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
