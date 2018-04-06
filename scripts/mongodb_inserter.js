@@ -15,7 +15,7 @@ const objList = [
         date: new Date('2017/08/02 05:56:00'),
         name: 'Fully Hatter',
         comment: ''
-    },
+    }
 ]
 
 
