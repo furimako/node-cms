@@ -48,41 +48,47 @@ function httpRequestListener(req, res) {
     logging.info(`request [url: ${urlPath}]`)
 
     if (pages.has(urlPath)) {
-        if (req.method === 'GET') {
-            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            pages.addEndToResponse(res, urlPath)
+        pages.get(urlPath, (page) => {
+            if (req.method === 'GET') {
+                res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+                res.end(page)
 
-        } else if (req.method === 'POST') {
-            let body = ''
-            req.on('data', (data) => {
-                body += data
-            })
+            } else if (req.method === 'POST') {
+                let body = ''
+                req.on('data', (data) => {
+                    body += data
+                })
 
-            req.on('end', () => {
-                const postData = qs.parse(body)
-                if (postData.id) {
-                    logging.info(`    L like [id: ${postData.id}]`)
-                    mongodbDriver.insertCount(urlPath, parseInt(postData.id, 10))
-                    res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
+                req.on('end', () => {
+                    const postData = qs.parse(body)
+                    if (postData.id) {
+                        // Comment
+                        logging.info(`    L like [id: ${postData.id}]`)
+                        mongodbDriver.insertCount(urlPath, parseInt(postData.id, 10))
+                        res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
 
-                } else {
-                    logging.info(`    L get message [name: ${postData.name}, comment: ${postData.comment}]`)
-                    mailer.send(
-                        `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
-                        `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
-                    )
-                    mongodbDriver.insertComment(urlPath, postData)
-                    res.writeHead(302, { Location: urlPath + '#comments-field' })
-                }
-                pages.addEndToResponse(res, urlPath)
-            })
+                    } else {
+                        // Message
+                        logging.info(`    L get message [name: ${postData.name}, comment: ${postData.comment}]`)
+                        mailer.send(
+                            `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
+                            `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
+                        )
+                        mongodbDriver.insertComment(urlPath, postData)
+                        res.writeHead(302, { Location: urlPath + '#comments-field' })
+                    }
+                    res.end(page)
+                })
 
-            logging.info(`    L response page (POST)`)
-        }
+                logging.info(`    L redirect page (POST)`)
+            }
+        })
     } else {
         // When pages no found
-        res.writeHead(404, { 'Content-Type': 'text/html' })
-        pages.addEndToResponse(res, '/no-found')
-        logging.info(`    L response no-found`)
+        pages.get('/no-found', (page) => {
+            res.writeHead(404, { 'Content-Type': 'text/html' })
+            res.end(page)
+            logging.info(`    L response no-found`)
+        })
     }
 }
