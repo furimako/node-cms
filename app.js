@@ -60,16 +60,23 @@ function httpRequestListener(req, res) {
 
             req.on('end', () => {
                 const postData = qs.parse(body)
-                logging.info(`    L get message [name: ${postData.name}, comment: ${postData.comment}`)
-                mailer.send(
-                    `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
-                    `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
-                )
-                mongodbDriver.insert(urlPath, postData)
+                if (postData.id) {
+                    logging.info(`    L like [id: ${postData.id}]`)
+                    mongodbDriver.insertCount(urlPath, parseInt(postData.id, 10))
+                    res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
+
+                } else {
+                    logging.info(`    L get message [name: ${postData.name}, comment: ${postData.comment}]`)
+                    mailer.send(
+                        `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
+                        `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
+                    )
+                    mongodbDriver.insertComment(urlPath, postData)
+                    res.writeHead(302, { Location: urlPath + '#comments-field' })
+                }
+                pages.addEndToResponse(res, urlPath)
             })
 
-            res.writeHead(302, { Location: urlPath + '#comments-field' })
-            pages.addEndToResponse(res, urlPath)
             logging.info(`    L response page (POST)`)
         }
     } else {
