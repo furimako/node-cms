@@ -24,7 +24,7 @@ module.exports = {
 
         transporter.sendMail(mailOptions, (err, info) => {
             if (err) {
-                logging.info(`failed to send mail\n${err}`)
+                logging.error(`failed to send mail\n${err}`, false)
                 return
             }
             if (err) { return logging.info(err) }
