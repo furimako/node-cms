@@ -1,15 +1,18 @@
 
-<div class="box">
+<div class="box" id="comment{{id}}">
     <article class="media">
         <div class="media-content">
             <div class="content">
                 <p>
-                    <strong>{{number}}. {{name}} さん</strong> 
+                    <strong>{{id}}. {{name}} さん</strong> 
                     <br>
                     <small>[{{timestamp}}]</small>
                 </p>
                 {{{comment}}}
             </div>
-        </div>  
+            <form method="post" action="{{urlPath}}">
+                <button class="button is-small is-primary is-outlined is-rounded" name="id" value={{id}}>Like {{count}}</button>
+            </form>
+        </div>
     </article>
 </div>

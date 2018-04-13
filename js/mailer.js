@@ -27,7 +27,6 @@ module.exports = {
                 logging.error(`failed to send mail\n${err}`, false)
                 return
             }
-            if (err) { return logging.info(err) }
             logging.info(`    L sent mail (${info.messageId})`)
         })
     }

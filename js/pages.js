@@ -4,11 +4,8 @@ const mustache = require('mustache')
 const marked = require('marked')
 marked.setOptions({ breaks: true })
 const sass = require('node-sass')
-const MongoClient = require('mongodb').MongoClient
-const assert = require('assert')
-const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
-const logging = require('./logging')
 const dateString = require('./date_string')
+const mongodbDriver = require('./mongodb_driver')
 
 const TEMPLATE = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const TEMPLATE_COMMENT = fs.readFileSync('./static/template/comment.mustache', 'utf8')
@@ -141,45 +138,31 @@ class Page {
         const descriptions = this.descriptions
 
         if (this.hasComments) {
-            MongoClient.connect(mongoUrl, (err, db) => {
-                assert.equal(null, err)
-                logging.info('    L connected successfully to server')
-                addEndToResponseFromDB(res, urlPath, descriptions, db, () => { db.close() })
+            let id = 0
+            let commentsHTML = ''
+            mongodbDriver.findComments(urlPath, (commentObjArray) => {
+                mongodbDriver.findCounts(urlPath, (countArray) => {
+                    for (let commentObj of commentObjArray) {
+                        id += 1
+                        commentObj.urlPath = urlPath
+                        commentObj.id = id
+                        commentObj.timestamp = dateString.str(commentObj.date)
+                        commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
+                        commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
+                        commentObj.count = countArray[id] || 0
+                        commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
+                    }
+                    descriptions.comments = mustache.render(
+                        TEMPLATE_COMMENTSFIELD, {
+                            urlPath,
+                            'comments': commentsHTML
+                        }
+                    )
+                    res.end(mustache.render(TEMPLATE, descriptions))
+                })
             })
         } else {
             res.end(mustache.render(TEMPLATE, descriptions))
         }
     }
-}
-
-
-let addEndToResponseFromDB = (res, urlPath, descriptions, db, callback) => {
-    let collection = db.db('fully-hatter').collection('comments')
-    collection.find({ urlPath }).toArray((err, docs) => {
-        assert.equal(err, null)
-        logging.info(`    L found ${docs.length} comment(s)`)
-
-        const commentObjList = docs.sort(
-            (commentObj1, commentObj2) => commentObj1.date.getTime() - commentObj2.date.getTime()
-        )
-
-        let count = 0
-        let commentsHTML = ''
-        for (let commentObj of commentObjList) {
-            count += 1
-            commentObj.number = count
-            commentObj.timestamp = dateString.str(commentObj.date)
-            commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
-            commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
-            commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
-        }
-        descriptions.comments = mustache.render(
-            TEMPLATE_COMMENTSFIELD, {
-                urlPath,
-                'comments': commentsHTML
-            }
-        )
-        res.end(mustache.render(TEMPLATE, descriptions))
-        callback(docs)
-    })
 }
