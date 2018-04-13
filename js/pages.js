@@ -22,8 +22,8 @@ module.exports = class Pages {
         return this.pages.has(urlPath)
     }
 
-    addEndToResponse(res, urlPath) {
-        return this.pages.get(urlPath).addEndToResponse(res)
+    get(urlPath, callback) {
+        return this.pages.get(urlPath).get(callback)
     }
 
     contentType(urlPath) {
@@ -128,9 +128,9 @@ class Page {
         return this.descriptions.title
     }
 
-    addEndToResponse(res) {
+    get(callback) {
         if (this.page) {
-            res.end(this.page)
+            callback(this.page)
             return
         }
 
@@ -158,11 +158,11 @@ class Page {
                             'comments': commentsHTML
                         }
                     )
-                    res.end(mustache.render(TEMPLATE, descriptions))
+                    callback(mustache.render(TEMPLATE, descriptions))
                 })
             })
         } else {
-            res.end(mustache.render(TEMPLATE, descriptions))
+            callback(mustache.render(TEMPLATE, descriptions))
         }
     }
 }
