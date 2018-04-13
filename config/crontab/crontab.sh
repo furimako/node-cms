@@ -19,7 +19,6 @@ echo '['$(date +"%Y/%m/%d %H:%M:%S")'] [info] rotate log files'
 cd /home/ubuntu/fully-hatter/log
 mv forever.log archives/forever_`date +%Y%m%d%H%M%S`.log
 mv stdout.log archives/stdout_`date +%Y%m%d%H%M%S`.log
-mv stderr.log archives/stderr_`date +%Y%m%d%H%M%S`.log
 
 echo '['$(date +"%Y/%m/%d %H:%M:%S")'] [info] start Server'
 cd /home/ubuntu/fully-hatter
