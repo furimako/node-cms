@@ -11,7 +11,7 @@
     },
     "rules": {
         "accessor-pairs": 2,
-        "array-bracket-newline": 2,
+        "array-bracket-newline": 0,
         "array-bracket-spacing": 2,
         "array-callback-return": 2,
         "array-element-newline": 2,
@@ -126,7 +126,7 @@
         "no-labels": 2,
         "no-lone-blocks": 2,
         "no-lonely-if": 2,
-        "no-loop-func": 2,
+        "no-loop-func": 0,
         "no-magic-numbers": 0,
         "no-mixed-operators": 0,
         "no-mixed-requires": 2,
