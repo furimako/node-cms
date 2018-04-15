@@ -45,15 +45,16 @@ https.createServer(
 
 function httpRequestListener(req, res) {
     let urlPath = parse(req.url).pathname
-    logging.info(`request [url: ${urlPath}]`)
 
     if (pages.has(urlPath)) {
         pages.get(urlPath, (page) => {
             if (req.method === 'GET') {
+                logging.info(`get GET request [url: ${urlPath}]`)
                 res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
                 res.end(page)
 
             } else if (req.method === 'POST') {
+                logging.info(`get POST request [url: ${urlPath}]`)
                 let body = ''
                 req.on('data', (data) => {
                     body += data
@@ -64,7 +65,7 @@ function httpRequestListener(req, res) {
                     if (postData.id) {
                         // Comment
                         logging.info(`    L like [id: ${postData.id}]`)
-                        mongodbDriver.insertCount(urlPath, parseInt(postData.id, 10))
+                        mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
                         res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
 
                     } else {
@@ -80,15 +81,15 @@ function httpRequestListener(req, res) {
                     res.end(page)
                 })
 
-                logging.info(`    L redirect page (POST)`)
+                logging.info('    L redirect')
             }
         })
     } else {
         // When pages no found
+        logging.info('get no-found page request')
         pages.get('/no-found', (page) => {
             res.writeHead(404, { 'Content-Type': 'text/html' })
             res.end(page)
-            logging.info(`    L response no-found`)
         })
     }
 }

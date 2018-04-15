@@ -4,27 +4,30 @@ const logging = require('./logging')
 
 module.exports = {
     insertComment: (urlPath, postData) => {
-        let objArray = [{
+        let comments = [{
             urlPath,
             date: new Date(),
             name: postData.name,
             comment: postData.comment
         }]
-        insertMany(objArray, 'comments')
+        insertMany(comments, 'comments')
     },
     findComments: (urlPath, callback) => {
         findComments(urlPath, callback)
     },
-    insertCount: (urlPath, id) => {
-        let objArray = [{
+    insertLike: (urlPath, id) => {
+        let like = [{
             urlPath,
             id,
             date: new Date()
         }]
-        insertMany(objArray, 'counts')
+        insertMany(like, 'likes')
     },
-    findCounts: (urlPath, callback) => {
-        findCounts(urlPath, callback)
+    findLikes: (urlPath, callback) => {
+        findLikes(urlPath, callback)
+    },
+    findPageLikes: (urlPath, callback) => {
+        findPageLikes(urlPath, callback)
     }
 }
 
@@ -39,15 +42,15 @@ let connect = (callback) => {
     })
 }
 
-let insertMany = (objArray, collectionStr) => {
+let insertMany = (objs, collectionStr) => {
     connect((db) => {
         let collection = db.db('fully-hatter').collection(collectionStr)
-        collection.insertMany(objArray, (err, result) => {
+        collection.insertMany(objs, (err, result) => {
             if (err || result.result.n !== 1 || result.ops.length !== 1) {
                 logging.error(`failed to insertMany\n${err}`)
                 return
             }
-            logging.info(`    L inserted ${objArray.length} document(s) into the collection ${collectionStr}`)
+            logging.info(`    L inserted ${objs.length} document(s) into the collection ${collectionStr}`)
             db.close()
         })
     })
@@ -71,21 +74,36 @@ let findComments = (urlPath, callback) => {
     })
 }
 
-let findCounts = (urlPath, callback) => {
+let findLikes = (urlPath, callback) => {
     connect((db) => {
-        let countArray = []
-        let collection = db.db('fully-hatter').collection('counts')
+        let likes = []
+        let collection = db.db('fully-hatter').collection('likes')
         collection.find({ urlPath }).toArray((err, docs) => {
             if (err) {
-                logging.error(`failed to findCounts\n${err}`)
+                logging.error(`failed to findLikes\n${err}`)
                 return
             }
-            logging.info(`    L found ${docs.length} count(s)`)
+            logging.info(`    L found ${docs.length} like(s)`)
             for (let doc of docs) {
-                countArray[doc.id] = (countArray[doc.id]) ? countArray[doc.id] + 1 : 1
+                likes[doc.id] = (likes[doc.id]) ? likes[doc.id] + 1 : 1
             }
             db.close()
-            callback(countArray)
+            callback(likes)
+        })
+    })
+}
+
+let findPageLikes = (urlPath, callback) => {
+    connect((db) => {
+        let collection = db.db('fully-hatter').collection('likes')
+        collection.find({ urlPath, id: 0 }).count((err, pageLike) => {
+            if (err) {
+                logging.error(`failed to findPageLikes\n${err}`)
+                return
+            }
+            logging.info(`    L found ${pageLike} page like(s)`)
+            db.close()
+            callback(pageLike)
         })
     })
 }

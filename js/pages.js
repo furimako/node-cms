@@ -86,13 +86,27 @@ module.exports = class Pages {
                         descriptions.cssPath = '/css/styles-others.css'
                         descriptions.description = mustache.render(view.description, { 'chapter': i })
                         descriptions.title = view.title + ' ' + parseInt(i, 10)
-                        descriptions.body = '<section class="section"><div class="container"><div class="content is-small">' + marked(markdown) + '</div></div></section>'
+
+                        descriptions.body = '<section class="section">'
+                        descriptions.body += '<div class="container">'
+                        descriptions.body += '<div class="content is-small">'
+                        descriptions.body += marked(markdown)
+                        descriptions.body += '</div>'
+                        descriptions.body += '</div>'
+                        descriptions.body += '</section>'
+
                         descriptions.pagination = Pages.pagination(urlPath, i, view.numOfChapters)
                         this.pages.set(urlPath + '-' + parseInt(i, 10), new Page(urlPath + '-' + parseInt(i, 10), contentType, descriptions, hasComments, page))
                     }
                 } else {
                     const MARKDOWN = fs.readFileSync('./static/contents' + urlPath + '.md', 'utf8')
-                    const contentHTML = '<section class="section"><div class="container"><div class="content is-small">' + marked(MARKDOWN) + '</div></div></section>'
+                    let contentHTML = '<section class="section">'
+                    contentHTML += '<div class="container">'
+                    contentHTML += '<div class="content is-small">'
+                    contentHTML += marked(MARKDOWN)
+                    contentHTML += '</div>'
+                    contentHTML += '</div>'
+                    contentHTML += '</section>'
                     descriptions.body = contentHTML
                     this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
                 }
@@ -101,15 +115,24 @@ module.exports = class Pages {
     }
 
     static pagination(urlPath, chapter, numOfChapters) {
-        let paginationHTML = `<section class="section"><nav class="pagination" role="navigation" aria-label="pagination"><ul class="pagination-list">`
+        let paginationHTML = '<section class="section">'
+        paginationHTML += '<nav class="pagination" role="navigation" aria-label="pagination">'
+        paginationHTML += '<ul class="pagination-list">'
+
         for (let i = 1; i <= numOfChapters; i += 1) {
             if (i === chapter) {
-                paginationHTML += `<li><a class="pagination-link is-current" href="${urlPath + '-' + parseInt(i, 10)}">${parseInt(i, 10)}</a></li>`
+                paginationHTML += '<li>'
+                paginationHTML += `<a class="pagination-link is-current" href="${urlPath + '-' + parseInt(i, 10)}">${parseInt(i, 10)}</a>`
+                paginationHTML += '</li>'
             } else {
-                paginationHTML += `<li><a class="pagination-link" href="${urlPath + '-' + parseInt(i, 10)}">${parseInt(i, 10)}</a></li>`
+                paginationHTML += '<li>'
+                paginationHTML += `<a class="pagination-link" href="${urlPath + '-' + parseInt(i, 10)}">${parseInt(i, 10)}</a>`
+                paginationHTML += '</li>'
             }
         }
-        paginationHTML += `</ul></nav></section>`
+        paginationHTML += '</ul>'
+        paginationHTML += '</nav>'
+        paginationHTML += '</section>'
         return paginationHTML
     }
 }
@@ -135,34 +158,43 @@ class Page {
         }
 
         const urlPath = this.urlPath
-        const descriptions = this.descriptions
+        let descriptions = this.descriptions
 
-        if (this.hasComments) {
-            let id = 0
-            let commentsHTML = ''
-            mongodbDriver.findComments(urlPath, (commentObjArray) => {
-                mongodbDriver.findCounts(urlPath, (countArray) => {
-                    for (let commentObj of commentObjArray) {
-                        id += 1
-                        commentObj.urlPath = urlPath
-                        commentObj.id = id
-                        commentObj.timestamp = dateString.str(commentObj.date)
-                        commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
-                        commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
-                        commentObj.count = countArray[id] || 0
-                        commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
-                    }
-                    descriptions.comments = mustache.render(
-                        TEMPLATE_COMMENTSFIELD, {
-                            urlPath,
-                            'comments': commentsHTML
+        mongodbDriver.findPageLikes(urlPath, (pageLike) => {
+            if (urlPath !== '/') {
+                descriptions.like = `<form method="post" action="${urlPath}">`
+                descriptions.like += `<button class="button is-small is-primary is-outlined is-rounded" name="id" value=0>Like ${pageLike || 0}</button>`
+                descriptions.like += '</form>'
+            }
+
+            if (this.hasComments) {
+                let id = 0
+                let commentsHTML = ''
+                mongodbDriver.findComments(urlPath, (comments) => {
+                    mongodbDriver.findLikes(urlPath, (likes) => {
+
+                        for (let commentObj of comments) {
+                            id += 1
+                            commentObj.urlPath = urlPath
+                            commentObj.id = id
+                            commentObj.timestamp = dateString.str(commentObj.date)
+                            commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
+                            commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
+                            commentObj.like = likes[id] || 0
+                            commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
                         }
-                    )
-                    callback(mustache.render(TEMPLATE, descriptions))
+                        descriptions.comments = mustache.render(
+                            TEMPLATE_COMMENTSFIELD, {
+                                urlPath,
+                                'comments': commentsHTML
+                            }
+                        )
+                        callback(mustache.render(TEMPLATE, descriptions))
+                    })
                 })
-            })
-        } else {
-            callback(mustache.render(TEMPLATE, descriptions))
-        }
+            } else {
+                callback(mustache.render(TEMPLATE, descriptions))
+            }
+        })
     }
 }
