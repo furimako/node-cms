@@ -42,9 +42,7 @@ module.exports = class Pages {
             elements.urlPath = urlPath
             elements.hasComments = view.comments
             elements.hasLikeCount = view.like
-            elements.contentType = ''
             elements.descriptions = {}
-            elements.page = ''
 
             if (urlPath.match(/\.css$/)) {
                 // CSS
@@ -52,71 +50,85 @@ module.exports = class Pages {
                 const SCSS = fs.readFileSync('./static/scss/' + path.basename(urlPath, '.css') + '.scss', 'utf8')
                 elements.page = sass.renderSync({ data: SCSS }).css
                 this.pages.set(urlPath, new Page(elements))
-
-            } else if (urlPath.match(/\.png$/)) {
+                continue
+            } 
+            
+            if (urlPath.match(/\.png$/)) {
                 // PNG
                 elements.contentType = 'image/png'
                 elements.page = fs.readFileSync('./static' + urlPath)
                 this.pages.set(urlPath, new Page(elements))
+                continue
 
-            } else if (urlPath.match(/\.jpg$/)) {
+            }
+            
+            if (urlPath.match(/\.jpg$/)) {
                 // JPEG
                 elements.contentType = 'image/jpeg'
                 elements.page = fs.readFileSync('./static' + urlPath)
                 this.pages.set(urlPath, new Page(elements))
+                continue
 
-            } else {
-                // HTML
-                elements.contentType = 'text/html'
-                elements.descriptions.url = URL + urlPath
-                elements.descriptions.cssPath = '/css/styles-others.css'
-                elements.descriptions.description = view.description
-                elements.descriptions.title = view.title
-
-                if (view.filePath) {
-                    const contentHTML = fs.readFileSync(view.filePath, 'utf8')
-
-                    elements.descriptions.body = contentHTML
-                    if (urlPath === '/') {
-                        elements.descriptions.cssPath = '/css/styles-home.css'
-                    }
-                    this.pages.set(urlPath, new Page(elements))
-
-                } else if (view.numOfChapters) {
-                    for (let i = 1; i <= view.numOfChapters; i += 1) {
-                        elements.urlPath = urlPath + '-' + parseInt(i, 10)
-
-                        let markdown = fs.readFileSync('./static/contents' + elements.urlPath + '.md', 'utf8')
-                        elements.descriptions = {}
-                        elements.descriptions.url = URL + elements.urlPath
-                        elements.descriptions.cssPath = '/css/styles-others.css'
-                        elements.descriptions.description = mustache.render(view.description, { 'chapter': i })
-                        elements.descriptions.title = view.title + ' ' + parseInt(i, 10)
-
-                        elements.descriptions.body = '<section class="section">'
-                        elements.descriptions.body += '<div class="container">'
-                        elements.descriptions.body += '<div class="content is-small">'
-                        elements.descriptions.body += marked(markdown)
-                        elements.descriptions.body += '</div>'
-                        elements.descriptions.body += '</div>'
-                        elements.descriptions.body += '</section>'
-
-                        elements.descriptions.pagination = Pages.pagination(urlPath, i, view.numOfChapters)
-                        this.pages.set(elements.urlPath, new Page(elements))
-                    }
-                } else {
-                    const MARKDOWN = fs.readFileSync('./static/contents' + urlPath + '.md', 'utf8')
-                    let contentHTML = '<section class="section">'
-                    contentHTML += '<div class="container">'
-                    contentHTML += '<div class="content is-small">'
-                    contentHTML += marked(MARKDOWN)
-                    contentHTML += '</div>'
-                    contentHTML += '</div>'
-                    contentHTML += '</section>'
-                    elements.descriptions.body = contentHTML
-                    this.pages.set(urlPath, new Page(elements))
-                }
             }
+            
+            // HTML
+            elements.contentType = 'text/html'
+            elements.descriptions.url = URL + urlPath
+            elements.descriptions.cssPath = '/css/styles-others.css'
+            elements.descriptions.description = view.description
+            elements.descriptions.title = view.title
+            elements.page = ''
+
+            if (view.filePath) {
+                // Content = HTML
+                const contentHTML = fs.readFileSync(view.filePath, 'utf8')
+                elements.descriptions.body = contentHTML
+                if (urlPath === '/') {
+                    elements.descriptions.cssPath = '/css/styles-home.css'
+                }
+                this.pages.set(urlPath, new Page(elements))
+                continue
+
+            }
+            
+            if (view.numOfChapters) {
+                // Content = MARKDOWNs
+                for (let i = 1; i <= view.numOfChapters; i += 1) {
+                    elements.urlPath = urlPath + '-' + parseInt(i, 10)
+
+                    let markdown = fs.readFileSync('./static/contents' + elements.urlPath + '.md', 'utf8')
+                    elements.descriptions = {}
+                    elements.descriptions.url = URL + elements.urlPath
+                    elements.descriptions.cssPath = '/css/styles-others.css'
+                    elements.descriptions.description = mustache.render(view.description, { 'chapter': i })
+                    elements.descriptions.title = view.title + ' ' + parseInt(i, 10)
+
+                    elements.descriptions.body = '<section class="section">'
+                    elements.descriptions.body += '<div class="container">'
+                    elements.descriptions.body += '<div class="content is-small">'
+                    elements.descriptions.body += marked(markdown)
+                    elements.descriptions.body += '</div>'
+                    elements.descriptions.body += '</div>'
+                    elements.descriptions.body += '</section>'
+
+                    elements.descriptions.pagination = Pages.pagination(urlPath, i, view.numOfChapters)
+                    this.pages.set(elements.urlPath, new Page(elements))
+                }
+                continue
+                
+            }
+            
+            // Content = MARKDOWN
+            const MARKDOWN = fs.readFileSync('./static/contents' + urlPath + '.md', 'utf8')
+            let contentHTML = '<section class="section">'
+            contentHTML += '<div class="container">'
+            contentHTML += '<div class="content is-small">'
+            contentHTML += marked(MARKDOWN)
+            contentHTML += '</div>'
+            contentHTML += '</div>'
+            contentHTML += '</section>'
+            elements.descriptions.body = contentHTML
+            this.pages.set(urlPath, new Page(elements))
         }
     }
 

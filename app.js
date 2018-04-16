@@ -24,7 +24,7 @@ pages.add(JSON.parse(json_story))
 // Start HTTP server
 const HTTP_PORT = 8128
 http.createServer(httpRequestListener).listen(HTTP_PORT)
-logging.info(`started server [port: ${HTTP_PORT}]`)
+logging.info(`started server (port: ${HTTP_PORT})`)
 
 // Start HTTPS server
 const HTTPS_PORT = 8129
@@ -38,7 +38,7 @@ https.createServer(
         let urlPath = parse(req.url).pathname
         res.writeHead(302, { Location: 'http://furimako.com' + urlPath })
         res.end()
-        logging.info(`    L redirect from https to http [url: ${urlPath}]`)
+        logging.info(`    L redirect from https to http (url: ${urlPath})`)
     }
 ).listen(HTTPS_PORT)
 
@@ -46,50 +46,54 @@ https.createServer(
 function httpRequestListener(req, res) {
     let urlPath = parse(req.url).pathname
 
-    if (pages.has(urlPath)) {
-        pages.get(urlPath, (page) => {
-            if (req.method === 'GET') {
-                logging.info(`get GET request [url: ${urlPath}]`)
-                res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-                res.end(page)
-
-            } else if (req.method === 'POST') {
-                logging.info(`get POST request [url: ${urlPath}]`)
-                let body = ''
-                req.on('data', (data) => {
-                    body += data
-                })
-
-                req.on('end', () => {
-                    const postData = qs.parse(body)
-                    if (postData.id) {
-                        // Comment
-                        logging.info(`    L like [id: ${postData.id}]`)
-                        mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
-                        res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
-
-                    } else {
-                        // Message
-                        logging.info(`    L get message [name: ${postData.name}, comment: ${postData.comment}]`)
-                        mailer.send(
-                            `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
-                            `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
-                        )
-                        mongodbDriver.insertComment(urlPath, postData)
-                        res.writeHead(302, { Location: urlPath + '#comments-field' })
-                    }
-                    res.end(page)
-                })
-
-                logging.info('    L redirect')
-            }
-        })
-    } else {
+    if (!pages.has(urlPath)) {
         // When pages no found
-        logging.info('get no-found page request')
+        logging.info(`get no-found page request (url: ${urlPath})`)
         pages.get('/no-found', (page) => {
             res.writeHead(404, { 'Content-Type': 'text/html' })
             res.end(page)
         })
+        return
     }
+    
+    pages.get(urlPath, (page) => {
+        if (req.method === 'GET') {
+            logging.info(`get GET request (url: ${urlPath})`)
+            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+            res.end(page)
+            return
+
+        }
+        
+        if (req.method === 'POST') {
+            logging.info(`get POST request (url: ${urlPath})`)
+            let body = ''
+            req.on('data', (data) => {
+                body += data
+            })
+
+            req.on('end', () => {
+                const postData = qs.parse(body)
+                if (postData.id) {
+                    // Comment
+                    logging.info(`    L like (id: ${postData.id})`)
+                    mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
+                    res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
+
+                } else {
+                    // Message
+                    logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
+                    mailer.send(
+                        `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
+                        `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
+                    )
+                    mongodbDriver.insertComment(urlPath, postData)
+                    res.writeHead(302, { Location: urlPath + '#comments-field' })
+                }
+                res.end(page)
+            })
+
+            logging.info('    L redirect')
+        }
+    })
 }
