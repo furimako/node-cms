@@ -3,54 +3,63 @@
         "urlPath": "/world/your-goal",
         "title": "「幸せ」を目指してはいけない",
         "description": "多くの人は「幸せ」を求めて日々生きているのではないだろうか。",
-        "comments": true
+        "comments": true,
+        "like": true
     },
     {
         "urlPath": "/world/happiness",
         "title": "あなたにとっての「幸せ」は？",
         "description": "「幸せ」の定義は何でしょうか？あなたが気づいていない「幸せ」の一つの姿について。",
-        "comments": true
+        "comments": true,
+        "like": true
     },
     {
         "urlPath": "/world/tips-for-your-life",
         "title": "今を生きるためのちょっとしたヒント",
         "description": "私のメモ帳の中身。気をつけないと忘れてしまうこと。でもとっても大切なこと。",
-        "comments": true
+        "comments": true,
+        "like": true
     },
     {
         "urlPath": "/world/freedom",
         "title": "「自由」に生きてはいけない",
         "description": "そんなはずはない！と思うあなたのためのページです。",
-        "comments": true
+        "comments": true,
+        "like": true
     },
     {
         "urlPath": "/world/grown-up",
         "title": "「大人」について",
         "description": "あなたは本当に「大人」ですか？",
-        "comments": true
+        "comments": true,
+        "like": true
     },
     {
         "urlPath": "/world/education",
         "title": "理想の「教育」",
         "description": "「歴史のテスト」を憎むすべての人に、このページを捧げます。",
-        "comments": true
+        "comments": true,
+        "like": true
     },
     {
         "urlPath": "/world/philosophy",
         "title": "「哲学」は無意味である (仮)",
         "description": "「この世界はどうして存在するのだろう？」私が答えましょう。",
-        "comments": true
+        "comments": true,
+        "like": true
     },
     {
         "urlPath": "/world/ideal-way-to-live-life",
         "title": "「一番」を目指してはいけない",
         "description": "「一番」を目指さず何を目指すべきだというのか！そんなあなたのためのページです。",
-        "comments": true
+        "comments": true,
+        "like": true
     },
     {
         "urlPath": "/world/reward",
         "title": "成果主義について ～できる人にはお金を与えるべきか？〜",
         "description": "「能力のある人にはご褒美をあげて能力のない人には低い扱いをすること」は当たり前。本当にそうでしょうか？",
-        "comments": true
+        "comments": true,
+        "like": true
     }
 ]
