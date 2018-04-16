@@ -9,7 +9,8 @@
         "filePath": "./static/contents/about.html",
         "urlPath": "/about",
         "title": "About",
-        "description": "このサイトについて。Fully Hatter について。"
+        "description": "このサイトについて。Fully Hatter について。",
+        "like": true
     },
     {
         "urlPath": "/board",

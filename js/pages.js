@@ -37,66 +37,72 @@ module.exports = class Pages {
     add(views) {
         for (const view of views) {
             const urlPath = view.urlPath
-            const hasComments = view.comments
-            let contentType = ''
-            let descriptions = {}
-            let page = ''
+
+            let elements = {}
+            elements.urlPath = urlPath
+            elements.hasComments = view.comments
+            elements.hasLikeCount = view.like
+            elements.contentType = ''
+            elements.descriptions = {}
+            elements.page = ''
 
             if (urlPath.match(/\.css$/)) {
                 // CSS
+                elements.contentType = 'text/css'
                 const SCSS = fs.readFileSync('./static/scss/' + path.basename(urlPath, '.css') + '.scss', 'utf8')
-                page = sass.renderSync({ data: SCSS }).css
-                contentType = 'text/css'
-                this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+                elements.page = sass.renderSync({ data: SCSS }).css
+                this.pages.set(urlPath, new Page(elements))
 
             } else if (urlPath.match(/\.png$/)) {
                 // PNG
-                contentType = 'image/png'
-                page = fs.readFileSync('./static' + urlPath)
-                this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+                elements.contentType = 'image/png'
+                elements.page = fs.readFileSync('./static' + urlPath)
+                this.pages.set(urlPath, new Page(elements))
 
             } else if (urlPath.match(/\.jpg$/)) {
                 // JPEG
-                contentType = 'image/jpeg'
-                page = fs.readFileSync('./static' + urlPath)
-                this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+                elements.contentType = 'image/jpeg'
+                elements.page = fs.readFileSync('./static' + urlPath)
+                this.pages.set(urlPath, new Page(elements))
 
             } else {
                 // HTML
-                contentType = 'text/html'
-                descriptions.url = URL + urlPath
-                descriptions.cssPath = '/css/styles-others.css'
-                descriptions.description = view.description
-                descriptions.title = view.title
+                elements.contentType = 'text/html'
+                elements.descriptions.url = URL + urlPath
+                elements.descriptions.cssPath = '/css/styles-others.css'
+                elements.descriptions.description = view.description
+                elements.descriptions.title = view.title
 
                 if (view.filePath) {
                     const contentHTML = fs.readFileSync(view.filePath, 'utf8')
 
-                    descriptions.body = contentHTML
+                    elements.descriptions.body = contentHTML
                     if (urlPath === '/') {
-                        descriptions.cssPath = '/css/styles-home.css'
+                        elements.descriptions.cssPath = '/css/styles-home.css'
                     }
-                    this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+                    this.pages.set(urlPath, new Page(elements))
 
                 } else if (view.numOfChapters) {
                     for (let i = 1; i <= view.numOfChapters; i += 1) {
-                        let markdown = fs.readFileSync('./static/contents' + urlPath + '-' + parseInt(i, 10) + '.md', 'utf8')
-                        descriptions = {}
-                        descriptions.url = URL + urlPath + '-' + parseInt(i, 10)
-                        descriptions.cssPath = '/css/styles-others.css'
-                        descriptions.description = mustache.render(view.description, { 'chapter': i })
-                        descriptions.title = view.title + ' ' + parseInt(i, 10)
+                        elements.urlPath = urlPath + '-' + parseInt(i, 10)
 
-                        descriptions.body = '<section class="section">'
-                        descriptions.body += '<div class="container">'
-                        descriptions.body += '<div class="content is-small">'
-                        descriptions.body += marked(markdown)
-                        descriptions.body += '</div>'
-                        descriptions.body += '</div>'
-                        descriptions.body += '</section>'
+                        let markdown = fs.readFileSync('./static/contents' + elements.urlPath + '.md', 'utf8')
+                        elements.descriptions = {}
+                        elements.descriptions.url = URL + elements.urlPath
+                        elements.descriptions.cssPath = '/css/styles-others.css'
+                        elements.descriptions.description = mustache.render(view.description, { 'chapter': i })
+                        elements.descriptions.title = view.title + ' ' + parseInt(i, 10)
 
-                        descriptions.pagination = Pages.pagination(urlPath, i, view.numOfChapters)
-                        this.pages.set(urlPath + '-' + parseInt(i, 10), new Page(urlPath + '-' + parseInt(i, 10), contentType, descriptions, hasComments, page))
+                        elements.descriptions.body = '<section class="section">'
+                        elements.descriptions.body += '<div class="container">'
+                        elements.descriptions.body += '<div class="content is-small">'
+                        elements.descriptions.body += marked(markdown)
+                        elements.descriptions.body += '</div>'
+                        elements.descriptions.body += '</div>'
+                        elements.descriptions.body += '</section>'
+
+                        elements.descriptions.pagination = Pages.pagination(urlPath, i, view.numOfChapters)
+                        this.pages.set(elements.urlPath, new Page(elements))
                     }
                 } else {
                     const MARKDOWN = fs.readFileSync('./static/contents' + urlPath + '.md', 'utf8')
@@ -107,8 +113,8 @@ module.exports = class Pages {
                     contentHTML += '</div>'
                     contentHTML += '</div>'
                     contentHTML += '</section>'
-                    descriptions.body = contentHTML
-                    this.pages.set(urlPath, new Page(urlPath, contentType, descriptions, hasComments, page))
+                    elements.descriptions.body = contentHTML
+                    this.pages.set(urlPath, new Page(elements))
                 }
             }
         }
@@ -139,12 +145,13 @@ module.exports = class Pages {
 
 
 class Page {
-    constructor(urlPath, contentType, descriptions, hasComments, page) {
-        this.urlPath = urlPath
-        this.contentType = contentType
-        this.descriptions = descriptions
-        this.hasComments = hasComments
-        this.page = page
+    constructor(elements) {
+        this.urlPath = elements.urlPath
+        this.contentType = elements.contentType
+        this.descriptions = elements.descriptions
+        this.hasComments = elements.hasComments
+        this.hasLikeCount = elements.hasLikeCount
+        this.page = elements.page
     }
 
     title() {
@@ -161,7 +168,7 @@ class Page {
         let descriptions = this.descriptions
 
         mongodbDriver.findPageLikes(urlPath, (pageLike) => {
-            if (urlPath !== '/') {
+            if (this.hasLikeCount) {
                 descriptions.like = `<form method="post" action="${urlPath}">`
                 descriptions.like += `<button class="button is-small is-primary is-outlined is-rounded" name="id" value=0>Like ${pageLike || 0}</button>`
                 descriptions.like += '</form>'
