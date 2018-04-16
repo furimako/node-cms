@@ -50,7 +50,7 @@ let insertMany = (objs, collectionStr) => {
                 logging.error(`failed to insertMany\n${err}`)
                 return
             }
-            logging.info(`    L inserted ${objs.length} document(s) into the collection ${collectionStr}`)
+            logging.info(`    L inserted ${objs.length} document(s) (collection: ${collectionStr})`)
             db.close()
         })
     })
@@ -101,7 +101,7 @@ let findPageLikes = (urlPath, callback) => {
                 logging.error(`failed to findPageLikes\n${err}`)
                 return
             }
-            logging.info(`    L found ${pageLike} page like(s)`)
+            logging.info(`    L found ${pageLike} pageLike(s)`)
             db.close()
             callback(pageLike)
         })
