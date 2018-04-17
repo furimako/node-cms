@@ -3,6 +3,20 @@ const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
 const logging = require('./logging')
 
 module.exports = {
+    insertLike: (urlPath, id) => {
+        let like = [{
+            urlPath,
+            id,
+            date: new Date()
+        }]
+        insertMany(like, 'likes')
+    },
+    findPageLikes: (urlPath, callback) => {
+        findPageLikes(urlPath, callback)
+    },
+    findLikes: (urlPath, callback) => {
+        findLikes(urlPath, callback)
+    },
     insertComment: (urlPath, postData) => {
         let comments = [{
             urlPath,
@@ -14,20 +28,6 @@ module.exports = {
     },
     findComments: (urlPath, callback) => {
         findComments(urlPath, callback)
-    },
-    insertLike: (urlPath, id) => {
-        let like = [{
-            urlPath,
-            id,
-            date: new Date()
-        }]
-        insertMany(like, 'likes')
-    },
-    findLikes: (urlPath, callback) => {
-        findLikes(urlPath, callback)
-    },
-    findPageLikes: (urlPath, callback) => {
-        findPageLikes(urlPath, callback)
     }
 }
 
@@ -56,20 +56,17 @@ let insertMany = (objs, collectionStr) => {
     })
 }
 
-let findComments = (urlPath, callback) => {
+let findPageLikes = (urlPath, callback) => {
     connect((db) => {
-        let collection = db.db('fully-hatter').collection('comments')
-        collection.find({ urlPath }).toArray((err, docs) => {
+        let collection = db.db('fully-hatter').collection('likes')
+        collection.find({ urlPath, id: 0 }).count((err, pageLike) => {
             if (err) {
-                logging.error(`failed to findComments\n${err}`)
+                logging.error(`failed to findPageLikes\n${err}`)
                 return
             }
-            logging.info(`    L found ${docs.length} comment(s)`)
-            docs.sort(
-                (commentObj1, commentObj2) => commentObj1.date.getTime() - commentObj2.date.getTime()
-            )
+            logging.info(`    L found ${pageLike} pageLike(s)`)
             db.close()
-            callback(docs)
+            callback(pageLike)
         })
     })
 }
@@ -93,17 +90,20 @@ let findLikes = (urlPath, callback) => {
     })
 }
 
-let findPageLikes = (urlPath, callback) => {
+let findComments = (urlPath, callback) => {
     connect((db) => {
-        let collection = db.db('fully-hatter').collection('likes')
-        collection.find({ urlPath, id: 0 }).count((err, pageLike) => {
+        let collection = db.db('fully-hatter').collection('comments')
+        collection.find({ urlPath }).toArray((err, docs) => {
             if (err) {
-                logging.error(`failed to findPageLikes\n${err}`)
+                logging.error(`failed to findComments\n${err}`)
                 return
             }
-            logging.info(`    L found ${pageLike} pageLike(s)`)
+            logging.info(`    L found ${docs.length} comment(s)`)
+            docs.sort(
+                (commentObj1, commentObj2) => commentObj1.date.getTime() - commentObj2.date.getTime()
+            )
             db.close()
-            callback(pageLike)
+            callback(docs)
         })
     })
 }
