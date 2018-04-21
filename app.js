@@ -9,16 +9,16 @@ const Pages = require('./js/pages')
 const mongodbDriver = require('./js/mongodb_driver')
 let pages = new Pages()
 
-const json = fs.readFileSync('./js/views/views.json', 'utf8')
 const json_css = fs.readFileSync('./js/views/views-css.json', 'utf8')
 const json_images = fs.readFileSync('./js/views/views-images.json', 'utf8')
 const json_world = fs.readFileSync('./js/views/views-world.json', 'utf8')
 const json_story = fs.readFileSync('./js/views/views-story.json', 'utf8')
-pages.add(JSON.parse(json))
+const json = fs.readFileSync('./js/views/views.json', 'utf8')
 pages.add(JSON.parse(json_css))
 pages.add(JSON.parse(json_images))
-pages.add(JSON.parse(json_world))
-pages.add(JSON.parse(json_story))
+pages.add(JSON.parse(json_world), 'world')
+pages.add(JSON.parse(json_story), 'story')
+pages.add(JSON.parse(json))
 
 
 // Start HTTP server
@@ -62,7 +62,6 @@ function httpRequestListener(req, res) {
             res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
             res.end(page)
             return
-
         }
         
         if (req.method === 'POST') {
