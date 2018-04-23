@@ -14,6 +14,9 @@ module.exports = {
     findPageLikes: (urlPath, callback) => {
         findPageLikes(urlPath, callback)
     },
+    findSummary: (callback) => {
+        findSummary(callback)
+    },
     findLikes: (urlPath, callback) => {
         findLikes(urlPath, callback)
     },
@@ -64,9 +67,49 @@ let findPageLikes = (urlPath, callback) => {
                 logging.error(`failed to findPageLikes\n${err}`)
                 return
             }
-            logging.info(`    L found ${pageLike} pageLike(s)`)
+            logging.info(`    L found ${pageLike.length} pageLike`)
             db.close()
             callback(pageLike)
+        })
+    })
+}
+
+let findSummary = (callback) => {
+    connect((db) => {
+        let summary = {}
+        summary.like = {}
+        summary.comment = {}
+        
+        let collectionLikes = db.db('fully-hatter').collection('likes')
+        collectionLikes.aggregate([
+            { $match: { id: 0 } },
+            { $group: { _id: '$urlPath', count: { $sum: 1 } } }
+        ]).toArray((err1, likes) => {
+            if (err1) {
+                logging.error(`failed to findSummary (likes)\n${err1}`)
+                return
+            }
+            logging.info(`    L found ${likes.length} likes (findSummary)`)
+            for (let like of likes) {
+                summary.like[like._id] = like.count
+            }
+            
+            let collectionComments = db.db('fully-hatter').collection('comments')
+            collectionComments.aggregate([
+                { $group: { _id: '$urlPath', count: { $sum: 1 } } }
+            ]).toArray((err2, comments) => {
+                if (err2) {
+                    logging.error(`failed to findSummary (comments)\n${err2}`)
+                    return
+                }
+                logging.info(`    L found ${comments.length} comments (findSummary)`)
+                for (let comment of comments) {
+                    summary.comment[comment._id] = comment.count
+                }
+                
+                db.close()
+                callback(summary)
+            })
         })
     })
 }

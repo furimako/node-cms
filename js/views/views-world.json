@@ -60,6 +60,7 @@
         "title": "成果主義について ～できる人にはお金を与えるべきか？〜",
         "description": "「能力のある人にはご褒美をあげて能力のない人には低い扱いをすること」は当たり前。本当にそうでしょうか？",
         "comments": true,
-        "like": true
+        "like": true,
+        "isNew": true
     }
 ]

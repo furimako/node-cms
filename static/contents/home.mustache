@@ -1,0 +1,67 @@
+
+<section class="section">
+    <div class="container">
+        <p>
+            このサイトについては <strong><a href="/about">こちら</a></strong>。
+            <br>
+            掲示板(Fully Hatterへの無茶ぶり) は <strong><a href="/board">こちら</a></strong>。
+        </p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="title is-4">Fully Hatter の頭の中</h2>
+        <div class="columns">
+            {{#world}}
+            {{{head}}}
+            <div class="box">
+                {{{new}}}
+                <a href={{url}}>{{title}}</a>
+                <br>
+                <span class="tag is-dark is-rounded">Like {{likeCount}}</span>
+                <span class="tag is-dark is-rounded">Comments {{commentCount}}</span>
+            </div>
+            {{{foot}}}
+            {{/world}}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="title is-3">Story</h2>
+        <p>
+            「画像クリック」でそれぞれのお話が読めます。
+        </p>
+        <br>
+        <br>
+        
+        <div class="columns">
+            {{#story}}
+            {{{head}}}
+            <figure class="image">
+                <a href={{url}}>
+                    <img src="{{urlPicture}}" alt={{title}}>
+                </a>
+                <figcaption>
+                    {{description}}
+                    <br>
+                    <span class="tag is-dark is-rounded">Like {{likeCount}}</span>
+                </figcaption>
+            </figure>
+            <br>
+            {{{foot}}}
+            {{/story}}
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <h2 class="title is-4">Fully Hatter の本棚</h2>
+        <p>
+            Fully Hatterの人生を変えた本や映画などは <strong><a href="/bookshelf/books">こちら</a></strong>。
+        </p>
+    </div>
+</section>
