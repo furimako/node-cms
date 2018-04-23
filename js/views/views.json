@@ -1,6 +1,6 @@
 [
     {
-        "filePath": "./static/contents/home.html",
+        "filePath": "./static/contents/home.mustache",
         "urlPath": "/",
         "title": "Home",
         "description": "キミの知らない世界を見せよう。"
