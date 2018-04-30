@@ -14,15 +14,15 @@
         <h2 class="title is-4">Fully Hatter の頭の中</h2>
         <div class="columns">
             {{#world}}
-            {{{head}}}
+            {{{headHTML}}}
             <div class="box">
-                {{{new}}}
+                {{{newTag}}}
                 <a href={{urlPath}}>{{title}}</a>
                 <br>
                 <span class="tag is-dark is-rounded">Like {{likeCount}}</span>
                 <span class="tag is-dark is-rounded">Comments {{commentCount}}</span>
             </div>
-            {{{foot}}}
+            {{{footHTML}}}
             {{/world}}
         </div>
     </div>
@@ -39,7 +39,7 @@
         
         <div class="columns">
             {{#story}}
-            {{{head}}}
+            {{{headHTML}}}
             <figure class="image">
                 <a href={{urlPath}}>
                     <img src="{{picturePath}}" alt={{title}}>
@@ -51,7 +51,7 @@
                 </figcaption>
             </figure>
             <br>
-            {{{foot}}}
+            {{{footHTML}}}
             {{/story}}
         </div>
     </div>
