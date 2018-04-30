@@ -1,9 +1,10 @@
 
 // Color Setting
-$black: #000000;
-$grey-dark: #1a1a1a;
-$grey: #333333;
-$grey-light: #4d4d4d;
+$grey-dark: #262626;
+$grey: #404040;
+$grey-light: #595959;
+body { background-color: $grey-dark; }
+$navbar-item-hover-background-color: $grey-dark;
 $background: $grey;
 $border: $grey-light;
 
