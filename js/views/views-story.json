@@ -3,39 +3,39 @@
         "urlPath": "/story/science-fiction/dear-you",
         "title": "自由なキミへ",
         "description": "[1話 完結] 一通の謎の手紙。拾ったのはあなた。",
-        "like": true
+        "hasLikeButton": true
     },
     {
         "urlPath": "/story/mystery/nightmare",
         "title": "ナイトメア",
         "description": "[1話 完結] 遊園地が舞台のちょっと怖いお話。",
-        "like": true
+        "hasLikeButton": true
     },
     {
         "urlPath": "/story/science-fiction/over-the-superposition",
         "title": "量子の導き",
         "description": "[全5話] そう遠くない未来、言語がひとつに統一された頃のお話。",
         "numOfChapters": 5,
-        "like": true
+        "hasLikeButton": true
     },
     {
         "urlPath": "/story/comedy/baby-s-suffering",
         "title": "稚児の苦悩",
         "description": "[全2話] 私は赤ちゃんである。",
         "numOfChapters": 2,
-        "like": true
+        "hasLikeButton": true
     },
     {
         "urlPath": "/story/comedy/one-man",
         "title": "ひとり",
         "description": "[全3話] 彗星の日に起こる不思議な出来事。",
         "numOfChapters": 3,
-        "like": true
+        "hasLikeButton": true
     },
     {
         "urlPath": "/story/mystery/the-dark-and-cold-place",
         "title": "暗くて寒い場所",
         "description": "[1話 完結] 部屋の明かりが消せないある女性のお話。",
-        "like": true
+        "hasLikeButton": true
     }
 ]

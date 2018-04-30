@@ -77,8 +77,8 @@ let findPageLikes = (urlPath, callback) => {
 let findSummary = (callback) => {
     connect((db) => {
         let summary = {}
-        summary.like = {}
-        summary.comment = {}
+        summary.likeCount = {}
+        summary.commentCount = {}
         
         let collectionLikes = db.db('fully-hatter').collection('likes')
         collectionLikes.aggregate([
@@ -91,7 +91,7 @@ let findSummary = (callback) => {
             }
             logging.info(`    L found ${likes.length} likes (findSummary)`)
             for (let like of likes) {
-                summary.like[like._id] = like.count
+                summary.likeCount[like._id] = like.count
             }
             
             let collectionComments = db.db('fully-hatter').collection('comments')
@@ -104,7 +104,7 @@ let findSummary = (callback) => {
                 }
                 logging.info(`    L found ${comments.length} comments (findSummary)`)
                 for (let comment of comments) {
-                    summary.comment[comment._id] = comment.count
+                    summary.commentCount[comment._id] = comment.count
                 }
                 
                 db.close()
