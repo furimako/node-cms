@@ -2,6 +2,9 @@
 <section class="section">
     <div class="container">
         <p>
+            気に入ったページやコメントには <strong>「をかし！」</strong> しましょう。連打しましょう。
+            <br>
+            <br>
             このサイトについては <strong><a href="/about">こちら</a></strong>。
             <br>
             掲示板(Fully Hatterへの無茶ぶり) は <strong><a href="/board">こちら</a></strong>。
@@ -19,8 +22,8 @@
                 {{{newTag}}}
                 <a href={{urlPath}}>{{title}}</a>
                 <br>
-                <span class="tag is-dark is-rounded">Like {{likeCount}}</span>
-                <span class="tag is-dark is-rounded">Comments {{commentCount}}</span>
+                <span class="tag is-dark is-rounded">{{like}}</span>
+                <span class="tag is-dark is-rounded">{{comment}}</span>
             </div>
             {{{footHTML}}}
             {{/world}}
@@ -47,7 +50,7 @@
                 <figcaption>
                     {{description}}
                     <br>
-                    <span class="tag is-dark is-rounded">Like {{likeCount}}</span>
+                    <span class="tag is-dark is-rounded">{{like}}</span>
                 </figcaption>
             </figure>
             <br>
