@@ -6,6 +6,8 @@ const dateString = require('./date_string')
 const mongodbDriver = require('./mongodb_driver')
 marked.setOptions({ breaks: true })
 const URL = 'http://furimako.com'
+const likeJA = 'をかし！'
+const commentJA = 'コメント'
 const TEMPLATE = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const TEMPLATE_HOME = fs.readFileSync('./static/template/home.mustache', 'utf8')
 const TEMPLATE_COMMENT = fs.readFileSync('./static/template/comment.mustache', 'utf8')
@@ -107,8 +109,10 @@ module.exports = class Page {
         if (this.urlPath === '/') {
             mongodbDriver.findSummary((summary) => {
                 for (let i = 0; i < this.viewHome.world.length; i++) {
-                    this.viewHome.world[i].likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
-                    this.viewHome.world[i].commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
+                    let likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
+                    let commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
+                    this.viewHome.world[i].like = likeJA + ' ' + likeCount
+                    this.viewHome.world[i].comment = commentJA + ' ' + commentCount
                     
                     if (i === 0) {
                         this.viewHome.world[i].headHTML = '<div class="column">'
@@ -123,7 +127,8 @@ module.exports = class Page {
                 }
                 
                 for (let i = 0; i < this.viewHome.story.length; i++) {
-                    this.viewHome.story[i].likeCount = summary.likeCount[this.viewHome.story[i].urlPath] || 0
+                    let likeCount = summary.likeCount[this.viewHome.story[i].urlPath] || 0
+                    this.viewHome.story[i].like = likeJA + ' ' + likeCount
                     
                     if (i === 0) {
                         this.viewHome.story[i].headHTML = '<div class="column">'
@@ -147,7 +152,7 @@ module.exports = class Page {
             let likeButton = ''
             if (this.hasLikeButton) {
                 likeButton = `<form method="post" action="${this.urlPathBase || this.urlPath}">`
-                likeButton += `<button class="button is-small is-primary is-outlined is-rounded" name="id" value=0>Like ${pageLike || 0}</button>`
+                likeButton += `<button class="button is-small is-primary is-outlined is-rounded" name="id" value=0>${likeJA} ${pageLike || 0}</button>`
                 likeButton += '</form>'
             }
 
@@ -163,7 +168,8 @@ module.exports = class Page {
                             commentObj.timestamp = dateString.str(commentObj.date)
                             commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
                             commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
-                            commentObj.likeCount = likes[id] || 0
+                            let likeCount = likes[id] || 0
+                            commentObj.like = likeJA + ' ' + likeCount
                             commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
                         }
                         
