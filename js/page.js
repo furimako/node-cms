@@ -6,7 +6,7 @@ const dateString = require('./date_string')
 const mongodbDriver = require('./mongodb_driver')
 marked.setOptions({ breaks: true })
 const URL = 'http://furimako.com'
-const likeJA = 'をかし！'
+const likeJA = 'いいね！'
 const commentJA = 'コメント'
 const TEMPLATE = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const TEMPLATE_HOME = fs.readFileSync('./static/template/home.mustache', 'utf8')
