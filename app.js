@@ -49,50 +49,45 @@ function httpRequestListener(req, res) {
     if (!pages.has(urlPath)) {
         // When pages no found
         logging.info(`get no-found page request (url: ${urlPath})`)
-        pages.get('/no-found', (page) => {
-            res.writeHead(404, { 'Content-Type': 'text/html' })
-            res.end(page)
-        })
+        res.writeHead(404, { 'Content-Type': 'text/html' })
+        pages.get('/no-found', (page) => { res.end(page) })
         return
     }
     
-    pages.get(urlPath, (page) => {
-        if (req.method === 'GET') {
-            logging.info(`get GET request (url: ${urlPath})`)
-            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            res.end(page)
-            return
-        }
+    if (req.method === 'GET') {
+        logging.info(`get GET request (url: ${urlPath})`)
+        res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+        pages.get(urlPath, (page) => { res.end(page) })
+        return
+    }
+    
+    if (req.method === 'POST') {
+        logging.info(`get POST request (url: ${urlPath})`)
         
-        if (req.method === 'POST') {
-            logging.info(`get POST request (url: ${urlPath})`)
-            let body = ''
-            req.on('data', (data) => {
-                body += data
-            })
+        let body = ''
+        req.on('data', (data) => { body += data })
 
-            req.on('end', () => {
-                const postData = qs.parse(body)
-                if (postData.id) {
-                    // Comment
-                    logging.info(`    L like (id: ${postData.id})`)
-                    mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
-                    res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
+        req.on('end', () => {
+            const postData = qs.parse(body)
+            if (postData.id) {
+                // Comment
+                logging.info(`    L like (id: ${postData.id})`)
+                mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
+                res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
 
-                } else {
-                    // Message
-                    logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
-                    mailer.send(
-                        `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
-                        `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
-                    )
-                    mongodbDriver.insertComment(urlPath, postData)
-                    res.writeHead(302, { Location: urlPath + '#comments-field' })
-                }
-                res.end(page)
-            })
+            } else {
+                // Message
+                logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
+                mailer.send(
+                    `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
+                    `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
+                )
+                mongodbDriver.insertComment(urlPath, postData)
+                res.writeHead(302, { Location: urlPath + '#comments-field' })
+            }
+            pages.get(urlPath, (page) => { res.end(page) })
+        })
 
-            logging.info('    L redirect')
-        }
-    })
+        logging.info('    L redirect')
+    }
 }
