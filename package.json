@@ -6,7 +6,7 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "prestart": "bash ./scripts/production/iptables.sh",
-        "start": "forever start -l /home/ubuntu/fully-hatter/log/forever.log -o /home/ubuntu/fully-hatter/log/stdout.log -e /home/ubuntu/fully-hatter/log/stderr.log ./config/forever.json"
+        "start": "forever start -l /home/ubuntu/fully-hatter/log/server.log -e /home/ubuntu/fully-hatter/log/server-err.log ./config/forever.json"
     },
     "repository": {
         "type": "git",
