@@ -1,9 +1,11 @@
 [
-  {
-    "uid": "server",
-    "append": true,
-    "watch": false,
-    "script": "app.js",
-    "sourceDir": "/home/ubuntu/fully-hatter"
-  }
+    {  
+        "uid": "server",
+        "append": true,
+        "watch": true,
+        "script": "app.js",
+        "sourceDir": "/home/ubuntu/fully-hatter",
+        "l": "/home/ubuntu/fully-hatter/log/server.log",
+        "e": "/home/ubuntu/fully-hatter/log/server-err.log"
+    }
 ]
