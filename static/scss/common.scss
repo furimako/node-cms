@@ -1,14 +1,15 @@
 
 /* Color Setting */
 // initial variables
-$grey-dark: #262626;
+$grey-darker: #262626;
+$grey-dark: #363636;
 $grey: #404040;
 $grey-light: #595959;
 $link: #80aaff;  // blue
 $info: #ff99c2;  // pink
 
 // black
-body { background-color: $grey-dark; }
+body { background-color: $grey-darker; }
 $background: $grey;
 $border: $grey-light;
 
@@ -36,15 +37,15 @@ p, figcaption, .box { font-size: 14px; }
 
 
 /* Hero */
-$navbar-item-hover-background-color: $grey-dark;
+$navbar-item-hover-background-color: $grey-darker;
 
 
 /* NavBar-bottom */
-$navbar-background-color: $grey-darker;  // between grey and grey-dark
-$navbar-height: 3rem;
-$navbar-item-color: $grey-light;
-$navbar-item-hover-color: $info;
-$navbar-item-hover-background-color: $grey-dark;
+$navbar-background-color: $grey-dark;
+$navbar-height: 2.5rem;
+$navbar-item-color: $white-bis;
+$navbar-item-hover-color: $white;
+$navbar-item-hover-background-color: $grey-darker;
 
 
 /* Box */
@@ -66,4 +67,5 @@ $tabs-link-active-color: $info;
 
 
 /* Ohter Setting */
+.tag { color: $grey-dark; }
 .table-width { width: 25%; }

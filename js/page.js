@@ -163,48 +163,39 @@ module.exports = class Page {
 
             if (this.hasCommentsField) {
                 mongodbDriver.findComments(this.urlPath, (comments) => {
-                    mongodbDriver.findLikes(this.urlPath, (likes) => {
-                        let id = 0
-                        let commentsHTML = ''
-                        let commentIds = []
-                        for (let commentObj of comments) {
-                            id++
-                            commentObj.urlPath = this.urlPath
-                            commentObj.id = id
-                            commentObj.timestamp = dateString.str(commentObj.date)
-                            commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
-                            commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
-                            let likeCount = likes[id] || 0
-                            commentObj.like = likeJA + ' ' + likeCount
-                            commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
-                            commentIds.push({
-                                urlPath: this.urlPath,
-                                commentId: id
-                            })
+                    let id = 0
+                    let commentsHTML = ''
+                    let commentIds = []
+                    for (let commentObj of comments) {
+                        id++
+                        commentObj.id = id
+                        commentObj.timestamp = dateString.str(commentObj.date)
+                        commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
+                        commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
+                        commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
+                        commentIds.push({
+                            urlPath: this.urlPath,
+                            commentId: id
+                        })
+                    }
+                    
+                    const commentsFieldHTML = mustache.render(
+                        TEMPLATE_COMMENTSFIELD, {
+                            urlPath: this.urlPath,
+                            commentsHTML
                         }
-                        
-                        const commentsFieldHTML = mustache.render(
-                            TEMPLATE_COMMENTSFIELD, {
-                                urlPath: this.urlPath,
-                                commentsHTML
-                            }
-                        )
-                        
-                        callback(mustache.render(this.template, {
-                            commentsFieldHTML,
-                            likeButton,
-                            navBarHTML: mustache.render(TEMPLATE_NAVBAR, {
-                                likeButton,
-                                commentHTML: '<a class="navbar-item" href="' + this.urlPath + '#comments-field">コメント</a>'
-                            })
-                        }))
-                    })
+                    )
+                    
+                    callback(mustache.render(this.template, {
+                        commentsFieldHTML,
+                        likeButton,
+                        navBarHTML: mustache.render(TEMPLATE_NAVBAR, {
+                            commentHTML: '<a class="navbar-item" href="' + this.urlPath + '#comments-field">コメントする</a>'
+                        })
+                    }))
                 })
             } else {
-                callback(mustache.render(this.template, {
-                    likeButton,
-                    navBarHTML: mustache.render(TEMPLATE_NAVBAR, { likeButton })
-                }))
+                callback(mustache.render(this.template, { likeButton }))
             }
         })
     }
