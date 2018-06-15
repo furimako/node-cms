@@ -195,9 +195,7 @@ module.exports = class Page {
                             likeButton,
                             navBarHTML: mustache.render(TEMPLATE_NAVBAR, {
                                 likeButton,
-                                urlPath: this.urlPath,
                                 commentHTML: '<a class="navbar-item" href="' + this.urlPath + '#comments-field">コメント</a>'
-
                             })
                         }))
                     })
