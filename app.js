@@ -73,7 +73,7 @@ function httpRequestListener(req, res) {
                 // Like
                 logging.info(`    L like (id: ${postData.id})`)
                 mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
-                res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
+                res.writeHead(302, { Location: urlPath })
 
             } else {
                 // Comment
