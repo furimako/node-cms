@@ -1,35 +1,28 @@
 
-// Color Setting
+/* Color Setting */
+// initial variables
 $grey-dark: #262626;
 $grey: #404040;
 $grey-light: #595959;
+$link: #80aaff;  // blue
+$info: #ff99c2;  // pink
+
+// black
 body { background-color: $grey-dark; }
-$navbar-item-hover-background-color: $grey-dark;
 $background: $grey;
 $border: $grey-light;
 
+// White
 $title-color: $white;
 $text: $white-bis;
 $text-strong: $white;
 $label-color: $white;
-$link: #80aaff;
-$info: #ff99c2;
+
+// pink
 $link-hover: $info;
 
-$box-background-color: transparent;
-$box-shadow: 0 2px 3px rgba($white, 0.1), 0 0 0 1px rgba($white, 0.1);
-$box-padding: 1rem;
 
-$pagination-current-background-color: $white;
-$pagination-current-border-color: $white;
-$pagination-current-color: findColorInvert($white);
-$pagination-color: $white;
-
-$tabs-link-active-border-bottom-color: $info;
-$tabs-link-active-color: $info;
-
-
-// Font Setting
+/* Font Setting */
 .title {
     font-family: "Cinzel Decorative", cursive;
     color: $white;
@@ -40,4 +33,37 @@ $tabs-link-active-color: $info;
 }
 * { font-family: "Sawarabi Gothic"; }
 p, figcaption, .box { font-size: 14px; }
+
+
+/* Hero */
+$navbar-item-hover-background-color: $grey-dark;
+
+
+/* NavBar-bottom */
+$navbar-background-color: $grey-darker;  // between grey and grey-dark
+$navbar-height: 3rem;
+$navbar-item-color: $grey-light;
+$navbar-item-hover-color: $info;
+$navbar-item-hover-background-color: $grey-dark;
+
+
+/* Box */
+$box-background-color: transparent;
+$box-shadow: 0 2px 3px rgba($white, 0.1), 0 0 0 1px rgba($white, 0.1);
+$box-padding: 1rem;
+
+
+/* Pagination */
+$pagination-current-background-color: $white;
+$pagination-current-border-color: $white;
+$pagination-current-color: findColorInvert($white);
+$pagination-color: $white;
+
+
+/* Tab */
+$tabs-link-active-border-bottom-color: $info;
+$tabs-link-active-color: $info;
+
+
+/* Ohter Setting */
 .table-width { width: 25%; }
