@@ -8,8 +8,7 @@
         "filePath": "./static/contents/about.html",
         "urlPath": "/about",
         "title": "About",
-        "description": "このサイトについて。Fully Hatter について。",
-        "hasLikeButton": true
+        "description": "このサイトについて。Fully Hatter について。"
     },
     {
         "urlPath": "/board",
