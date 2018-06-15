@@ -195,7 +195,10 @@ module.exports = class Page {
                     }))
                 })
             } else {
-                callback(mustache.render(this.template, { likeButton }))
+                callback(mustache.render(this.template, {
+                    likeButton,
+                    navBarHTML: mustache.render(TEMPLATE_NAVBAR, { commentHTML: '' })
+                }))
             }
         })
     }
