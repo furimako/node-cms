@@ -10,8 +10,10 @@ const likeJA = 'いいね！'
 const commentJA = 'コメント'
 const TEMPLATE = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const TEMPLATE_HOME = fs.readFileSync('./static/template/home.mustache', 'utf8')
+const TEMPLATE_NAVBAR = fs.readFileSync('./static/template/navbar.mustache', 'utf8')
 const TEMPLATE_COMMENT = fs.readFileSync('./static/template/comment.mustache', 'utf8')
 const TEMPLATE_COMMENTSFIELD = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
+const TEMPLATE_LIKEBUTTON = fs.readFileSync('./static/template/like-button.mustache', 'utf8')
 
 
 module.exports = class Page {
@@ -44,14 +46,6 @@ module.exports = class Page {
         
         if (numOfChapters) {
             this.urlPathBase = urlPath + '-1'
-            const MARKDOWN = fs.readFileSync('./static/contents' + urlPath + '-' + chapter + '.md', 'utf8')
-            let bodyHTML = '<section class="section">'
-            bodyHTML += '<div class="container">'
-            bodyHTML += '<div class="content is-small">'
-            bodyHTML += marked(MARKDOWN)
-            bodyHTML += '</div>'
-            bodyHTML += '</div>'
-            bodyHTML += '</section>'
             
             this.template = mustache.render(this.template, {
                 url: URL + urlPath + '-' + parseInt(chapter, 10),
@@ -60,7 +54,8 @@ module.exports = class Page {
                 cssPath,
                 newTag,
                 paginationHTML: getPaginationHTML(urlPath, numOfChapters, chapter),
-                bodyHTML,
+                bodyHTML: '{{{bodyHTML}}}',
+                navBarHTML: '{{{navBarHTML}}}',
                 commentsFieldHTML: '{{{commentsFieldHTML}}}',
                 likeButton: '{{{likeButton}}}'
             })
@@ -74,27 +69,35 @@ module.exports = class Page {
             cssPath,
             newTag,
             bodyHTML: '{{{bodyHTML}}}',
+            navBarHTML: '{{{navBarHTML}}}',
             commentsFieldHTML: '{{{commentsFieldHTML}}}',
             likeButton: '{{{likeButton}}}'
         })
     }
     
-    renderBody(filePath) {
-        const bodyHTML = fs.readFileSync(filePath, 'utf8')
-        this.content = mustache.render(this.template, { bodyHTML })
-    }
-    
-    renderMarkdown(urlPath) {
-        const MARKDOWN = fs.readFileSync('./static/contents' + urlPath + '.md', 'utf8')
-        let bodyHTML = '<section class="section">'
-        bodyHTML += '<div class="container">'
-        bodyHTML += '<div class="content is-small">'
-        bodyHTML += marked(MARKDOWN)
-        bodyHTML += '</div>'
-        bodyHTML += '</div>'
-        bodyHTML += '</section>'
+    renderBodyHTML(path, chapter = false) {
+        let bodyHTML = ''
+        
+        if (path.match(/\.html$/)) {
+            bodyHTML = fs.readFileSync(path, 'utf8')
+
+        } else {
+            let filePath = './static/contents' + path
+            filePath += (chapter) ? ('-' + chapter + '.md') : '.md'
+            
+            const MARKDOWN = fs.readFileSync(filePath, 'utf8')
+            bodyHTML = '<section class="section">'
+            bodyHTML += '<div class="container">'
+            bodyHTML += '<div class="content is-small">'
+            bodyHTML += marked(MARKDOWN)
+            bodyHTML += '</div>'
+            bodyHTML += '</div>'
+            bodyHTML += '</section>'
+        }
+        
         this.template = mustache.render(this.template, {
             bodyHTML,
+            navBarHTML: '{{{navBarHTML}}}',
             commentsFieldHTML: '{{{commentsFieldHTML}}}',
             likeButton: '{{{likeButton}}}'
         })
@@ -151,16 +154,19 @@ module.exports = class Page {
         mongodbDriver.findPageLikes(this.urlPathBase || this.urlPath, (pageLike) => {
             let likeButton = ''
             if (this.hasLikeButton) {
-                likeButton = `<form method="post" action="${this.urlPathBase || this.urlPath}">`
-                likeButton += `<button class="button is-small is-primary is-outlined is-rounded" name="id" value=0>${likeJA} ${pageLike || 0}</button>`
-                likeButton += '</form>'
+                likeButton = mustache.render(TEMPLATE_LIKEBUTTON, {
+                    urlPath: this.urlPathBase || this.urlPath,
+                    likeJA,
+                    pageLike: pageLike || 0
+                })
             }
 
             if (this.hasCommentsField) {
-                let id = 0
-                let commentsHTML = ''
                 mongodbDriver.findComments(this.urlPath, (comments) => {
                     mongodbDriver.findLikes(this.urlPath, (likes) => {
+                        let id = 0
+                        let commentsHTML = ''
+                        let commentIds = []
                         for (let commentObj of comments) {
                             id++
                             commentObj.urlPath = this.urlPath
@@ -171,6 +177,10 @@ module.exports = class Page {
                             let likeCount = likes[id] || 0
                             commentObj.like = likeJA + ' ' + likeCount
                             commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
+                            commentIds.push({
+                                urlPath: this.urlPath,
+                                commentId: id
+                            })
                         }
                         
                         const commentsFieldHTML = mustache.render(
@@ -179,14 +189,24 @@ module.exports = class Page {
                                 commentsHTML
                             }
                         )
+                        
                         callback(mustache.render(this.template, {
                             commentsFieldHTML,
-                            likeButton
+                            likeButton,
+                            navBarHTML: mustache.render(TEMPLATE_NAVBAR, {
+                                likeButton,
+                                urlPath: this.urlPath,
+                                commentHTML: '<a class="navbar-item" href="' + this.urlPath + '#comments-field">コメント</a>'
+
+                            })
                         }))
                     })
                 })
             } else {
-                callback(mustache.render(this.template, { likeButton }))
+                callback(mustache.render(this.template, {
+                    likeButton,
+                    navBarHTML: mustache.render(TEMPLATE_NAVBAR, { likeButton })
+                }))
             }
         })
     }

@@ -70,13 +70,13 @@ function httpRequestListener(req, res) {
         req.on('end', () => {
             const postData = qs.parse(body)
             if (postData.id) {
-                // Comment
+                // Like
                 logging.info(`    L like (id: ${postData.id})`)
                 mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
                 res.writeHead(302, { Location: urlPath + '#comment' + postData.id })
 
             } else {
-                // Message
+                // Comment
                 logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
                 mailer.send(
                     `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
