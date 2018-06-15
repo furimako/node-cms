@@ -79,14 +79,8 @@ module.exports = class Pages {
             page.set(view.hasCommentsField, view.hasLikeButton)
             
             if (view.urlPath === '/') {
+                // Content = Home
                 page.setViewHome(this.viewHome)
-                this.pages.set(view.urlPath, page)
-                continue
-            }
-            
-            if (view.filePath) {
-                // Content = HTML
-                page.renderBody(view.filePath)
                 this.pages.set(view.urlPath, page)
                 continue
             }
@@ -97,14 +91,20 @@ module.exports = class Pages {
                     let pageWithChapters = new Page()
                     pageWithChapters.setContentType('text/html')
                     pageWithChapters.render(view.urlPath, view.title, view.description, view.isNew, view.numOfChapters, i)
+                    pageWithChapters.renderBodyHTML(view.urlPath, i)
                     pageWithChapters.set(view.hasCommentsField, view.hasLikeButton)
                     this.pages.set(view.urlPath + '-' + i, pageWithChapters)
                 }
                 continue
             }
             
-            // Content = MARKDOWN
-            page.renderMarkdown(view.urlPath)
+            if (view.filePath) {
+                // Content = HTML
+                page.renderBodyHTML(view.filePath)
+            } else {
+                // Content = MARKDOWN
+                page.renderBodyHTML(view.urlPath)
+            }
             this.pages.set(view.urlPath, page)
         }
     }
