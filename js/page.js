@@ -110,7 +110,7 @@ module.exports = class Page {
         }
         
         if (this.urlPath === '/') {
-            mongodbDriver.findSummary((summary) => {
+            mongodbDriver.findLikesForHome((summary) => {
                 for (let i = 0; i < this.viewHome.world.length; i++) {
                     let likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
                     let commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
@@ -151,7 +151,7 @@ module.exports = class Page {
             return
         }
 
-        mongodbDriver.findPageLikes(this.urlPathBase || this.urlPath, (pageLike) => {
+        mongodbDriver.findLike(this.urlPathBase || this.urlPath, (pageLike) => {
             let likeButton = ''
             if (this.hasLikeButton) {
                 likeButton = mustache.render(TEMPLATE_LIKEBUTTON, {
