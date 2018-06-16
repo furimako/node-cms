@@ -11,14 +11,11 @@ module.exports = {
         }]
         insertMany(like, 'likes')
     },
-    findPageLikes: (urlPath, callback) => {
-        findPageLikes(urlPath, callback)
+    findLike: (urlPath, callback) => {
+        findLike(urlPath, callback)
     },
-    findSummary: (callback) => {
-        findSummary(callback)
-    },
-    findLikes: (urlPath, callback) => {
-        findLikes(urlPath, callback)
+    findLikesForHome: (callback) => {
+        findLikesForHome(callback)
     },
     insertComment: (urlPath, postData) => {
         let comments = [{
@@ -59,22 +56,22 @@ let insertMany = (objs, collectionStr) => {
     })
 }
 
-let findPageLikes = (urlPath, callback) => {
+let findLike = (urlPath, callback) => {
     connect((db) => {
         let collection = db.db('fully-hatter').collection('likes')
         collection.find({ urlPath, id: 0 }).count((err, pageLike) => {
             if (err) {
-                logging.error(`failed to findPageLikes\n${err}`)
+                logging.error(`failed to findLike\n${err}`)
                 return
             }
-            logging.info(`    L found ${pageLike.length} pageLike`)
+            logging.info(`    L found ${pageLike} pageLike`)
             db.close()
             callback(pageLike)
         })
     })
 }
 
-let findSummary = (callback) => {
+let findLikesForHome = (callback) => {
     connect((db) => {
         let summary = {}
         summary.likeCount = {}
@@ -86,10 +83,10 @@ let findSummary = (callback) => {
             { $group: { _id: '$urlPath', count: { $sum: 1 } } }
         ]).toArray((err1, likes) => {
             if (err1) {
-                logging.error(`failed to findSummary (likes)\n${err1}`)
+                logging.error(`failed to findLikesForHome (likes)\n${err1}`)
                 return
             }
-            logging.info(`    L found ${likes.length} likes (findSummary)`)
+            logging.info(`    L found ${likes.length} likes (findLikesForHome)`)
             for (let like of likes) {
                 summary.likeCount[like._id] = like.count
             }
@@ -99,10 +96,10 @@ let findSummary = (callback) => {
                 { $group: { _id: '$urlPath', count: { $sum: 1 } } }
             ]).toArray((err2, comments) => {
                 if (err2) {
-                    logging.error(`failed to findSummary (comments)\n${err2}`)
+                    logging.error(`failed to findLikesForHome (comments)\n${err2}`)
                     return
                 }
-                logging.info(`    L found ${comments.length} comments (findSummary)`)
+                logging.info(`    L found ${comments.length} comments (findLikesForHome)`)
                 for (let comment of comments) {
                     summary.commentCount[comment._id] = comment.count
                 }
@@ -110,25 +107,6 @@ let findSummary = (callback) => {
                 db.close()
                 callback(summary)
             })
-        })
-    })
-}
-
-let findLikes = (urlPath, callback) => {
-    connect((db) => {
-        let likes = []
-        let collection = db.db('fully-hatter').collection('likes')
-        collection.find({ urlPath }).toArray((err, docs) => {
-            if (err) {
-                logging.error(`failed to findLikes\n${err}`)
-                return
-            }
-            logging.info(`    L found ${docs.length} like(s)`)
-            for (let doc of docs) {
-                likes[doc.id] = (likes[doc.id]) ? likes[doc.id] + 1 : 1
-            }
-            db.close()
-            callback(likes)
         })
     })
 }
