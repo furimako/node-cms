@@ -75,7 +75,7 @@ function httpRequestListener(req, res) {
                 mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
                 res.writeHead(302, { Location: urlPath })
 
-            } else {
+            } else if (postData.name && postData.comment) {
                 // Comment
                 logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
                 mailer.send(
@@ -84,7 +84,12 @@ function httpRequestListener(req, res) {
                 )
                 mongodbDriver.insertComment(urlPath, postData)
                 res.writeHead(302, { Location: urlPath + '#comments-field' })
+                
+            } else {
+                // unexpected
+                logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
             }
+
             pages.get(urlPath, (page) => { res.end(page) })
         })
 
