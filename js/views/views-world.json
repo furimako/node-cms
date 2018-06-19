@@ -1,5 +1,13 @@
 [
     {
+        "urlPath": "/world/how-to-fail",
+        "title": "人生で失敗するには",
+        "description": "失敗するために生きている多くの人々へ。",
+        "hasCommentsField": true,
+        "hasLikeButton": true,
+        "isNew": true
+    },
+    {
         "urlPath": "/world/nation",
         "title": "理想の国家",
         "description": "世界中の誰もが、「本当にやりたいこと」のできる世界へ。",
