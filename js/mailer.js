@@ -6,17 +6,17 @@ const pass = fs.readFileSync('./config/password.txt', 'utf8')
 module.exports = {
     send: (subject, text) => {
         let transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
+            host: 'smtp.mailgun.org',
             port: 465,
             secure: true, // true for 465, false for other ports
             auth: {
-                user: 'furimako@gmail.com',
+                user: 'postmaster@mg.furimako.com',
                 pass
             }
         })
 
         const mailOptions = {
-            from: '"Fully Hatter" <furimako@gmail.com>',
+            from: '"Fully Hatter" <admin@furimako.com>',
             to: 'furimako@gmail.com',
             subject,
             text
