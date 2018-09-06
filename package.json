@@ -20,10 +20,10 @@
     "homepage": "https://github.com/FullyHatter/fully-hatter#readme",
     "dependencies": {
         "bulma": "^0.6.2",
+        "mailgun-js": "^0.20.0",
         "marked": "^0.3.19",
-        "mongodb": "^3.0.8",
-        "mustache": "^2.3.0",
-        "node-sass": "^4.9.0",
-        "nodemailer": "^4.6.4"
+        "mongodb": "^3.1.4",
+        "mustache": "^2.3.2",
+        "node-sass": "^4.9.3"
     }
 }
