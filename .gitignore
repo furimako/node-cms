@@ -2,3 +2,5 @@
 /mongodb_data
 /config/password.txt
 /log/**/*.log
+/log/dump/**/*.json
+/log/dump/**/*.bson
