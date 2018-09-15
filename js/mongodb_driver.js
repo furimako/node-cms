@@ -32,7 +32,7 @@ module.exports = {
 }
 
 let connect = (callback) => {
-    MongoClient.connect(mongoUrl, (err, db) => {
+    MongoClient.connect(mongoUrl, { useNewUrlParser: true }, (err, db) => {
         if (err) {
             logging.error(`failed to connect DB\n${err}`)
             return
