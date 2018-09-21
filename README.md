@@ -4,14 +4,14 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 ## How to Run This Website
 - local (macOS)
->> bash scripts/local/mongod.sh  
->> node app.js
+> bash scripts/local/mongod.sh  
+> node app.js
 
 - production (ubuntu 16.04)
->> create 'config/password.txt'  
->> bash scripts/production/mongod.sh start  
->> npm start  
->> crontab config/crontab/crontab.config
+> create 'config/password.txt'  
+> bash scripts/production/mongod.sh start  
+> npm start  
+> crontab config/crontab/crontab.config
 
 ## Error check
 - mongoDB
