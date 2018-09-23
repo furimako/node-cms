@@ -211,6 +211,7 @@ let getPaginationHTML = (urlPath, numOfChapters, chapter) => {
     }
     
     let paginationHTML = '<section class="section">'
+    paginationHTML += '<div class="container">'
     paginationHTML += '<nav class="pagination" role="navigation" aria-label="pagination">'
     paginationHTML += '<ul class="pagination-list">'
 
@@ -227,6 +228,7 @@ let getPaginationHTML = (urlPath, numOfChapters, chapter) => {
     }
     paginationHTML += '</ul>'
     paginationHTML += '</nav>'
+    paginationHTML += '</div>'
     paginationHTML += '</section>'
     return paginationHTML
 }
