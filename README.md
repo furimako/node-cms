@@ -19,7 +19,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     > crontab config/crontab/crontab.config
 
 ## How to Backup
-1. execute below command
+1. execute below command on macOS
     > bash scripts/local/backup.sh
 1. delete unneeded logs in server
 
