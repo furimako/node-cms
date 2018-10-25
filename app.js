@@ -3,12 +3,14 @@ const http = require('http')
 const https = require('https')
 const parse = require('url').parse
 const qs = require('querystring')
+
 const logging = require('./js/logging')
 const mailer = require('./js/mailer')
 const Pages = require('./js/pages')
 const mongodbDriver = require('./js/mongodb_driver')
-let pages = new Pages()
 
+const URL = 'http://furimako.com'
+let pages = new Pages()
 const json_css = fs.readFileSync('./static/views/views-css.json', 'utf8')
 const json_images = fs.readFileSync('./static/views/views-images.json', 'utf8')
 const json_world = fs.readFileSync('./static/views/views-world.json', 'utf8')
@@ -36,11 +38,17 @@ https.createServer(
     options,
     (req, res) => {
         let urlPath = parse(req.url).pathname
-        res.writeHead(302, { Location: 'http://furimako.com' + urlPath })
+        res.writeHead(302, { Location: URL + urlPath })
         res.end()
         logging.info(`    L redirect from https to http (url: ${urlPath})`)
     }
 ).listen(HTTPS_PORT)
+
+// Send mail for confirmation
+mailer.send(
+    `[Fully Hatter の秘密の部屋] start-up server`,
+    `start-up server on ${URL}`
+)
 
 
 function httpRequestListener(req, res) {
