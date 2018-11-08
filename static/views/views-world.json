@@ -9,7 +9,7 @@
     },
     {
         "urlPath": "/world/nation",
-        "title": "理想の国家",
+        "title": "理想の国家 ~ひとりひとりが自由に生きられる世界へ~",
         "description": "世界中の誰もが、「本当にやりたいこと」のできる世界へ。",
         "hasCommentsField": true,
         "hasLikeButton": true,
@@ -67,7 +67,7 @@
     },
     {
         "urlPath": "/world/happiness",
-        "title": "あなたにとっての幸せは？",
+        "title": "あなたにとっての幸せは？ ~幸せの定義について~",
         "description": "「幸せ」の定義は何でしょうか？あなたが気づいていない「幸せ」の一つの姿について。",
         "hasCommentsField": true,
         "hasLikeButton": true
