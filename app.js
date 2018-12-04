@@ -46,7 +46,7 @@ https.createServer(
 
 // Send mail for confirmation
 mailer.send(
-    `[Fully Hatter の秘密の部屋] start-up server`,
+    '[Fully Hatter の秘密の部屋] start-up server',
     `start-up server on ${URL}`
 )
 
