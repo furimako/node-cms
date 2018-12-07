@@ -1,29 +1,24 @@
 {
     "name": "fully-hatter",
     "version": "1.0.0",
-    "description": "The website for Fully Hatter",
+    "description": "The website for Fully Hatter based on pure Node.js without Express",
+    "author": "Fully Hatter <furimako@gmail.com>",
+    "license": "MIT",
     "main": "app.js",
+    "repository": "github:FullyHatter/fully-hatter",
+    "engines": {
+        "node": ">=8.14.0"
+    },
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
         "prestart": "bash ./scripts/production/iptables.sh",
         "start": "forever start -l /home/ubuntu/fully-hatter/log/server.log -e /home/ubuntu/fully-hatter/log/server-err.log ./config/forever.json"
     },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/FullyHatter/fully-hatter.git"
-    },
-    "author": "Fully Hatter",
-    "license": "ISC",
-    "bugs": {
-        "url": "https://github.com/FullyHatter/fully-hatter/issues"
-    },
-    "homepage": "https://github.com/FullyHatter/fully-hatter#readme",
     "dependencies": {
         "bulma": "^0.6.2",
         "mailgun-js": "^0.20.0",
         "marked": "^0.3.19",
-        "mongodb": "^3.1.6",
+        "mongodb": "^3.1.10",
         "mustache": "^2.3.2",
-        "node-sass": "^4.9.3"
+        "node-sass": "^4.10.0"
     }
 }
