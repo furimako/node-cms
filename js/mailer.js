@@ -16,8 +16,9 @@ module.exports = {
         }
 
         mailgun.messages().send(data, (error, body) => {
-            console.log(`[body]\n${body}`)
-            console.log(`[error]\n${error}`)
+            console.log('--- sending mail ---')
+            console.log(`[body]: ${body}`)
+            console.log(`[error]: ${error}`)
         })
     }
 }
