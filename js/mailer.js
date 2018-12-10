@@ -1,9 +1,7 @@
 const fs = require('fs')
 let mailgun = require('mailgun-js')
-let api_key = fs.readFileSync('./config/password.txt', 'utf8')
-api_key = api_key.replace(/\r?\n/g, '')
-let DOMAIN = 'mg.furimako.com'
-mailgun = require('mailgun-js')({ apiKey: api_key, domain: DOMAIN })
+const MAILGUN_CONFIG = JSON.parse( fs.readFileSync('./config/mailgun-config.json', 'utf8') )
+mailgun = require('mailgun-js')(MAILGUN_CONFIG)
 
 
 module.exports = {
