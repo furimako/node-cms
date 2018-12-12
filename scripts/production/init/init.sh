@@ -2,21 +2,19 @@
 #!/bin/sh
 
 # 
-# Ubuntu 16.04 & Node.js 8
+# Ubuntu 16.04
 # 
 
 # set Timezone
 sudo timedatectl set-timezone Asia/Tokyo
 
-# install Node.js
+# install Node.js (version 8)
 curl -sL https://deb.nodesource.com/setup_8.x | sudo -E bash -
 sudo apt-get install -y nodejs
 sudo apt-get install -y build-essential
 
-
 # install npm packages
 npm install
-
 
 # install mongoDB
 sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
