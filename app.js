@@ -9,27 +9,27 @@ const mailer = require('./js/mailer')
 const Pages = require('./js/pages')
 const mongodbDriver = require('./js/mongodb_driver')
 
-const URL = 'http://furimako.com'
-let pages = new Pages(URL)
-const json_css = fs.readFileSync('./static/views/views-css.json', 'utf8')
-const json_images = fs.readFileSync('./static/views/views-images.json', 'utf8')
-const json_world = fs.readFileSync('./static/views/views-world.json', 'utf8')
-const json_story = fs.readFileSync('./static/views/views-story.json', 'utf8')
-const json = fs.readFileSync('./static/views/views.json', 'utf8')
-pages.add(JSON.parse(json_css))
-pages.add(JSON.parse(json_images))
-pages.add(JSON.parse(json_world), 'world')
-pages.add(JSON.parse(json_story), 'story')
-pages.add(JSON.parse(json))
+const url = 'http://furimako.com'
+let pages = new Pages(url)
+const viewsCSS = fs.readFileSync('./static/views/views-css.json', 'utf8')
+const viewsImages = fs.readFileSync('./static/views/views-images.json', 'utf8')
+const viewsWorld = fs.readFileSync('./static/views/views-world.json', 'utf8')
+const viewsStory = fs.readFileSync('./static/views/views-story.json', 'utf8')
+const views = fs.readFileSync('./static/views/views.json', 'utf8')
+pages.add(JSON.parse(viewsCSS))
+pages.add(JSON.parse(viewsImages))
+pages.add(JSON.parse(viewsWorld), 'world')
+pages.add(JSON.parse(viewsStory), 'story')
+pages.add(JSON.parse(views))
 
 
 // Start HTTP server
-const HTTP_PORT = 8128
-http.createServer(httpRequestListener).listen(HTTP_PORT)
-logging.info(`started server (port: ${HTTP_PORT})`)
+const httpPort = 8128
+http.createServer(httpRequestListener).listen(httpPort)
+logging.info(`started server (port: ${httpPort})`)
 
 // Start HTTPS server
-const HTTPS_PORT = 8129
+const httpsPort = 8129
 let options = {
     key: fs.readFileSync('./config/ssl/dummy-key.pem'),
     cert: fs.readFileSync('./config/ssl/dummy-cert.pem')
@@ -38,16 +38,16 @@ https.createServer(
     options,
     (req, res) => {
         let urlPath = parse(req.url).pathname
-        res.writeHead(302, { Location: URL + urlPath })
+        res.writeHead(302, { Location: url + urlPath })
         res.end()
         logging.info(`    L redirect from https to http (url: ${urlPath})`)
     }
-).listen(HTTPS_PORT)
+).listen(httpsPort)
 
 // Send mail for confirmation
 mailer.send(
     '[Fully Hatter の秘密の部屋] start-up server',
-    `start-up server on ${URL}`
+    `start-up server on ${url}`
 )
 
 
