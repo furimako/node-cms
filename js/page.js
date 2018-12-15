@@ -7,18 +7,18 @@ const mongodbDriver = require('./mongodb_driver')
 marked.setOptions({ breaks: true })
 const likeJA = 'いいね！'
 const commentJA = 'コメント'
-const TEMPLATE = fs.readFileSync('./static/template/template.mustache', 'utf8')
-const TEMPLATE_HOME = fs.readFileSync('./static/template/home.mustache', 'utf8')
-const TEMPLATE_NAVBAR = fs.readFileSync('./static/template/navbar.mustache', 'utf8')
-const TEMPLATE_COMMENT = fs.readFileSync('./static/template/comment.mustache', 'utf8')
-const TEMPLATE_COMMENTSFIELD = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
-const TEMPLATE_LIKEBUTTON = fs.readFileSync('./static/template/like-button.mustache', 'utf8')
+const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
+const homeTemplate = fs.readFileSync('./static/template/home.mustache', 'utf8')
+const navbarTemplate = fs.readFileSync('./static/template/navbar.mustache', 'utf8')
+const commentTemplate = fs.readFileSync('./static/template/comment.mustache', 'utf8')
+const commentsFieldTemplate = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
+const likeButtonTemplate = fs.readFileSync('./static/template/like-button.mustache', 'utf8')
 
 
 module.exports = class Page {
-    constructor(URL) {
-        this.URL = URL
-        this.template = TEMPLATE
+    constructor(url) {
+        this.url = url
+        this.template = template
     }
     
     setContentType(contentType) {
@@ -48,7 +48,7 @@ module.exports = class Page {
             this.urlPathBase = urlPath + '-1'
             
             this.template = mustache.render(this.template, {
-                url: this.URL + urlPath + '-' + parseInt(chapter, 10),
+                url: this.url + urlPath + '-' + parseInt(chapter, 10),
                 title: title + ' ' + parseInt(chapter, 10),
                 description,
                 cssPath,
@@ -63,7 +63,7 @@ module.exports = class Page {
         }
         
         this.template = mustache.render(this.template, {
-            url: this.URL + urlPath,
+            url: this.url + urlPath,
             title,
             description,
             cssPath,
@@ -85,11 +85,11 @@ module.exports = class Page {
             let filePath = './static/contents' + path
             filePath += (chapter) ? ('-' + chapter + '.md') : '.md'
             
-            const MARKDOWN = fs.readFileSync(filePath, 'utf8')
+            const markdown = fs.readFileSync(filePath, 'utf8')
             bodyHTML = '<section class="section">'
             bodyHTML += '<div class="container">'
             bodyHTML += '<div class="content is-small">'
-            bodyHTML += marked(MARKDOWN)
+            bodyHTML += marked(markdown)
             bodyHTML += '</div>'
             bodyHTML += '</div>'
             bodyHTML += '</section>'
@@ -145,7 +145,7 @@ module.exports = class Page {
                     }
                 }
                 
-                const bodyHTML = mustache.render(TEMPLATE_HOME, this.viewHome)
+                const bodyHTML = mustache.render(homeTemplate, this.viewHome)
                 callback(mustache.render(this.template, { bodyHTML }))
             })
             return
@@ -154,7 +154,7 @@ module.exports = class Page {
         mongodbDriver.findLike(this.urlPathBase || this.urlPath, (pageLike) => {
             let likeButton = ''
             if (this.hasLikeButton) {
-                likeButton = mustache.render(TEMPLATE_LIKEBUTTON, {
+                likeButton = mustache.render(likeButtonTemplate, {
                     urlPath: this.urlPathBase || this.urlPath,
                     likeJA,
                     pageLike: pageLike || 0
@@ -172,7 +172,7 @@ module.exports = class Page {
                         commentObj.timestamp = dateString(commentObj.date)
                         commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
                         commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
-                        commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
+                        commentsHTML += mustache.render(commentTemplate, commentObj)
                         commentIds.push({
                             urlPath: this.urlPath,
                             commentId: id
@@ -180,7 +180,7 @@ module.exports = class Page {
                     }
                     
                     const commentsFieldHTML = mustache.render(
-                        TEMPLATE_COMMENTSFIELD, {
+                        commentsFieldTemplate, {
                             urlPath: this.urlPath,
                             commentsHTML
                         }
@@ -189,7 +189,7 @@ module.exports = class Page {
                     callback(mustache.render(this.template, {
                         commentsFieldHTML,
                         likeButton,
-                        navBarHTML: mustache.render(TEMPLATE_NAVBAR, {
+                        navBarHTML: mustache.render(navbarTemplate, {
                             commentHTML: '<a class="navbar-item" href="' + this.urlPath + '#comments-field">コメントする</a>'
                         })
                     }))
@@ -197,7 +197,7 @@ module.exports = class Page {
             } else {
                 callback(mustache.render(this.template, {
                     likeButton,
-                    navBarHTML: mustache.render(TEMPLATE_NAVBAR, { commentHTML: '' })
+                    navBarHTML: mustache.render(navbarTemplate, { commentHTML: '' })
                 }))
             }
         })
