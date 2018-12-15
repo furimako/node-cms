@@ -1,15 +1,13 @@
-module.exports = {
-    str: (date) => {
-        const JST = new Date(date.getTime() + 9 * 60 * 60 * 1000)
+module.exports = (dateObj) => {
+    const dateJSTObj = new Date(dateObj.getTime() + 9 * 60 * 60 * 1000)
 
-        const YEAR = JST.getUTCFullYear()
-        const MONTH = JST.getUTCMonth() + 1
-        const DATE = JST.getUTCDate()
+    const year = dateJSTObj.getUTCFullYear()
+    const month = dateJSTObj.getUTCMonth() + 1
+    const date = dateJSTObj.getUTCDate()
 
-        const HOURS = ('00' + JST.getUTCHours()).slice(-2)
-        const MINUTES = ('00' + JST.getUTCMinutes()).slice(-2)
-        const SECONDS = ('00' + JST.getUTCSeconds()).slice(-2)
+    const hours = ('00' + dateJSTObj.getUTCHours()).slice(-2)
+    const minutes = ('00' + dateJSTObj.getUTCMinutes()).slice(-2)
+    const seconds = ('00' + dateJSTObj.getUTCSeconds()).slice(-2)
 
-        return `${YEAR}/${MONTH}/${DATE} ${HOURS}:${MINUTES}:${SECONDS}  JST(UTC+09:00)`
-    }
+    return `${year}/${month}/${date} ${hours}:${minutes}:${seconds}  JST(UTC+09:00)`
 }
