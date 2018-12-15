@@ -169,7 +169,7 @@ module.exports = class Page {
                     for (let commentObj of comments) {
                         id++
                         commentObj.id = id
-                        commentObj.timestamp = dateString.str(commentObj.date)
+                        commentObj.timestamp = dateString(commentObj.date)
                         commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
                         commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
                         commentsHTML += mustache.render(TEMPLATE_COMMENT, commentObj)
