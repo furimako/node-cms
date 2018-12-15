@@ -5,7 +5,6 @@ const marked = require('marked')
 const dateString = require('./date_string')
 const mongodbDriver = require('./mongodb_driver')
 marked.setOptions({ breaks: true })
-const URL = 'http://furimako.com'
 const likeJA = 'いいね！'
 const commentJA = 'コメント'
 const TEMPLATE = fs.readFileSync('./static/template/template.mustache', 'utf8')
@@ -17,7 +16,8 @@ const TEMPLATE_LIKEBUTTON = fs.readFileSync('./static/template/like-button.musta
 
 
 module.exports = class Page {
-    constructor() {
+    constructor(URL) {
+        this.URL = URL
         this.template = TEMPLATE
     }
     
@@ -48,7 +48,7 @@ module.exports = class Page {
             this.urlPathBase = urlPath + '-1'
             
             this.template = mustache.render(this.template, {
-                url: URL + urlPath + '-' + parseInt(chapter, 10),
+                url: this.URL + urlPath + '-' + parseInt(chapter, 10),
                 title: title + ' ' + parseInt(chapter, 10),
                 description,
                 cssPath,
@@ -63,7 +63,7 @@ module.exports = class Page {
         }
         
         this.template = mustache.render(this.template, {
-            url: URL + urlPath,
+            url: this.URL + urlPath,
             title,
             description,
             cssPath,

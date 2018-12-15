@@ -10,7 +10,7 @@ const Pages = require('./js/pages')
 const mongodbDriver = require('./js/mongodb_driver')
 
 const URL = 'http://furimako.com'
-let pages = new Pages()
+let pages = new Pages(URL)
 const json_css = fs.readFileSync('./static/views/views-css.json', 'utf8')
 const json_images = fs.readFileSync('./static/views/views-images.json', 'utf8')
 const json_world = fs.readFileSync('./static/views/views-world.json', 'utf8')

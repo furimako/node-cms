@@ -6,7 +6,8 @@ const Page = require('./page')
 
 
 module.exports = class Pages {
-    constructor() {
+    constructor(URL) {
+        this.URL = URL
         this.pages = new Map()
         this.viewHome = {}
         this.viewHome.world = []
@@ -41,11 +42,12 @@ module.exports = class Pages {
                 })
             }
             
+            let page = new Page(this.URL)
+            
             if (view.urlPath.match(/\.css$/)) {
                 // CSS
                 const SCSS = fs.readFileSync('./static/scss/' + path.basename(view.urlPath, '.css') + '.scss', 'utf8')
                 const CSS = sass.renderSync({ data: SCSS }).css
-                let page = new Page()
                 page.setContentType('text/css')
                 page.setContent(CSS)
                 this.pages.set(view.urlPath, page)
@@ -55,7 +57,6 @@ module.exports = class Pages {
             if (view.urlPath.match(/\.png$/)) {
                 // PNG
                 const PNG = fs.readFileSync('./static' + view.urlPath)
-                let page = new Page()
                 page.setContentType('image/png')
                 page.setContent(PNG)
                 this.pages.set(view.urlPath, page)
@@ -64,7 +65,6 @@ module.exports = class Pages {
             
             if (view.urlPath.match(/\.jpg$/)) {
                 // JPEG
-                let page = new Page()
                 page.setContentType('image/jpeg')
                 const JPG = fs.readFileSync('./static' + view.urlPath)
                 page.setContent(JPG)
@@ -73,7 +73,6 @@ module.exports = class Pages {
             }
             
             // HTML
-            let page = new Page()
             page.setContentType('text/html')
             page.render(view.urlPath, view.title, view.description, view.isNew)
             page.set(view.hasCommentsField, view.hasLikeButton)
@@ -88,7 +87,7 @@ module.exports = class Pages {
             if (view.numOfChapters) {
                 // Content = MARKDOWNs
                 for (let i = 1; i <= view.numOfChapters; i++) {
-                    let pageWithChapters = new Page()
+                    let pageWithChapters = new Page(this.URL)
                     pageWithChapters.setContentType('text/html')
                     pageWithChapters.render(view.urlPath, view.title, view.description, view.isNew, view.numOfChapters, i)
                     pageWithChapters.renderBodyHTML(view.urlPath, i)
