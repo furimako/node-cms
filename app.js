@@ -1,7 +1,7 @@
 const fs = require('fs')
 const http = require('http')
 const https = require('https')
-const parse = require('url').parse
+const { parse } = require('url')
 const qs = require('querystring')
 
 const logging = require('./js/logging')
@@ -10,7 +10,7 @@ const Pages = require('./js/pages')
 const mongodbDriver = require('./js/mongodb_driver')
 
 const url = 'http://furimako.com'
-let pages = new Pages(url)
+const pages = new Pages(url)
 const viewsCSS = fs.readFileSync('./static/views/views-css.json', 'utf8')
 const viewsImages = fs.readFileSync('./static/views/views-images.json', 'utf8')
 const viewsWorld = fs.readFileSync('./static/views/views-world.json', 'utf8')
@@ -30,14 +30,14 @@ logging.info(`started server (port: ${httpPort})`)
 
 // Start HTTPS server
 const httpsPort = 8129
-let options = {
+const options = {
     key: fs.readFileSync('./config/ssl/dummy-key.pem'),
     cert: fs.readFileSync('./config/ssl/dummy-cert.pem')
 }
 https.createServer(
     options,
     (req, res) => {
-        let urlPath = parse(req.url).pathname
+        const urlPath = parse(req.url).pathname
         res.writeHead(302, { Location: url + urlPath })
         res.end()
         logging.info(`    L redirect from https to http (url: ${urlPath})`)
@@ -52,7 +52,7 @@ mailer.send(
 
 
 function httpRequestListener(req, res) {
-    let urlPath = parse(req.url).pathname
+    const urlPath = parse(req.url).pathname
 
     if (!pages.has(urlPath)) {
         // When pages no found
@@ -82,7 +82,6 @@ function httpRequestListener(req, res) {
                 logging.info(`    L like (id: ${postData.id})`)
                 mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
                 res.writeHead(302, { Location: urlPath })
-
             } else if (postData.name && postData.comment) {
                 // Comment
                 logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
@@ -91,8 +90,7 @@ function httpRequestListener(req, res) {
                     `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
                 )
                 mongodbDriver.insertComment(urlPath, postData)
-                res.writeHead(302, { Location: urlPath + '#comments-field' })
-                
+                res.writeHead(302, { Location: `${urlPath}#comments-field` })
             } else {
                 // unexpected
                 logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)

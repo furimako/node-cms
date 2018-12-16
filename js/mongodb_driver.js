@@ -1,24 +1,21 @@
-const MongoClient = require('mongodb').MongoClient
+const { MongoClient } = require('mongodb')
+
 const mongoUrl = 'mongodb://localhost:27017/fully-hatter'
 const logging = require('./logging')
 
 module.exports = {
     insertLike: (urlPath, id) => {
-        let like = [{
+        const like = [{
             urlPath,
             id,
             date: new Date()
         }]
         insertMany(like, 'likes')
     },
-    findLike: (urlPath, callback) => {
-        findLike(urlPath, callback)
-    },
-    findLikesForHome: (callback) => {
-        findLikesForHome(callback)
-    },
+    findLike: (urlPath, callback) => { findLike(urlPath, callback) },
+    findLikesForHome: (callback) => { findLikesForHome(callback) },
     insertComment: (urlPath, postData) => {
-        let comments = [{
+        const comments = [{
             urlPath,
             date: new Date(),
             name: postData.name,
@@ -26,12 +23,10 @@ module.exports = {
         }]
         insertMany(comments, 'comments')
     },
-    findComments: (urlPath, callback) => {
-        findComments(urlPath, callback)
-    }
+    findComments: (urlPath, callback) => { findComments(urlPath, callback) }
 }
 
-let connect = (callback) => {
+const connect = (callback) => {
     MongoClient.connect(mongoUrl, { useNewUrlParser: true }, (err, db) => {
         if (err) {
             logging.error(`failed to connect DB\n${err}`)
@@ -44,7 +39,7 @@ let connect = (callback) => {
 
 let insertMany = (objs, collectionStr) => {
     connect((db) => {
-        let collection = db.db('fully-hatter').collection(collectionStr)
+        const collection = db.db('fully-hatter').collection(collectionStr)
         collection.insertMany(objs, (err, result) => {
             if (err || result.result.n !== 1 || result.ops.length !== 1) {
                 logging.error(`failed to insertMany\n${err}`)
@@ -58,7 +53,7 @@ let insertMany = (objs, collectionStr) => {
 
 let findLike = (urlPath, callback) => {
     connect((db) => {
-        let collection = db.db('fully-hatter').collection('likes')
+        const collection = db.db('fully-hatter').collection('likes')
         collection.find({ urlPath, id: 0 }).count((err, pageLike) => {
             if (err) {
                 logging.error(`failed to findLike\n${err}`)
@@ -73,11 +68,11 @@ let findLike = (urlPath, callback) => {
 
 let findLikesForHome = (callback) => {
     connect((db) => {
-        let summary = {}
+        const summary = {}
         summary.likeCount = {}
         summary.commentCount = {}
         
-        let collectionLikes = db.db('fully-hatter').collection('likes')
+        const collectionLikes = db.db('fully-hatter').collection('likes')
         collectionLikes.aggregate([
             { $match: { id: 0 } },
             { $group: { _id: '$urlPath', count: { $sum: 1 } } }
@@ -87,11 +82,9 @@ let findLikesForHome = (callback) => {
                 return
             }
             logging.info(`    L found ${likes.length} likes (findLikesForHome)`)
-            for (let like of likes) {
-                summary.likeCount[like._id] = like.count
-            }
+            likes.forEach((like) => { summary.likeCount[like._id] = like.count })
             
-            let collectionComments = db.db('fully-hatter').collection('comments')
+            const collectionComments = db.db('fully-hatter').collection('comments')
             collectionComments.aggregate([
                 { $group: { _id: '$urlPath', count: { $sum: 1 } } }
             ]).toArray((err2, comments) => {
@@ -100,10 +93,7 @@ let findLikesForHome = (callback) => {
                     return
                 }
                 logging.info(`    L found ${comments.length} comments (findLikesForHome)`)
-                for (let comment of comments) {
-                    summary.commentCount[comment._id] = comment.count
-                }
-                
+                comments.forEach((comment) => { summary.commentCount[comment._id] = comment.count })
                 db.close()
                 callback(summary)
             })
@@ -113,16 +103,14 @@ let findLikesForHome = (callback) => {
 
 let findComments = (urlPath, callback) => {
     connect((db) => {
-        let collection = db.db('fully-hatter').collection('comments')
+        const collection = db.db('fully-hatter').collection('comments')
         collection.find({ urlPath }).toArray((err, docs) => {
             if (err) {
                 logging.error(`failed to findComments\n${err}`)
                 return
             }
             logging.info(`    L found ${docs.length} comment(s)`)
-            docs.sort(
-                (commentObj1, commentObj2) => commentObj1.date.getTime() - commentObj2.date.getTime()
-            )
+            docs.sort((commentObj1, commentObj2) => commentObj1.date.getTime() - commentObj2.date.getTime())
             db.close()
             callback(docs)
         })

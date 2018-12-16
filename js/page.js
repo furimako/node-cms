@@ -4,6 +4,7 @@ const mustache = require('mustache')
 const marked = require('marked')
 const dateString = require('./date_string')
 const mongodbDriver = require('./mongodb_driver')
+
 marked.setOptions({ breaks: true })
 const likeJA = 'いいね！'
 const commentJA = 'コメント'
@@ -45,11 +46,11 @@ module.exports = class Page {
         const newTag = (isNew) ? '<span class="tag is-danger">New!</span><br><br>' : ''
         
         if (numOfChapters) {
-            this.urlPathBase = urlPath + '-1'
+            this.urlPathBase = `${urlPath}-1`
             
             this.template = mustache.render(this.template, {
-                url: this.url + urlPath + '-' + parseInt(chapter, 10),
-                title: title + ' ' + parseInt(chapter, 10),
+                url: `${this.url + urlPath}-${parseInt(chapter, 10)}`,
+                title: `${title} ${parseInt(chapter, 10)}`,
                 description,
                 cssPath,
                 newTag,
@@ -80,10 +81,9 @@ module.exports = class Page {
         
         if (path.match(/\.html$/)) {
             bodyHTML = fs.readFileSync(path, 'utf8')
-
         } else {
-            let filePath = './static/contents' + path
-            filePath += (chapter) ? ('-' + chapter + '.md') : '.md'
+            let filePath = `./static/contents${path}`
+            filePath += (chapter) ? (`-${chapter}.md`) : '.md'
             
             const markdown = fs.readFileSync(filePath, 'utf8')
             bodyHTML = '<section class="section">'
@@ -111,11 +111,11 @@ module.exports = class Page {
         
         if (this.urlPath === '/') {
             mongodbDriver.findLikesForHome((summary) => {
-                for (let i = 0; i < this.viewHome.world.length; i++) {
-                    let likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
-                    let commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
-                    this.viewHome.world[i].like = likeJA + ' ' + likeCount
-                    this.viewHome.world[i].comment = commentJA + ' ' + commentCount
+                for (let i = 0; i < this.viewHome.world.length; i += 1) {
+                    const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
+                    const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
+                    this.viewHome.world[i].like = `${likeJA} ${likeCount}`
+                    this.viewHome.world[i].comment = `${commentJA} ${commentCount}`
                     
                     if (i === 0) {
                         this.viewHome.world[i].headHTML = '<div class="column">'
@@ -129,9 +129,9 @@ module.exports = class Page {
                     }
                 }
                 
-                for (let i = 0; i < this.viewHome.story.length; i++) {
-                    let likeCount = summary.likeCount[this.viewHome.story[i].urlPath] || 0
-                    this.viewHome.story[i].like = likeJA + ' ' + likeCount
+                for (let i = 0; i < this.viewHome.story.length; i += 1) {
+                    const likeCount = summary.likeCount[this.viewHome.story[i].urlPath] || 0
+                    this.viewHome.story[i].like = `${likeJA} ${likeCount}`
                     
                     if (i === 0) {
                         this.viewHome.story[i].headHTML = '<div class="column">'
@@ -165,19 +165,20 @@ module.exports = class Page {
                 mongodbDriver.findComments(this.urlPath, (comments) => {
                     let id = 0
                     let commentsHTML = ''
-                    let commentIds = []
-                    for (let commentObj of comments) {
-                        id++
-                        commentObj.id = id
-                        commentObj.timestamp = dateString(commentObj.date)
-                        commentObj.comment = mustache.render('{{raw}}', { 'raw': commentObj.comment })
-                        commentObj.comment = commentObj.comment.replace(/\n/g, '<br>')
-                        commentsHTML += mustache.render(commentTemplate, commentObj)
+                    const commentIds = []
+                    comments.forEach((commentObj) => {
+                        id += 1
+                        const commentObjTmp = commentObj
+                        commentObjTmp.id = id
+                        commentObjTmp.timestamp = dateString(commentObj.date)
+                        commentObjTmp.comment = mustache.render('{{raw}}', { raw: commentObj.comment })
+                        commentObjTmp.comment = commentObj.comment.replace(/\n/g, '<br>')
+                        commentsHTML += mustache.render(commentTemplate, commentObjTmp)
                         commentIds.push({
                             urlPath: this.urlPath,
                             commentId: id
                         })
-                    }
+                    })
                     
                     const commentsFieldHTML = mustache.render(
                         commentsFieldTemplate, {
@@ -190,7 +191,7 @@ module.exports = class Page {
                         commentsFieldHTML,
                         likeButton,
                         navBarHTML: mustache.render(navbarTemplate, {
-                            commentHTML: '<a class="navbar-item" href="' + this.urlPath + '#comments-field">コメントする</a>'
+                            commentHTML: `<a class="navbar-item" href="${this.urlPath}#comments-field">コメントする</a>`
                         })
                     }))
                 })
@@ -215,14 +216,14 @@ let getPaginationHTML = (urlPath, numOfChapters, chapter) => {
     paginationHTML += '<nav class="pagination" role="navigation" aria-label="pagination">'
     paginationHTML += '<ul class="pagination-list">'
 
-    for (let i = 1; i <= numOfChapters; i++) {
+    for (let i = 1; i <= numOfChapters; i += 1) {
         if (i === chapter) {
             paginationHTML += '<li>'
-            paginationHTML += `<a class="pagination-link is-current" href="${urlPath + '-' + parseInt(i, 10)}">${parseInt(i, 10)}</a>`
+            paginationHTML += `<a class="pagination-link is-current" href="${`${urlPath}-${parseInt(i, 10)}`}">${parseInt(i, 10)}</a>`
             paginationHTML += '</li>'
         } else {
             paginationHTML += '<li>'
-            paginationHTML += `<a class="pagination-link" href="${urlPath + '-' + parseInt(i, 10)}">${parseInt(i, 10)}</a>`
+            paginationHTML += `<a class="pagination-link" href="${`${urlPath}-${parseInt(i, 10)}`}">${parseInt(i, 10)}</a>`
             paginationHTML += '</li>'
         }
     }
