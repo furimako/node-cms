@@ -5,9 +5,9 @@ module.exports = (dateObj) => {
     const month = dateJSTObj.getUTCMonth() + 1
     const date = dateJSTObj.getUTCDate()
 
-    const hours = ('00' + dateJSTObj.getUTCHours()).slice(-2)
-    const minutes = ('00' + dateJSTObj.getUTCMinutes()).slice(-2)
-    const seconds = ('00' + dateJSTObj.getUTCSeconds()).slice(-2)
+    const hours = (`00${dateJSTObj.getUTCHours()}`).slice(-2)
+    const minutes = (`00${dateJSTObj.getUTCMinutes()}`).slice(-2)
+    const seconds = (`00${dateJSTObj.getUTCSeconds()}`).slice(-2)
 
     return `${year}/${month}/${date} ${hours}:${minutes}:${seconds}  JST(UTC+09:00)`
 }
