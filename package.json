@@ -11,7 +11,8 @@
     },
     "scripts": {
         "prestart": "bash ./scripts/production/iptables.sh",
-        "start": "forever start -l /home/ubuntu/fully-hatter/log/server.log -e /home/ubuntu/fully-hatter/log/server-err.log ./config/forever.json"
+        "start": "forever start -l /home/ubuntu/fully-hatter/log/server.log -e /home/ubuntu/fully-hatter/log/server-err.log ./config/forever.json",
+        "test": "node test/logging_test.js"
     },
     "dependencies": {
         "bulma": "^0.6.2",
