@@ -1,9 +1,0 @@
-[
-    {
-        "uid": "server",
-        "append": true,
-        "watch": false,
-        "script": "app.js",
-        "sourceDir": "/home/ubuntu/fully-hatter"
-    }
-]
