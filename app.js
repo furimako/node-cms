@@ -44,6 +44,12 @@ https.createServer(
     }
 ).listen(httpsPort)
 
+// Send mail for confirmation
+mailer.send(
+    '[Fully Hatter の秘密の部屋] start-up server',
+    `start-up server on ${url}`
+)
+
 
 function httpRequestListener(req, res) {
     const urlPath = parse(req.url).pathname
