@@ -4,14 +4,15 @@
     "description": "The website for Fully Hatter based on pure Node.js without Express",
     "author": "Fully Hatter <furimako@gmail.com>",
     "license": "MIT",
-    "main": "app.js",
     "repository": "github:FullyHatter/fully-hatter",
     "engines": {
         "node": ">=8.14.0"
     },
     "scripts": {
         "prestart": "bash ./scripts/production/iptables.sh",
-        "start": "forever start -l /home/ubuntu/fully-hatter/log/server.log -e /home/ubuntu/fully-hatter/log/server-err.log ./config/forever.json",
+        "start": "pm2 start pm2.json --env production",
+        "start-dev": "pm2 start pm2.json",
+        "stop": "pm2 stop all",
         "test": "node test/logging_test.js"
     },
     "dependencies": {

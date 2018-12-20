@@ -23,4 +23,4 @@ sudo apt-get update
 sudo apt-get install -y mongodb-org
 
 # install forever
-sudo npm install forever -g
+sudo npm install pm2 -g

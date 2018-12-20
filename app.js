@@ -9,7 +9,7 @@ const mailer = require('./js/mailer')
 const Pages = require('./js/pages')
 const mongodbDriver = require('./js/mongodb_driver')
 
-const url = 'http://furimako.com'
+const url = (process.env.NOVE_ENV === 'production') ? 'http://furimako.com' : 'localhost:8128'
 const pages = new Pages(url)
 const viewsCSS = fs.readFileSync('./static/views/views-css.json', 'utf8')
 const viewsImages = fs.readFileSync('./static/views/views-images.json', 'utf8')
@@ -43,12 +43,6 @@ https.createServer(
         logging.info(`    L redirect from https to http (url: ${urlPath})`)
     }
 ).listen(httpsPort)
-
-// Send mail for confirmation
-mailer.send(
-    '[Fully Hatter の秘密の部屋] start-up server',
-    `start-up server on ${url}`
-)
 
 
 function httpRequestListener(req, res) {
