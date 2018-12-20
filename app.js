@@ -9,7 +9,7 @@ const mailer = require('./js/mailer')
 const Pages = require('./js/pages')
 const mongodbDriver = require('./js/mongodb_driver')
 
-const url = (process.env.NOVE_ENV === 'production') ? 'http://furimako.com' : 'localhost:8128'
+const url = (process.env.NODE_ENV === 'production') ? 'http://furimako.com' : 'localhost:8128'
 const pages = new Pages(url)
 const viewsCSS = fs.readFileSync('./static/views/views-css.json', 'utf8')
 const viewsImages = fs.readFileSync('./static/views/views-images.json', 'utf8')
