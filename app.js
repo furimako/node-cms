@@ -32,8 +32,8 @@ logging.info(`started HTTP server (port: ${httpPort})`)
 // Start HTTPS server
 const httpsPort = 8129
 const options = {
-    key: fs.readFileSync('./config/ssl/dummy-key.pem'),
-    cert: fs.readFileSync('./config/ssl/dummy-cert.pem')
+    key: fs.readFileSync('./configs/ssl/dummy-key.pem'),
+    cert: fs.readFileSync('./configs/ssl/dummy-cert.pem')
 }
 const httpsServer = https.createServer(
     options,

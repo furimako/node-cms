@@ -1,6 +1,6 @@
 /node_modules
 /mongodb_data
-/config/mailgun-config.json
+/configs/mailgun-config.json
 /log/**/*.log
 /log/dump/**/*.json
 /log/dump/**/*.bson

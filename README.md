@@ -4,20 +4,20 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 ## How to Run This Website
 ### local (macOS)
-1. create 'config/mailgun-config.json'  
+1. create 'configs/mailgun-config.json'  
 1. start MongoDB
     > bash scripts/local/mongod.sh
 1. start server
     > npm run start-env
 
 ### production (ubuntu 16.04)
-1. create 'config/mailgun-config.json'  
+1. create 'configs/mailgun-config.json'  
 1. start MongoDB
     > bash scripts/production/mongod.sh start
 1. start server
     > npm start
 1. set-up crontab
-    > crontab config/crontab/crontab.config
+    > crontab configs/crontab/crontab.config
 
 ## How to Backup (on macOS)
 1. execute below command on macOS

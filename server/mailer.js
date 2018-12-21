@@ -1,6 +1,6 @@
 const fs = require('fs')
 
-const mailgunConfig = JSON.parse(fs.readFileSync('./config/mailgun-config.json', 'utf8'))
+const mailgunConfig = JSON.parse(fs.readFileSync('./configs/mailgun-config.json', 'utf8'))
 const mailgun = require('mailgun-js')(mailgunConfig)
 
 
