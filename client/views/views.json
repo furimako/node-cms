@@ -5,7 +5,7 @@
         "description": "キミの知らない世界を見せよう。"
     },
     {
-        "filePath": "./static/contents/about.html",
+        "filePath": "./client/contents/about.html",
         "urlPath": "/about",
         "title": "About",
         "description": "このサイトについて。Fully Hatter について。"
@@ -17,37 +17,37 @@
         "hasCommentsField": true
     },
     {
-        "filePath": "./static/contents/bookshelf/books.html",
+        "filePath": "./client/contents/bookshelf/books.html",
         "urlPath": "/bookshelf/books",
         "title": "Fully Hatter の本棚",
         "description": "Fully Hatterの人生を変えた本をご紹介。"
     },
     {
-        "filePath": "./static/contents/bookshelf/movies.html",
+        "filePath": "./client/contents/bookshelf/movies.html",
         "urlPath": "/bookshelf/movies",
         "title": "Fully Hatter の本棚",
         "description": "Fully Hatterのお気に入りの映画をご紹介。"
     },
     {
-        "filePath": "./static/contents/bookshelf/comics.html",
+        "filePath": "./client/contents/bookshelf/comics.html",
         "urlPath": "/bookshelf/comics",
         "title": "Fully Hatter の本棚",
         "description": "Fully Hatterが愛したマンガをご紹介。"
     },
     {
-        "filePath": "./static/contents/bookshelf/ted.html",
+        "filePath": "./client/contents/bookshelf/ted.html",
         "urlPath": "/bookshelf/ted",
         "title": "Fully Hatter の本棚",
         "description": "Fully Hatterに衝撃を与えたTED TALKをご紹介。"
     },
     {
-        "filePath": "./static/contents/bookshelf/links.html",
+        "filePath": "./client/contents/bookshelf/links.html",
         "urlPath": "/bookshelf/links",
         "title": "Fully Hatter の本棚",
         "description": "Fully Hatterが感動したウェブサイトをご紹介。"
     },
     {
-        "filePath": "./static/contents/no-found.html",
+        "filePath": "./client/contents/no-found.html",
         "urlPath": "/no-found",
         "title": "No Found",
         "description": ""

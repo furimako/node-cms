@@ -8,12 +8,12 @@ const mongodbDriver = require('./mongodb_driver')
 marked.setOptions({ breaks: true })
 const likeJA = 'いいね！'
 const commentJA = 'コメント'
-const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
-const homeTemplate = fs.readFileSync('./static/template/home.mustache', 'utf8')
-const navbarTemplate = fs.readFileSync('./static/template/navbar.mustache', 'utf8')
-const commentTemplate = fs.readFileSync('./static/template/comment.mustache', 'utf8')
-const commentsFieldTemplate = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
-const likeButtonTemplate = fs.readFileSync('./static/template/like-button.mustache', 'utf8')
+const template = fs.readFileSync('./client/template/template.mustache', 'utf8')
+const homeTemplate = fs.readFileSync('./client/template/home.mustache', 'utf8')
+const navbarTemplate = fs.readFileSync('./client/template/navbar.mustache', 'utf8')
+const commentTemplate = fs.readFileSync('./client/template/comment.mustache', 'utf8')
+const commentsFieldTemplate = fs.readFileSync('./client/template/comments-field.mustache', 'utf8')
+const likeButtonTemplate = fs.readFileSync('./client/template/like-button.mustache', 'utf8')
 
 
 module.exports = class Page {
@@ -82,7 +82,7 @@ module.exports = class Page {
         if (path.match(/\.html$/)) {
             bodyHTML = fs.readFileSync(path, 'utf8')
         } else {
-            let filePath = `./static/contents${path}`
+            let filePath = `./client/contents${path}`
             filePath += (chapter) ? (`-${chapter}.md`) : '.md'
             
             const markdown = fs.readFileSync(filePath, 'utf8')
