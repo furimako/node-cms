@@ -25,8 +25,9 @@ pages.add(JSON.parse(views))
 
 // Start HTTP server
 const httpPort = 8128
-http.createServer(httpRequestListener).listen(httpPort)
-logging.info(`started server (port: ${httpPort})`)
+const httpServer = http.createServer(httpRequestListener)
+httpServer.listen(httpPort)
+logging.info(`started HTTP server (port: ${httpPort})`)
 
 // Start HTTPS server
 const httpsPort = 8129
@@ -34,7 +35,7 @@ const options = {
     key: fs.readFileSync('./config/ssl/dummy-key.pem'),
     cert: fs.readFileSync('./config/ssl/dummy-cert.pem')
 }
-https.createServer(
+const httpsServer = https.createServer(
     options,
     (req, res) => {
         const urlPath = parse(req.url).pathname
@@ -42,13 +43,32 @@ https.createServer(
         res.end()
         logging.info(`    L redirect from https to http (url: ${urlPath})`)
     }
-).listen(httpsPort)
+)
+httpsServer.listen(httpsPort)
+logging.info(`started HTTPS server (port: ${httpsPort})`)
 
 // Send mail for confirmation
 mailer.send(
     '[Fully Hatter の秘密の部屋] start-up server',
     `start-up server on ${url}`
 )
+
+// When app finished
+process.on('SIGINT', () => {
+    logging.info('stop app (SIGINT signal received)')
+    httpServer.close((err) => {
+        if (err) {
+            logging.error(err)
+            process.exit(1)
+        }
+    })
+    httpsServer.close((err) => {
+        if (err) {
+            logging.error(err)
+            process.exit(1)
+        }
+    })
+})
 
 
 function httpRequestListener(req, res) {
