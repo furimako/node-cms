@@ -2,5 +2,5 @@
 /mongodb_data
 /configs/mailgun-config.json
 /logs/**/*.log
-/logs/dump/**/*.json
-/logs/dump/**/*.bson
+/logs/dumps/**/*.json
+/logs/dumps/**/*.bson
