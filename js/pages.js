@@ -49,7 +49,7 @@ module.exports = class Pages {
         
         if (view.urlPath.match(/\.css$/)) {
             // CSS
-            const scss = fs.readFileSync(`./static/scss/${path.basename(view.urlPath, '.css')}.scss`, 'utf8')
+            const scss = fs.readFileSync(`./client/scss/${path.basename(view.urlPath, '.css')}.scss`, 'utf8')
             const { css } = sass.renderSync({ data: scss })
             page.setContentType('text/css')
             page.setContent(css)
@@ -59,7 +59,7 @@ module.exports = class Pages {
         
         if (view.urlPath.match(/\.png$/)) {
             // PNG
-            const png = fs.readFileSync(`./static${view.urlPath}`)
+            const png = fs.readFileSync(`./client${view.urlPath}`)
             page.setContentType('image/png')
             page.setContent(png)
             this.pages.set(view.urlPath, page)
@@ -69,7 +69,7 @@ module.exports = class Pages {
         if (view.urlPath.match(/\.jpg$/)) {
             // JPEG
             page.setContentType('image/jpeg')
-            const jpg = fs.readFileSync(`./static${view.urlPath}`)
+            const jpg = fs.readFileSync(`./client${view.urlPath}`)
             page.setContent(jpg)
             this.pages.set(view.urlPath, page)
             return
