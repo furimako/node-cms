@@ -17,7 +17,7 @@ echo "[$(date +"%Y/%m/%d %H:%M:%S")] [info] backup mongoDB"
 bash ~/fully-hatter/scripts/production/mongodump.sh
 
 echo "[$(date +"%Y/%m/%d %H:%M:%S")] [info] rotate log files"
-cd ~/fully-hatter/log
+cd ~/fully-hatter/logs
 mv server.log archives/server_`date +%Y%m%d%H%M%S`.log
 
 echo "[$(date +"%Y/%m/%d %H:%M:%S")] [info] start Server"
