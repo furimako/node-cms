@@ -9,9 +9,9 @@
         "node": ">=8.14.0"
     },
     "scripts": {
-        "prestart": "bash ./scripts/production/iptables.sh",
-        "start": "pm2 start ./configs/pm2/pm2.json --env production",
-        "start-dev": "pm2 start ./configs/pm2/pm2.json",
+        "prestart": "bash scripts/production/iptables.sh",
+        "start": "pm2 start configs/pm2/pm2.json --env production",
+        "start-dev": "pm2 start configs/pm2/pm2.json",
         "stop": "pm2 stop all",
         "test": "node test/logging_test.js"
     },
