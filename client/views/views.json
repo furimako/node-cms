@@ -47,6 +47,11 @@
         "description": "Fully Hatterが感動したウェブサイトをご紹介。"
     },
     {
+        "urlPath": "/privacy-policy",
+        "title": "プライバシー・ポリシー",
+        "description": "このサイトのプライバシー・ポリシーについて"
+    },
+    {
         "filePath": "./client/contents/no-found.html",
         "urlPath": "/no-found",
         "title": "No Found",
