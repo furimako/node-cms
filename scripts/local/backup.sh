@@ -10,5 +10,5 @@ mkdir $local_path
 
 sudo scp -i /Users/furimako/.ssh/LightsailDefaultPrivateKey-ap-northeast-1.pem -r ubuntu@furimako.com:~/fully-hatter/logs/* $local_path
 
-echo "[$(date +"%Y/%m/%d %H:%M:%S")] [info] created backup"
+echo "[$(date +'%Y/%m/%d %H:%M:%S')] [info] created backup"
 echo $local_path
