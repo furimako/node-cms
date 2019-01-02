@@ -1,7 +1,3 @@
-/* use this module like below */
-// const dateString = require('./date_string')
-// dateString(new Date())
-
 module.exports = (dateObj) => {
     const dateJSTObj = new Date(dateObj.getTime() + 9 * 60 * 60 * 1000)
 
