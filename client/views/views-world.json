@@ -1,27 +1,32 @@
 [
     {
+        "urlPath": "/world/death-for-life",
+        "title": "幸せに生きるために",
+        "description": "幸せに生きるためには「死ぬ覚悟」が必要なのではないか、というお話。",
+        "hasCommentsField": true,
+        "hasLikeButton": true,
+        "isNew": true
+    },
+    {
         "urlPath": "/world/how-to-fail",
         "title": "人生で失敗するには",
         "description": "失敗するために生きている多くの人々へ。",
         "hasCommentsField": true,
-        "hasLikeButton": true,
-        "isNew": true
+        "hasLikeButton": true
     },
     {
         "urlPath": "/world/nation",
         "title": "理想の国家 〜ひとりひとりが自由に生きられる世界へ〜",
         "description": "世界中の誰もが、「本当にやりたいこと」のできる世界へ。",
         "hasCommentsField": true,
-        "hasLikeButton": true,
-        "isNew": true
+        "hasLikeButton": true
     },
     {
         "urlPath": "/world/reward",
         "title": "成果主義について ～できる人にはお金を与えるべきか？〜",
         "description": "「能力のある人にはご褒美をあげて能力のない人には低い扱いをすること」は当たり前。本当にそうでしょうか？",
         "hasCommentsField": true,
-        "hasLikeButton": true,
-        "isNew": true
+        "hasLikeButton": true
     },
     {
         "urlPath": "/world/ideal-way-to-live-life",
