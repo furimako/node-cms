@@ -4,7 +4,6 @@ const logging = require('./logging')
 
 const url = 'mongodb://localhost:27017'
 const dbName = 'fully-hatter'
-// const client = new MongoClient(url, { useNewUrlParser: true })
 
 module.exports = {
     async insert(collectionName, objs) {
