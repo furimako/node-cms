@@ -1,4 +1,3 @@
-
 const fs = require('fs')
 const path = require('path')
 const sass = require('node-sass')
@@ -18,8 +17,8 @@ module.exports = class Pages {
         return this.pages.has(urlPath)
     }
 
-    get(urlPath, callback) {
-        return this.pages.get(urlPath).get(callback)
+    async get(urlPath) {
+        return this.pages.get(urlPath).get()
     }
 
     contentType(urlPath) {
@@ -92,7 +91,14 @@ module.exports = class Pages {
             for (let i = 1; i <= view.numOfChapters; i += 1) {
                 const pageWithChapters = new Page(this.url)
                 pageWithChapters.setContentType('text/html')
-                pageWithChapters.render(view.urlPath, view.title, view.description, view.isNew, view.numOfChapters, i)
+                pageWithChapters.render(
+                    view.urlPath,
+                    view.title,
+                    view.description,
+                    view.isNew,
+                    view.numOfChapters,
+                    i
+                )
                 pageWithChapters.renderBodyHTML(view.urlPath, i)
                 pageWithChapters.set(view.hasCommentsField, view.hasLikeButton)
                 this.pages.set(`${view.urlPath}-${i}`, pageWithChapters)

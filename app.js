@@ -71,21 +71,23 @@ process.on('SIGINT', () => {
 })
 
 
-function httpRequestListener(req, res) {
+async function httpRequestListener(req, res) {
     const urlPath = parse(req.url).pathname
 
     if (!pages.has(urlPath)) {
         // When pages no found
         logging.info(`get no-found page request (url: ${urlPath})`)
         res.writeHead(404, { 'Content-Type': 'text/html' })
-        pages.get('/no-found', (page) => { res.end(page) })
+        const html = await pages.get('/no-found')
+        res.end(html)
         return
     }
     
     if (req.method === 'GET') {
         logging.info(`get GET request (url: ${urlPath})`)
         res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-        pages.get(urlPath, (page) => { res.end(page) })
+        const html = await pages.get(urlPath)
+        res.end(html)
         return
     }
     
@@ -95,12 +97,19 @@ function httpRequestListener(req, res) {
         let body = ''
         req.on('data', (data) => { body += data })
 
-        req.on('end', () => {
+        req.on('end', async () => {
             const postData = qs.parse(body)
             if (postData.id) {
                 // Like
                 logging.info(`    L like (id: ${postData.id})`)
-                mongodbDriver.insertLike(urlPath, parseInt(postData.id, 10))
+                
+                const likeObjs = [{
+                    urlPath,
+                    id: parseInt(postData.id, 10),
+                    date: new Date()
+                }]
+                mongodbDriver.insert('likes', likeObjs)
+                
                 res.writeHead(302, { Location: urlPath })
             } else if (postData.name && postData.comment) {
                 // Comment
@@ -109,14 +118,23 @@ function httpRequestListener(req, res) {
                     `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
                     `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
                 )
-                mongodbDriver.insertComment(urlPath, postData)
+                
+                const commentObjs = [{
+                    urlPath,
+                    date: new Date(),
+                    name: postData.name,
+                    comment: postData.comment
+                }]
+                mongodbDriver.insert('comments', commentObjs)
+                
                 res.writeHead(302, { Location: `${urlPath}#comments-field` })
             } else {
                 // unexpected
                 logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
             }
 
-            pages.get(urlPath, (page) => { res.end(page) })
+            const html = await pages.get(urlPath)
+            res.end(html)
         })
 
         logging.info('    L redirect')
