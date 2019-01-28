@@ -7,10 +7,12 @@ const qs = require('querystring')
 const logging = require('./server/logging')
 const mailer = require('./server/mailer')
 const Pages = require('./server/pages')
-const mongodbDriver = require('./server/mongodb_driver')
+const MongodbDriver = require('./server/mongodb_driver')
 
-const url = (process.env.NODE_ENV === 'production') ? 'http://furimako.com' : 'http://localhost:8128'
-const pages = new Pages(url)
+const env = process.env.NODE_ENV
+const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8128'
+const mongodbDriver = new MongodbDriver(env)
+const pages = new Pages(env, url)
 const viewsCSS = fs.readFileSync('./client/views/views-css.json', 'utf8')
 const viewsImages = fs.readFileSync('./client/views/views-images.json', 'utf8')
 const viewsWorld = fs.readFileSync('./client/views/views-world.json', 'utf8')
@@ -49,8 +51,9 @@ logging.info(`started HTTPS server (port: ${httpsPort})`)
 
 // Send mail for confirmation
 mailer.send(
-    '[Fully Hatter の秘密の部屋] start-up server',
-    `start-up server on ${url}`
+    'start-up server',
+    `start-up server on ${url}`,
+    env
 )
 
 // When app finished
@@ -58,13 +61,13 @@ process.on('SIGINT', () => {
     logging.info('stop app (SIGINT signal received)')
     httpServer.close((err) => {
         if (err) {
-            logging.error(err)
+            logging.error(`failed to close http server\n\n${err}`, env)
             process.exit(1)
         }
     })
     httpsServer.close((err) => {
         if (err) {
-            logging.error(err)
+            logging.error(`failed to close https server\n\n${err}`, env)
             process.exit(1)
         }
     })
@@ -115,8 +118,9 @@ async function httpRequestListener(req, res) {
                 // Comment
                 logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
                 mailer.send(
-                    `[Fully Hatter の秘密の部屋] get comment from '${postData.name}'`,
-                    `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
+                    `get comment from '${postData.name}'`,
+                    `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`,
+                    env
                 )
                 
                 const commentObjs = [{
