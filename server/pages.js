@@ -5,9 +5,7 @@ const Page = require('./page')
 
 
 module.exports = class Pages {
-    constructor(env, url) {
-        this.env = env
-        this.url = url
+    constructor() {
         this.pages = new Map()
         this.viewHome = {}
         this.viewHome.world = []
@@ -45,7 +43,7 @@ module.exports = class Pages {
             })
         }
         
-        const page = new Page(this.env, this.url)
+        const page = new Page()
         
         if (view.urlPath.match(/\.css$/)) {
             // CSS
@@ -90,7 +88,7 @@ module.exports = class Pages {
         if (view.numOfChapters) {
             // Content = MARKDOWNs
             for (let i = 1; i <= view.numOfChapters; i += 1) {
-                const pageWithChapters = new Page(this.env, this.url)
+                const pageWithChapters = new Page()
                 pageWithChapters.setContentType('text/html')
                 pageWithChapters.render(
                     view.urlPath,

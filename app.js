@@ -7,12 +7,11 @@ const qs = require('querystring')
 const logging = require('./server/logging')
 const mailer = require('./server/mailer')
 const Pages = require('./server/pages')
-const MongodbDriver = require('./server/mongodb_driver')
+const mongodbDriver = require('./server/mongodb_driver')
 
 const env = process.env.NODE_ENV
 const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8128'
-const mongodbDriver = new MongodbDriver(env)
-const pages = new Pages(env, url)
+const pages = new Pages()
 const viewsCSS = fs.readFileSync('./client/views/views-css.json', 'utf8')
 const viewsImages = fs.readFileSync('./client/views/views-images.json', 'utf8')
 const viewsWorld = fs.readFileSync('./client/views/views-world.json', 'utf8')
