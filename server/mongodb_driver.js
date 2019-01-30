@@ -2,14 +2,11 @@ const { MongoClient } = require('mongodb')
 const assert = require('assert')
 const logging = require('./logging')
 
+const env = process.env.NODE_ENV
 const url = 'mongodb://localhost:27017'
 const dbName = 'fully-hatter'
 
-module.exports = class MongodbDriver {
-    constructor(env) {
-        this.env = env
-    }
-    
+module.exports = {
     async insert(collectionName, objs) {
         const client = new MongoClient(url, { useNewUrlParser: true })
         try {
@@ -21,10 +18,10 @@ module.exports = class MongodbDriver {
             assert.equal(objs.length, r.insertedCount)
             logging.info(`    L inserted ${objs.length} document(s) (collection: ${collectionName})`)
         } catch (err) {
-            logging.error(`failed to insert (mongodb_driver.js)\n\n${err.stack}`, this.env)
+            logging.error(`failed to insert (mongodb_driver.js)\n\n${err.stack}`, env)
         }
         client.close()
-    }
+    },
     
     async findLikeCount(urlPath) {
         const client = new MongoClient(url, { useNewUrlParser: true })
@@ -38,11 +35,11 @@ module.exports = class MongodbDriver {
             likeCount = await col.find({ urlPath, id: 0 }).count()
             logging.info(`    L found ${likeCount} likeCount`)
         } catch (err) {
-            logging.error(`failed to findLikeCount (mongodb_driver.js)\n\n${err.stack}`, this.env)
+            logging.error(`failed to findLikeCount (mongodb_driver.js)\n\n${err.stack}`, env)
         }
         client.close()
         return likeCount || 0
-    }
+    },
     
     async findComments(urlPath) {
         const client = new MongoClient(url, { useNewUrlParser: true })
@@ -57,11 +54,11 @@ module.exports = class MongodbDriver {
             comments.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
             logging.info(`    L found ${comments.length} comment(s)`)
         } catch (err) {
-            logging.error(`failed to findComments (mongodb_driver.js)\n\n${err.stack}`, this.env)
+            logging.error(`failed to findComments (mongodb_driver.js)\n\n${err.stack}`, env)
         }
         client.close()
         return comments
-    }
+    },
     
     async findCountsForHome() {
         const client = new MongoClient(url, { useNewUrlParser: true })
@@ -91,7 +88,7 @@ module.exports = class MongodbDriver {
             logging.info(`    L found ${commentCountObjs.length} commentCounts`)
             commentCountObjs.forEach((obj) => { summary.commentCount[obj._id] = obj.count })
         } catch (err) {
-            logging.error(`failed to findCountsForHome (mongodb_driver.js)\n\n${err.stack}`, this.env)
+            logging.error(`failed to findCountsForHome (mongodb_driver.js)\n\n${err.stack}`, env)
         }
         client.close()
         return summary

@@ -2,9 +2,11 @@ const fs = require('fs')
 const mustache = require('mustache')
 const marked = require('marked')
 const dateString = require('./date_string')
-const MongodbDriver = require('./mongodb_driver')
+const mongodbDriver = require('./mongodb_driver')
 
 marked.setOptions({ breaks: true })
+const env = process.env.NODE_ENV
+const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8128'
 const likeJA = 'いいね！'
 const commentJA = 'コメント'
 const template = fs.readFileSync('./client/template/template.mustache', 'utf8')
@@ -16,10 +18,8 @@ const likeButtonTemplate = fs.readFileSync('./client/template/like-button.mustac
 
 
 module.exports = class Page {
-    constructor(env, url) {
-        this.url = url
+    constructor() {
         this.template = template
-        this.mongodbDriver = new MongodbDriver(env)
     }
     
     setContentType(contentType) {
@@ -49,7 +49,7 @@ module.exports = class Page {
             this.urlPathBase = `${urlPath}-1`
             
             this.template = mustache.render(this.template, {
-                url: `${this.url + urlPath}-${parseInt(chapter, 10)}`,
+                url: `${url + urlPath}-${parseInt(chapter, 10)}`,
                 title: `${title} ${parseInt(chapter, 10)}`,
                 description,
                 cssPath,
@@ -64,7 +64,7 @@ module.exports = class Page {
         }
         
         this.template = mustache.render(this.template, {
-            url: this.url + urlPath,
+            url: url + urlPath,
             title,
             description,
             cssPath,
@@ -114,7 +114,7 @@ module.exports = class Page {
 
         let likeButton = ''
         if (this.hasLikeButton) {
-            const likeCount = await this.mongodbDriver
+            const likeCount = await mongodbDriver
                 .findLikeCount(this.urlPathBase || this.urlPath)
             likeButton = mustache.render(likeButtonTemplate, {
                 urlPath: this.urlPathBase || this.urlPath,
@@ -131,7 +131,7 @@ module.exports = class Page {
     }
     
     async getHome() {
-        const summary = await this.mongodbDriver.findCountsForHome()
+        const summary = await mongodbDriver.findCountsForHome()
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
             const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
@@ -177,7 +177,7 @@ module.exports = class Page {
     }
     
     async getWithComments(likeButton) {
-        const comments = await this.mongodbDriver.findComments(this.urlPath)
+        const comments = await mongodbDriver.findComments(this.urlPath)
         let id = 0
         let commentsHTML = ''
         const commentIds = []
