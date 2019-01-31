@@ -51,8 +51,7 @@ logging.info(`started HTTPS server (port: ${httpsPort})`)
 // Send mail for confirmation
 mailer.send(
     'start-up server',
-    `start-up server on ${url}`,
-    env
+    `start-up server on ${url}`
 )
 
 // When app finished
@@ -60,13 +59,13 @@ process.on('SIGINT', () => {
     logging.info('stop app (SIGINT signal received)')
     httpServer.close((err) => {
         if (err) {
-            logging.error(`failed to close http server\n\n${err}`, env)
+            logging.error(`failed to close http server\n\n${err}`)
             process.exit(1)
         }
     })
     httpsServer.close((err) => {
         if (err) {
-            logging.error(`failed to close https server\n\n${err}`, env)
+            logging.error(`failed to close https server\n\n${err}`)
             process.exit(1)
         }
     })
@@ -118,8 +117,7 @@ async function httpRequestListener(req, res) {
                 logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
                 mailer.send(
                     `get comment from '${postData.name}'`,
-                    `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`,
-                    env
+                    `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
                 )
                 
                 const commentObjs = [{

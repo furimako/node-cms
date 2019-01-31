@@ -18,7 +18,7 @@ module.exports = {
             assert.equal(objs.length, r.insertedCount)
             logging.info(`    L inserted ${objs.length} document(s) (collection: ${collectionName})`)
         } catch (err) {
-            logging.error(`failed to insert (mongodb_driver.js)\n\n${err.stack}`, env)
+            logging.error(`failed to insert (mongodb_driver.js)\n\n${err.stack}`)
         }
         client.close()
     },
@@ -35,7 +35,7 @@ module.exports = {
             likeCount = await col.find({ urlPath, id: 0 }).count()
             logging.info(`    L found ${likeCount} likeCount`)
         } catch (err) {
-            logging.error(`failed to findLikeCount (mongodb_driver.js)\n\n${err.stack}`, env)
+            logging.error(`failed to findLikeCount (mongodb_driver.js)\n\n${err.stack}`)
         }
         client.close()
         return likeCount || 0
@@ -54,7 +54,7 @@ module.exports = {
             comments.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
             logging.info(`    L found ${comments.length} comment(s)`)
         } catch (err) {
-            logging.error(`failed to findComments (mongodb_driver.js)\n\n${err.stack}`, env)
+            logging.error(`failed to findComments (mongodb_driver.js)\n\n${err.stack}`)
         }
         client.close()
         return comments
@@ -88,7 +88,7 @@ module.exports = {
             logging.info(`    L found ${commentCountObjs.length} commentCounts`)
             commentCountObjs.forEach((obj) => { summary.commentCount[obj._id] = obj.count })
         } catch (err) {
-            logging.error(`failed to findCountsForHome (mongodb_driver.js)\n\n${err.stack}`, env)
+            logging.error(`failed to findCountsForHome (mongodb_driver.js)\n\n${err.stack}`)
         }
         client.close()
         return summary

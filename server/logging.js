@@ -2,8 +2,8 @@ const mailer = require('./mailer')
 
 module.exports = {
     info: msg => console.log(`[INFO] ${msg}`),
-    error: (msg, env) => {
+    error: (msg) => {
         console.error(`[ERROR] ${msg}`)
-        mailer.send('get ERROR', `${msg}`, env)
+        mailer.send('get ERROR', `${msg}`)
     }
 }
