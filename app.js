@@ -12,21 +12,11 @@ const mongodbDriver = require('./src/mongodb_driver')
 const env = process.env.NODE_ENV
 const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8128'
 const pages = new Pages()
-const viewsCSS = fs.readFileSync('./static/views/views-css.json', 'utf8')
-const viewsImages = fs.readFileSync('./static/views/views-images.json', 'utf8')
-const viewsWorld = fs.readFileSync('./static/views/views-world.json', 'utf8')
-const viewsStory = fs.readFileSync('./static/views/views-story.json', 'utf8')
-const views = fs.readFileSync('./static/views/views.json', 'utf8')
-pages.add(JSON.parse(viewsCSS))
-pages.add(JSON.parse(viewsImages))
-pages.add(JSON.parse(viewsWorld), 'world')
-pages.add(JSON.parse(viewsStory), 'story')
-pages.add(JSON.parse(views))
 
 
 // Start HTTP server
 const httpPort = 8128
-const httpServer = http.createServer(httpRequestListener)
+const httpServer = http.createServer(httpHandler)
 httpServer.listen(httpPort)
 logging.info(`started HTTP server (port: ${httpPort})`)
 
@@ -72,7 +62,7 @@ process.on('SIGINT', () => {
 })
 
 
-async function httpRequestListener(req, res) {
+async function httpHandler(req, res) {
     const urlPath = parse(req.url).pathname
 
     if (!pages.has(urlPath)) {
