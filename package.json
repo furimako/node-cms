@@ -9,9 +9,9 @@
         "node": ">=8.14.0"
     },
     "scripts": {
+        "start-dev": "NODE_ENV=development pm2 start configs/pm2/pm2.json",
         "prestart": "bash scripts/production/iptables.sh",
-        "start": "NODE_ENV=production pm2 start configs/pm2/pm2.json",
-        "start-dev": "NODE_ENV=development pm2 start configs/pm2/pm2.json"
+        "start": "NODE_ENV=production pm2 start configs/pm2/pm2.json"
     },
     "dependencies": {
         "bulma": "^0.6.2",
