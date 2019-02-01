@@ -29,8 +29,8 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     - tail /var/log/mongodb/mongod.log
 - Server (PM2)
     - pm2 ls
-    - tail logs/server.log
-    - tail logs/server-err.log
+    - tail logs/app.log
+    - tail logs/app-err.log
 - cron
     - crontab -l
     - tail logs/cron.log

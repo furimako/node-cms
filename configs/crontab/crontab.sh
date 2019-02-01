@@ -18,7 +18,7 @@ bash ~/fully-hatter/scripts/production/mongodump.sh
 
 echo "[$(date +'%Y/%m/%d %H:%M:%S')] [info] rotate log files"
 cd ~/fully-hatter/logs
-mv server.log archives/server_$(date +%Y%m%d%H%M%S).log
+mv app.log archives/app_$(date +%Y%m%d%H%M%S).log
 
 echo "[$(date +'%Y/%m/%d %H:%M:%S')] [info] start Server"
 cd ~/fully-hatter
