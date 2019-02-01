@@ -10,6 +10,17 @@ module.exports = class Pages {
         this.viewHome = {}
         this.viewHome.world = []
         this.viewHome.story = []
+        
+        const viewsCSS = fs.readFileSync('./static/views/views-css.json', 'utf8')
+        const viewsImages = fs.readFileSync('./static/views/views-images.json', 'utf8')
+        const viewsWorld = fs.readFileSync('./static/views/views-world.json', 'utf8')
+        const viewsStory = fs.readFileSync('./static/views/views-story.json', 'utf8')
+        const views = fs.readFileSync('./static/views/views.json', 'utf8')
+        this.add(JSON.parse(viewsCSS))
+        this.add(JSON.parse(viewsImages))
+        this.add(JSON.parse(viewsWorld), 'world')
+        this.add(JSON.parse(viewsStory), 'story')
+        this.add(JSON.parse(views))
     }
 
     has(urlPath) {
