@@ -3,8 +3,8 @@
         "name": "fully-hatter",
         "script": "./app.js",
         
-        "out_file": "./logs/server.log",
-        "error_file": "./logs/server-err.log",
+        "out_file": "./logs/app.log",
+        "error_file": "./logs/app-err.log",
         "merge_logs": true,
         "log_date_format": "YYYY-MM-DD HH:mm:ss(Z)",
         
