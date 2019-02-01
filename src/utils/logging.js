@@ -1,3 +1,4 @@
+/* [logging.js] is used by multiple services */
 const dateString = require('./date_string')
 const mailer = require('./mailer')
 
