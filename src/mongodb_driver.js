@@ -2,7 +2,6 @@ const { MongoClient } = require('mongodb')
 const assert = require('assert')
 const logging = require('./logging')
 
-const env = process.env.NODE_ENV
 const url = 'mongodb://localhost:27017'
 const dbName = 'fully-hatter'
 
