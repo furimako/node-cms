@@ -4,10 +4,10 @@ const https = require('https')
 const { parse } = require('url')
 const qs = require('querystring')
 
-const logging = require('./src/logging')
-const mailer = require('./src/mailer')
+const logging = require('./src/utils/logging')
+const mailer = require('./src/utils/mailer')
 const Pages = require('./src/pages')
-const mongodbDriver = require('./src/mongodb_driver')
+const mongodbDriver = require('./src/utils/mongodb_driver')
 
 const env = process.env.NODE_ENV
 const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8128'
