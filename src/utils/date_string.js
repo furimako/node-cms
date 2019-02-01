@@ -1,3 +1,4 @@
+/* [date_string.js] is used by multiple services */
 module.exports = {
     str(dateObj) {
         const {
