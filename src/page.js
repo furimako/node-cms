@@ -1,8 +1,8 @@
 const fs = require('fs')
 const mustache = require('mustache')
 const marked = require('marked')
-const dateString = require('./date_string')
-const mongodbDriver = require('./mongodb_driver')
+const dateString = require('./utils/date_string')
+const mongodbDriver = require('./utils/mongodb_driver')
 
 marked.setOptions({ breaks: true })
 const env = process.env.NODE_ENV
