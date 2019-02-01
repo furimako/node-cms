@@ -64,34 +64,34 @@ process.on('SIGINT', () => {
 
 async function httpHandler(req, res) {
     const urlPath = parse(req.url).pathname
+    logging.info(`${req.method} request (url: ${urlPath})`)
 
     if (!pages.has(urlPath)) {
         // When pages no found
-        logging.info(`get no-found page request (url: ${urlPath})`)
-        res.writeHead(404, { 'Content-Type': 'text/html' })
+        logging.info('    L responsing no-found page')
         const html = await pages.get('/no-found')
+        res.writeHead(404, { 'Content-Type': 'text/html' })
         res.end(html)
         return
     }
     
+    
     if (req.method === 'GET') {
-        logging.info(`get GET request (url: ${urlPath})`)
-        res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
         const html = await pages.get(urlPath)
+        res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
         res.end(html)
         return
     }
     
     if (req.method === 'POST') {
-        logging.info(`get POST request (url: ${urlPath})`)
-        
         let body = ''
         req.on('data', (data) => { body += data })
 
         req.on('end', async () => {
             const postData = qs.parse(body)
+            
+            // Like
             if (postData.id) {
-                // Like
                 logging.info(`    L like (id: ${postData.id})`)
                 
                 const likeObjs = [{
@@ -99,11 +99,16 @@ async function httpHandler(req, res) {
                     id: parseInt(postData.id, 10),
                     date: new Date()
                 }]
-                mongodbDriver.insert('likes', likeObjs)
+                await mongodbDriver.insert('likes', likeObjs)
                 
-                res.writeHead(302, { Location: urlPath })
-            } else if (postData.name && postData.comment) {
-                // Comment
+                const html = await pages.get(urlPath)
+                res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+                res.end(html)
+                return
+            }
+            
+            // Comment
+            if (postData.name && postData.comment) {
                 logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
                 mailer.send(
                     `get comment from '${postData.name}'`,
@@ -116,18 +121,18 @@ async function httpHandler(req, res) {
                     name: postData.name,
                     comment: postData.comment
                 }]
-                mongodbDriver.insert('comments', commentObjs)
+                await mongodbDriver.insert('comments', commentObjs)
                 
                 res.writeHead(302, { Location: `${urlPath}#comments-field` })
-            } else {
-                // unexpected
-                logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
+                res.end()
+                return
             }
-
+            
+            // invalid POST
+            logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
             const html = await pages.get(urlPath)
+            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
             res.end(html)
         })
-
-        logging.info('    L redirect')
     }
 }
