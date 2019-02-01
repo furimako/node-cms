@@ -9,7 +9,6 @@
         "node": ">=8.14.0"
     },
     "scripts": {
-        "start-dev": "NODE_ENV=development pm2 start configs/pm2/pm2.json",
         "prestart": "bash scripts/production/iptables.sh",
         "start": "NODE_ENV=production pm2 start configs/pm2/pm2.json"
     },
