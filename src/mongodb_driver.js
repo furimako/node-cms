@@ -19,7 +19,7 @@ module.exports = {
         } catch (err) {
             const errMessage = `failed to insert (mongodb_driver.js)\n${err.stack}`
             logging.error(errMessage)
-            Error(errMessage)
+            throw new Error(errMessage)
         }
         client.close()
     },
@@ -38,7 +38,7 @@ module.exports = {
         } catch (err) {
             const errMessage = `failed to findLikeCount (mongodb_driver.js)\n${err.stack}`
             logging.error(errMessage)
-            Error(errMessage)
+            throw new Error(errMessage)
         }
         client.close()
         return likeCount || 0
@@ -59,7 +59,7 @@ module.exports = {
         } catch (err) {
             const errMessage = `failed to findComments (mongodb_driver.js)\n${err.stack}`
             logging.error(errMessage)
-            Error(errMessage)
+            throw new Error(errMessage)
         }
         client.close()
         return comments
@@ -95,7 +95,7 @@ module.exports = {
         } catch (err) {
             const errMessage = `failed to findCountsForHome (mongodb_driver.js)\n${err.stack}`
             logging.error(errMessage)
-            Error(errMessage)
+            throw new Error(errMessage)
         }
         client.close()
         return summary
