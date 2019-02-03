@@ -18,7 +18,7 @@ module.exports = {
         
         mailgun.messages().send(data, (err, body) => {
             if (err) {
-                Error(`some error occurred in mailer\n${err}`)
+                throw new Error(`some error occurred in mailer\n${err}`)
             }
             console.log('--- sending mail ---')
             console.log(`body: ${body}`)
