@@ -1,9 +1,9 @@
 
 #!/bin/sh
 
-# 
+#
 # Ubuntu 16.04
-# 
+#
 
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [info] confirm crontab & PM2 list"
 crontab -l
@@ -11,7 +11,7 @@ pm2 ls
 
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [info] stop Server"
 cd ~/fully-hatter
-npm stop
+pm2 stop all
 
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [info] backup mongoDB"
 bash ~/fully-hatter/scripts/production/mongodump.sh
