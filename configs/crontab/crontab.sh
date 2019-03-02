@@ -2,7 +2,7 @@
 #!/bin/sh
 
 #
-# Ubuntu 16.04
+# Ubuntu
 #
 
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [info] confirm crontab & PM2 list"

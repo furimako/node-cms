@@ -1,9 +1,9 @@
 
 #!/bin/sh
 
-# 
-# Ubuntu 16.04
-# 
+#
+# Ubuntu
+#
 
 # $1 = start, stop or restart
 sudo service mongod $1

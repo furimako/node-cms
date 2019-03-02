@@ -13,7 +13,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     - debug mode
         > node inspect app.js
 
-### production (ubuntu 16.04)
+### production (ubuntu)
 1. create 'configs/mailgun-config.json'  
 1. start MongoDB
     > bash scripts/production/mongod.sh start

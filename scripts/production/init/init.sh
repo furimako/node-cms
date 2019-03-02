@@ -1,9 +1,9 @@
 
 #!/bin/sh
 
-# 
-# Ubuntu 16.04
-# 
+#
+# Ubuntu
+#
 
 # set Timezone
 sudo timedatectl set-timezone Asia/Tokyo

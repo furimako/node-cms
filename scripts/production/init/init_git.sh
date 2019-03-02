@@ -1,9 +1,9 @@
 
 #!/bin/sh
 
-# 
-# Ubuntu 16.04
-# 
+#
+# Ubuntu
+#
 
 sudo apt update
 sudo apt upgrade
