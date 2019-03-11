@@ -18,12 +18,18 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     ```
 1. create 'configs/mailgun-config.json'  
 1. start MongoDB
-    > bash scripts/local/mongod.sh
+    ```bash
+    bash scripts/local/mongod.sh
+    ```
 1. start server
     - normal mode
-        > node app.js  
+        ```bash
+        node app.js
+        ```
     - debug mode
-        > node inspect app.js
+        ```bash
+        node inspect app.js
+        ```
 
 ### production (ubuntu)
 1. set up server with below commands
@@ -53,11 +59,17 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     ```
 1. create 'configs/mailgun-config.json'  
 1. start MongoDB
-    > bash scripts/production/mongod.sh start
+    ```bash
+    bash scripts/production/mongod.sh start
+    ```
 1. start server
-    > npm start
+    ```bash
+    npm start
+    ```
 1. set-up crontab
-    > crontab configs/crontab/crontab.config
+    ```bash
+    crontab configs/crontab/crontab.config
+    ```
 
 ## How to Backup (on macOS)
 1. execute below command on macOS
@@ -68,11 +80,17 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 
 ## Error check
 - mongoDB
-    - tail /var/log/mongodb/mongod.log
+    ```bash
+    tail /var/log/mongodb/mongod.log
+    ```
 - Server (PM2)
-    - pm2 ls
-    - tail logs/app.log
-    - tail logs/app-err.log
+    ```bash
+    pm2 ls
+    tail logs/app.log
+    tail logs/app-err.log
+    ```
 - cron
-    - crontab -l
-    - tail logs/cron.log
+    ```bash
+    crontab -l
+    tail logs/cron.log
+    ```
