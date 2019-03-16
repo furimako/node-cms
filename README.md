@@ -22,14 +22,13 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     bash scripts/local/mongod.sh
     ```
 1. start server
-    - normal mode
-        ```bash
-        node app.js
-        ```
-    - debug mode
-        ```bash
-        node inspect app.js
-        ```
+    ```bash
+    # normal mode
+    node app.js
+
+    # debug mode
+    node inspect app.js
+    ```
 
 ### production (ubuntu)
 1. set up server with below commands
@@ -75,18 +74,16 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 1. delete unneeded logs in server
 
 ## Error check
-- mongoDB
-    ```bash
-    tail /var/log/mongodb/mongod.log
-    ```
-- Server (PM2)
-    ```bash
-    pm2 ls
-    tail logs/app.log
-    tail logs/app-err.log
-    ```
-- cron
-    ```bash
-    crontab -l
-    tail logs/cron.log
-    ```
+```bash
+# mongoDB
+tail /var/log/mongodb/mongod.log
+
+# Server (PM2)
+pm2 ls
+tail logs/app.log
+tail logs/app-err.log
+
+# cron
+crontab -l
+tail logs/cron.log
+```
