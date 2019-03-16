@@ -34,10 +34,6 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
 ### production (ubuntu)
 1. set up server with below commands
     ```bash
-    sudo timedatectl set-timezone Asia/Tokyo
-    sudo apt update
-    sudo apt -y dist-upgrade
-
     # install Node.js (version 10)
     curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     sudo apt-get install -y nodejs
