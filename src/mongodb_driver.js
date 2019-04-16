@@ -10,10 +10,9 @@ module.exports = {
         const client = new MongoClient(url, { useNewUrlParser: true })
         try {
             await client.connect()
-            logging.info('    L Connected correctly to server')
+            const collection = client.db(dbName).collection(collectionName)
             
-            const db = client.db(dbName)
-            const r = await db.collection(collectionName).insertMany(objs)
+            const r = await collection.insertMany(objs)
             assert.equal(objs.length, r.insertedCount)
             logging.info(`    L inserted ${objs.length} document(s) (collection: ${collectionName})`)
         } catch (err) {
@@ -29,11 +28,9 @@ module.exports = {
         let likeCount
         try {
             await client.connect()
-            logging.info('    L Connected correctly to server')
+            const collection = client.db(dbName).collection('likes')
             
-            const db = client.db(dbName)
-            const col = db.collection('likes')
-            likeCount = await col.find({ urlPath, id: 0 }).count()
+            likeCount = await collection.find({ urlPath, id: 0 }).count()
             logging.info(`    L found ${likeCount} likeCount`)
         } catch (err) {
             const errMessage = `failed to findLikeCount (mongodb_driver.js)\n${err.stack}`
@@ -49,11 +46,9 @@ module.exports = {
         let comments = []
         try {
             await client.connect()
-            logging.info('    L Connected correctly to server')
+            const collection = client.db(dbName).collection('comments')
             
-            const db = client.db(dbName)
-            const col = db.collection('comments')
-            comments = await col.find({ urlPath }).toArray() || []
+            comments = await collection.find({ urlPath }).toArray() || []
             comments.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
             logging.info(`    L found ${comments.length} comment(s)`)
         } catch (err) {
@@ -74,10 +69,8 @@ module.exports = {
         
         try {
             await client.connect()
-            logging.info('    L Connected correctly to server')
-            
-            const db = client.db(dbName)
-            const likesCol = db.collection('likes')
+            const likesCol = client.db(dbName).collection('likes')
+            const commentsCol = client.db(dbName).collection('comments')
             
             const likeCountObjs = await likesCol.aggregate([
                 { $match: { id: 0 } },
@@ -86,7 +79,6 @@ module.exports = {
             logging.info(`    L found ${likeCountObjs.length} likeCounts`)
             likeCountObjs.forEach((obj) => { summary.likeCount[obj._id] = obj.count })
             
-            const commentsCol = db.collection('comments')
             const commentCountObjs = await commentsCol.aggregate([
                 { $group: { _id: '$urlPath', count: { $sum: 1 } } }
             ]).toArray()
