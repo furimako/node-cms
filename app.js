@@ -64,8 +64,10 @@ process.on('SIGINT', () => {
 
 async function httpHandler(req, res) {
     const urlPath = parse(req.url).pathname
-    logging.info(`${req.method} request (url: ${urlPath})`)
-
+    const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
+    const userAgent = req.headers['user-agent']
+    logging.info(`${req.method} request (url: ${urlPath}, IP Address: ${ipAddress})`)
+    
     if (!pages.has(urlPath)) {
         // When pages no found
         logging.info('    L responsing no-found page')
@@ -97,7 +99,9 @@ async function httpHandler(req, res) {
                 const likeObjs = [{
                     urlPath,
                     id: parseInt(postData.id, 10),
-                    date: new Date()
+                    date: new Date(),
+                    ipAddress,
+                    userAgent
                 }]
                 await mongodbDriver.insert('likes', likeObjs)
                 
@@ -119,7 +123,9 @@ async function httpHandler(req, res) {
                     urlPath,
                     date: new Date(),
                     name: postData.name,
-                    comment: postData.comment
+                    comment: postData.comment,
+                    ipAddress,
+                    userAgent
                 }]
                 await mongodbDriver.insert('comments', commentObjs)
                 
