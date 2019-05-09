@@ -12,7 +12,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     ```
 1. install fully-hatter
     ```bash
-    git clone https://github.com/FullyHatter/fully-hatter.git
+    git clone https://github.com/furimako/fully-hatter.git
     cd fully-hatter
     npm install
     ```
@@ -47,7 +47,7 @@ This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org)
     sudo npm install pm2 -g
 
     # install fully-hatter
-    git clone https://github.com/FullyHatter/fully-hatter.git
+    git clone https://github.com/furimako/fully-hatter.git
     cd fully-hatter
     npm install
 
