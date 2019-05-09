@@ -4,7 +4,7 @@
     "description": "The website for Fully Hatter based on pure Node.js without Express",
     "author": "Fully Hatter <furimako@gmail.com>",
     "license": "MIT",
-    "repository": "github:FullyHatter/fully-hatter",
+    "repository": "github:furimako/fully-hatter",
     "engines": {
         "node": ">=8.14.0"
     },
