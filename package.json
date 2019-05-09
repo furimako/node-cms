@@ -15,9 +15,9 @@
     "dependencies": {
         "bulma": "^0.6.2",
         "mailgun-js": "^0.20.0",
-        "marked": "^0.3.19",
-        "mongodb": "^3.1.13",
+        "marked": "^0.6.2",
+        "mongodb": "^3.2.4",
         "mustache": "^2.3.2",
-        "node-sass": "^4.11.0"
+        "node-sass": "^4.12.0"
     }
 }
