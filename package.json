@@ -6,7 +6,7 @@
     "license": "MIT",
     "repository": "github:furimako/fully-hatter",
     "engines": {
-        "node": ">=8.14.0"
+        "node": ">=10.15.1 <11.0.0"
     },
     "scripts": {
         "prestart": "bash scripts/production/iptables.sh",
