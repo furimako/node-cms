@@ -172,10 +172,12 @@ module.exports = class Page {
         const comments = []
         
         commentList.forEach((comment) => {
+            const viewObj = this.viewHome.world.find(e => e.urlPath === comment.urlPath)
+            
             comments.push({
                 date: dateString.date(comment.date),
                 urlPath: comment.urlPath,
-                pageTitle: this.viewHome.world.find(e => e.urlPath === comment.urlPath).title,
+                pageTitle: (viewObj) ? viewObj.title : '掲示板',
                 name: comment.name,
                 excerptOfComment: (comment.comment.length > 100) ? `${comment.comment.slice(0, 100)}...` : comment.comment
             })
