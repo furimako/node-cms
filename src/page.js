@@ -180,7 +180,7 @@ module.exports = class Page {
                 urlPath: commentObj.urlPath,
                 pageTitle: (viewObj) ? viewObj.title : '掲示板',
                 name: commentObj.name,
-                excerptOfComment: (commentStr.length > 100) ? `${commentStr.slice(0, 100)}...` : commentStr
+                excerptOfComment: (commentStr.length > 30) ? `${commentStr.slice(0, 30)}...` : commentStr
             })
         })
         this.viewHome.comments = commentListView
