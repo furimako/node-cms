@@ -4,7 +4,7 @@
         <p>
             秘密の部屋なのでこっそりのぞいてください。
             <br>
-            このサイトのソースコードは <a target="_blank" href="https://github.com/FullyHatter/fully-hatter"><strong>こちら</strong></a>。
+            このサイトのソースコードは <a target="_blank" href="https://github.com/furimako/fully-hatter"><strong>こちら</strong></a>。
         </p>
     </div>
 </section>
@@ -12,6 +12,30 @@
 <section class="section">
     <div class="container">
         <h2 class="title is-4">Fully Hatter の頭の中</h2>
+        <div class="content is-small">
+            <p><strong>最近のコメント</strong></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="width:10%;">日時</th>
+                        <th style="width:20%;">ページ</th>
+                        <th style="width:15%;">名前</th>
+                        <th>コメント</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#comments}}
+                        <tr>
+                            <td>{{date}}</td>
+                            <td><a href={{urlPath}}>{{pageTitle}}</a></td>
+                            <td>{{name}}</td>
+                            <td>{{{excerptOfComment}}}</td>
+                        </tr>
+                    {{/comments}}
+                </tbody>
+            </table>
+        </div>
+        <br>
         <div class="columns">
             {{#world}}
                 {{{headHTML}}}

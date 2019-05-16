@@ -131,6 +131,7 @@ module.exports = class Page {
     }
     
     async getHome() {
+        // create viewHome
         const summary = await mongodbDriver.findCountsForHome()
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
@@ -165,6 +166,23 @@ module.exports = class Page {
                 this.viewHome.story[i].footHTML = '</div>'
             }
         }
+
+        // create comment list
+        const commentList = await mongodbDriver.findCommentList(5)
+        const comments = []
+        
+        commentList.forEach((comment) => {
+            comments.push({
+                date: dateString.date(comment.date),
+                urlPath: comment.urlPath,
+                pageTitle: this.viewHome.world.find(e => e.urlPath === comment.urlPath).title,
+                name: comment.name,
+                excerptOfComment: (comment.comment.length > 100) ? `${comment.comment.slice(0, 100)}...` : comment.comment
+            })
+        })
+        this.viewHome.comments = comments
+        
+        // rendering
         const bodyHTML = mustache.render(homeTemplate, this.viewHome)
         return mustache.render(this.template, { bodyHTML })
     }

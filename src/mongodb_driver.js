@@ -49,6 +49,8 @@ module.exports = {
             const collection = client.db(dbName).collection('comments')
             
             comments = await collection.find({ urlPath }).toArray() || []
+            
+            // from oldest to latest
             comments.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
             logging.info(`    L found ${comments.length} comment(s)`)
         } catch (err) {
@@ -58,6 +60,27 @@ module.exports = {
         }
         client.close()
         return comments
+    },
+    
+    async findCommentList(numOfComments) {
+        const client = new MongoClient(url, { useNewUrlParser: true })
+        let comments = []
+        try {
+            await client.connect()
+            const collection = client.db(dbName).collection('comments')
+            
+            comments = await collection.find().toArray() || []
+            
+            // from latest to oldest
+            comments.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
+            logging.info(`    L found ${comments.length} comment(s)`)
+        } catch (err) {
+            const errMessage = `failed to findComments (mongodb_driver.js)\n${err.stack}`
+            logging.error(errMessage)
+            throw new Error(errMessage)
+        }
+        client.close()
+        return comments.slice(0, numOfComments)
     },
     
     async findCountsForHome() {
