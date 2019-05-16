@@ -169,20 +169,21 @@ module.exports = class Page {
 
         // create comment list
         const commentList = await mongodbDriver.findCommentList(5)
-        const comments = []
+        const commentListView = []
         
-        commentList.forEach((comment) => {
-            const viewObj = this.viewHome.world.find(e => e.urlPath === comment.urlPath)
+        commentList.forEach((commentObj) => {
+            const viewObj = this.viewHome.world.find(e => e.urlPath === commentObj.urlPath)
+            const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/\n/g, '<br>')
             
-            comments.push({
-                date: dateString.date(comment.date),
-                urlPath: comment.urlPath,
+            commentListView.push({
+                date: dateString.date(commentObj.date),
+                urlPath: commentObj.urlPath,
                 pageTitle: (viewObj) ? viewObj.title : '掲示板',
-                name: comment.name,
-                excerptOfComment: (comment.comment.length > 100) ? `${comment.comment.slice(0, 100)}...` : comment.comment
+                name: commentObj.name,
+                excerptOfComment: (commentStr.length > 100) ? `${commentStr.slice(0, 100)}...` : commentStr
             })
         })
-        this.viewHome.comments = comments
+        this.viewHome.comments = commentListView
         
         // rendering
         const bodyHTML = mustache.render(homeTemplate, this.viewHome)
@@ -206,8 +207,7 @@ module.exports = class Page {
             const commentObjTmp = commentObj
             commentObjTmp.id = id
             commentObjTmp.timestamp = dateString.str(commentObj.date)
-            commentObjTmp.comment = mustache.render('{{raw}}', { raw: commentObj.comment })
-            commentObjTmp.comment = commentObj.comment.replace(/\n/g, '<br>')
+            commentObjTmp.comment = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/\n/g, '<br>')
             commentsHTML += mustache.render(commentTemplate, commentObjTmp)
             commentIds.push({
                 urlPath: this.urlPath,
