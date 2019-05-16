@@ -12,6 +12,8 @@
                 どなたでもご自由に書き込んでください。
                 <br>
                 Fully Hatter が愛をもってご返事いたします。
+                <br>
+                (人間以外の方は申し訳ありませんがご遠慮ください)
             </p>
             <br>
             <form method="post" action="{{urlPath}}">
@@ -26,14 +28,24 @@
                         </span>
                     </div>
                 </div>
-
                 <div class="field">
                     <label class="label is-small">コメント</label>
                     <div class="control is-small">
                         <textarea class="textarea" name="comment" placeholder="ご自由にどうぞ" maxlength="900" required></textarea>
                     </div>
                 </div>
-
+                <div class="field">
+                    <div class="control">
+                        <label class="radio">
+                            <input type="radio" name="userType" value="human" required>
+                            私は人間です
+                        </label>
+                        <label class="radio">
+                            <input type="radio" name="userType" value="machine" required>
+                            私は人間ではありません
+                        </label>
+                    </div>
+                </div>
                 <div class="field">
                     <div class="control">
                         <button class="button is-primary">送信</button>
