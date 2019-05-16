@@ -34,7 +34,7 @@ $link-hover: $info;
 }
 * { font-family: "Sawarabi Gothic"; }
 p, figcaption, .box { font-size: 14px; }
-
+label.radio { color: $white !important; }
 
 /* Hero */
 $navbar-item-hover-background-color: $grey-darker;

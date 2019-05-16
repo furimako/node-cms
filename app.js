@@ -112,7 +112,7 @@ async function httpHandler(req, res) {
             }
             
             // Comment
-            if (postData.name && postData.comment) {
+            if (postData.name && postData.comment && postData.userType === 'human') {
                 logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
                 mailer.send(
                     `get comment from '${postData.name}'`,
