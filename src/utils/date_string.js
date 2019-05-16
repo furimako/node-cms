@@ -6,6 +6,12 @@ module.exports = {
         } = JST(dateObj)
         return `${year}/${month}/${date} ${hours}:${minutes}:${seconds}  JST(UTC+09:00)`
     },
+    date(dateObj) {
+        const {
+            year, month, date
+        } = JST(dateObj)
+        return `${year}/${month}/${date}`
+    },
     ISO8610(dateObj) {
         const {
             year, month, date, hours, minutes, seconds
