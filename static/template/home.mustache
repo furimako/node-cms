@@ -14,26 +14,28 @@
         <h2 class="title is-4">Fully Hatter の頭の中</h2>
         <div class="content is-small">
             <p><strong>最近のコメント</strong></p>
-            <table>
-                <thead>
-                    <tr>
-                        <th style="width:5%;">日時</th>
-                        <th style="width:25%;">ページ</th>
-                        <th style="width:20%;">名前</th>
-                        <th>コメント</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {{#comments}}
+            <small>
+                <table>
+                    <thead>
                         <tr>
-                            <td>{{date}}</td>
-                            <td><a href={{urlPath}}>{{pageTitle}}</a></td>
-                            <td>{{name}}</td>
-                            <td>{{{excerptOfComment}}}</td>
+                            <th style="width:5%;">日時</th>
+                            <th style="width:25%;">ページ</th>
+                            <th style="width:20%;">名前</th>
+                            <th>コメント</th>
                         </tr>
-                    {{/comments}}
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        {{#comments}}
+                            <tr>
+                                <td>{{date}}</td>
+                                <td><a href={{urlPath}}>{{pageTitle}}</a></td>
+                                <td>{{name}}</td>
+                                <td>{{{excerptOfComment}}}</td>
+                            </tr>
+                        {{/comments}}
+                    </tbody>
+                </table>
+            </small>
         </div>
         <br>
         <div class="columns">
