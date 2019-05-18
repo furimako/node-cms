@@ -12,8 +12,27 @@
 <section class="section">
     <div class="container">
         <h2 class="title is-4">Fully Hatter の頭の中</h2>
+        <nav class="pagination is-right" role="navigation" aria-label="pagination">
+            <p id="commentList"><strong>最近のコメント</strong></p>
+            <ul class="pagination-list">
+                <li>
+                    <small>
+                        <a class="pagination-link {{is-current-5}}" href="/?numOfComments=5#commentList">5件</a>
+                    </small>
+                </li>
+                <li>
+                    <small>
+                        <a class="pagination-link {{is-current-10}}" href="/?numOfComments=10#commentList">10件</a>
+                    </small>
+                </li>
+                <li>
+                    <small>
+                        <a class="pagination-link {{is-current-20}}" href="/?numOfComments=20#commentList">20件</a>
+                    </small>
+                </li>
+            </ul>
+        </nav>
         <div class="content is-small">
-            <p><strong>最近のコメント</strong></p>
             <small>
                 <table>
                     <thead>
