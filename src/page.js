@@ -103,13 +103,13 @@ module.exports = class Page {
         })
     }
     
-    async get() {
+    async get(numOfComments) {
         if (this.content) {
             return this.content
         }
         
         if (this.urlPath === '/') {
-            return this.getHome()
+            return this.getHome(numOfComments)
         }
 
         let likeButton = ''
@@ -130,7 +130,7 @@ module.exports = class Page {
         return this.getWithNoComments(likeButton)
     }
     
-    async getHome() {
+    async getHome(numOfComments) {
         // create viewHome
         const summary = await mongodbDriver.findCountsForHome()
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
@@ -168,7 +168,11 @@ module.exports = class Page {
         }
 
         // create comment list
-        const commentList = await mongodbDriver.findCommentList(5)
+        this.viewHome['is-current-5'] = ''
+        this.viewHome['is-current-10'] = ''
+        this.viewHome['is-current-20'] = ''
+        this.viewHome[`is-current-${numOfComments}`] = 'is-current'
+        const commentList = await mongodbDriver.findCommentList(numOfComments)
         const commentListView = []
         
         commentList.forEach((commentObj) => {

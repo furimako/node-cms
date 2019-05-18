@@ -64,6 +64,7 @@ process.on('SIGINT', () => {
 
 async function httpHandler(req, res) {
     const urlPath = parse(req.url).pathname
+    const { query } = parse(req.url, true)
     const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
     const userAgent = req.headers['user-agent']
     logging.info(`${req.method} request (url: ${urlPath}, IP Address: ${ipAddress})`)
@@ -79,7 +80,8 @@ async function httpHandler(req, res) {
     
     
     if (req.method === 'GET') {
-        const html = await pages.get(urlPath)
+        const numOfComments = parseInt(query.numOfComments, 10) || 5
+        const html = await pages.get(urlPath, numOfComments)
         res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
         res.end(html)
         return
