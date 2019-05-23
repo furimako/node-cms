@@ -11,9 +11,9 @@ You can manage contents with markdown text files.
     ```bash
     npm install pm2 -g
     ```
-1. install fully-hatter
+1. install Node CMS
     ```bash
-    git clone https://github.com/furimako/fully-hatter.git
+    git clone https://github.com/furimako/node-cms.git
     cd fully-hatter
     npm install
     ```
@@ -47,8 +47,8 @@ You can manage contents with markdown text files.
     # install pm2
     sudo npm install pm2 -g
 
-    # install fully-hatter
-    git clone https://github.com/furimako/fully-hatter.git
+    # install Node CMS
+    git clone https://github.com/furimako/node-cms.git
     cd fully-hatter
     npm install
 
