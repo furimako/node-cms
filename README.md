@@ -1,6 +1,6 @@
 
-# Fully Hatter の秘密の部屋
-This is the website for Fully Hatter based on pure [Node.js](https://nodejs.org) without [Express](https://expressjs.com/).
+# Node CMS
+The simplest CMS based on pure [Node.js](https://nodejs.org) without [Express](https://expressjs.com/).
 
 ## How to Run This Website
 ### local (macOS)
