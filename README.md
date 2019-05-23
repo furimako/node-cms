@@ -1,6 +1,6 @@
 
 # Node CMS
-The simplest CMS based on pure [Node.js](https://nodejs.org) without [Express](https://expressjs.com/).
+The simplest CMS based on pure [Node.js](https://nodejs.org) without [Express](https://expressjs.com/).  
 You can manage contents with markdown text files.
 
 ## How to Run This Website
