@@ -172,10 +172,15 @@ module.exports = class Page {
         this.viewHome['is-current-10'] = ''
         this.viewHome['is-current-20'] = ''
         this.viewHome[`is-current-${numOfComments}`] = 'is-current'
-        const commentList = await mongodbDriver.findCommentList(numOfComments)
+        let comments = await mongodbDriver.findComments({})
+        // from latest to oldest
+        comments.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
+        
+        comments = comments.slice(0, numOfComments)
+        
         const commentListView = []
         
-        commentList.forEach((commentObj) => {
+        comments.forEach((commentObj) => {
             const viewObj = this.viewHome.world.find(e => e.urlPath === commentObj.urlPath)
             const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/\n/g, '<br>')
             
@@ -202,7 +207,10 @@ module.exports = class Page {
     }
     
     async getWithComments(likeButton) {
-        const comments = await mongodbDriver.findComments(this.urlPath)
+        const comments = await mongodbDriver.findComments({ urlPath: this.urlPath })
+        // from oldest to latest
+        comments.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
+        
         let id = 0
         let commentsHTML = ''
         const commentIds = []
