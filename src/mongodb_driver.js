@@ -6,113 +6,106 @@ const url = 'mongodb://localhost:27017'
 const dbName = 'fully-hatter'
 
 module.exports = {
-    async insert(collectionName, objs) {
+    async _query(collectionName, executor) {
         const client = new MongoClient(url, { useNewUrlParser: true })
+        await client.connect()
+        const collection = client.db(dbName).collection(collectionName)
+        const r = await executor(collection)
+        await client.close()
+        return r
+    },
+    
+    async insert(collectionName, objs) {
         try {
-            await client.connect()
-            const collection = client.db(dbName).collection(collectionName)
-            
-            const r = await collection.insertMany(objs)
+            const r = await this._query(
+                collectionName,
+                async collection => collection.insertMany(objs)
+            )
             assert.equal(objs.length, r.insertedCount)
             logging.info(`    L inserted ${objs.length} document(s) (collection: ${collectionName})`)
         } catch (err) {
-            const errMessage = `failed to insert (mongodb_driver.js)\n${err.stack}`
-            logging.error(errMessage)
-            throw new Error(errMessage)
+            logging.error(`failed to insert (mongodb_driver.js)\n${err.stack}`)
         }
-        client.close()
     },
     
     async findLikeCount(urlPath) {
-        const client = new MongoClient(url, { useNewUrlParser: true })
-        let likeCount
         try {
-            await client.connect()
-            const collection = client.db(dbName).collection('likes')
-            
-            likeCount = await collection.find({ urlPath, id: 0 }).count()
+            const likeCount = await this._query(
+                'likes',
+                async collection => collection.find({ urlPath, id: 0 }).count()
+            )
             logging.info(`    L found ${likeCount} likeCount`)
+            return likeCount || 0
         } catch (err) {
-            const errMessage = `failed to findLikeCount (mongodb_driver.js)\n${err.stack}`
-            logging.error(errMessage)
-            throw new Error(errMessage)
+            logging.error(`failed to findLikeCount (mongodb_driver.js)\n${err.stack}`)
+            return 0
         }
-        client.close()
-        return likeCount || 0
     },
     
     async findComments(urlPath) {
-        const client = new MongoClient(url, { useNewUrlParser: true })
-        let comments = []
         try {
-            await client.connect()
-            const collection = client.db(dbName).collection('comments')
-            
-            comments = await collection.find({ urlPath }).toArray() || []
+            const comments = await this._query(
+                'comments',
+                async collection => collection.find({ urlPath }).toArray() || []
+            )
             
             // from oldest to latest
             comments.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
+            
             logging.info(`    L found ${comments.length} comment(s)`)
+            return comments
         } catch (err) {
-            const errMessage = `failed to findComments (mongodb_driver.js)\n${err.stack}`
-            logging.error(errMessage)
-            throw new Error(errMessage)
+            logging.error(`failed to findComments (mongodb_driver.js)\n${err.stack}`)
+            return []
         }
-        client.close()
-        return comments
     },
     
     async findCommentList(numOfComments) {
-        const client = new MongoClient(url, { useNewUrlParser: true })
-        let comments = []
         try {
-            await client.connect()
-            const collection = client.db(dbName).collection('comments')
-            
-            comments = await collection.find().toArray() || []
+            const comments = await this._query(
+                'comments',
+                async collection => collection.find().toArray() || []
+            )
             
             // from latest to oldest
             comments.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
+            
             logging.info(`    L found ${comments.length} comment(s)`)
+            return comments.slice(0, numOfComments)
         } catch (err) {
-            const errMessage = `failed to findComments (mongodb_driver.js)\n${err.stack}`
-            logging.error(errMessage)
-            throw new Error(errMessage)
+            logging.error(`failed to findCommentList (mongodb_driver.js)\n${err.stack}`)
+            return []
         }
-        client.close()
-        return comments.slice(0, numOfComments)
     },
     
     async findCountsForHome() {
-        const client = new MongoClient(url, { useNewUrlParser: true })
         const summary = {
             likeCount: {},
             commentCount: {}
         }
         
         try {
-            await client.connect()
-            const likesCol = client.db(dbName).collection('likes')
-            const commentsCol = client.db(dbName).collection('comments')
-            
-            const likeCountObjs = await likesCol.aggregate([
-                { $match: { id: 0 } },
-                { $group: { _id: '$urlPath', count: { $sum: 1 } } }
-            ]).toArray()
+            const likeCountObjs = await this._query(
+                'likes',
+                async collection => collection.aggregate([
+                    { $match: { id: 0 } },
+                    { $group: { _id: '$urlPath', count: { $sum: 1 } } }
+                ]).toArray()
+            )
             logging.info(`    L found ${likeCountObjs.length} likeCounts`)
             likeCountObjs.forEach((obj) => { summary.likeCount[obj._id] = obj.count })
             
-            const commentCountObjs = await commentsCol.aggregate([
-                { $group: { _id: '$urlPath', count: { $sum: 1 } } }
-            ]).toArray()
+            const commentCountObjs = await this._query(
+                'comments',
+                async collection => collection.aggregate([
+                    { $group: { _id: '$urlPath', count: { $sum: 1 } } }
+                ]).toArray()
+            )
             logging.info(`    L found ${commentCountObjs.length} commentCounts`)
             commentCountObjs.forEach((obj) => { summary.commentCount[obj._id] = obj.count })
         } catch (err) {
-            const errMessage = `failed to findCountsForHome (mongodb_driver.js)\n${err.stack}`
-            logging.error(errMessage)
-            throw new Error(errMessage)
+            logging.error(`failed to findCountsForHome (mongodb_driver.js)\n${err.stack}`)
         }
-        client.close()
         return summary
     }
 }
