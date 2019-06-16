@@ -42,38 +42,16 @@ module.exports = {
         }
     },
     
-    async findComments(urlPath) {
+    async findComments(filterObj) {
         try {
             const comments = await this._query(
                 'comments',
-                async collection => collection.find({ urlPath }).toArray() || []
+                async collection => collection.find(filterObj).toArray() || []
             )
-            
-            // from oldest to latest
-            comments.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
-            
             logging.info(`    L found ${comments.length} comment(s)`)
             return comments
         } catch (err) {
             logging.error(`failed to findComments (mongodb_driver.js)\n${err.stack}`)
-            return []
-        }
-    },
-    
-    async findCommentList(numOfComments) {
-        try {
-            const comments = await this._query(
-                'comments',
-                async collection => collection.find().toArray() || []
-            )
-            
-            // from latest to oldest
-            comments.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
-            
-            logging.info(`    L found ${comments.length} comment(s)`)
-            return comments.slice(0, numOfComments)
-        } catch (err) {
-            logging.error(`failed to findCommentList (mongodb_driver.js)\n${err.stack}`)
             return []
         }
     },
