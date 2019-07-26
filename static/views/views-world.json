@@ -1,18 +1,11 @@
 [
     {
-        "urlPath": "/world/children",
-        "title": "子どもは誰が育てるべきか",
-        "description": "不幸な子どもを 0 にするために、我々が考えなければならない大切なこと。子どもは育つ環境を選べない、それは当たり前のことでしょうか。",
-        "hasCommentsField": true,
-        "hasLikeButton": true,
-        "isNew": true
-    },
-    {
         "urlPath": "/world/death-for-life",
         "title": "幸せに生きるために",
         "description": "幸せに生きるためには「死ぬ覚悟」が必要なのではないか、というお話。",
         "hasCommentsField": true,
-        "hasLikeButton": true
+        "hasLikeButton": true,
+        "isNew": true
     },
     {
         "urlPath": "/world/how-to-fail",
