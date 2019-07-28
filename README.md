@@ -6,7 +6,7 @@ You can manage contents with markdown text files.
 ## How to Run This Website
 ### local (macOS)
 1. install Node.js (version 10)
-1. install mongoDB
+1. install MongoDB
 1. install pm2
     ```bash
     npm install pm2 -g
@@ -17,7 +17,7 @@ You can manage contents with markdown text files.
     cd fully-hatter
     npm install
     ```
-1. create 'configs/mailgun-config.json'  
+1. create 'configs/mailgun-config.json'
 1. start MongoDB
     ```bash
     bash scripts/local/mongod.sh
@@ -38,7 +38,7 @@ You can manage contents with markdown text files.
     curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
     sudo apt-get install -y nodejs
 
-    # install mongoDB
+    # install MongoDB
     sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
     sudo apt-get update
@@ -76,7 +76,7 @@ You can manage contents with markdown text files.
 
 ## Error check
 ```bash
-# mongoDB
+# MongoDB
 tail /var/log/mongodb/mongod.log
 
 # Server (PM2)
