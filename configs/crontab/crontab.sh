@@ -13,7 +13,7 @@ echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [info] stop Server"
 cd ~/fully-hatter
 pm2 stop all
 
-echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [info] backup mongoDB"
+echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [info] backup MongoDB"
 bash ~/fully-hatter/scripts/production/mongodump.sh
 
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [info] rotate log files"
