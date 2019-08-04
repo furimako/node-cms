@@ -1,10 +1,10 @@
 {
-    "name": "fully-hatter",
+    "name": "node-cms",
     "version": "1.0.0",
-    "description": "The website for Fully Hatter based on pure Node.js without Express",
-    "author": "Fully Hatter <furimako@gmail.com>",
+    "description": "The simplest CMS based on pure Node.js without Express",
+    "author": "furimako <furimako@gmail.com>",
     "license": "MIT",
-    "repository": "github:furimako/fully-hatter",
+    "repository": "github:furimako/node-cms",
     "engines": {
         "node": ">=10.15.1 <11.0.0"
     },
