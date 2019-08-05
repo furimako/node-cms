@@ -1,7 +1,7 @@
 const fs = require('fs')
 const mustache = require('mustache')
 const marked = require('marked')
-const dateString = require('./utils/date_string')
+const { JST } = require('node-utils')
 const mongodbDriver = require('./mongodb_driver')
 
 marked.setOptions({ breaks: true })
@@ -185,7 +185,7 @@ module.exports = class Page {
             const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/\n/g, '<br>')
             
             commentListView.push({
-                date: dateString.date(commentObj.date),
+                date: JST.convertToDate(commentObj.date),
                 urlPath: commentObj.urlPath,
                 pageTitle: (viewObj) ? viewObj.title : '掲示板',
                 name: commentObj.name,
@@ -218,7 +218,7 @@ module.exports = class Page {
             id += 1
             const commentObjTmp = commentObj
             commentObjTmp.id = id
-            commentObjTmp.timestamp = dateString.str(commentObj.date)
+            commentObjTmp.timestamp = JST.convertToDatetime(commentObj.date)
             commentObjTmp.comment = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/\n/g, '<br>')
             commentsHTML += mustache.render(commentTemplate, commentObjTmp)
             commentIds.push({
