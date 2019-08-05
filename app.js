@@ -3,9 +3,13 @@ const http = require('http')
 const https = require('https')
 const { parse } = require('url')
 const qs = require('querystring')
+const { logging } = require('node-utils')
 
-const logging = require('./src/utils/logging')
-const mailer = require('./src/utils/mailer')
+const mailgunConfig = JSON.parse(fs.readFileSync('./configs/mailgun-config.json', 'utf8'))
+const title = 'Fully Hatter の秘密の部屋'
+const from = '"Fully Hatter" <admin@furimako.com>'
+
+const mailer = require('node-utils').createMailer(mailgunConfig, title, from)
 const Pages = require('./src/pages')
 const mongodbDriver = require('./src/mongodb_driver')
 
