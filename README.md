@@ -11,9 +11,11 @@ You can manage contents with markdown text files.
     ```bash
     npm install pm2 -g
     ```
-1. install Node CMS
+1. install Node CMS & node-utils
     ```bash
+    git clone https://github.com/furimako/node-utils.git
     git clone https://github.com/furimako/node-cms.git
+    mv -r node-cms fully-hatter
     cd fully-hatter
     npm install
     ```
