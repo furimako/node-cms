@@ -54,12 +54,20 @@ process.on('SIGINT', () => {
     httpServer.close((err) => {
         if (err) {
             logging.error(`failed to close http server\n\n${err}`)
+            mailer.send(
+                'ERROR',
+                `failed to close http server\n\n${err}`
+            )
             process.exit(1)
         }
     })
     httpsServer.close((err) => {
         if (err) {
             logging.error(`failed to close https server\n\n${err}`)
+            mailer.send(
+                'ERROR',
+                `failed to close https server\n\n${err}`
+            )
             process.exit(1)
         }
     })
@@ -73,78 +81,87 @@ async function httpHandler(req, res) {
     const userAgent = req.headers['user-agent']
     logging.info(`${req.method} request (url: ${urlPath}, IP Address: ${ipAddress})`)
     
-    if (!pages.has(urlPath)) {
+    try {
+        if (!pages.has(urlPath)) {
         // When pages no found
-        logging.info('    L responsing no-found page')
-        const html = await pages.get('/no-found')
-        res.writeHead(404, { 'Content-Type': 'text/html' })
-        res.end(html)
-        return
-    }
+            logging.info('    L responsing no-found page')
+            const html = await pages.get('/no-found')
+            res.writeHead(404, { 'Content-Type': 'text/html' })
+            res.end(html)
+            return
+        }
     
     
-    if (req.method === 'GET') {
-        const numOfComments = parseInt(query.numOfComments, 10) || 5
-        const html = await pages.get(urlPath, numOfComments)
-        res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-        res.end(html)
-        return
-    }
+        if (req.method === 'GET') {
+            const numOfComments = parseInt(query.numOfComments, 10) || 5
+            const html = await pages.get(urlPath, numOfComments)
+            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+            res.end(html)
+            return
+        }
     
-    if (req.method === 'POST') {
-        let body = ''
-        req.on('data', (data) => { body += data })
+        if (req.method === 'POST') {
+            let body = ''
+            req.on('data', (data) => { body += data })
 
-        req.on('end', async () => {
-            const postData = qs.parse(body)
+            req.on('end', async () => {
+                const postData = qs.parse(body)
             
-            // Like
-            if (postData.id) {
-                logging.info(`    L like (id: ${postData.id})`)
+                // Like
+                if (postData.id) {
+                    logging.info(`    L like (id: ${postData.id})`)
                 
-                const likeObjs = [{
-                    urlPath,
-                    id: parseInt(postData.id, 10),
-                    date: new Date(),
-                    ipAddress,
-                    userAgent
-                }]
-                await mongodbDriver.insert('likes', likeObjs)
+                    const likeObjs = [{
+                        urlPath,
+                        id: parseInt(postData.id, 10),
+                        date: new Date(),
+                        ipAddress,
+                        userAgent
+                    }]
+                    await mongodbDriver.insert('likes', likeObjs)
                 
+                    const html = await pages.get(urlPath)
+                    res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+                    res.end(html)
+                    return
+                }
+            
+                // Comment
+                if (postData.name && postData.comment && postData.userType === 'human') {
+                    logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
+                    mailer.send(
+                        `get comment from '${postData.name}'`,
+                        `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
+                    )
+                
+                    const commentObjs = [{
+                        urlPath,
+                        date: new Date(),
+                        name: postData.name,
+                        comment: postData.comment,
+                        ipAddress,
+                        userAgent
+                    }]
+                    await mongodbDriver.insert('comments', commentObjs)
+                
+                    res.writeHead(302, { Location: `${urlPath}#comments-field` })
+                    res.end()
+                    return
+                }
+            
+                // invalid POST
+                logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
                 const html = await pages.get(urlPath)
                 res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
                 res.end(html)
-                return
-            }
-            
-            // Comment
-            if (postData.name && postData.comment && postData.userType === 'human') {
-                logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
-                mailer.send(
-                    `get comment from '${postData.name}'`,
-                    `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
-                )
-                
-                const commentObjs = [{
-                    urlPath,
-                    date: new Date(),
-                    name: postData.name,
-                    comment: postData.comment,
-                    ipAddress,
-                    userAgent
-                }]
-                await mongodbDriver.insert('comments', commentObjs)
-                
-                res.writeHead(302, { Location: `${urlPath}#comments-field` })
-                res.end()
-                return
-            }
-            
-            // invalid POST
-            logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
-            const html = await pages.get(urlPath)
-            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            res.end(html)
-        })
+            })
+        }
+    } catch (err) {
+        logging.error(`unexpected error has occurred\n${err}`)
+        mailer.send(
+            'ERROR',
+            `unexpected error has occurred\n${err}`
+        )
+        process.exit(1)
     }
 }
