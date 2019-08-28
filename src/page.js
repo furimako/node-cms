@@ -172,7 +172,7 @@ module.exports = class Page {
         this.viewHome['is-current-10'] = ''
         this.viewHome['is-current-20'] = ''
         this.viewHome[`is-current-${numOfComments}`] = 'is-current'
-        let comments = await mongodbDriver.findComments({})
+        let comments = await mongodbDriver.findComments({ urlPath: { $ne: '/board' }, name: { $ne: 'Fully Hatter' } })
         // from latest to oldest
         comments.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
         
