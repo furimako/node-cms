@@ -181,7 +181,7 @@ module.exports = class Page {
         const commentListView = []
         
         comments.forEach((commentObj) => {
-            const viewObj = this.viewHome.world.find(e => e.urlPath === commentObj.urlPath)
+            const viewObj = this.viewHome.world.find((e) => e.urlPath === commentObj.urlPath)
             const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/\n/g, '<br>')
             
             commentListView.push({
