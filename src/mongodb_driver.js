@@ -18,7 +18,7 @@ module.exports = {
     async insert(collectionName, objs) {
         const r = await this._query(
             collectionName,
-            async collection => collection.insertMany(objs)
+            async (collection) => collection.insertMany(objs)
         )
         assert.equal(objs.length, r.insertedCount)
         logging.info(`    L inserted ${objs.length} document(s) (collection: ${collectionName})`)
@@ -27,7 +27,7 @@ module.exports = {
     async findLikeCount(urlPath) {
         const likeCount = await this._query(
             'likes',
-            async collection => collection.find({ urlPath, id: 0 }).count()
+            async (collection) => collection.find({ urlPath, id: 0 }).count()
         )
         logging.info(`    L found ${likeCount} likeCount`)
         return likeCount || 0
@@ -36,7 +36,7 @@ module.exports = {
     async findComments(filterObj) {
         const comments = await this._query(
             'comments',
-            async collection => collection.find(filterObj).toArray() || []
+            async (collection) => collection.find(filterObj).toArray() || []
         )
         logging.info(`    L found ${comments.length} comment(s)`)
         return comments
@@ -50,7 +50,7 @@ module.exports = {
         
         const likeCountObjs = await this._query(
             'likes',
-            async collection => collection.aggregate([
+            async (collection) => collection.aggregate([
                 { $match: { id: 0 } },
                 { $group: { _id: '$urlPath', count: { $sum: 1 } } }
             ]).toArray()
@@ -60,7 +60,7 @@ module.exports = {
             
         const commentCountObjs = await this._query(
             'comments',
-            async collection => collection.aggregate([
+            async (collection) => collection.aggregate([
                 { $group: { _id: '$urlPath', count: { $sum: 1 } } }
             ]).toArray()
         )
