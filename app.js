@@ -131,7 +131,7 @@ async function httpHandler(req, res) {
                     logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
                     mailer.send(
                         `get comment from '${postData.name}'`,
-                        `Target: ${pages.title(urlPath)}\nURL: ${urlPath}`
+                        `Target: ${url + urlPath}\nURL: ${urlPath}`
                     )
                 
                     const commentObjs = [{
@@ -157,10 +157,10 @@ async function httpHandler(req, res) {
             })
         }
     } catch (err) {
-        logging.error(`unexpected error has occurred\n${err}`)
+        logging.error(`unexpected error has occurred\n${err.stack}`)
         mailer.send(
             'ERROR',
-            `unexpected error has occurred\n${err}`
+            `unexpected error has occurred\n${err.stack}`
         )
         process.exit(1)
     }
