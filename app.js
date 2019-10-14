@@ -73,7 +73,6 @@ process.on('SIGINT', () => {
     })
 })
 
-
 async function httpHandler(req, res) {
     const urlPath = parse(req.url).pathname
     const { query } = parse(req.url, true)
@@ -90,8 +89,7 @@ async function httpHandler(req, res) {
             res.end(html)
             return
         }
-    
-    
+        
         if (req.method === 'GET') {
             const numOfComments = parseInt(query.numOfComments, 10) || 5
             const html = await pages.get(urlPath, numOfComments)
@@ -99,18 +97,18 @@ async function httpHandler(req, res) {
             res.end(html)
             return
         }
-    
+        
         if (req.method === 'POST') {
             let body = ''
             req.on('data', (data) => { body += data })
-
+            
             req.on('end', async () => {
                 const postData = qs.parse(body)
-            
+                
                 // Like
                 if (postData.id) {
                     logging.info(`    L like (id: ${postData.id})`)
-                
+                    
                     const likeObjs = [{
                         urlPath,
                         id: parseInt(postData.id, 10),
@@ -119,13 +117,13 @@ async function httpHandler(req, res) {
                         userAgent
                     }]
                     await mongodbDriver.insert('likes', likeObjs)
-                
+                    
                     const html = await pages.get(urlPath)
                     res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
                     res.end(html)
                     return
                 }
-            
+                
                 // Comment
                 if (postData.name && postData.comment && postData.userType === 'human') {
                     logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
@@ -133,7 +131,7 @@ async function httpHandler(req, res) {
                         `get comment from '${postData.name}'`,
                         `Target: ${url + urlPath}\nURL: ${urlPath}`
                     )
-                
+                    
                     const commentObjs = [{
                         urlPath,
                         date: new Date(),
@@ -143,12 +141,12 @@ async function httpHandler(req, res) {
                         userAgent
                     }]
                     await mongodbDriver.insert('comments', commentObjs)
-                
+                    
                     res.writeHead(302, { Location: `${urlPath}#comments-field` })
                     res.end()
                     return
                 }
-            
+                
                 // invalid POST
                 logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
                 const html = await pages.get(urlPath)
