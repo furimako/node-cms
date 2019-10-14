@@ -19,7 +19,7 @@ module.exports = [
             {
                 urlPath: '/board',
                 title: '掲示板',
-                description: 'みんなの掲示板です。どなたでもご自由に書き込んでください。Fully Hatter が愛には愛で、剣には剣でご返事いたします。'
+                description: 'みんなの掲示板です。どなたでもご自由に書き込んでください。'
             }
         ]
     },
