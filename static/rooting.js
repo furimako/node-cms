@@ -27,6 +27,7 @@ module.exports = [
         class: 'MarkdownPage',
         filePathPrefix: './static/contents',
         filePathSuffix: '.md',
+        titleWithDescription: true,
         hasLikeButton: true,
         hasCommentsField: true,
         styleInHome: 'world',
@@ -34,63 +35,63 @@ module.exports = [
             {
                 urlPath: '/world/death-for-life',
                 title: '幸せに生きるために',
-                description: '幸せに生きるためには「死ぬ覚悟」が必要なのではないか、というお話。',
+                description: '幸せに生きるためには「死ぬ覚悟」が必要なのではないか、というお話',
                 isNew: true
             },
             {
                 urlPath: '/world/how-to-fail',
-                title: '人生で失敗するには',
-                description: '失敗するために生きている多くの人々へ。'
+                title: '人生で「失敗」するには',
+                description: '「失敗」するために生きている多くの人々へ'
             },
             {
                 urlPath: '/world/nation',
-                title: '理想の国家 〜ひとりひとりが自由に生きられる世界へ〜',
-                description: '世界中の誰もが、「本当にやりたいこと」のできる世界へ。'
+                title: '理想の国家',
+                description: 'ベーシックインカムで世界中の誰もが「本当にやりたいこと」のできる世界へ'
             },
             {
                 urlPath: '/world/reward',
-                title: '成果主義について ～できる人にはお金を与えるべきか？〜',
-                description: '「能力のある人にはご褒美をあげて能力のない人には低い扱いをすること」は当たり前。本当にそうでしょうか？'
+                title: '成果主義について',
+                description: 'できる人にはお金を与えるべき？ いいチームを作るためにあなたが知るべき３つのポイント'
             },
             {
                 urlPath: '/world/ideal-way-to-live-life',
                 title: '一番を目指してはいけない',
-                description: '「一番」を目指さず何を目指すべきだというのか！そんなあなたのためのページです。'
+                description: '人と比較してしまうあなたが本当に目指すべきもの'
             },
             {
                 urlPath: '/world/philosophy',
                 title: '哲学は無意味である (仮)',
-                description: '「この世界はどうして存在するのだろう？」私が答えましょう。'
+                description: '「この世界はどうして存在するのだろう？」私が答えましょう'
             },
             {
                 urlPath: '/world/education',
                 title: '理想の教育',
-                description: '「歴史のテスト」を憎むすべての人に、このページを捧げます。'
+                description: '「歴史のテスト」を憎むすべての人へ'
             },
             {
                 urlPath: '/world/grown-up',
-                title: '大人について',
-                description: 'あなたは本当に「大人」ですか？'
+                title: '「大人」について',
+                description: 'あなたは本当に「大人」ですか？ 我々が国家から自由になるために'
             },
             {
                 urlPath: '/world/freedom',
                 title: '自由に生きてはいけない',
-                description: 'そんなはずはない！と思うあなたのためのページです。'
+                description: '99%の人が勘違いしている「自由」の本当の姿について'
             },
             {
                 urlPath: '/world/tips-for-your-life',
                 title: '今を生きるためのちょっとしたヒント',
-                description: '私のメモ帳の中身。気をつけないと忘れてしまうこと。でもとっても大切なこと。'
+                description: '気をつけないと忘れてしまうこと。でもとっても大切なこと'
             },
             {
                 urlPath: '/world/happiness',
-                title: 'あなたにとっての幸せは？ 〜幸せの定義について〜',
-                description: '「幸せ」の定義は何でしょうか？あなたが気づいていない「幸せ」の一つの姿について。'
+                title: 'あなたにとっての「幸せ」は？',
+                description: '「幸せ」の定義を科学しよう'
             },
             {
                 urlPath: '/world/your-goal',
-                title: '幸せを目指してはいけない',
-                description: '多くの人は「幸せ」を求めて日々生きているのではないだろうか。'
+                title: '「幸せ」を目指してはいけない',
+                description: '「幸せ」になるために生きているすべての人へ'
             }
         ]
     },

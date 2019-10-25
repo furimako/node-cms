@@ -8,6 +8,7 @@ module.exports = class MarkdownPage extends BasePage {
     constructor({
         element,
         filePath,
+        titleWithDescription,
         hasLikeButton,
         hasCommentsField,
         chapter
@@ -30,12 +31,19 @@ module.exports = class MarkdownPage extends BasePage {
         bodyHTML += '</div>'
         bodyHTML += '</section>'
         
+        let { title } = element
         if (chapter) {
             this.urlPathBase = `${element.urlPath}`
+            title += ` ${parseInt(chapter, 10)}`
         }
+        if (titleWithDescription) {
+            /* eslint no-irregular-whitespace: "off" */
+            title += `　−　${element.description}`
+        }
+        
         this._setView({
             urlPath,
-            title: (chapter) ? `${element.title} ${parseInt(chapter, 10)}` : element.title,
+            title,
             description: element.description,
             cssPath: '/css/styles-others.css',
             isNew: element.isNew,
