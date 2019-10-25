@@ -1,4 +1,3 @@
-const { logging } = require('node-utils')
 const HomePage = require('./page/home_page')
 const MarkdownPage = require('./page/markdown_page')
 const HTMLPage = require('./page/html_page')
@@ -32,6 +31,7 @@ module.exports = class Pages {
                         const pageObj = {
                             element: e,
                             filePath: `${v.filePathPrefix + e.urlPath}-${i}${v.filePathSuffix}`,
+                            titleWithDescription: v.titleWithDescription,
                             hasLikeButton: v.hasLikeButton,
                             hasCommentsField: v.hasCommentsField,
                             chapter: i
@@ -47,6 +47,7 @@ module.exports = class Pages {
                 const pageObj = {
                     element: e,
                     filePath: (e.filePath) ? e.filePath : filePath,
+                    titleWithDescription: v.titleWithDescription,
                     hasLikeButton: v.hasLikeButton,
                     hasCommentsField: v.hasCommentsField
                 }
