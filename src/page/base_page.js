@@ -98,6 +98,10 @@ module.exports = class BasePage {
 }
 
 function _paginationHTML(urlPathBase, numOfChapters, chapter) {
+    if (!urlPathBase || !numOfChapters || !chapter) {
+        return ''
+    }
+    
     let html = '<section class="section">'
     html += '<div class="container">'
     html += '<nav class="pagination" role="navigation" aria-label="pagination">'
