@@ -1,0 +1,17 @@
+<hr>
+<section class="section">
+    <div class="container">
+        {{#tags}}
+        <h2 class="title is-5" id="{{tagNameEn}}">「{{tagName}}」に関連するページ</h2>
+        <div class="columns">
+            {{#targets}}
+            {{{headHTML}}}
+            <div class="box">
+                <a href={{urlPath}}>{{title}}　〜{{description}}〜</a>
+            </div>
+            {{{footHTML}}}
+            {{/targets}}
+        </div>
+        {{/tags}}
+    </div>
+</section>

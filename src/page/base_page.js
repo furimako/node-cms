@@ -24,7 +24,16 @@ module.exports = class BasePage {
     }
     
     setView({
-        urlPath, title, description, cssPath, isNew, bodyHTML, tags, numOfChapters, chapter
+        urlPath,
+        title,
+        description,
+        cssPath,
+        isNew,
+        bodyHTML,
+        tags,
+        relatedPages,
+        numOfChapters,
+        chapter
     }) {
         this.view = {
             url: `${url + urlPath}`,
@@ -34,6 +43,7 @@ module.exports = class BasePage {
             newTag: (isNew) ? '<span class="tag is-danger">New!</span><br><br>' : '',
             bodyHTML,
             tags,
+            relatedPages,
             paginationHTML: _paginationHTML(this.urlPathBase, numOfChapters, chapter)
         }
     }
