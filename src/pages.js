@@ -31,7 +31,7 @@ module.exports = class Pages {
                         const pageObj = {
                             element: e,
                             filePath: `${v.filePathPrefix + e.urlPath}-${i}${v.filePathSuffix}`,
-                            titleWithDescription: v.titleWithDescription,
+                            titleWithDescription: v.styleInHome === 'world',
                             hasLikeButton: v.hasLikeButton,
                             hasCommentsField: v.hasCommentsField,
                             chapter: i
@@ -47,7 +47,7 @@ module.exports = class Pages {
                 const pageObj = {
                     element: e,
                     filePath: (e.filePath) ? e.filePath : filePath,
-                    titleWithDescription: v.titleWithDescription,
+                    titleWithDescription: v.styleInHome === 'world',
                     hasLikeButton: v.hasLikeButton,
                     hasCommentsField: v.hasCommentsField
                 }
