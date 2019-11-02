@@ -12,7 +12,7 @@ module.exports = class HTMLPage extends BasePage {
             hasCommentsField
         })
         
-        this._setView({
+        this.setView({
             urlPath: element.urlPath,
             title: element.title,
             description: element.description,

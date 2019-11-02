@@ -13,7 +13,7 @@ const commentJA = 'コメント'
 module.exports = class HomePage extends BasePage {
     constructor({ element }) {
         super({ urlPath: element.urlPath, contentType: 'text/html' })
-        this._setView({
+        this.setView({
             urlPath: element.urlPath,
             title: element.title,
             description: element.description,
