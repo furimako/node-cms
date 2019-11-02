@@ -23,8 +23,8 @@ module.exports = class BasePage {
         this.hasLikeButton = hasLikeButton
     }
     
-    _setView({
-        urlPath, title, description, cssPath, isNew, bodyHTML, numOfChapters, chapter
+    setView({
+        urlPath, title, description, cssPath, isNew, bodyHTML, tags, numOfChapters, chapter
     }) {
         this.view = {
             url: `${url + urlPath}`,
@@ -33,6 +33,7 @@ module.exports = class BasePage {
             cssPath,
             newTag: (isNew) ? '<span class="tag is-danger">New!</span><br><br>' : '',
             bodyHTML,
+            tags,
             paginationHTML: _paginationHTML(this.urlPathBase, numOfChapters, chapter)
         }
     }
@@ -91,7 +92,7 @@ module.exports = class BasePage {
         this.view.likeButton = likeButton
         this.view.navBarHTML = mustache.render(
             navbarTemplate,
-            { commentHTML: `<a class="navbar-item" href="${this.urlPath}#comments-field">コメントする</a>` }
+            { commentHTML: '<a class="navbar-item" href="#comments-field">コメントする</a>' }
         )
         return mustache.render(template, this.view)
     }

@@ -3,6 +3,7 @@ const marked = require('marked')
 
 marked.setOptions({ breaks: true })
 const BasePage = require('./base_page')
+const tags = require('../../static/tags')
 
 module.exports = class MarkdownPage extends BasePage {
     constructor({
@@ -41,15 +42,28 @@ module.exports = class MarkdownPage extends BasePage {
             title += `　−　${element.description}`
         }
         
-        this._setView({
+        this.setView({
             urlPath,
             title,
             description: element.description,
             cssPath: '/css/styles-others.css',
             isNew: element.isNew,
             bodyHTML,
+            tags: getTags(urlPath),
             numOfChapters: element.numOfChapters,
             chapter
         })
     }
+}
+
+function getTags(urlPath) {
+    const _tags = []
+    Object.keys(tags).forEach((key) => {
+        tags[key].targets.forEach((target) => {
+            if (target === urlPath) {
+                _tags.push({ tagName: key, tagNameEn: tags[key].tagNameEn })
+            }
+        })
+    })
+    return _tags
 }

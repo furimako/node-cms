@@ -56,6 +56,11 @@
                 <div class="container">
                     {{{newTag}}}
                     <h1 class="title is-5">{{title}}</h1>
+                    <div class="buttons has-addons">
+                        {{#tags}}
+                        <a class="button is-small is-info is-outlined" href="#{{tagNameEn}}">{{tagName}}</a>
+                        {{/tags}}
+                    </div>
                     {{{likeButton}}}
                 </div>
             </div>
