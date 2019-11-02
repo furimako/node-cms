@@ -27,7 +27,6 @@ module.exports = [
         class: 'MarkdownPage',
         filePathPrefix: './static/contents',
         filePathSuffix: '.md',
-        titleWithDescription: true,
         hasLikeButton: true,
         hasCommentsField: true,
         styleInHome: 'world',
@@ -35,7 +34,7 @@ module.exports = [
             {
                 urlPath: '/world/death-for-life',
                 title: '幸せに生きるために',
-                description: '幸せに生きるためには「死ぬ覚悟」が必要なのではないか、というお話',
+                description: '幸せに生きるには「死ぬ覚悟」が必要なのではないか、というお話',
                 isNew: true
             },
             {
