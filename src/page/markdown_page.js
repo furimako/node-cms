@@ -56,6 +56,7 @@ module.exports = class MarkdownPage extends BasePage {
             bodyHTML,
             tags: _tags,
             relatedPages: _getRelatedPages(_tags.map((tagObj) => tagObj.tagName), urlPath),
+            relatedPages2: _getRelatedPages(_tags.map((tagObj) => tagObj.tagName), urlPath, true),
             numOfChapters: element.numOfChapters,
             chapter
         })
@@ -74,7 +75,7 @@ function _getTags(urlPath) {
     return _tags
 }
 
-function _getRelatedPages(correspondingTags, thisUrlPath) {
+function _getRelatedPages(correspondingTags, thisUrlPath, second = false) {
     const view = { tags: [] }
     Object.keys(tags).forEach((key) => {
         if (!correspondingTags.includes(key)) {
@@ -83,7 +84,7 @@ function _getRelatedPages(correspondingTags, thisUrlPath) {
         
         const tag = {
             tagName: key,
-            tagNameEn: tags[key].tagNameEn,
+            tagNameEn: tags[key].tagNameEn + ((second) ? '2' : ''),
             targets: []
         }
         
