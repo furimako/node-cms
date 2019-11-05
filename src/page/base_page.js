@@ -32,6 +32,7 @@ module.exports = class BasePage {
         bodyHTML,
         tags,
         relatedPages,
+        relatedPages2,
         numOfChapters,
         chapter
     }) {
@@ -44,6 +45,7 @@ module.exports = class BasePage {
             bodyHTML,
             tags,
             relatedPages,
+            relatedPages2,
             paginationHTML: _paginationHTML(this.urlPathBase, numOfChapters, chapter)
         }
     }
