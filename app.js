@@ -125,7 +125,7 @@ async function httpHandler(req, res) {
                 }
                 
                 // Comment
-                if (postData.name && postData.comment && postData.userType === 'human') {
+                if (postData.name && postData.comment && postData.secretKey === 'The essential is invisible to the eyes.') {
                     logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
                     mailer.send(
                         `get comment from '${postData.name}'`,
@@ -148,10 +148,9 @@ async function httpHandler(req, res) {
                 }
                 
                 // invalid POST
-                logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
-                const html = await pages.get(urlPath)
-                res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-                res.end(html)
+                logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, secretKey: ${postData.secretKey}), comment: ${postData.comment})`)
+                res.writeHead(400, { 'Content-Type': 'text/plain' })
+                res.end('400 Bad Request')
             })
         }
     } catch (err) {
