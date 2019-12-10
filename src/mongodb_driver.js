@@ -3,7 +3,7 @@ const assert = require('assert')
 const { logging } = require('node-utils')
 
 const url = 'mongodb://localhost:27017'
-const dbName = 'fully-hatter'
+const dbName = 'node-cms'
 
 module.exports = {
     async _query(collectionName, executor) {
