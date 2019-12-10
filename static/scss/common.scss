@@ -10,6 +10,7 @@ $info: #ff99c2;  // pink
 
 // black
 body { background-color: $grey-darker; }
+$input-color: $grey-darker;
 $background: $grey;
 $border: $grey-light;
 
@@ -39,6 +40,8 @@ label.radio { color: $white !important; }
 /* Hero */
 $navbar-item-hover-background-color: $grey-darker;
 
+/* Footer */
+$footer-background-color: $grey;
 
 /* NavBar-bottom */
 $navbar-background-color: $grey-dark;
