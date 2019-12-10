@@ -138,7 +138,7 @@ async function httpsHandler(req, res) {
                     logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
                     mailer.send(
                         `get comment from '${postData.name}'`,
-                        `Target: ${url + urlPath}\nURL: ${urlPath}`
+                        `URL: ${url + urlPath}`
                     )
                     
                     const commentObjs = [{
@@ -157,7 +157,7 @@ async function httpsHandler(req, res) {
                 }
                 
                 // invalid POST
-                logging.info(`    L get unexpected message (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
+                logging.info(`    L get invalid POST (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
                 res.writeHead(400, { 'Content-Type': 'text/plain' })
                 res.end('400 Bad Request')
             })
