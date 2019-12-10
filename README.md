@@ -84,8 +84,8 @@ You can manage contents with markdown text files.
     sudo apt-get install certbot
     # [CAUTION] Stop server before executing below command
     sudo certbot certonly --standalone
-    sudo chmod 744 /etc/letsencrypt/live
-    sudo chmod 744 /etc/letsencrypt/archive
+    sudo chmod 777 /etc/letsencrypt/live
+    sudo chmod 777 /etc/letsencrypt/archive
     ```
 
 ## How to Backup (on macOS)
