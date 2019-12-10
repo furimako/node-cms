@@ -39,9 +39,9 @@ let key
 let cert
 let ca
 if (env === 'production') {
-    key = fs.readFileSync('/etc/letsencrypt/live/furimako.com/privkey.pem')
-    cert = fs.readFileSync('/etc/letsencrypt/live/furimako.com/cert.pem')
-    ca = fs.readFileSync('/etc/letsencrypt/live/furimako.com/chain.pem')
+    key = fs.readFileSync('./configs/ssl/privkey.pem')
+    cert = fs.readFileSync('./configs/ssl/cert.pem')
+    ca = fs.readFileSync('./configs/ssl/chain.pem')
 } else {
     key = fs.readFileSync('./configs/ssl/dummy-key.pem')
     cert = fs.readFileSync('./configs/ssl/dummy-cert.pem')

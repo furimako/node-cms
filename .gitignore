@@ -2,6 +2,9 @@
 /node_modules
 /mongodb_data
 /configs/mailgun-config.json
+/configs/ssl/privkey.pem
+/configs/ssl/cert.pem
+/configs/ssl/chain.pem
 /logs/**/*.log
 /logs/dumps/**/*.json
 /logs/dumps/**/*.bson

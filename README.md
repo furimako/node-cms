@@ -84,7 +84,7 @@ You can manage contents with markdown text files.
     sudo apt-get install certbot
     # [CAUTION] Stop server before executing below command
     sudo certbot certonly --standalone
-    
+    sudo mv /etc/letsencrypt/live/furimako.com/* ~/node-cms/configs/ssl/
     ```
 
 ## How to Backup (on macOS)
