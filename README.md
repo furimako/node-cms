@@ -15,8 +15,7 @@ You can manage contents with markdown text files.
     ```bash
     git clone https://github.com/furimako/node-utils.git
     git clone https://github.com/furimako/node-cms.git
-    mv -r node-cms fully-hatter
-    cd fully-hatter
+    cd node-cms
     npm install
     ```
 1. create 'configs/mailgun-config.json'
@@ -51,7 +50,7 @@ You can manage contents with markdown text files.
 
     # install Node CMS
     git clone https://github.com/furimako/node-cms.git
-    cd fully-hatter
+    cd node-cms
     npm install
 
     ```

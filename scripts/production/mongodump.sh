@@ -5,4 +5,4 @@
 # Ubuntu
 #
 
-sudo mongodump --out ~/fully-hatter/logs/dumps/$(date +%Y%m%d-%H%M%S)/
+sudo mongodump --out ~/node-cms/logs/dumps/$(date +%Y%m%d-%H%M%S)/

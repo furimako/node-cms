@@ -1,6 +1,6 @@
 {
     "apps": [{
-        "name": "fully-hatter",
+        "name": "node-cms",
         "script": "./app.js",
         "out_file": "./logs/app.log",
         "error_file": "./logs/app-err.log",
