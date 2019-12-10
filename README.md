@@ -71,6 +71,22 @@ You can manage contents with markdown text files.
     crontab configs/crontab/crontab.config
     ```
 
+1. set-up Let's Encrypt
+    ```bash
+    # Add Certbot PPA
+    sudo apt-get update
+    sudo apt-get install software-properties-common
+    sudo add-apt-repository universe
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt-get update
+    
+    # Install Cearbot
+    sudo apt-get install certbot
+    # [CAUTION] Stop server before executing below command
+    sudo certbot certonly --standalone
+    
+    ```
+
 ## How to Backup (on macOS)
 1. execute below command on macOS
     ```bash
