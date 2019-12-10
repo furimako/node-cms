@@ -14,31 +14,40 @@ const Pages = require('./src/pages')
 const mongodbDriver = require('./src/mongodb_driver')
 
 const env = process.env.NODE_ENV
-const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8128'
+const url = (env === 'production') ? 'https://furimako.com' : 'https://localhost:8129'
 const pages = new Pages()
 
 
 // Start HTTP server
 const httpPort = 8128
-const httpServer = http.createServer(httpHandler)
+const httpServer = http.createServer(
+    (req, res) => {
+        const urlPath = parse(req.url).pathname
+        res.writeHead(302, { Location: url + urlPath })
+        res.end()
+        logging.info(`    L redirect from http to https (url: ${urlPath})`)
+    }
+)
 httpServer.listen(httpPort)
 logging.info(`started HTTP server (port: ${httpPort})`)
 
 // Start HTTPS server
 const httpsPort = 8129
-const options = {
-    key: fs.readFileSync('./configs/ssl/dummy-key.pem'),
-    cert: fs.readFileSync('./configs/ssl/dummy-cert.pem')
+
+// Certificate
+let key
+let cert
+let ca
+if (env === 'production') {
+    key = fs.readFileSync('/etc/letsencrypt/live/yourdomain.com/privkey.pem')
+    cert = fs.readFileSync('/etc/letsencrypt/live/yourdomain.com/cert.pem')
+    ca = fs.readFileSync('/etc/letsencrypt/live/yourdomain.com/chain.pem')
+} else {
+    key = fs.readFileSync('./configs/ssl/dummy-key.pem')
+    cert = fs.readFileSync('./configs/ssl/dummy-cert.pem')
 }
-const httpsServer = https.createServer(
-    options,
-    (req, res) => {
-        const urlPath = parse(req.url).pathname
-        res.writeHead(302, { Location: url + urlPath })
-        res.end()
-        logging.info(`    L redirect from https to http (url: ${urlPath})`)
-    }
-)
+const credentials = { key, cert, ca }
+const httpsServer = https.createServer(credentials, httpsHandler)
 httpsServer.listen(httpsPort)
 logging.info(`started HTTPS server (port: ${httpsPort})`)
 
@@ -73,7 +82,7 @@ process.on('SIGINT', () => {
     })
 })
 
-async function httpHandler(req, res) {
+async function httpsHandler(req, res) {
     const urlPath = parse(req.url).pathname
     const { query } = parse(req.url, true)
     const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
