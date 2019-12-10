@@ -6,7 +6,7 @@ You can manage contents with markdown text files.
 ## How to Run This Website
 ### local (macOS)
 1. install Node.js (version 12)
-1. install MongoDB
+1. install MongoDB Community Edition (version 4.2)
 1. install pm2
     ```bash
     npm install pm2 -g
@@ -39,17 +39,20 @@ You can manage contents with markdown text files.
     curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
     sudo apt-get install -y nodejs
     
-    # install MongoDB
-    sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 2930ADAE8CAF5059EE73BB4B58712A2291FA4AD5
-    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.6 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-3.6.list
+    # install MongoDB Community Edition (version 4.2)
+    wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+    sudo apt-get install gnupg
+    wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
+    echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
     sudo apt-get update
     sudo apt-get install -y mongodb-org
-
+    
     # install pm2
     sudo npm install pm2 -g
 
     # install Node CMS
     git clone https://github.com/furimako/node-cms.git
+    git clone https://github.com/furimako/node-utils.git
     cd node-cms
     npm install
 
