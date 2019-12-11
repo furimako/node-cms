@@ -55,7 +55,7 @@ module.exports = [
             {
                 urlPath: '/world/ideal-way-to-live-life',
                 title: '一番を目指してはいけない',
-                description: '一番を目指さずに何を目指すべきだというのか！そんなあなたのためのページです'
+                description: 'あなたが本当に目指すべきものについて'
             },
             {
                 urlPath: '/world/philosophy',
