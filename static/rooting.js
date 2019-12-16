@@ -90,7 +90,7 @@ module.exports = [
             {
                 urlPath: '/world/your-goal',
                 title: '「幸せ」を目指してはいけない',
-                description: '「幸せ」になるために生きているすべての人へ'
+                description: 'あなたが見落としている「幸せ」よりも大切なものについて'
             }
         ]
     },
