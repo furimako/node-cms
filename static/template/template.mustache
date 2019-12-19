@@ -11,6 +11,22 @@
         gtag('config', 'UA-103228670-1');
     </script>
     
+    <!-- Twitter for Websites JavaScript -->
+    <script>
+        window.twttr = (function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0],
+            t = window.twttr || {};
+            if (d.getElementById(id)) return t;
+            js = d.createElement(s);
+            js.id = id;
+            js.src = "https://platform.twitter.com/widgets.js";
+            fjs.parentNode.insertBefore(js, fjs);
+            t._e = [];
+            t.ready = function(f) { t._e.push(f); };
+            return t;
+        }(document, "script", "twitter-wjs"));
+    </script>
+    
     <!-- OGP -->
     <meta property="og:title" content="{{title}} | Fully Hatter の秘密の部屋">
     <meta property="og:type" content="article">
@@ -82,13 +98,7 @@
                         </p>
                     </div>
                     <div class="level-item">
-                        <iframe
-                            src="https://platform.twitter.com/widgets/follow_button.html?screen_name=furimako&show_screen_name=true"
-                            title="Follow [Fully Hatter] on Twitter"
-                            width="250"
-                            height="40"
-                            style="border: 0; overflow: hidden;">
-                        </iframe>
+                        <a class="twitter-follow-button" href="https://twitter.com/furimako">Follow @furimako</a>
                     </div>
                 </div>
             </div>
