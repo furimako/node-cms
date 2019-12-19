@@ -76,6 +76,9 @@ function _getTags(urlPath) {
 }
 
 function _getRelatedPages(correspondingTags, thisUrlPath, second = false) {
+    if (correspondingTags.length === 0) {
+        return ''
+    }
     const view = { tags: [] }
     Object.keys(tags).forEach((key) => {
         if (!correspondingTags.includes(key)) {
