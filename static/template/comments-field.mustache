@@ -3,9 +3,24 @@
 <section class="section">
     <div class="container">
         <h2 class="title is-4">Comments</h2>
-
-        {{{commentsHTML}}}
-
+        
+        {{#comments}}
+        <div class="box">
+            <article class="media">
+                <div class="media-content">
+                    <div class="content">
+                        <p>
+                            <strong>{{id}}. {{name}} さん</strong>
+                            <br>
+                            <small>[{{timestamp}}]</small>
+                        </p>
+                        {{{comment}}}
+                    </div>
+                </div>
+            </article>
+        </div>
+        {{/comments}}
+        
         <hr>
         <div id="comments-field">
             <p>
