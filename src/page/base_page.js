@@ -8,7 +8,6 @@ const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8
 const likeJA = 'いいね！'
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const navbarTemplate = fs.readFileSync('./static/template/navbar.mustache', 'utf8')
-const commentTemplate = fs.readFileSync('./static/template/comment.mustache', 'utf8')
 const commentsFieldTemplate = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
 
 module.exports = class BasePage {
@@ -72,20 +71,21 @@ module.exports = class BasePage {
     }
 
     async _getWithComments() {
-        const comments = await mongodbDriver.findComments({ urlPath: this.urlPath })
+        const commentsArray = await mongodbDriver.findComments({ urlPath: this.urlPath })
         // from oldest to latest
-        comments.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
+        commentsArray.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
         
         let id = 0
-        let commentsHTML = ''
+        const comments = []
         const commentIds = []
-        comments.forEach((commentObj) => {
+        commentsArray.forEach((comment) => {
             id += 1
-            const commentObjTmp = commentObj
-            commentObjTmp.id = id
-            commentObjTmp.timestamp = JST.convertToDatetime(commentObj.date)
-            commentObjTmp.comment = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/\n/g, '<br>')
-            commentsHTML += mustache.render(commentTemplate, commentObjTmp)
+            comments.push({
+                id,
+                name: comment.name,
+                timestamp: JST.convertToDatetime(comment.date),
+                comment: mustache.render('{{raw}}', { raw: comment.comment }).replace(/\n/g, '<br>')
+            })
             commentIds.push({
                 urlPath: this.urlPath,
                 commentId: id
@@ -94,7 +94,7 @@ module.exports = class BasePage {
         
         const commentsFieldHTML = mustache.render(
             commentsFieldTemplate,
-            { urlPath: this.urlPath, commentsHTML }
+            { urlPath: this.urlPath, comments }
         )
         
         this.view.commentsFieldHTML = commentsFieldHTML
