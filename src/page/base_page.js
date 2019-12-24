@@ -10,7 +10,6 @@ const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const navbarTemplate = fs.readFileSync('./static/template/navbar.mustache', 'utf8')
 const commentTemplate = fs.readFileSync('./static/template/comment.mustache', 'utf8')
 const commentsFieldTemplate = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
-const likeButtonTemplate = fs.readFileSync('./static/template/like-button.mustache', 'utf8')
 
 module.exports = class BasePage {
     constructor({
@@ -55,26 +54,24 @@ module.exports = class BasePage {
             return this.content
         }
         
-        let likeButton = ''
         if (this.hasLikeButton) {
             const urlPath = (this.urlPathBase) ? `${this.urlPathBase}-1` : this.urlPath
             const likeCount = await mongodbDriver.findLikeCount(urlPath)
-            likeButton = mustache.render(likeButtonTemplate, { urlPath, likeJA, likeCount })
+            this.view.likeButton = { urlPath, likeJA, likeCount }
         }
         
         if (this.hasCommentsField) {
-            return this._getWithComments(likeButton)
+            return this._getWithComments()
         }
-        return this._getWithNoComments(likeButton)
+        return this._getWithNoComments()
     }
     
-    _getWithNoComments(likeButton) {
-        this.view.likeButton = likeButton
+    _getWithNoComments() {
         this.view.navBarHTML = mustache.render(navbarTemplate, { commentHTML: '' })
         return mustache.render(template, this.view)
     }
 
-    async _getWithComments(likeButton) {
+    async _getWithComments() {
         const comments = await mongodbDriver.findComments({ urlPath: this.urlPath })
         // from oldest to latest
         comments.sort((obj1, obj2) => obj1.date.getTime() - obj2.date.getTime())
@@ -101,7 +98,6 @@ module.exports = class BasePage {
         )
         
         this.view.commentsFieldHTML = commentsFieldHTML
-        this.view.likeButton = likeButton
         this.view.navBarHTML = mustache.render(
             navbarTemplate,
             { commentHTML: '<a class="navbar-item" href="#comments-field">コメントする</a>' }
