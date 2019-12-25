@@ -45,7 +45,7 @@ module.exports = class HomePage extends BasePage {
 
     async get(numOfComments) {
         const summary = await mongodbDriver.findCountsForHome()
-        const comments = await mongodbDriver.findComments({ urlPath: { $ne: '/board' }, name: { $ne: 'Fully Hatter' } })
+        const comments = await mongodbDriver.findComments()
         this._updateViewHome(numOfComments, summary, comments)
         
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome)
