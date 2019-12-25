@@ -7,7 +7,6 @@ const env = process.env.NODE_ENV
 const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8128'
 const likeJA = 'いいね！'
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
-const navbarTemplate = fs.readFileSync('./static/template/navbar.mustache', 'utf8')
 const commentsFieldTemplate = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
 
 module.exports = class BasePage {
@@ -66,7 +65,7 @@ module.exports = class BasePage {
     }
     
     _getWithNoComments() {
-        this.view.navBarHTML = mustache.render(navbarTemplate, { commentHTML: '' })
+        this.view.navbar = true
         return mustache.render(template, this.view)
     }
 
@@ -98,10 +97,8 @@ module.exports = class BasePage {
         )
         
         this.view.commentsFieldHTML = commentsFieldHTML
-        this.view.navBarHTML = mustache.render(
-            navbarTemplate,
-            { commentHTML: '<a class="navbar-item" href="#comments-field">コメントする</a>' }
-        )
+        this.view.navbar = true
+        this.view.navbarComment = '<a class="navbar-item" href="#comments-field">コメントする</a>'
         return mustache.render(template, this.view)
     }
 }

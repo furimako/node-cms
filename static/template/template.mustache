@@ -127,6 +127,17 @@
             </p>
         </div>
     </footer>
-    {{{navBarHTML}}}
+    {{#navbar}}
+    <nav class="navbar is-transparent is-fixed-bottom" role="navigation" aria-label="main navigation">
+        <div class="navbar-brand">
+            <div class="navbar-item">
+                <a class="button is-small is-info is-outlined" href="/">
+                    Home へ戻る
+                </a>
+            </div>
+            {{{navbarComment}}}
+        </div>
+    </nav>
+    {{/navbar}}
 </body>
 </html>
