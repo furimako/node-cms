@@ -1,11 +1,58 @@
 
+<!-- JavaScript for modal -->
+<script>
+    function openModal() {
+        var element = document.getElementById('modal');
+        element.setAttribute('class', 'modal is-active');
+    }
+    function closeModal() {
+        var element = document.getElementById('modal');
+        element.setAttribute('class', 'modal');
+    }
+</script>
+
+<!-- modal -->
+<div id="modal" class="modal">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">このサイトについて</p>
+            <button class="delete" aria-label="close" onclick="closeModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="content is-small">
+                <h2>サイトポリシー</h2>
+                <ul>
+                    <li>あなたの知らない世界を見せよう</li>
+                    <li>このサイトを見て悲しい気持ちになる人を、なるべく減らす努力をしよう</li>
+                    <li>すべてのページに Fully Hatter オリジナルな要素を盛り込もう</li>
+                    <li>専門知識がなくても理解できる内容にしよう</li>
+                </ul>
+                <h2>登場人物</h2>
+                <h3>Fully Hatter</h3>
+                <p>
+                    秘密の部屋の作者。人間という枠を超越した者。<br>
+                    存在自体が概念。
+                </p>
+                <h3>ふりまこ</h3>
+                <p>
+                    Fully Hatter の友達の友達。デジタル空間上の架空の人物。<br>
+                    Twitter で秘密の部屋の更新情報を発信したり、たまに変なことを呟いたりするのが趣味。<br>
+                    Twitter アカウントは <a target="_blank" href="https://twitter.com/furimako">こちら</a>。
+                </p>
+            </div>
+        </section>
+    </div>
+</div>
+
+<!-- content -->
 <section class="section">
     <div class="container">
         <p>
             秘密の部屋なのでこっそりのぞいてください。<br>
             <br>
             <strong><a href="/world/your-goal">幸せ</a></strong> や <strong><a href="/world/freedom">自由</a></strong>、<strong><a href="/world/how-to-fail">人生</a></strong> について考えるあなたのためのページです。<br>
-            サイトポリシーは <strong><a href="/about">こちら</a></strong>。
+            このサイトについては <strong><a onclick="openModal()">こちら</a></strong>。
         </p>
     </div>
 </section>

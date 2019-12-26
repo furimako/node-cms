@@ -142,11 +142,6 @@ module.exports = [
         filePathSuffix: '.html',
         elements: [
             {
-                urlPath: '/about',
-                title: 'About',
-                description: 'このサイトについて。Fully Hatter について。'
-            },
-            {
                 urlPath: '/bookshelf/books',
                 title: 'Fully Hatter の本棚',
                 description: 'Fully Hatterの人生を変えた本をご紹介。'
