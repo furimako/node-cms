@@ -81,8 +81,8 @@
                         {{/tags}}
                     </div>
                     {{#likeButton}}
-                    <form method="post" action={{urlPath}}>
-                        <button class="button is-small is-primary is-outlined is-rounded" name="id" value=0>{{likeJA}} {{likeCount}}</button>
+                    <form method="post" action="/post/like">
+                        <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value={{urlPath}}>{{likeJA}} {{likeCount}}</button>
                     </form>
                     {{/likeButton}}
 

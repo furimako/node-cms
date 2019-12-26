@@ -29,7 +29,7 @@
                 Fully Hatter が愛をもってご返事いたします。
             </p>
             <br>
-            <form method="post" action="{{urlPath}}">
+            <form method="post" action="/post/comment">
                 <div class="field">
                     <label class="label is-small">名前</label>
                     <div class="control is-small has-icons-left">
@@ -45,6 +45,7 @@
                     <label class="label is-small">コメント</label>
                     <div class="control is-small">
                         <textarea class="textarea" name="comment" placeholder="ご自由にどうぞ" maxlength="900" required></textarea>
+                        <input type="hidden" name="urlPath" value={{urlPath}}>
                     </div>
                 </div>
                 <div class="field">
