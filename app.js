@@ -135,7 +135,7 @@ async function httpsHandler(req, res) {
                 
                 // Comment
                 if (postData.name && postData.comment) {
-                    logging.info(`    L get message (name: ${postData.name}, comment: ${postData.comment})`)
+                    logging.info(`    L get comment (name: ${postData.name}, comment: ${postData.comment})`)
                     mailer.send(
                         `get comment from '${postData.name}'`,
                         `URL: ${url + urlPath}`
@@ -156,8 +156,21 @@ async function httpsHandler(req, res) {
                     return
                 }
                 
+                // Message Modal
+                if (urlPath === '/' && postData.message) {
+                    logging.info(`    L get message (message: ${postData.message})`)
+                    mailer.send(
+                        'get message',
+                        `${postData.message}`
+                    )
+                    const html = await pages.get(urlPath)
+                    res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+                    res.end(html)
+                    return
+                }
+                
                 // invalid POST
-                logging.info(`    L get invalid POST (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment})`)
+                logging.info(`    L get invalid POST (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment}, message: ${postData.message})`)
                 res.writeHead(400, { 'Content-Type': 'text/plain' })
                 res.end('400 Bad Request')
             })

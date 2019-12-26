@@ -1,23 +1,23 @@
 
 <!-- JavaScript for modal -->
 <script>
-    function openModal() {
-        var element = document.getElementById('modal');
+    function openModal(id) {
+        var element = document.getElementById(id);
         element.setAttribute('class', 'modal is-active');
     }
-    function closeModal() {
-        var element = document.getElementById('modal');
+    function closeModal(id) {
+        var element = document.getElementById(id);
         element.setAttribute('class', 'modal');
     }
 </script>
 
-<!-- modal -->
-<div id="modal" class="modal">
-    <div class="modal-background"></div>
+<!-- About Modal page -->
+<div id="aboutModal" class="modal">
+    <div class="modal-background" onclick="closeModal('aboutModal')"></div>
     <div class="modal-card">
         <header class="modal-card-head">
             <h2 class="modal-card-title">このサイトについて</h2>
-            <button class="delete" aria-label="close" onclick="closeModal()"></button>
+            <button class="delete" aria-label="close" onclick="closeModal('aboutModal')"></button>
         </header>
         <section class="modal-card-body">
             <div class="content is-small">
@@ -44,14 +44,40 @@
     </div>
 </div>
 
+<!-- Message Modal page -->
+<div id="messageModal" class="modal">
+    <div class="modal-background" onclick="closeModal('messageModal')"></div>
+        <div class="modal-content">
+            <h2 class="title is-4">Fully Hatter へのメッセージ</h2>
+            <p>
+                お問い合わせ、お仕事依頼、応援メッセージ、苦情などなんでもどうぞ。<br>
+                プライバシーは最大限に尊重します。
+            </p>
+            <form method="post" action="/">
+                <div class="field">
+                    <div class="control is-small">
+                        <textarea class="textarea" name="message" placeholder="ご自由にどうぞ" maxlength="900" required></textarea>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-primary">送信</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal('messageModal')"></button>
+</div>
+
 <!-- content -->
 <section class="section">
     <div class="container">
         <p>
             秘密の部屋なのでこっそりのぞいてください。<br>
-            <br>
             <strong><a href="/world/your-goal">幸せ</a></strong> や <strong><a href="/world/freedom">自由</a></strong>、<strong><a href="/world/how-to-fail">人生</a></strong> について考えるあなたのためのページです。<br>
-            このサイトについては <strong><a onclick="openModal()">こちら</a></strong>。
+            <br>
+            このサイトについては <strong><a onclick="openModal('aboutModal')">こちら</a></strong>。<br>
+            Fully Hatter へのお問い合わせは <strong><a onclick="openModal('messageModal')">こちら</a></strong>。
         </p>
     </div>
 </section>
