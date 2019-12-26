@@ -27,7 +27,7 @@ module.exports = {
     async findLikeCount(urlPath) {
         const likeCount = await this._query(
             'likes',
-            async (collection) => collection.find({ urlPath, id: 0 }).count()
+            async (collection) => collection.find({ urlPath }).count()
         )
         logging.info(`    L found ${likeCount} likeCount`)
         return likeCount || 0

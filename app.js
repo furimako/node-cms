@@ -90,23 +90,6 @@ async function httpsHandler(req, res) {
     logging.info(`${req.method} request (url: ${urlPath}, IP Address: ${ipAddress})`)
     
     try {
-        if (!pages.has(urlPath)) {
-        // When pages no found
-            logging.info('    L responsing no-found page')
-            const html = await pages.get('/no-found')
-            res.writeHead(404, { 'Content-Type': 'text/html' })
-            res.end(html)
-            return
-        }
-        
-        if (req.method === 'GET') {
-            const numOfComments = parseInt(query.numOfComments, 10) || 5
-            const html = await pages.get(urlPath, numOfComments)
-            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            res.end(html)
-            return
-        }
-        
         if (req.method === 'POST') {
             let body = ''
             req.on('data', (data) => { body += data })
@@ -115,34 +98,33 @@ async function httpsHandler(req, res) {
                 const postData = qs.parse(body)
                 
                 // Like
-                if (postData.id) {
-                    logging.info(`    L like (id: ${postData.id})`)
+                if (urlPath === '/post/like' && postData.urlPath) {
+                    logging.info(`    L like (urlPath: ${postData.urlPath})`)
                     
                     const likeObjs = [{
-                        urlPath,
-                        id: parseInt(postData.id, 10),
+                        urlPath: postData.urlPath,
                         date: new Date(),
                         ipAddress,
                         userAgent
                     }]
                     await mongodbDriver.insert('likes', likeObjs)
                     
-                    const html = await pages.get(urlPath)
-                    res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+                    const html = await pages.get(postData.urlPath)
+                    res.writeHead(200, { 'Content-Type': pages.contentType(postData.urlPath) })
                     res.end(html)
                     return
                 }
                 
                 // Comment
-                if (postData.name && postData.comment) {
-                    logging.info(`    L get comment (name: ${postData.name}, comment: ${postData.comment})`)
+                if (urlPath === '/post/comment' && postData.urlPath && postData.name && postData.comment) {
+                    logging.info(`    L get comment (urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment})`)
                     mailer.send(
                         `get comment from '${postData.name}'`,
-                        `URL: ${url + urlPath}`
+                        `URL: ${url + postData.urlPath}`
                     )
                     
                     const commentObjs = [{
-                        urlPath,
+                        urlPath: postData.urlPath,
                         date: new Date(),
                         name: postData.name,
                         comment: postData.comment,
@@ -151,20 +133,20 @@ async function httpsHandler(req, res) {
                     }]
                     await mongodbDriver.insert('comments', commentObjs)
                     
-                    res.writeHead(302, { Location: `${urlPath}#comments-field` })
+                    res.writeHead(302, { Location: `${postData.urlPath}#comments-field` })
                     res.end()
                     return
                 }
                 
                 // Message Modal
-                if (urlPath === '/' && postData.message) {
+                if (urlPath === '/post/message' && postData.message) {
                     logging.info(`    L get message (message: ${postData.message})`)
                     mailer.send(
                         'get message',
                         `${postData.message}`
                     )
-                    const html = await pages.get(urlPath)
-                    res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+                    const html = await pages.get('/')
+                    res.writeHead(200, { 'Content-Type': pages.contentType('/') })
                     res.end(html)
                     return
                 }
@@ -174,6 +156,21 @@ async function httpsHandler(req, res) {
                 res.writeHead(400, { 'Content-Type': 'text/plain' })
                 res.end('400 Bad Request')
             })
+        } else if (req.method === 'GET') {
+            if (!pages.has(urlPath)) {
+            // When pages no found
+                logging.info('    L responsing no-found page')
+                const html = await pages.get('/no-found')
+                res.writeHead(404, { 'Content-Type': 'text/html' })
+                res.end(html)
+                return
+            }
+            
+            const numOfComments = parseInt(query.numOfComments, 10) || 5
+            const html = await pages.get(urlPath, numOfComments)
+            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+            res.end(html)
+            return
         }
     } catch (err) {
         logging.error(`unexpected error has occurred\n${err.stack}`)
