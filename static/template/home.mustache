@@ -109,25 +109,21 @@
                 </table>
             </small>
         </div>
-        <nav class="pagination is-right" role="navigation" aria-label="pagination">
+        {{#commentListPagination}}
+        <nav class="pagination is-small" role="navigation" aria-label="pagination">
             <ul class="pagination-list">
                 <li>
-                    <small>
-                        <a class="pagination-link {{is-current-5}}" href="/?numOfComments=5#commentList">5件</a>
-                    </small>
+                    <a class="pagination-link is-rounded" aria-label="go to previous page" href="/?page={{previousPageNum}}#commentList" {{disabledPrevious}}>Previous</a>
                 </li>
                 <li>
-                    <small>
-                        <a class="pagination-link {{is-current-10}}" href="/?numOfComments=10#commentList">10件</a>
-                    </small>
+                    <a class="pagination-link is-current" aria-label="current page">{{pageNum}}/{{pageTotal}}</a>
                 </li>
                 <li>
-                    <small>
-                        <a class="pagination-link {{is-current-20}}" href="/?numOfComments=20#commentList">20件</a>
-                    </small>
+                    <a class="pagination-link is-rounded" aria-label="go to next page" href="/?page={{nextPageNum}}#commentList" {{disabledNext}}>Next</a>
                 </li>
             </ul>
         </nav>
+        {{/commentListPagination}}
         <br>
         <br>
         <div class="columns">

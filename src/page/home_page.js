@@ -43,16 +43,16 @@ module.exports = class HomePage extends BasePage {
         })
     }
 
-    async get(numOfComments) {
+    async get(pageNum) {
         const summary = await mongodbDriver.findCountsForHome()
         const comments = await mongodbDriver.findComments({ name: { $ne: 'Fully Hatter' } })
-        this._updateViewHome(numOfComments, summary, comments)
+        this._updateViewHome(pageNum, summary, comments)
         
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome)
         return mustache.render(template, this.view)
     }
     
-    _updateViewHome(numOfComments, summary, comments) {
+    _updateViewHome(pageNum, summary, comments) {
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
             const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
@@ -88,18 +88,24 @@ module.exports = class HomePage extends BasePage {
         }
         
         // create comment list
-        this.viewHome['is-current-5'] = ''
-        this.viewHome['is-current-10'] = ''
-        this.viewHome['is-current-20'] = ''
-        this.viewHome[`is-current-${numOfComments}`] = 'is-current'
+        const pageTotal = Math.ceil(comments.length / 5)
+        this.viewHome.commentListPagination = {
+            pageNum,
+            pageTotal,
+            previousPageNum: pageNum - 1,
+            disabledPrevious: (pageNum === 1) ? 'disabled' : '',
+            nextPageNum: pageNum + 1,
+            disabledNext: (pageNum === pageTotal) ? 'disabled' : ''
+        }
+        
         // from latest to oldest
         comments.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
         
         const commentListView = []
-        comments.slice(0, numOfComments).forEach((commentObj) => {
+        comments.slice(pageNum * 5 - 5, pageNum * 5).forEach((commentObj) => {
             const viewObj = this.viewHome.world.find((e) => e.urlPath === commentObj.urlPath)
-            const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/\n/g, '<br>')
-                    
+            const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/(\r\n|\n|\r)/gm, ' ')
+            
             commentListView.push({
                 date: JST.convertToDate(commentObj.date),
                 urlPath: commentObj.urlPath,

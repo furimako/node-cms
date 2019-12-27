@@ -166,8 +166,8 @@ async function httpsHandler(req, res) {
                 return
             }
             
-            const numOfComments = parseInt(query.numOfComments, 10) || 5
-            const html = await pages.get(urlPath, numOfComments)
+            const pageNum = parseInt(query.page, 10) || 1
+            const html = await pages.get(urlPath, pageNum)
             res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
             res.end(html)
             return

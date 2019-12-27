@@ -97,7 +97,7 @@ module.exports = class BasePage {
                 id,
                 name: comment.name,
                 timestamp: JST.convertToDatetime(comment.date),
-                comment: mustache.render('{{raw}}', { raw: comment.comment }).replace(/\n/g, '<br>')
+                comment: mustache.render('{{raw}}', { raw: comment.comment }).replace(/(\r\n|\n|\r)/gm, '<br>')
             })
             commentIds.push({
                 urlPath: this.urlPath,

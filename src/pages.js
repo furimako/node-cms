@@ -15,8 +15,8 @@ module.exports = class Pages {
         return this.pages.has(urlPath)
     }
 
-    async get(urlPath, numOfComments = 5) {
-        return this.pages.get(urlPath).get(numOfComments)
+    async get(urlPath, pageNum) {
+        return this.pages.get(urlPath).get(pageNum)
     }
 
     contentType(urlPath) {
