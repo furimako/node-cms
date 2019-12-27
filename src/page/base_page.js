@@ -8,6 +8,7 @@ const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8
 const likeJA = 'いいね！'
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const commentsFieldTemplate = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
+const paginationTemplate = fs.readFileSync('./static/template/pagination.mustache', 'utf8')
 
 module.exports = class BasePage {
     constructor({
@@ -33,6 +34,19 @@ module.exports = class BasePage {
         numOfChapters,
         chapter
     }) {
+        let paginationHTML
+        if (this.urlPathBase && numOfChapters && chapter) {
+            const paginationView = { pagination: [] }
+            for (let i = 1; i <= numOfChapters; i += 1) {
+                paginationView.pagination.push({
+                    pageNum: i,
+                    urlPathBase: this.urlPathBase,
+                    isCurrent: (i === chapter) ? 'is-current' : ''
+                })
+            }
+            paginationHTML = mustache.render(paginationTemplate, paginationView)
+        }
+        
         this.view = {
             url: `${url + urlPath}`,
             title,
@@ -43,7 +57,7 @@ module.exports = class BasePage {
             tags,
             relatedPages,
             relatedPages2,
-            paginationHTML: _paginationHTML(this.urlPathBase, numOfChapters, chapter)
+            paginationHTML
         }
     }
     
@@ -101,32 +115,4 @@ module.exports = class BasePage {
         this.view.navbarComment = '<a class="navbar-item" href="#comments-field">コメントする</a>'
         return mustache.render(template, this.view)
     }
-}
-
-function _paginationHTML(urlPathBase, numOfChapters, chapter) {
-    if (!urlPathBase || !numOfChapters || !chapter) {
-        return ''
-    }
-    
-    let html = '<section class="section">'
-    html += '<div class="container">'
-    html += '<nav class="pagination" role="navigation" aria-label="pagination">'
-    html += '<ul class="pagination-list">'
-
-    for (let i = 1; i <= numOfChapters; i += 1) {
-        if (i === chapter) {
-            html += '<li>'
-            html += `<a class="pagination-link is-current" href="${`${urlPathBase}-${parseInt(i, 10)}`}">${parseInt(i, 10)}</a>`
-            html += '</li>'
-        } else {
-            html += '<li>'
-            html += `<a class="pagination-link" href="${`${urlPathBase}-${parseInt(i, 10)}`}">${parseInt(i, 10)}</a>`
-            html += '</li>'
-        }
-    }
-    html += '</ul>'
-    html += '</nav>'
-    html += '</div>'
-    html += '</section>'
-    return html
 }

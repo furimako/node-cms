@@ -1,0 +1,13 @@
+<section class="section">
+    <div class="container">
+        <nav class="pagination" role="navigation" aria-label="pagination">
+            <ul class="pagination-list">
+                {{#pagination}}
+                <li>
+                    <a class="pagination-link {{isCurrent}}" href="{{urlPathBase}}-{{pageNum}}">{{pageNum}}</a>
+                </li>
+                {{/pagination}}
+            </ul>
+        </nav>
+    </div>
+</section>
