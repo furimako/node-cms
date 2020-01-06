@@ -90,6 +90,16 @@ async function httpsHandler(req, res) {
     logging.info(`${req.method} request (url: ${urlPath}, IP Address: ${ipAddress})`)
     
     try {
+        // GET
+        if (req.method === 'GET' && pages.has(urlPath)) {
+            const pageNum = parseInt(query.page, 10) || 1
+            const html = await pages.get(urlPath, pageNum)
+            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+            res.end(html)
+            return
+        }
+        
+        // POST
         if (req.method === 'POST') {
             let body = ''
             req.on('data', (data) => { body += data })
@@ -138,7 +148,7 @@ async function httpsHandler(req, res) {
                     return
                 }
                 
-                // Message Modal
+                // Message
                 if (urlPath === '/post/message' && postData.message) {
                     logging.info(`    L get message (message: ${postData.message})`)
                     mailer.send(
@@ -156,22 +166,14 @@ async function httpsHandler(req, res) {
                 res.writeHead(400, { 'Content-Type': 'text/plain' })
                 res.end('400 Bad Request')
             })
-        } else if (req.method === 'GET') {
-            if (!pages.has(urlPath)) {
-            // When pages no found
-                logging.info('    L responsing no-found page')
-                const html = await pages.get('/no-found')
-                res.writeHead(404, { 'Content-Type': 'text/html' })
-                res.end(html)
-                return
-            }
-            
-            const pageNum = parseInt(query.page, 10) || 1
-            const html = await pages.get(urlPath, pageNum)
-            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            res.end(html)
             return
         }
+        
+        // When pages no found
+        logging.info('    L responsing no-found page')
+        const html = await pages.get('/no-found')
+        res.writeHead(404, { 'Content-Type': 'text/html' })
+        res.end(html)
     } catch (err) {
         logging.error(`unexpected error has occurred\n${err.stack}`)
         mailer.send(
