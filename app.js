@@ -119,9 +119,8 @@ async function httpsHandler(req, res) {
                     }]
                     await mongodbDriver.insert('likes', likeObjs)
                     
-                    const html = await pages.get(postData.urlPath)
-                    res.writeHead(200, { 'Content-Type': pages.contentType(postData.urlPath) })
-                    res.end(html)
+                    res.writeHead(302, { Location: `${postData.urlPath}` })
+                    res.end()
                     return
                 }
                 
@@ -155,9 +154,9 @@ async function httpsHandler(req, res) {
                         'get message',
                         `${postData.message}`
                     )
-                    const html = await pages.get('/')
-                    res.writeHead(200, { 'Content-Type': pages.contentType('/') })
-                    res.end(html)
+                    
+                    res.writeHead(302, { Location: '/' })
+                    res.end()
                     return
                 }
                 
