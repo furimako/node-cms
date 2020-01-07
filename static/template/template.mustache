@@ -31,15 +31,15 @@
     </script>
     
     <!-- OGP -->
-    <meta property="og:title" content="{{title}} | Fully Hatter の秘密の部屋">
+    <meta property="og:title" content="{{title}} | {{^en}}Fully Hatter の秘密の部屋{{/en}}{{#en}}Fully Hatter and the Chamber of Secrets{{/en}}">
     <meta property="og:type" content="article">
     <meta property="og:url" content={{url}}>
     <meta property="og:description" content={{description}}>
     <meta property="og:image" content="http://furimako.com/images/background-image-og.jpg">
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:alt" content="Fully Hatter の秘密の部屋のイメージ" />
+    <meta property="og:image:alt" content="{{^en}}Fully Hatter の秘密の部屋のイメージ{{/en}}{{#en}}the image of the Chamber{{/en}}" />
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:site_name" content="Fully Hatter の秘密の部屋">
+    <meta property="og:site_name" content="{{^en}}Fully Hatter の秘密の部屋{{/en}}{{#en}}Fully Hatter and the Chamber of Secrets{{/en}}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@furimako">
     <meta name="twitter:creator" content="@furimako">
@@ -49,7 +49,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content= {{description}}>
-    <title>{{title}} | Fully Hatter の秘密の部屋</title>
+    <title>{{title}} | {{^en}}Fully Hatter の秘密の部屋{{/en}}{{#en}}Fully Hatter and the Chamber of Secrets{{/en}}</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/sawarabimincho.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700,900">
     <link rel="stylesheet" href={{cssPath}}>
@@ -65,7 +65,7 @@
                     <div class="navbar-brand">
                         <a class="navbar-item" href="/">
                             <p class="title is-5">
-                                <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter の秘密の部屋
+                                <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter {{^en}}の秘密の部屋{{/en}}{{#en}}and the Chamber of Secrets{{/en}}
                             </p>
                         </a>
                     </div>
@@ -75,17 +75,30 @@
                 <div class="container">
                     {{{newTag}}}
                     <h1 class="title is-5">{{title}}</h1>
-                    <div class="buttons has-addons">
-                        {{#tags}}
-                        <a class="button is-small is-info is-outlined" href="#{{tagNameEn}}">{{tagName}}</a>
-                        {{/tags}}
+                </div>
+            </div>
+            <div class="hero-foot">
+                <div class="container">
+                    <div class="level">
+                        <div class="level-left">
+                            {{#keywordTag}}
+                            <div class="level-item">
+                                <div class="buttons has-addons">
+                                    {{#tagItems}}
+                                    <a class="button is-small is-info is-outlined" href="#{{tagNameEn}}">{{tagName}}</a>
+                                    {{/tagItems}}
+                                </div>
+                            </div>
+                            {{/keywordTag}}
+                            {{#likeButton}}
+                            <div class="level-item">
+                                <form method="post" action="/post/like">
+                                    <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value={{urlPath}}>{{likeJA}} {{likeCount}}</button>
+                                </form>
+                            </div>
+                            {{/likeButton}}
+                        </div>
                     </div>
-                    {{#likeButton}}
-                    <form method="post" action="/post/like">
-                        <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value={{urlPath}}>{{likeJA}} {{likeCount}}</button>
-                    </form>
-                    {{/likeButton}}
-
                 </div>
             </div>
         </section>
@@ -102,7 +115,7 @@
                 <div class="level-left">
                     <div class="level-item">
                         <p class="title is-5">
-                            <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter の秘密の部屋
+                            <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter {{^en}}の秘密の部屋{{/en}}{{#en}}and the Chamber of Secrets{{/en}}
                         </p>
                     </div>
                     <div class="level-item">
@@ -112,10 +125,16 @@
             </div>
             <p>
                 <small>
+                    {{^en}}
                     テキストは引用部分以外すべて著作権を放棄しています。<br>
                     コピペ、盗用などご自由にどうぞ！<br>
                     このサイトのソースコードは <a target="_blank" href="https://github.com/furimako/node-cms"><strong>こちら</strong></a>。<br>
                     <br>
+                    {{/en}}
+                    {{#en}}
+                    The source code (GitHub repository) of this site is <a target="_blank" href="https://github.com/furimako/node-cms"><strong>here</strong></a>.<br>
+                    <br>
+                    {{/en}}
                     This website is made with
                     <a target="_blank" href="https://m.do.co/c/9b2bd756e7ab">DigitalOcean</a>,
                     <a target="_blank" href="https://www.ubuntu.com/">Ubuntu</a>,
@@ -132,7 +151,12 @@
         <div class="navbar-brand">
             <div class="navbar-item">
                 <a class="button is-small is-info is-outlined" href="/">
+                    {{^en}}
                     Home へ戻る
+                    {{/en}}
+                    {{#en}}
+                    go Home
+                    {{/en}}
                 </a>
             </div>
             {{{navbarComment}}}

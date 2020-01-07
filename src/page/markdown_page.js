@@ -37,7 +37,7 @@ module.exports = class MarkdownPage extends BasePage {
         bodyHTML += '</section>'
         
         let { title } = element
-        const _tags = _getTags(urlPath)
+        const keywordTag = _getKeywordTag(urlPath)
         if (chapter) {
             this.urlPathBase = `${element.urlPath}`
             title += ` ${parseInt(chapter, 10)}`
@@ -54,25 +54,32 @@ module.exports = class MarkdownPage extends BasePage {
             cssPath: '/css/styles-others.css',
             isNew: element.isNew,
             bodyHTML,
-            tags: _tags,
-            relatedPages: _getRelatedPages(_tags.map((tagObj) => tagObj.tagName), urlPath),
-            relatedPages2: _getRelatedPages(_tags.map((tagObj) => tagObj.tagName), urlPath, true),
+            keywordTag,
+            relatedPages: _getRelatedPages(
+                keywordTag.tagItems.map((tagObj) => tagObj.tagName),
+                urlPath
+            ),
+            relatedPages2: _getRelatedPages(
+                keywordTag.tagItems.map((tagObj) => tagObj.tagName),
+                urlPath,
+                true
+            ),
             numOfChapters: element.numOfChapters,
             chapter
         })
     }
 }
 
-function _getTags(urlPath) {
-    const _tags = []
+function _getKeywordTag(urlPath) {
+    const keywordTag = { tagItems: [] }
     Object.keys(tags).forEach((key) => {
         tags[key].targets.forEach((target) => {
             if (target === urlPath) {
-                _tags.push({ tagName: key, tagNameEn: tags[key].tagNameEn })
+                keywordTag.tagItems.push({ tagName: key, tagNameEn: tags[key].tagNameEn })
             }
         })
     })
-    return _tags
+    return keywordTag
 }
 
 function _getRelatedPages(correspondingTags, thisUrlPath, second = false) {
