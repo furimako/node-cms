@@ -28,7 +28,7 @@ module.exports = class BasePage {
         cssPath,
         isNew,
         bodyHTML,
-        tags,
+        keywordTag,
         relatedPages,
         relatedPages2,
         numOfChapters,
@@ -54,7 +54,7 @@ module.exports = class BasePage {
             cssPath,
             newTag: (isNew) ? '<span class="tag is-danger">New!</span><br><br>' : '',
             bodyHTML,
-            tags,
+            keywordTag,
             relatedPages,
             relatedPages2,
             paginationHTML
