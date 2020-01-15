@@ -31,15 +31,15 @@
     </script>
     
     <!-- OGP -->
-    <meta property="og:title" content="{{title}} | {{^en}}Fully Hatter の秘密の部屋{{/en}}{{#en}}Fully Hatter and the Chamber of Secrets{{/en}}">
+    <meta property="og:title" content="{{title}} | {{#lan.ja}}Fully Hatter の秘密の部屋{{/lan.ja}}{{#lan.en}}Fully Hatter and the Chamber of Secrets{{/lan.en}}">
     <meta property="og:type" content="article">
     <meta property="og:url" content={{url}}>
     <meta property="og:description" content={{description}}>
     <meta property="og:image" content="http://furimako.com/images/background-image-og.jpg">
     <meta property="og:image:type" content="image/jpeg" />
-    <meta property="og:image:alt" content="{{^en}}Fully Hatter の秘密の部屋のイメージ{{/en}}{{#en}}the image of the Chamber{{/en}}" />
+    <meta property="og:image:alt" content="{{#lan.ja}}Fully Hatter の秘密の部屋のイメージ{{/lan.ja}}{{#lan.en}}the image of the Chamber{{/lan.en}}" />
     <meta property="og:locale" content="ja_JP">
-    <meta property="og:site_name" content="{{^en}}Fully Hatter の秘密の部屋{{/en}}{{#en}}Fully Hatter and the Chamber of Secrets{{/en}}">
+    <meta property="og:site_name" content="{{#lan.ja}}Fully Hatter の秘密の部屋{{/lan.ja}}{{#lan.en}}Fully Hatter and the Chamber of Secrets{{/lan.en}}">
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:site" content="@furimako">
     <meta name="twitter:creator" content="@furimako">
@@ -49,7 +49,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content= {{description}}>
-    <title>{{title}} | {{^en}}Fully Hatter の秘密の部屋{{/en}}{{#en}}Fully Hatter and the Chamber of Secrets{{/en}}</title>
+    <title>
+        {{title}} | {{#lan.ja}}Fully Hatter の秘密の部屋{{/lan.ja}}{{#lan.en}}Fully Hatter and the Chamber of Secrets{{/lan.en}}
+    </title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/sawarabimincho.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700,900">
     <link rel="stylesheet" href={{cssPath}}>
@@ -65,7 +67,7 @@
                     <div class="navbar-brand">
                         <a class="navbar-item" href="/">
                             <p class="title is-5">
-                                <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter {{^en}}の秘密の部屋{{/en}}{{#en}}and the Chamber of Secrets{{/en}}
+                                <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter {{#lan.ja}}の秘密の部屋{{/lan.ja}}{{#lan.en}}and the Chamber of Secrets{{/lan.en}}
                             </p>
                         </a>
                     </div>
@@ -79,7 +81,7 @@
             </div>
             <div class="hero-foot">
                 <div class="container">
-                    <div class="level">
+                    <div class="level is-mobile">
                         <div class="level-left">
                             {{#keywordTag}}
                             <div class="level-item">
@@ -93,11 +95,22 @@
                             {{#likeButton}}
                             <div class="level-item">
                                 <form method="post" action="/post/like">
-                                    <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value={{urlPath}}>{{likeJA}} {{likeCount}}</button>
+                                    <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value={{urlPath}}>
+                                        {{likeJA}} {{likeCount}}
+                                    </button>
                                 </form>
                             </div>
                             {{/likeButton}}
                         </div>
+                        <div class="level-right">
+                            <div class="level-item">
+                                <small>
+                                    {{#lan.ja}}Japanese | <a href="/en">English</a>{{/lan.ja}}
+                                    {{#lan.en}}<a href="/">Japanese</a> | English{{/lan.en}}
+                                </small>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </div>
@@ -115,26 +128,28 @@
                 <div class="level-left">
                     <div class="level-item">
                         <p class="title is-5">
-                            <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter {{^en}}の秘密の部屋{{/en}}{{#en}}and the Chamber of Secrets{{/en}}
+                            <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter {{#lan.ja}}の秘密の部屋{{/lan.ja}}{{#lan.en}}and the Chamber of Secrets{{/lan.en}}
                         </p>
                     </div>
                     <div class="level-item">
-                        <a class="twitter-follow-button" href="https://twitter.com/furimako">Follow @furimako</a>
+                        <a class="twitter-follow-button" href="https://twitter.com/{{#lan.ja}}furimako{{/lan.ja}}{{#lan.en}}FullyHatter{{/lan.en}}">
+                            Follow @{{#lan.ja}}furimako{{/lan.ja}}{{#lan.en}}FullyHatter{{/lan.en}}
+                        </a>
                     </div>
                 </div>
             </div>
             <p>
                 <small>
-                    {{^en}}
+                    {{#lan.ja}}
                     テキストは引用部分以外すべて著作権を放棄しています。<br>
                     コピペ、盗用などご自由にどうぞ！<br>
                     このサイトのソースコードは <a target="_blank" href="https://github.com/furimako/node-cms"><strong>こちら</strong></a>。<br>
                     <br>
-                    {{/en}}
-                    {{#en}}
-                    The source code (GitHub repository) of this site is <a target="_blank" href="https://github.com/furimako/node-cms"><strong>here</strong></a>.<br>
+                    {{/lan.ja}}
+                    {{#lan.en}}
+                    Click <a target="_blank" href="https://github.com/furimako/node-cms"><strong>here</strong></a> and you can read the source code (GitHub repository) of this website.<br>
                     <br>
-                    {{/en}}
+                    {{/lan.en}}
                     This website is made with
                     <a target="_blank" href="https://m.do.co/c/9b2bd756e7ab">DigitalOcean</a>,
                     <a target="_blank" href="https://www.ubuntu.com/">Ubuntu</a>,
@@ -151,12 +166,12 @@
         <div class="navbar-brand">
             <div class="navbar-item">
                 <a class="button is-small is-info is-outlined" href="/">
-                    {{^en}}
+                    {{#lan.ja}}
                     Home へ戻る
-                    {{/en}}
-                    {{#en}}
+                    {{/lan.ja}}
+                    {{#lan.en}}
                     go Home
-                    {{/en}}
+                    {{/lan.en}}
                 </a>
             </div>
             {{{navbarComment}}}

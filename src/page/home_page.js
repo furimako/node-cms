@@ -13,13 +13,7 @@ const commentJA = 'コメント'
 module.exports = class HomePage extends BasePage {
     constructor({ element }) {
         super({ urlPath: element.urlPath, contentType: 'text/html' })
-        this.setView({
-            urlPath: element.urlPath,
-            title: element.title,
-            description: element.description,
-            cssPath: '/css/styles-home.css'
-        })
-        
+        this.element = element
         this.viewHome = {
             world: [],
             story: []
@@ -43,16 +37,34 @@ module.exports = class HomePage extends BasePage {
         })
     }
 
-    async get(pageNum) {
+    async get(lan, pageNum) {
+        let title
+        let description
+        if (lan === 'ja') {
+            title = this.element.title
+            description = this.element.description
+        } else if (lan === 'en') {
+            title = this.element.en.title
+            description = this.element.en.description
+        }
+        this.setView({
+            urlPath: this.element.urlPath,
+            title,
+            description,
+            cssPath: '/css/styles-home.css',
+            lan
+        })
+        
         const summary = await mongodbDriver.findCountsForHome()
         const comments = await mongodbDriver.findComments({ name: { $ne: 'Fully Hatter' } })
-        this._updateViewHome(pageNum, summary, comments)
+        this._updateViewHome(pageNum, summary, comments, lan)
         
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome)
         return mustache.render(template, this.view)
     }
     
-    _updateViewHome(pageNum, summary, comments) {
+    _updateViewHome(pageNum, summary, comments, lan) {
+        this.viewHome.lan[lan] = true
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
             const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
@@ -106,10 +118,19 @@ module.exports = class HomePage extends BasePage {
             const viewObj = this.viewHome.world.find((e) => e.urlPath === commentObj.urlPath)
             const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/(\r\n|\n|\r)/gm, ' ')
             
+            let urlPath
+            let pageTitle
+            if (lan === 'ja') {
+                urlPath = commentObj.urlPath
+                pageTitle = (viewObj) ? viewObj.title : '掲示板'
+            } else if (lan === 'en') {
+                urlPath = `/en${commentObj.urlPath}`
+                pageTitle = (viewObj) ? viewObj.title : 'Board'
+            }
             commentListView.push({
                 date: JST.convertToDate(commentObj.date),
-                urlPath: commentObj.urlPath,
-                pageTitle: (viewObj) ? viewObj.title : '掲示板',
+                urlPath,
+                pageTitle,
                 name: commentObj.name,
                 excerptOfComment: (commentStr.length > 30) ? `${commentStr.slice(0, 30)}...` : commentStr
             })
