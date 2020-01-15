@@ -83,7 +83,7 @@ process.on('SIGINT', () => {
 })
 
 async function httpsHandler(req, res) {
-    const urlPath = parse(req.url).pathname
+    let urlPath = parse(req.url).pathname
     const { query } = parse(req.url, true)
     const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
     const userAgent = req.headers['user-agent']
@@ -91,12 +91,24 @@ async function httpsHandler(req, res) {
     
     try {
         // GET
-        if (req.method === 'GET' && pages.has(urlPath)) {
+        if (req.method === 'GET') {
             const pageNum = parseInt(query.page, 10) || 1
-            const html = await pages.get(urlPath, pageNum)
-            res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
-            res.end(html)
-            return
+            let lan
+            if (urlPath.startsWith('/en')) {
+                // English page
+                lan = 'en'
+                urlPath = (urlPath === '/en') ? '/' : urlPath.slice(3)
+            } else {
+                // Japanese page
+                lan = 'ja'
+            }
+            
+            if (pages.has(urlPath)) {
+                const html = await pages.get(urlPath, lan, pageNum)
+                res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+                res.end(html)
+                return
+            }
         }
         
         // POST

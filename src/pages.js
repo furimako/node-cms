@@ -14,9 +14,10 @@ module.exports = class Pages {
     has(urlPath) {
         return this.pages.has(urlPath)
     }
-
-    async get(urlPath, pageNum) {
-        return this.pages.get(urlPath).get(pageNum)
+    
+    // lan = ja or en
+    async get(urlPath, lan, pageNum) {
+        return this.pages.get(urlPath).get(lan, pageNum)
     }
 
     contentType(urlPath) {

@@ -32,7 +32,8 @@ module.exports = class BasePage {
         relatedPages,
         relatedPages2,
         numOfChapters,
-        chapter
+        chapter,
+        lan
     }) {
         let paginationHTML
         if (this.urlPathBase && numOfChapters && chapter) {
@@ -57,7 +58,8 @@ module.exports = class BasePage {
             keywordTag,
             relatedPages,
             relatedPages2,
-            paginationHTML
+            paginationHTML,
+            lan
         }
     }
     

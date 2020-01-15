@@ -6,7 +6,11 @@ module.exports = [
             {
                 urlPath: '/',
                 title: 'Home',
-                description: 'キミの知らない世界を見せよう。'
+                description: 'キミの知らない世界を見せよう。',
+                en: {
+                    title: 'Home',
+                    description: 'Show you the world you have not seen.'
+                }
             }
         ]
     },

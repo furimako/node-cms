@@ -16,11 +16,16 @@
     <div class="modal-background" onclick="closeModal('aboutModal')"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-            <h2 class="modal-card-title">このサイトについて</h2>
+            <h2 class="modal-card-title">
+                {{#lan.ja}}このサイトについて{{/lan.ja}}
+                {{#lan.en}}About this website{{/lan.en}}
+            </h2>
             <button class="delete" aria-label="close" onclick="closeModal('aboutModal')"></button>
         </header>
         <section class="modal-card-body">
             <div class="content is-small">
+                {{#lan.ja}}
+                <h3>サイト・ポリシー</h3>
                 <ul>
                     <li>あなたの知らない世界を見せよう</li>
                     <li>このサイトを見て悲しい気持ちになる人を、なるべく減らす努力をしよう</li>
@@ -28,17 +33,32 @@
                     <li>専門知識がなくても理解できる内容にしよう</li>
                 </ul>
                 <h3>登場人物</h3>
-                <h4>Fully Hatter</h4>
                 <p>
+                    <b>Fully Hatter</b><br>
                     秘密の部屋の作者。人間という枠を超越した者。<br>
                     存在自体が概念。
                 </p>
-                <h4>ふりまこ</h4>
                 <p>
+                    <b>ふりまこ</b><br>
                     Fully Hatter の友達の友達。デジタル空間上の架空の人物。<br>
                     Twitter で変なことを呟くのが趣味。<br>
                     Twitter アカウントは <a target="_blank" href="https://twitter.com/furimako">こちら</a>。
                 </p>
+                {{/lan.ja}}
+                {{#lan.en}}
+                <h3>Policy</h3>
+                <ul>
+                    <li>Show you the world you have not seen</li>
+                    <li>Do my best to reduce the number of people who feel sad about this website</li>
+                    <li>Include Fully Hatter's originality on every page</li>
+                    <li>Make all pages simple so that you can understand without advanced knowledge</li>
+                </ul>
+                <h3>Fully Hatter</h3>
+                <p>
+                    The creator of this website. He is a concept itself.<br>
+                    Twitter account is <a target="_blank" href="https://twitter.com/FullyHatter">here</a>.
+                </p>
+                {{/lan.en}}
             </div>
         </section>
     </div>
@@ -48,20 +68,28 @@
 <div id="messageModal" class="modal">
     <div class="modal-background" onclick="closeModal('messageModal')"></div>
         <div class="modal-content">
-            <h2 class="title is-5">Fully Hatter へのメッセージ</h2>
+            <h2 class="title is-5">
+                {{#lan.ja}}Fully Hatter へのメッセージ{{/lan.ja}}
+                {{#lan.en}}Message to Fully Hatter{{/lan.en}}
+            </h2>
             <p>
+                {{#lan.ja}}
                 お問い合わせ、お仕事依頼、応援メッセージ、苦情などなんでもどうぞ。<br>
                 プライバシーは最大限に尊重します。
+                {{/lan.ja}}
+                {{#lan.en}}
+                You can send a message to Fully Hatter.
+                {{/lan.en}}
             </p>
             <form method="post" action="/post/message">
                 <div class="field">
                     <div class="control is-small">
-                        <textarea class="textarea" name="message" placeholder="返事が欲しい方はお名前とメールアドレスをご記載ください" maxlength="900" required></textarea>
+                        <textarea class="textarea" name="message" placeholder={{#lan.ja}}"返事が欲しい方はお名前とメールアドレスをご記載ください"{{/lan.ja}}{{#lan.en}}"Please tell me your name and e-mail address if you would like to get a reply from Fully Hatter."{{/lan.en}} maxlength="900" required></textarea>
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
-                        <button class="button is-primary">送信</button>
+                        <button class="button is-primary">{{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}</button>
                     </div>
                 </div>
             </form>
@@ -73,27 +101,53 @@
 <section class="section">
     <div class="container">
         <p>
+            {{#lan.ja}}
             秘密の部屋なのでこっそりのぞいてください。<br>
             <strong><a href="/world/your-goal">幸せ</a></strong> や <strong><a href="/world/freedom">自由</a></strong>、<strong><a href="/world/how-to-fail">人生</a></strong> について考えるあなたのためのページです。<br>
             <br>
             このサイトについては <strong><a onclick="openModal('aboutModal')">こちら</a></strong>。<br>
             Fully Hatter へのお問い合わせは <strong><a onclick="openModal('messageModal')">こちら</a></strong>。
+            {{/lan.ja}}
+            {{#lan.en}}
+            Please take a peek at this chamber.<br>
+            <br>
+            Click <strong><a onclick="openModal('aboutModal')">here</a></strong> for the policy.<br>
+            Click <strong><a onclick="openModal('messageModal')">here</a></strong> for sending a message to Fully Hatter.
+            {{/lan.en}}
         </p>
     </div>
 </section>
 <section class="section">
     <div class="container">
-        <h2 class="title is-4">Fully Hatter の頭の中</h2>
-        <h3 class="title is-6" id="commentList">最近のコメント</h3>
+        <h2 class="title is-4">
+            {{#lan.ja}}Fully Hatter の頭の中{{/lan.ja}}
+            {{#lan.en}}World{{/lan.en}}
+        </h2>
+        <h3 class="title is-6" id="commentList">
+            {{#lan.ja}}最近のコメント{{/lan.ja}}
+            {{#lan.en}}Recent Comments{{/lan.en}}
+        </h3>
         <div class="content is-small">
             <small>
                 <table>
                     <thead>
                         <tr>
-                            <th style="width:5%;">日時</th>
-                            <th style="width:25%;">ページ</th>
-                            <th style="width:20%;">名前</th>
-                            <th>コメント</th>
+                            <th style="width:5%;">
+                                {{#lan.ja}}日時{{/lan.ja}}
+                                {{#lan.en}}date{{/lan.en}}
+                            </th>
+                            <th style="width:25%;">
+                                {{#lan.ja}}ページ{{/lan.ja}}
+                                {{#lan.en}}page{{/lan.en}}
+                            </th>
+                            <th style="width:20%;">
+                                {{#lan.ja}}名前{{/lan.ja}}
+                                {{#lan.en}}name{{/lan.en}}
+                            </th>
+                            <th>
+                                {{#lan.ja}}コメント{{/lan.ja}}
+                                {{#lan.en}}comment{{/lan.en}}
+                            </th>
                         </tr>
                     </thead>
                     <tbody>
