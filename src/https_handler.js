@@ -51,7 +51,7 @@ module.exports = class HttpsHandler {
                         const postData = qs.parse(body)
                         
                         // Like
-                        if (urlPath === '/post/like' && postData.urlPath) {
+                        if (urlPath === '/post/like' && postData.key === 'furimako' && postData.urlPath) {
                             logging.info(`    L like (urlPath: ${postData.urlPath})`)
                             
                             const likeObjs = [{
@@ -68,7 +68,7 @@ module.exports = class HttpsHandler {
                         }
                         
                         // Comment
-                        if (urlPath === '/post/comment' && postData.urlPath && postData.name && postData.comment) {
+                        if (urlPath === '/post/comment' && postData.key === 'furimako' && postData.urlPath && postData.name && postData.comment) {
                             logging.info(`    L get comment (urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment})`)
                             this.mailer.send(
                                 `get comment from '${postData.name}'`,
@@ -91,7 +91,7 @@ module.exports = class HttpsHandler {
                         }
                         
                         // Message
-                        if (urlPath === '/post/message' && postData.message) {
+                        if (urlPath === '/post/message' && postData.key === 'furimako' && postData.message) {
                             logging.info(`    L get message (message: ${postData.message})`)
                             this.mailer.send(
                                 'get message',
@@ -104,7 +104,7 @@ module.exports = class HttpsHandler {
                         }
                         
                         // invalid POST
-                        logging.info(`    L get invalid POST (id: ${postData.id}, name: ${postData.name}, comment: ${postData.comment}, message: ${postData.message})`)
+                        logging.info(`    L get invalid POST (key: ${postData.key}, urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment}, message: ${postData.message})`)
                         res.writeHead(400, { 'Content-Type': 'text/plain' })
                         res.end('400 Bad Request')
                     })
