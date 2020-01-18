@@ -63,10 +63,11 @@ module.exports = class BasePage {
         }
     }
     
-    async get() {
+    async get(lan) {
         if (this.content) {
             return this.content
         }
+        this.view.lan = { [lan]: true }
         
         if (this.hasLikeButton) {
             const urlPath = (this.urlPathBase) ? `${this.urlPathBase}-1` : this.urlPath
