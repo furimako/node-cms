@@ -47,12 +47,14 @@ module.exports = class HomePage extends BasePage {
             title = this.element.en.title
             description = this.element.en.description
         }
+        
+        const lanObj = { [lan]: true }
         this.setView({
             urlPath: this.element.urlPath,
             title,
             description,
             cssPath: '/css/styles-home.css',
-            lan
+            lan: lanObj
         })
         
         const summary = await mongodbDriver.findCountsForHome()
@@ -64,7 +66,7 @@ module.exports = class HomePage extends BasePage {
     }
     
     _updateViewHome(pageNum, summary, comments, lan) {
-        this.viewHome.lan[lan] = true
+        this.viewHome.lan = { [lan]: true }
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
             const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
