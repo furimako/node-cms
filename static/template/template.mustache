@@ -95,6 +95,7 @@
                             {{#likeButton}}
                             <div class="level-item">
                                 <form method="post" action="/post/like">
+                                    <input type="hidden" name="key" value="furimako">
                                     <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value={{urlPath}}>
                                         {{likeJA}} {{likeCount}}
                                     </button>
