@@ -103,20 +103,27 @@ module.exports = class HomePage extends BasePage {
         
         // create comment list
         const pageTotal = Math.ceil(comments.length / 5)
+        let pageNumValidated
+        if (pageNum >= 1 && pageNum <= pageTotal) {
+            pageNumValidated = pageNum
+        } else {
+            pageNumValidated = 1
+        }
+        
         this.viewHome.commentListPagination = {
-            pageNum,
+            pageNum: pageNumValidated,
             pageTotal,
-            previousPageNum: pageNum - 1,
-            disabledPrevious: (pageNum === 1) ? 'disabled' : '',
-            nextPageNum: pageNum + 1,
-            disabledNext: (pageNum === pageTotal) ? 'disabled' : ''
+            previousPageNum: pageNumValidated - 1,
+            disabledPrevious: (pageNumValidated === 1) ? 'disabled' : '',
+            nextPageNum: pageNumValidated + 1,
+            disabledNext: (pageNumValidated === pageTotal) ? 'disabled' : ''
         }
         
         // from latest to oldest
         comments.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
         
         const commentListView = []
-        comments.slice(pageNum * 5 - 5, pageNum * 5).forEach((commentObj) => {
+        comments.slice(pageNumValidated * 5 - 5, pageNumValidated * 5).forEach((commentObj) => {
             const viewObj = this.viewHome.world.find((e) => e.urlPath === commentObj.urlPath)
             const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/(\r\n|\n|\r)/gm, ' ')
             
