@@ -10,7 +10,11 @@ module.exports = class ImagePage extends BasePage {
             contentType = 'image/jpeg'
         }
         
-        const content = fs.readFileSync(filePath)
-        super({ element, contentType, content })
+        super({ element, contentType })
+        this.content = fs.readFileSync(filePath)
+    }
+
+    async get() {
+        return this.content
     }
 }
