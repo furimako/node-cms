@@ -18,7 +18,6 @@ module.exports = class BasePage {
         element,
         urlPath,
         contentType,
-        content,
         title,
         description,
         hasCommentsField,
@@ -28,7 +27,6 @@ module.exports = class BasePage {
         this.element = element
         this.urlPath = urlPath
         this.contentType = contentType
-        this.content = content
         this.title = title
         this.description = description
         this.hasCommentsField = hasCommentsField
@@ -60,9 +58,6 @@ module.exports = class BasePage {
     }
     
     async get(lan) {
-        if (this.content) {
-            return this.content
-        }
         this.view.lan = { [lan]: true }
         this.view.title = this.title[lan]
         this.view.description = this.description[lan]
