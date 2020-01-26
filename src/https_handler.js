@@ -49,27 +49,29 @@ module.exports = class HttpsHandler {
                     
                     req.on('end', async () => {
                         const postData = qs.parse(body)
+                        const urlPrefix = (postData.lan === 'en') ? '/en' : ''
                         
                         // Like
-                        if (urlPath === '/post/like' && postData.key === 'furimako' && postData.urlPath) {
-                            logging.info(`    L like (urlPath: ${postData.urlPath})`)
+                        if (urlPath === '/post/like' && postData.key === 'furimako' && postData.lan && postData.urlPath) {
+                            logging.info(`    L like (lan: ${postData.lan}, urlPath: ${postData.urlPath})`)
                             
                             const likeObjs = [{
                                 urlPath: postData.urlPath,
                                 date: new Date(),
+                                lan: postData.lan,
                                 ipAddress,
                                 userAgent
                             }]
                             await mongodbDriver.insert('likes', likeObjs)
                             
-                            res.writeHead(302, { Location: `${postData.urlPath}` })
+                            res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}` })
                             res.end()
                             return
                         }
                         
                         // Comment
-                        if (urlPath === '/post/comment' && postData.key === 'furimako' && postData.urlPath && postData.name && postData.comment) {
-                            logging.info(`    L get comment (urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment})`)
+                        if (urlPath === '/post/comment' && postData.key === 'furimako' && postData.lan && postData.urlPath && postData.name && postData.comment) {
+                            logging.info(`    L get comment (lan: ${postData.lan}, urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment})`)
                             this.mailer.send(
                                 `get comment from '${postData.name}'`,
                                 `URL: ${this.url + postData.urlPath}`
@@ -80,31 +82,32 @@ module.exports = class HttpsHandler {
                                 date: new Date(),
                                 name: postData.name,
                                 comment: postData.comment,
+                                lan: postData.lan,
                                 ipAddress,
                                 userAgent
                             }]
                             await mongodbDriver.insert('comments', commentObjs)
                             
-                            res.writeHead(302, { Location: `${postData.urlPath}#comments-field` })
+                            res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}#comments-field` })
                             res.end()
                             return
                         }
                         
                         // Message
-                        if (urlPath === '/post/message' && postData.key === 'furimako' && postData.message) {
-                            logging.info(`    L get message (message: ${postData.message})`)
+                        if (urlPath === '/post/message' && postData.key === 'furimako' && postData.lan && postData.message) {
+                            logging.info(`    L get message (lan: ${postData.lan}, message: ${postData.message})`)
                             this.mailer.send(
                                 'get message',
                                 `${postData.message}`
                             )
                             
-                            res.writeHead(302, { Location: '/' })
+                            res.writeHead(302, { Location: `${urlPrefix}/` })
                             res.end()
                             return
                         }
                         
                         // invalid POST
-                        logging.info(`    L get invalid POST (key: ${postData.key}, urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment}, message: ${postData.message})`)
+                        logging.info(`    L get invalid POST (key: ${postData.key}, lan: ${postData.lan}, urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment}, message: ${postData.message})`)
                         res.writeHead(400, { 'Content-Type': 'text/plain' })
                         res.end('400 Bad Request')
                     })

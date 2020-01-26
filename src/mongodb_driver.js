@@ -42,7 +42,7 @@ module.exports = {
         return comments
     },
     
-    async findCountsForHome() {
+    async findCountsForHome(lan) {
         const summary = {
             likeCount: {},
             commentCount: {}
@@ -61,6 +61,7 @@ module.exports = {
         const commentCountObjs = await this._query(
             'comments',
             async (collection) => collection.aggregate([
+                { $match: { lan } },
                 { $group: { _id: '$urlPath', count: { $sum: 1 } } }
             ]).toArray()
         )

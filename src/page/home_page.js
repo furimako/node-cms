@@ -12,53 +12,34 @@ const commentJA = 'コメント'
 
 module.exports = class HomePage extends BasePage {
     constructor({ element }) {
-        super({ urlPath: element.urlPath, contentType: 'text/html' })
-        this.element = element
-        this.viewHome = {
-            world: [],
-            story: []
+        const title = {}
+        const description = {}
+        if (element.ja) {
+            title.ja = element.ja.title
+            description.ja = element.ja.description
         }
-        this._initializeViewHome()
+        if (element.en) {
+            title.en = element.en.title
+            description.en = element.en.description
+        }
+        
+        super({
+            element,
+            urlPath: element.urlPath,
+            contentType: 'text/html',
+            title,
+            description
+        })
+        this.setView({ cssPath: '/css/styles-home.css' })
     }
     
-    _initializeViewHome() {
-        rooting.forEach((v) => {
-            v.elements.forEach((e) => {
-                if (v.styleInHome) {
-                    this.viewHome[v.styleInHome].push({
-                        urlPath: (e.numOfChapters) ? `${e.urlPath}-1` : e.urlPath,
-                        picturePath: `/images${e.urlPath}.jpg`,
-                        title: e.title,
-                        description: e.description,
-                        newTag: (e.isNew) ? '<span class="tag is-danger">New!</span>' : ''
-                    })
-                }
-            })
-        })
-    }
-
     async get(lan, pageNum) {
-        let title
-        let description
-        if (lan === 'ja') {
-            title = this.element.title
-            description = this.element.description
-        } else if (lan === 'en') {
-            title = this.element.en.title
-            description = this.element.en.description
-        }
+        this.view.lan = { [lan]: true }
+        this.view.title = this.title[lan]
+        this.view.description = this.description[lan]
         
-        const lanObj = { [lan]: true }
-        this.setView({
-            urlPath: this.element.urlPath,
-            title,
-            description,
-            cssPath: '/css/styles-home.css',
-            lan: lanObj
-        })
-        
-        const summary = await mongodbDriver.findCountsForHome()
-        const comments = await mongodbDriver.findComments({ name: { $ne: 'Fully Hatter' } })
+        const summary = await mongodbDriver.findCountsForHome(lan)
+        const comments = await mongodbDriver.findComments({ lan })
         this._updateViewHome(pageNum, summary, comments, lan)
         
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome)
@@ -66,7 +47,25 @@ module.exports = class HomePage extends BasePage {
     }
     
     _updateViewHome(pageNum, summary, comments, lan) {
+        this.viewHome = {
+            world: [],
+            story: []
+        }
         this.viewHome.lan = { [lan]: true }
+        rooting.forEach((v) => {
+            v.elements.forEach((e) => {
+                if (v.styleInHome && e[lan]) {
+                    this.viewHome[v.styleInHome].push({
+                        urlPath: (e.numOfChapters) ? `${e.urlPath}-1` : e.urlPath,
+                        picturePath: `/images${e.urlPath}.jpg`,
+                        title: e[lan].title,
+                        description: e[lan].description,
+                        newTag: (e.isNew) ? '<span class="tag is-danger">New!</span>' : ''
+                    })
+                }
+            })
+        })
+        
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
             const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0

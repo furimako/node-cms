@@ -75,7 +75,9 @@
             </div>
             <div class="hero-body">
                 <div class="container">
-                    {{{newTag}}}
+                    {{#isNew}}
+                    <span class="tag is-danger">New!</span><br><br>
+                    {{/isNew}}
                     <h1 class="title is-5">{{title}}</h1>
                 </div>
             </div>
@@ -87,7 +89,7 @@
                             <div class="level-item">
                                 <div class="buttons has-addons">
                                     {{#tagItems}}
-                                    <a class="button is-small is-info is-outlined" href="#{{tagNameEn}}">{{tagName}}</a>
+                                    <a class="button is-small is-info is-outlined" href="#{{tagId}}">{{tagName}}</a>
                                     {{/tagItems}}
                                 </div>
                             </div>
@@ -96,6 +98,7 @@
                             <div class="level-item">
                                 <form method="post" action="/post/like">
                                     <input type="hidden" name="key" value="furimako">
+                                    <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
                                     <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value={{urlPath}}>
                                         {{likeJA}} {{likeCount}}
                                     </button>
@@ -148,8 +151,7 @@
                     <br>
                     {{/lan.ja}}
                     {{#lan.en}}
-                    Click <a target="_blank" href="https://github.com/furimako/node-cms"><strong>here</strong></a> and you can read the source code (GitHub repository) of this website.<br>
-                    <br>
+                    Click <a target="_blank" href="https://github.com/furimako/node-cms"><strong>here</strong></a> for the source code (GitHub repository) of this website.<br>
                     {{/lan.en}}
                     This website is made with
                     <a target="_blank" href="https://m.do.co/c/9b2bd756e7ab">DigitalOcean</a>,
