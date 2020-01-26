@@ -11,6 +11,6 @@ module.exports = class ImagePage extends BasePage {
         }
         
         const content = fs.readFileSync(filePath)
-        super({ urlPath: element.urlPath, contentType, content })
+        super({ element, contentType, content })
     }
 }

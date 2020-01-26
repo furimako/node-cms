@@ -1,13 +1,8 @@
 const fs = require('fs')
 const marked = require('marked')
-const mustache = require('mustache')
 
 marked.setOptions({ breaks: true })
 const BasePage = require('./base_page')
-const rooting = require('../../static/rooting')
-const tags = require('../../static/tags')
-
-const relatedPagesTemplate = fs.readFileSync('./static/template/related-pages.mustache', 'utf8')
 
 module.exports = class MarkdownPage extends BasePage {
     constructor({
@@ -16,16 +11,45 @@ module.exports = class MarkdownPage extends BasePage {
         titleWithDescription,
         hasLikeButton,
         hasCommentsField,
+        hasRelatedPages,
         chapter
     }) {
-        const urlPath = (chapter) ? `${element.urlPath}-${parseInt(chapter, 10)}` : element.urlPath
+        const title = {}
+        const description = {}
+        if (element.ja) {
+            title.ja = element.ja.title
+            description.ja = element.ja.description
+            if (chapter) {
+                title.ja += ` ${parseInt(chapter, 10)}`
+            }
+            if (titleWithDescription) {
+                /* eslint no-irregular-whitespace: "off" */
+                title.ja += `　−　${element.ja.description}`
+            }
+        }
+        if (element.en) {
+            title.en = element.en.title
+            description.en = element.en.description
+            if (chapter) {
+                title.en += ` ${parseInt(chapter, 10)}`
+            }
+            if (titleWithDescription) {
+                /* eslint no-irregular-whitespace: "off" */
+                title.en += `　−　${element.en.description}`
+            }
+        }
         
         super({
-            urlPath,
+            element,
+            urlPath: (chapter) ? `${element.urlPath}-${parseInt(chapter, 10)}` : element.urlPath,
             contentType: 'text/html',
+            title,
+            description,
             hasLikeButton,
-            hasCommentsField
+            hasCommentsField,
+            hasRelatedPages
         })
+        this.urlPathBase = element.urlPath
         
         const markdown = fs.readFileSync(filePath, 'utf8')
         let bodyHTML = '<section class="section">'
@@ -36,114 +60,10 @@ module.exports = class MarkdownPage extends BasePage {
         bodyHTML += '</div>'
         bodyHTML += '</section>'
         
-        let { title } = element
-        const keywordTag = _getKeywordTag(urlPath)
-        if (chapter) {
-            this.urlPathBase = `${element.urlPath}`
-            title += ` ${parseInt(chapter, 10)}`
-        }
-        if (titleWithDescription) {
-            /* eslint no-irregular-whitespace: "off" */
-            title += `　−　${element.description}`
-        }
-        
         this.setView({
-            urlPath,
-            title,
-            description: element.description,
             cssPath: '/css/styles-others.css',
-            isNew: element.isNew,
             bodyHTML,
-            keywordTag,
-            relatedPages: _getRelatedPages(
-                keywordTag.tagItems.map((tagObj) => tagObj.tagName),
-                urlPath
-            ),
-            relatedPages2: _getRelatedPages(
-                keywordTag.tagItems.map((tagObj) => tagObj.tagName),
-                urlPath,
-                true
-            ),
-            numOfChapters: element.numOfChapters,
             chapter
         })
     }
-}
-
-function _getKeywordTag(urlPath) {
-    const keywordTag = { tagItems: [] }
-    Object.keys(tags).forEach((key) => {
-        tags[key].targets.forEach((target) => {
-            if (target === urlPath) {
-                keywordTag.tagItems.push({ tagName: key, tagNameEn: tags[key].tagNameEn })
-            }
-        })
-    })
-    return keywordTag
-}
-
-function _getRelatedPages(correspondingTags, thisUrlPath, second = false) {
-    if (correspondingTags.length === 0) {
-        return ''
-    }
-    const view = { tags: [] }
-    Object.keys(tags).forEach((key) => {
-        if (!correspondingTags.includes(key)) {
-            return
-        }
-        
-        const tag = {
-            tagName: key,
-            tagNameEn: tags[key].tagNameEn + ((second) ? '2' : ''),
-            targets: []
-        }
-        
-        const targetUrlPaths = tags[key].targets.filter((urlPath) => urlPath !== thisUrlPath)
-        for (let i = 0; i < targetUrlPaths.length; i += 1) {
-            const urlPath = targetUrlPaths[i]
-            const descriptions = _getDescriptions(urlPath)
-            let headHTML
-            let footHTML
-            if (i === 0) {
-                headHTML = '<div class="column">'
-            }
-            if (i === Math.floor((targetUrlPaths.length - 1) / 2)) {
-                footHTML = '</div>'
-                footHTML += '<div class="column">'
-            }
-            if (i === targetUrlPaths.length - 1) {
-                footHTML = '</div>'
-            }
-            
-            tag.targets.push({
-                urlPath,
-                title: descriptions.title,
-                description: descriptions.description,
-                headHTML,
-                footHTML
-            })
-        }
-        
-        view.tags.push(tag)
-    })
-    
-    return mustache.render(relatedPagesTemplate, view)
-}
-
-function _getDescriptions(urlPath) {
-    const descriptions = {}
-    
-    rooting.forEach((v) => {
-        if (v.class !== 'MarkdownPage') {
-            return
-        }
-        
-        v.elements.forEach((e) => {
-            if (e.urlPath === urlPath) {
-                descriptions.title = e.title
-                descriptions.description = e.description
-            }
-        })
-    })
-    return descriptions
 }

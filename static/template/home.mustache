@@ -46,12 +46,12 @@
                 </p>
                 {{/lan.ja}}
                 {{#lan.en}}
-                <h3>Policy</h3>
+                <h3>Website Policy</h3>
                 <ul>
-                    <li>Show you the world you have not seen</li>
-                    <li>Do my best to reduce the number of people who feel sad about this website</li>
-                    <li>Include Fully Hatter's originality on every page</li>
-                    <li>Make all pages simple so that you can understand without advanced knowledge</li>
+                    <li>show you the world you have not seen</li>
+                    <li>do my best to reduce the number of people who feel sad about this website</li>
+                    <li>include Fully Hatter's originality on every page</li>
+                    <li>make all pages simple so that you can understand without advanced knowledge</li>
                 </ul>
                 <h3>Fully Hatter</h3>
                 <p>
@@ -83,9 +83,10 @@
             </p>
             <form method="post" action="/post/message">
                 <input type="hidden" name="key" value="furimako">
+                <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
                 <div class="field">
                     <div class="control is-small">
-                        <textarea class="textarea" name="message" placeholder={{#lan.ja}}"返事が欲しい方はお名前とメールアドレスをご記載ください"{{/lan.ja}}{{#lan.en}}"Please tell me your name and e-mail address if you would like to get a reply from Fully Hatter."{{/lan.en}} maxlength="900" required></textarea>
+                        <textarea class="textarea" name="message" placeholder={{#lan.ja}}"返事が欲しい方はお名前とメールアドレスをご記載ください"{{/lan.ja}}{{#lan.en}}"Tell me your name and e-mail address if you would like to get a reply from Fully Hatter."{{/lan.en}} maxlength="900" required></textarea>
                     </div>
                 </div>
                 <div class="field">
@@ -112,7 +113,7 @@
             {{#lan.en}}
             Please take a peek at this chamber.<br>
             <br>
-            Click <strong><a onclick="openModal('aboutModal')">here</a></strong> for the policy.<br>
+            Click <strong><a onclick="openModal('aboutModal')">here</a></strong> for the website policy.<br>
             Click <strong><a onclick="openModal('messageModal')">here</a></strong> for sending a message to Fully Hatter.
             {{/lan.en}}
         </p>
@@ -196,6 +197,7 @@
         </div>
     </div>
 </section>
+{{#lan.ja}}
 <section class="section">
     <div class="container">
         <h2 class="title is-3">Story</h2>
@@ -221,13 +223,24 @@
         </div>
     </div>
 </section>
+{{/lan.ja}}
 <section class="section">
     <div class="container">
-        <h2 class="title is-4">Fully Hatter の本棚</h2>
+        <h2 class="title is-4">
+            {{#lan.ja}}Fully Hatter の本棚{{/lan.ja}}
+            {{#lan.en}}Bookshelf{{/lan.en}}
+        </h2>
         <p>
+            {{#lan.ja}}
             Fully Hatterの人生を変えた本や映画などは <strong><a href="/bookshelf/books">こちら</a></strong>。
             <br>
             掲示板は <strong><a href="/board">こちら</a></strong>。
+            {{/lan.ja}}
+            {{#lan.en}}
+            Click <strong><a href="/en/bookshelf/books">here</a></strong> for the bookshelf of Fully Hatter.
+            <br>
+            Click <strong><a href="/en/board">here</a></strong> for the board.
+            {{/lan.en}}
         </p>
     </div>
 </section>

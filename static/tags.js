@@ -1,15 +1,15 @@
 
 module.exports = {
-    幸せ: {
-        tagNameEn: 'hapiness',
+    hapiness: {
+        ja: '幸せ',
         targets: [
             '/world/your-goal',
             '/world/happiness',
             '/world/death-for-life'
         ]
     },
-    生き方: {
-        tagNameEn: 'life',
+    life: {
+        ja: '生き方',
         targets: [
             '/world/your-goal',
             '/world/tips-for-your-life',
@@ -19,16 +19,16 @@ module.exports = {
             '/world/death-for-life'
         ]
     },
-    自由: {
-        tagNameEn: 'freedom',
+    freedom: {
+        ja: '自由',
         targets: [
             '/world/freedom',
             '/world/grown-up',
             '/world/nation'
         ]
     },
-    哲学: {
-        tagNameEn: 'philosophy',
+    philosophy: {
+        ja: '哲学',
         targets: [
             '/world/your-goal',
             '/world/happiness',
@@ -36,15 +36,15 @@ module.exports = {
             '/world/death-for-life'
         ]
     },
-    国家: {
-        tagNameEn: 'nation',
+    nation: {
+        ja: '国家',
         targets: [
             '/world/grown-up',
             '/world/nation'
         ]
     },
-    教育: {
-        tagnameEn: 'education',
+    education: {
+        ja: '教育',
         targets: [
             '/world/education',
             '/world/reward'

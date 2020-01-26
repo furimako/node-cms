@@ -35,6 +35,7 @@ module.exports = class Pages {
                             titleWithDescription: v.styleInHome === 'world',
                             hasLikeButton: v.hasLikeButton,
                             hasCommentsField: v.hasCommentsField,
+                            hasRelatedPages: v.hasRelatedPages,
                             chapter: i
                         }
                         
@@ -50,7 +51,8 @@ module.exports = class Pages {
                     filePath: (e.filePath) ? e.filePath : filePath,
                     titleWithDescription: v.styleInHome === 'world',
                     hasLikeButton: v.hasLikeButton,
-                    hasCommentsField: v.hasCommentsField
+                    hasCommentsField: v.hasCommentsField,
+                    hasRelatedPages: v.hasRelatedPages
                 }
                 
                 let page
