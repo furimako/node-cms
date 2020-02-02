@@ -10,9 +10,15 @@ module.exports = class Pages {
         this.pages = new Map()
         this._setPages()
     }
-
-    has(urlPath) {
-        return this.pages.has(urlPath)
+    
+    has(urlPath, lan) {
+        if (this.pages.has(urlPath)) {
+            if (!this.pages.get(urlPath).element.ja && !this.pages.get(urlPath).element.en) {
+                return true
+            }
+            return this.pages.get(urlPath).element[lan] !== undefined
+        }
+        return false
     }
     
     // lan = ja or en

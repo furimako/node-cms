@@ -34,7 +34,7 @@ module.exports = class HttpsHandler {
                         lan = 'ja'
                     }
                     
-                    if (pages.has(urlPath)) {
+                    if (pages.has(urlPath, lan)) {
                         const html = await pages.get(urlPath, lan, pageNum)
                         res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
                         res.end(html)
@@ -116,7 +116,7 @@ module.exports = class HttpsHandler {
                 
                 // When pages no found
                 logging.info('    L responsing no-found page')
-                const html = await pages.get('/no-found')
+                const html = await pages.get('/no-found', 'ja')
                 res.writeHead(404, { 'Content-Type': 'text/html' })
                 res.end(html)
             } catch (err) {
