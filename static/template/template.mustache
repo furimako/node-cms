@@ -65,7 +65,7 @@
             <div class="hero-head">
                 <nav class="navbar is-pulled-right" role="navigation" aria-label="main navigation">
                     <div class="navbar-brand">
-                        <a class="navbar-item" href="/">
+                        <a class="navbar-item" href="/{{#lan.en}}en{{/lan.en}}">
                             <p class="title is-5">
                                 <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter {{#lan.ja}}の秘密の部屋{{/lan.ja}}{{#lan.en}}and the Chamber of Secrets{{/lan.en}}
                             </p>
@@ -136,7 +136,7 @@
                         </p>
                     </div>
                     <div class="level-item">
-                        <a class="twitter-follow-button" href="https://twitter.com/{{#lan.ja}}furimako{{/lan.ja}}{{#lan.en}}FullyHatter{{/lan.en}}">
+                        <a class="twitter-follow-button" href="https://twitter.com/{{#lan.ja}}furimako{{/lan.ja}}{{#lan.en}}fully_hatter{{/lan.en}}">
                             Follow @{{#lan.ja}}furimako{{/lan.ja}}{{#lan.en}}FullyHatter{{/lan.en}}
                         </a>
                     </div>
@@ -168,16 +168,17 @@
     <nav class="navbar is-transparent is-fixed-bottom" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <div class="navbar-item">
-                <a class="button is-small is-info is-outlined" href="/">
-                    {{#lan.ja}}
-                    Home へ戻る
-                    {{/lan.ja}}
-                    {{#lan.en}}
-                    go Home
-                    {{/lan.en}}
+                <a class="button is-small is-info is-outlined" href="/{{#lan.en}}en{{/lan.en}}">
+                    {{#lan.ja}}Home へ戻る{{/lan.ja}}
+                    {{#lan.en}}Home{{/lan.en}}
                 </a>
             </div>
-            {{{navbarComment}}}
+            {{#hasComments}}
+            <a class="navbar-item" href="#comments-field">
+                {{#lan.ja}}コメントする{{/lan.ja}}
+                {{#lan.en}}comment{{/lan.en}}
+            </a>
+            {{/hasComments}}
         </div>
     </nav>
     {{/navbar}}

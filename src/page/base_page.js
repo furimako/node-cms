@@ -129,7 +129,7 @@ module.exports = class BasePage {
         
         this.view.commentsFieldHTML = commentsFieldHTML
         this.view.navbar = true
-        this.view.navbarComment = '<a class="navbar-item" href="#comments-field">コメントする</a>'
+        this.view.hasComments = true
         return mustache.render(template, this.view)
     }
 }
