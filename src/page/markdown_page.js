@@ -16,6 +16,7 @@ module.exports = class MarkdownPage extends BasePage {
     }) {
         const title = {}
         const description = {}
+        const bodyHTML = {}
         if (element.ja) {
             title.ja = element.ja.title
             description.ja = element.ja.description
@@ -26,7 +27,17 @@ module.exports = class MarkdownPage extends BasePage {
                 /* eslint no-irregular-whitespace: "off" */
                 title.ja += `　−　${element.ja.description}`
             }
+            
+            const markdown = fs.readFileSync(filePath.ja, 'utf8')
+            bodyHTML.ja = '<section class="section">'
+            bodyHTML.ja += '<div class="container">'
+            bodyHTML.ja += '<div class="content is-small">'
+            bodyHTML.ja += marked(markdown)
+            bodyHTML.ja += '</div>'
+            bodyHTML.ja += '</div>'
+            bodyHTML.ja += '</section>'
         }
+        
         if (element.en) {
             title.en = element.en.title
             description.en = element.en.description
@@ -37,6 +48,15 @@ module.exports = class MarkdownPage extends BasePage {
                 /* eslint no-irregular-whitespace: "off" */
                 title.en += `　−　${element.en.description}`
             }
+            
+            const markdown = fs.readFileSync(filePath.en, 'utf8')
+            bodyHTML.en = '<section class="section">'
+            bodyHTML.en += '<div class="container">'
+            bodyHTML.en += '<div class="content is-small">'
+            bodyHTML.en += marked(markdown)
+            bodyHTML.en += '</div>'
+            bodyHTML.en += '</div>'
+            bodyHTML.en += '</section>'
         }
         
         super({
@@ -45,24 +65,14 @@ module.exports = class MarkdownPage extends BasePage {
             contentType: 'text/html',
             title,
             description,
+            bodyHTML,
             hasLikeButton,
             hasCommentsField,
             hasRelatedPages
         })
         this.urlPathBase = element.urlPath
-        
-        const markdown = fs.readFileSync(filePath, 'utf8')
-        let bodyHTML = '<section class="section">'
-        bodyHTML += '<div class="container">'
-        bodyHTML += '<div class="content is-small">'
-        bodyHTML += marked(markdown)
-        bodyHTML += '</div>'
-        bodyHTML += '</div>'
-        bodyHTML += '</section>'
-        
         this.setView({
             cssPath: '/css/styles-others.css',
-            bodyHTML,
             chapter
         })
     }

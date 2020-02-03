@@ -20,6 +20,7 @@ module.exports = class BasePage {
         contentType,
         title,
         description,
+        bodyHTML,
         hasCommentsField,
         hasLikeButton,
         hasRelatedPages
@@ -29,12 +30,13 @@ module.exports = class BasePage {
         this.contentType = contentType
         this.title = title
         this.description = description
+        this.bodyHTML = bodyHTML
         this.hasCommentsField = hasCommentsField
         this.hasLikeButton = hasLikeButton
         this.hasRelatedPages = hasRelatedPages
     }
     
-    setView({ cssPath, bodyHTML, chapter }) {
+    setView({ cssPath, chapter }) {
         let paginationHTML
         if (this.urlPathBase && this.element.numOfChapters && chapter) {
             const paginationView = { pagination: [] }
@@ -52,15 +54,16 @@ module.exports = class BasePage {
             url: `${url + this.urlPath}`,
             cssPath,
             isNew: this.element.isNew,
-            bodyHTML,
             paginationHTML
         }
     }
     
+    // HTMLPage, MarkdownPage
     async get(lan) {
         this.view.lan = { [lan]: true }
         this.view.title = this.title[lan]
         this.view.description = this.description[lan]
+        this.view.bodyHTML = this.bodyHTML[lan]
         
         if (this.hasRelatedPages) {
             this.view.keywordTag = _getKeywordTag(this.urlPath, lan)

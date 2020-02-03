@@ -227,8 +227,7 @@ module.exports = [
             },
             {
                 urlPath: '/no-found',
-                ja: { title: 'No Found' },
-                en: { title: 'No Found' }
+                ja: { title: 'No Found' }
             }
         ]
     },
