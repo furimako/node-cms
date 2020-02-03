@@ -125,7 +125,8 @@ module.exports = class HttpsHandler {
                     'ERROR',
                     `unexpected error has occurred\n${err.stack}`
                 )
-                process.exit(1)
+                res.writeHead(500, { 'Content-Type': 'text/plain' })
+                res.end('500 Internal Error')
             }
         }
     }
