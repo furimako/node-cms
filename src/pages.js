@@ -37,7 +37,10 @@ module.exports = class Pages {
                     for (let i = 1; i <= e.numOfChapters; i += 1) {
                         const pageObj = {
                             element: e,
-                            filePath: `${v.filePathPrefix + e.urlPath}-${i}${v.filePathSuffix}`,
+                            filePath: {
+                                ja: `${v.filePathPrefix}${e.urlPath}-${i}${v.filePathSuffix}`,
+                                en: `${v.filePathPrefix}-en${e.urlPath}-${i}${v.filePathSuffix}`
+                            },
                             titleWithDescription: v.styleInHome === 'world',
                             hasLikeButton: v.hasLikeButton,
                             hasCommentsField: v.hasCommentsField,
@@ -51,10 +54,12 @@ module.exports = class Pages {
                     return
                 }
                 
-                const filePath = v.filePathPrefix + e.urlPath + (v.filePathSuffix || '')
                 const pageObj = {
                     element: e,
-                    filePath: (e.filePath) ? e.filePath : filePath,
+                    filePath: {
+                        ja: `${v.filePathPrefix}${e.urlPath}${v.filePathSuffix || ''}`,
+                        en: `${v.filePathPrefix}-en${e.urlPath}${v.filePathSuffix || ''}`
+                    },
                     titleWithDescription: v.styleInHome === 'world',
                     hasLikeButton: v.hasLikeButton,
                     hasCommentsField: v.hasCommentsField,
