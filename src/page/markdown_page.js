@@ -25,7 +25,7 @@ module.exports = class MarkdownPage extends BasePage {
             }
             if (titleWithDescription) {
                 /* eslint no-irregular-whitespace: "off" */
-                title.ja += `　−　${element.ja.description}`
+                title.ja += `<br>〜${element.ja.description}〜`
             }
             
             const markdown = fs.readFileSync(filePath.ja, 'utf8')
