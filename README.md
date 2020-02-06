@@ -109,3 +109,9 @@ tail logs/app-err.log
 crontab -l
 tail logs/cron.log
 ```
+
+## test
+- open every Japanese & English page (including 404 page)
+- click all links in every pages (including bottom navbar)
+- input every English page URL which should be invisible
+- request all POST
