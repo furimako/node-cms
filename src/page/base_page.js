@@ -7,7 +7,7 @@ const mongodbDriver = require('../mongodb_driver')
 
 const env = process.env.NODE_ENV
 const url = (env === 'production') ? 'http://furimako.com' : 'http://localhost:8128'
-const likeJA = 'いいね！'
+const likeStr = { ja: 'いいね！', en: 'like' }
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const commentsFieldTemplate = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
 const paginationTemplate = fs.readFileSync('./static/template/pagination.mustache', 'utf8')
@@ -34,11 +34,14 @@ module.exports = class BasePage {
         this.hasCommentsField = hasCommentsField
         this.hasLikeButton = hasLikeButton
         this.hasRelatedPages = hasRelatedPages
+        
+        // urlPathBase
+        this.urlPathBase = element.urlPath
     }
     
     setView({ cssPath, chapter }) {
         let paginationHTML
-        if (this.urlPathBase && this.element.numOfChapters && chapter) {
+        if (this.element.numOfChapters && chapter) {
             const paginationView = { pagination: [] }
             for (let i = 1; i <= this.element.numOfChapters; i += 1) {
                 paginationView.pagination.push({
@@ -65,7 +68,7 @@ module.exports = class BasePage {
         this.view.description = this.description[lan]
         this.view.bodyHTML = this.bodyHTML[lan]
         
-        if (this.hasRelatedPages) {
+        if (this.hasRelatedPages && lan === 'ja') {
             this.view.keywordTag = _getKeywordTag(this.urlPath, lan)
             this.view.relatedPages = _getRelatedPages(
                 this.view.keywordTag.tagItems.map((tagObj) => tagObj.tagId),
@@ -78,12 +81,16 @@ module.exports = class BasePage {
                 lan,
                 true
             )
+        } else {
+            this.view.keywordTag = ''
+            this.view.relatedPages = ''
+            this.view.relatedPages2 = ''
         }
         
         if (this.hasLikeButton) {
-            const urlPath = (this.urlPathBase) ? `${this.urlPathBase}-1` : this.urlPath
+            const urlPath = (this.element.numOfChapters) ? `${this.urlPathBase}-1` : this.urlPath
             const likeCount = await mongodbDriver.findLikeCount(urlPath)
-            this.view.likeButton = { urlPath, likeJA, likeCount }
+            this.view.likeButton = { urlPath, likeStr: likeStr[lan], likeCount }
         }
         
         if (this.hasCommentsField) {

@@ -127,6 +127,10 @@ module.exports = [
                 ja: {
                     title: '「幸せ」を目指してはいけない',
                     description: 'あなたが見落としている「幸せ」よりも大切なものについて'
+                },
+                en: {
+                    title: 'Don\'t aim for HAPPINESS',
+                    description: 'The most important thing you should care about for your life'
                 }
             }
         ]

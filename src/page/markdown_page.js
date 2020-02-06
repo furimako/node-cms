@@ -70,7 +70,6 @@ module.exports = class MarkdownPage extends BasePage {
             hasCommentsField,
             hasRelatedPages
         })
-        this.urlPathBase = element.urlPath
         this.setView({
             cssPath: '/css/styles-others.css',
             chapter
