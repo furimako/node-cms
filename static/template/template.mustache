@@ -85,7 +85,7 @@
                     {{#isNew}}
                     <span class="tag is-danger">New!</span><br><br>
                     {{/isNew}}
-                    <h1 class="title is-5">{{title}}</h1>
+                    <h1 class="title is-6">{{title}}</h1>
                 </div>
             </div>
             <div class="hero-foot">
@@ -113,20 +113,25 @@
                             </div>
                             {{/likeButton}}
                         </div>
-                        <div class="level-right">
-                            <div class="level-item">
-                                <small>
-                                    {{#lan.ja}}Japanese | <a href="/en">English</a>{{/lan.ja}}
-                                    {{#lan.en}}<a href="/">Japanese</a> | English{{/lan.en}}
-                                </small>
-                            </div>
-                        </div>
-
                     </div>
                 </div>
             </div>
         </section>
     </header>
+    <div class="container">
+        <div class="level is-mobile">
+            <div class="level-left">
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <small>
+                        {{#lan.ja}}Japanese | <a href="/en">English</a>{{/lan.ja}}
+                        {{#lan.en}}<a href="/">Japanese</a> | English{{/lan.en}}
+                    </small>
+                </div>
+            </div>
+        </div>
+    </div>
     {{{paginationHTML}}}
     {{{bodyHTML}}}
     {{{paginationHTML}}}
