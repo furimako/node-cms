@@ -23,10 +23,6 @@ module.exports = class MarkdownPage extends BasePage {
             if (chapter) {
                 title.ja += ` ${parseInt(chapter, 10)}`
             }
-            if (titleWithDescription) {
-                /* eslint no-irregular-whitespace: "off" */
-                title.ja += `<br><small>〜${element.ja.description}〜</small>`
-            }
             
             const markdown = fs.readFileSync(filePath.ja, 'utf8')
             bodyHTML.ja = '<section class="section">'
@@ -43,10 +39,6 @@ module.exports = class MarkdownPage extends BasePage {
             description.en = element.en.description
             if (chapter) {
                 title.en += ` ${parseInt(chapter, 10)}`
-            }
-            if (titleWithDescription) {
-                /* eslint no-irregular-whitespace: "off" */
-                title.en += `　−　${element.en.description}`
             }
             
             const markdown = fs.readFileSync(filePath.en, 'utf8')
@@ -72,6 +64,7 @@ module.exports = class MarkdownPage extends BasePage {
         })
         this.setView({
             cssPath: '/css/styles-others.css',
+            titleWithDescription,
             chapter
         })
     }

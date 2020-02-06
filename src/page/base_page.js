@@ -39,7 +39,7 @@ module.exports = class BasePage {
         this.urlPathBase = element.urlPath
     }
     
-    setView({ cssPath, chapter }) {
+    setView({ cssPath, titleWithDescription, chapter }) {
         let paginationHTML
         if (this.element.numOfChapters && chapter) {
             const paginationView = { pagination: [] }
@@ -56,6 +56,7 @@ module.exports = class BasePage {
         this.view = {
             url: `${url + this.urlPath}`,
             cssPath,
+            titleWithDescription,
             isNew: this.element.isNew,
             paginationHTML
         }
