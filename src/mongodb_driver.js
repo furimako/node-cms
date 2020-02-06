@@ -51,7 +51,7 @@ module.exports = {
         const likeCountObjs = await this._query(
             'likes',
             async (collection) => collection.aggregate([
-                { $match: { id: 0 } },
+                { $match: {} },
                 { $group: { _id: '$urlPath', count: { $sum: 1 } } }
             ]).toArray()
         )

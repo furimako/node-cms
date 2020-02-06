@@ -10,7 +10,7 @@
                 <div class="media-content">
                     <div class="content">
                         <p>
-                            <strong>{{id}}. {{name}} さん</strong>
+                            <strong>{{id}}. {{name}}{{#lan.ja}} さん{{/lan.ja}}</strong>
                             <br>
                             <small>[{{timestamp}}]</small>
                         </p>
@@ -24,18 +24,25 @@
         <hr>
         <div id="comments-field">
             <p>
-                どなたでもご自由に書き込んでください。
-                <br>
+                {{#lan.ja}}
+                どなたでもご自由に書き込んでください。<br>
                 Fully Hatter が愛をもってご返事いたします。
+                {{/lan.ja}}
+                {{#lan.en}}
+                Comment here, and Fully Hatter will reply with affection.<br>
+                {{/lan.en}}
             </p>
             <br>
             <form method="post" action="/post/comment">
                 <input type="hidden" name="key" value="furimako">
                 <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
                 <div class="field">
-                    <label class="label is-small">名前</label>
+                    <label class="label is-small">
+                        {{#lan.ja}}名前{{/lan.ja}}
+                        {{#lan.en}}name{{/lan.en}}
+                    </label>
                     <div class="control is-small has-icons-left">
-                        <input class="input" type="text" name="name" placeholder="偽名推奨" maxlength="20" required>
+                        <input class="input" type="text" name="name" placeholder={{#lan.ja}}"偽名推奨"{{/lan.ja}}{{#lan.en}}"enter your name here"{{/lan.en}} maxlength="20" required>
                         <span class="icon is-small is-left">
                             <figure class="image is-16x16">
                                 <img src="/images/icons/person.png" alt="person icon">
@@ -44,15 +51,21 @@
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label is-small">コメント</label>
+                    <label class="label is-small">
+                        {{#lan.ja}}コメント{{/lan.ja}}
+                        {{#lan.en}}comment{{/lan.en}}
+                    </label>
                     <div class="control is-small">
-                        <textarea class="textarea" name="comment" placeholder="ご自由にどうぞ" maxlength="900" required></textarea>
+                        <textarea class="textarea" name="comment" placeholder={{#lan.ja}}"ご自由にどうぞ"{{/lan.ja}}{{#lan.en}}"enter your comments here"{{/lan.en}} maxlength="900" required></textarea>
                         <input type="hidden" name="urlPath" value={{urlPath}}>
                     </div>
                 </div>
                 <div class="field">
                     <div class="control">
-                        <button class="button is-primary">送信</button>
+                        <button class="button is-primary">
+                            {{#lan.ja}}送信{{/lan.ja}}
+                            {{#lan.en}}send{{/lan.en}}
+                        </button>
                     </div>
                 </div>
             </form>

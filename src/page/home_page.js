@@ -7,7 +7,7 @@ const mongodbDriver = require('../mongodb_driver')
 
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const homeTemplate = fs.readFileSync('./static/template/home.mustache', 'utf8')
-const likeJA = 'いいね！'
+const likeStr = { ja: 'いいね！', en: 'like' }
 const commentJA = 'コメント'
 
 module.exports = class HomePage extends BasePage {
@@ -69,7 +69,7 @@ module.exports = class HomePage extends BasePage {
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
             const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
-            this.viewHome.world[i].like = `${likeJA} ${likeCount}`
+            this.viewHome.world[i].like = `${likeStr[lan]} ${likeCount}`
             this.viewHome.world[i].comment = `${commentJA} ${commentCount}`
             
             if (i === 0) {
@@ -86,7 +86,7 @@ module.exports = class HomePage extends BasePage {
         
         for (let i = 0; i < this.viewHome.story.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.story[i].urlPath] || 0
-            this.viewHome.story[i].like = `${likeJA} ${likeCount}`
+            this.viewHome.story[i].like = `${likeStr[lan]} ${likeCount}`
             
             if (i === 0) {
                 this.viewHome.story[i].headHTML = '<div class="column">'
@@ -103,7 +103,10 @@ module.exports = class HomePage extends BasePage {
         // create comment list
         const pageTotal = Math.ceil(comments.length / 5)
         let pageNumValidated
-        if (pageNum >= 1 && pageNum <= pageTotal) {
+        
+        if (pageTotal === 0) {
+            pageNumValidated = 0
+        } else if (pageNum >= 1 && pageNum <= pageTotal) {
             pageNumValidated = pageNum
         } else {
             pageNumValidated = 1
@@ -113,7 +116,7 @@ module.exports = class HomePage extends BasePage {
             pageNum: pageNumValidated,
             pageTotal,
             previousPageNum: pageNumValidated - 1,
-            disabledPrevious: (pageNumValidated === 1) ? 'disabled' : '',
+            disabledPrevious: (pageNumValidated <= 1) ? 'disabled' : '',
             nextPageNum: pageNumValidated + 1,
             disabledNext: (pageNumValidated === pageTotal) ? 'disabled' : ''
         }
