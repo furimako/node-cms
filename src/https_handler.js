@@ -73,8 +73,8 @@ module.exports = class HttpsHandler {
                         if (urlPath === '/post/comment' && postData.key === 'furimako' && postData.lan && postData.urlPath && postData.name && postData.comment) {
                             logging.info(`    L get comment (lan: ${postData.lan}, urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment})`)
                             this.mailer.send(
-                                `get comment from '${postData.name}'`,
-                                `URL: ${this.url + postData.urlPath}`
+                                `get comment from '${postData.name} (lan: ${postData.lan})'`,
+                                `URL: ${this.url + ((postData.lan === 'en') ? '/en' : '') + postData.urlPath}`
                             )
                             
                             const commentObjs = [{
@@ -97,7 +97,7 @@ module.exports = class HttpsHandler {
                         if (urlPath === '/post/message' && postData.key === 'furimako' && postData.lan && postData.message) {
                             logging.info(`    L get message (lan: ${postData.lan}, message: ${postData.message})`)
                             this.mailer.send(
-                                'get message',
+                                `get message (lan: ${postData.lan})`,
                                 `${postData.message}`
                             )
                             
