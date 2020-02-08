@@ -33,8 +33,8 @@
     <!-- OGP -->
     <meta property="og:title" content="{{title}} | {{#lan.ja}}Fully Hatter の秘密の部屋{{/lan.ja}}{{#lan.en}}Fully Hatter and the Chamber of Secrets{{/lan.en}}">
     <meta property="og:type" content="article">
-    <meta property="og:url" content={{url}}>
-    <meta property="og:description" content={{description}}>
+    <meta property="og:url" content="{{url}}">
+    <meta property="og:description" content="{{description}}">
     <meta property="og:image" content="http://furimako.com/images/background-image-og.jpg">
     <meta property="og:image:type" content="image/jpeg" />
     <meta property="og:image:alt" content="{{#lan.ja}}Fully Hatter の秘密の部屋のイメージ{{/lan.ja}}{{#lan.en}}the image of the Chamber{{/lan.en}}" />
@@ -48,13 +48,13 @@
     <!-- Other settings -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content= {{description}}>
+    <meta name="description" content="{{description}}">
     <title>
         {{title}} | {{#lan.ja}}Fully Hatter の秘密の部屋{{/lan.ja}}{{#lan.en}}Fully Hatter and the Chamber of Secrets{{/lan.en}}
     </title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/earlyaccess/sawarabimincho.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel+Decorative:400,700,900">
-    <link rel="stylesheet" href={{cssPath}}>
+    <link rel="stylesheet" href="{{cssPath}}">
     <!-- icon size should be larger than 192 x 192 -->
     <link rel="icon" href="/images/icons/favicon_192x192.png">
 </head>
@@ -108,8 +108,8 @@
                             <div class="level-item">
                                 <form method="post" action="/post/like">
                                     <input type="hidden" name="key" value="furimako">
-                                    <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
-                                    <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value={{urlPath}}>
+                                    <input type="hidden" name="lan" value="{{#lan.ja}}ja{{/lan.ja}}{{#lan.en}}en{{/lan.en}}">
+                                    <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value="{{urlPath}}">
                                         {{likeStr}} {{likeCount}}
                                     </button>
                                 </form>
