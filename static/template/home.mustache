@@ -83,10 +83,10 @@
             </p>
             <form method="post" action="/post/message">
                 <input type="hidden" name="key" value="furimako">
-                <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
+                <input type="hidden" name="lan" value="{{#lan.ja}}ja{{/lan.ja}}{{#lan.en}}en{{/lan.en}}">
                 <div class="field">
                     <div class="control is-small">
-                        <textarea class="textarea" name="message" placeholder={{#lan.ja}}"返事が欲しい方はお名前とメールアドレスをご記載ください"{{/lan.ja}}{{#lan.en}}"Tell me your name and e-mail address if you would like to get a reply from Fully Hatter."{{/lan.en}} maxlength="900" required></textarea>
+                        <textarea class="textarea" name="message" placeholder="{{#lan.ja}}返事が欲しい方はお名前とメールアドレスをご記載ください{{/lan.ja}}{{#lan.en}}Tell me your name and e-mail address if you would like to get a reply from Fully Hatter.{{/lan.en}}" maxlength="900" required></textarea>
                     </div>
                 </div>
                 <div class="field">
@@ -208,8 +208,8 @@
             {{#story}}
                 {{{headHTML}}}
                 <figure class="image">
-                    <a href={{urlPath}}>
-                        <img src="{{picturePath}}" alt={{title}}>
+                    <a href="{{urlPath}}">
+                        <img src="{{picturePath}}" alt="{{title}}">
                     </a>
                     <figcaption>
                         {{description}}
