@@ -55,10 +55,12 @@ module.exports = class BasePage {
         
         this.view = {
             url: `${url + this.urlPath}`,
+            urlPath: this.urlPath,
             cssPath,
             titleWithDescription,
             isNew: this.element.isNew,
-            paginationHTML
+            paginationHTML,
+            isMultilingual: this.title.ja && this.title.en
         }
     }
     

@@ -57,6 +57,11 @@
     <link rel="stylesheet" href="{{cssPath}}">
     <!-- icon size should be larger than 192 x 192 -->
     <link rel="icon" href="/images/icons/favicon_192x192.png">
+    {{#isMultilingual}}
+    <link rel="alternate" hreflang="ja" href="https://furimako.com{{urlPath}}" />
+    <link rel="alternate" hreflang="en" href="https://furimako.com/en{{urlPath}}" />
+    <link rel="alternate" hreflang="x-default" href="https://furimako.com/en{{urlPath}}" />
+    {{/isMultilingual}}
 </head>
 
 <body>
@@ -128,8 +133,12 @@
             <div class="level-right">
                 <div class="level-item">
                     <small>
-                        {{#lan.ja}}Japanese | <a href="/en">English</a>{{/lan.ja}}
-                        {{#lan.en}}<a href="/">Japanese</a> | English{{/lan.en}}
+                        {{#lan.ja}}
+                        Japanese | <a href="/en{{#isMultilingual}}{{urlPath}}{{/isMultilingual}}">English</a>
+                        {{/lan.ja}}
+                        {{#lan.en}}
+                        <a href={{#isMultilingual}}"{{urlPath}}"{{/isMultilingual}}{{^isMultilingual}}"/"{{/isMultilingual}}>Japanese</a> | English
+                        {{/lan.en}}
                     </small>
                 </div>
             </div>
