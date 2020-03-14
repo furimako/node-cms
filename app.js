@@ -1,7 +1,6 @@
 const fs = require('fs')
 const http = require('http')
 const https = require('https')
-const { parse } = require('url')
 const { logging } = require('node-utils')
 
 const mailgunConfig = JSON.parse(fs.readFileSync('./configs/mailgun-config.json', 'utf8'))
@@ -38,14 +37,7 @@ logging.info(`started HTTPS server (port: ${httpsPort})`)
 
 // Start HTTP server
 const httpPort = 8128
-const httpServer = http.createServer(
-    (req, res) => {
-        const urlPath = parse(req.url).pathname
-        res.writeHead(302, { Location: url + urlPath })
-        res.end()
-        logging.info(`    L redirect from http to https (url: ${urlPath})`)
-    }
-)
+const httpServer = http.createServer(httpsHandler.get())
 httpServer.listen(httpPort)
 logging.info(`started HTTP server (port: ${httpPort})`)
 
