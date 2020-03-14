@@ -5,7 +5,7 @@
 # Ubuntu
 #
 
-echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] confirm crontab & PM2 list"
+echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] confirm status"
 crontab -l
 pm2 ls
 
@@ -13,16 +13,18 @@ echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] stop Server"
 cd ~/node-cms
 pm2 stop all
 
-echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] backup MongoDB"
+echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] starting backup"
 bash ~/node-cms/scripts/production/mongodump.sh
-
-echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] rotate log files"
 cd ~/node-cms/logs
 mv app.log archives/app_$(date +%Y%m%d%H%M%S).log
 
+echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] stop MongoDB"
+bash ~/node-cms/scripts/production/mongod.sh stop
+
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] renew Certbot"
+sudo apt update
+sudo apt -y dist-upgrade
 sudo certbot renew
 
-echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] start Server"
-cd ~/node-cms
-npm start
+echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] reboot"
+sudo shutdown -r now
