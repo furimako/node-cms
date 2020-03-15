@@ -15,9 +15,9 @@
     "dependencies": {
         "bulma": "^0.8.0",
         "marked": "^0.7.0",
-        "mongodb": "^3.3.5",
-        "mustache": "^3.1.0",
-        "node-sass": "^4.13.0",
+        "mongodb": "^3.5.5",
+        "mustache": "^3.2.1",
+        "node-sass": "^4.13.1",
         "node-utils": "file:../node-utils"
     }
 }
