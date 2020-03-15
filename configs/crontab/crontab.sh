@@ -22,8 +22,8 @@ echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] stop MongoDB"
 bash ~/node-cms/scripts/production/mongod.sh stop
 
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] renew Certbot"
-sudo apt update
-sudo apt -y dist-upgrade
+sudo apt-get update
+sudo apt-get -y dist-upgrade
 sudo certbot renew
 
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] reboot"
