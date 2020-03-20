@@ -70,7 +70,7 @@
             <div class="hero-head">
                 <nav class="navbar is-pulled-right" role="navigation" aria-label="main navigation">
                     <div class="navbar-brand">
-                        <a class="navbar-item" href="/{{#lan.en}}en{{/lan.en}}">
+                        <a class="navbar-item" href="/{{#lan.en}}en/{{/lan.en}}">
                             {{#lan.ja}}
                             <p class="title is-5">
                                 <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter の秘密の部屋
@@ -113,7 +113,7 @@
                             <div class="level-item">
                                 <form method="post" action="/post/like">
                                     <input type="hidden" name="key" value="furimako">
-                                    <input type="hidden" name="lan" value="{{#lan.ja}}ja{{/lan.ja}}{{#lan.en}}en{{/lan.en}}">
+                                    <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
                                     <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value="{{urlPath}}">
                                         {{likeStr}} {{likeCount}}
                                     </button>
@@ -134,7 +134,7 @@
                 <div class="level-item">
                     <small>
                         {{#lan.ja}}
-                        Japanese | <a href="/en{{#isMultilingual}}{{urlPath}}{{/isMultilingual}}">English</a>
+                        Japanese | <a href={{#isMultilingual}}"/en{{urlPath}}"{{/isMultilingual}}{{^isMultilingual}}"/en/"{{/isMultilingual}}>English</a>
                         {{/lan.ja}}
                         {{#lan.en}}
                         <a href={{#isMultilingual}}"{{urlPath}}"{{/isMultilingual}}{{^isMultilingual}}"/"{{/isMultilingual}}>Japanese</a> | English
@@ -197,7 +197,7 @@
     <nav class="navbar is-transparent is-fixed-bottom" role="navigation" aria-label="main navigation">
         <div class="navbar-brand">
             <div class="navbar-item">
-                <a class="button is-small is-info is-outlined" href="/{{#lan.en}}en{{/lan.en}}">
+                <a class="button is-small is-info is-outlined" href="/{{#lan.en}}en/{{/lan.en}}">
                     {{#lan.ja}}Home へ戻る{{/lan.ja}}
                     {{#lan.en}}Home{{/lan.en}}
                 </a>

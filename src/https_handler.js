@@ -25,10 +25,10 @@ module.exports = class HttpsHandler {
                 if (req.method === 'GET') {
                     const pageNum = parseInt(query.page, 10) || 1
                     let lan
-                    if (urlPath.startsWith('/en')) {
+                    if (urlPath.startsWith('/en/')) {
                         // English page
                         lan = 'en'
-                        urlPath = (urlPath === '/en') ? '/' : urlPath.slice(3)
+                        urlPath = urlPath.slice(3)
                     } else {
                         // Japanese page
                         lan = 'ja'
