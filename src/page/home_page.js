@@ -66,11 +66,27 @@ module.exports = class HomePage extends BasePage {
             })
         })
         
+        // add advertisement
+        if (lan === 'ja') {
+            this.viewHome.world.push({
+                urlPath: 'http://amex.jp/share/jaSY1?CPID=100341017',
+                title: '[広告] Fully Hatter愛用中の American Express クレジットカードのご紹介。このリンクから申し込むことで最大 17,000円相当のポイントを取得できます！ これがアメックスを始める最もお得な手段です。',
+                advertisement: true
+            })
+            this.viewHome.world.push({
+                urlPath: 'https://m.do.co/c/9b2bd756e7ab',
+                title: '[広告] この「秘密の部屋」は DigitalOcean でホスティングしています。個人用サーバーなら AWS より DigitalOcean です。このリンクから DigitalOcean に登録した方にはもれなく $100 をプレゼント！',
+                advertisement: true
+            })
+        }
+        
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
-            const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
-            const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
-            this.viewHome.world[i].like = `${likeStr[lan]} ${likeCount}`
-            this.viewHome.world[i].comment = `${commentJA} ${commentCount}`
+            if (!this.viewHome.world[i].advertisement) {
+                const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
+                const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
+                this.viewHome.world[i].like = `${likeStr[lan]} ${likeCount}`
+                this.viewHome.world[i].comment = `${commentJA} ${commentCount}`
+            }
             
             if (i === 0) {
                 this.viewHome.world[i].headHTML = '<div class="column">'

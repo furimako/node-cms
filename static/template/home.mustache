@@ -187,10 +187,12 @@
                 {{{headHTML}}}
                 <div class="box">
                     {{{newTag}}}
-                    <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}">{{title}}　〜{{description}}〜</a>
+                    <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}">
+                        {{title}}{{#description}}　〜{{description}}〜{{/description}}
+                    </a>
                     <br>
-                    <span class="tag is-rounded">{{like}}</span>
-                    <span class="tag is-rounded">{{comment}}</span>
+                    {{#like}}<span class="tag is-rounded">{{like}}</span>{{/like}}
+                    {{#comment}}<span class="tag is-rounded">{{comment}}</span>{{/comment}}
                 </div>
                 {{{footHTML}}}
             {{/world}}
