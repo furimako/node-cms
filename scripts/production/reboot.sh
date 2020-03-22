@@ -5,10 +5,6 @@
 # Ubuntu
 #
 
-echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] confirm status"
-crontab -l
-pm2 ls
-
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] stop Server"
 cd ~/node-cms
 pm2 stop all
