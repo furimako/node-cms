@@ -10,7 +10,7 @@
     },
     "scripts": {
         "prestart": "bash scripts/production/iptables.sh",
-        "start": "NODE_ENV=production pm2 start configs/pm2/pm2.json"
+        "start": "NODE_ENV=production pm2 start configs/pm2.json"
     },
     "dependencies": {
         "bulma": "^0.8.0",
