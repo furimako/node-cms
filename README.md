@@ -3,17 +3,18 @@
 The simplest CMS based on pure [Node.js](https://nodejs.org) without [Express](https://expressjs.com/).  
 You can manage contents with markdown text files.
 
-## How to Run This Website on macOS (local)
-1. install Node.js (version 12)
-1. install MongoDB Community Edition (version 4.2)
-1. install pm2
+## Policy
+- create CMS with the least dependencies
+- make the most of server side (Node.js) power
+
+## How to Run This Website
+### macOS (local)
+1. install [MongoDB Community Edition (version 4.2)](https://www.mongodb.com/download-center/community)
+1. install [Node.js (version 12)](https://nodejs.org/en/download/)
+1. install Node-CMS & Node-Utils
     ```bash
-    npm install pm2 -g
-    ```
-1. install Node CMS & node-utils
-    ```bash
-    git clone https://github.com/furimako/node-utils.git
     git clone https://github.com/furimako/node-cms.git
+    git clone https://github.com/furimako/node-utils.git
     cd node-cms
     npm install
     ```
@@ -24,20 +25,12 @@ You can manage contents with markdown text files.
     ```
 1. start server
     ```bash
-    # normal mode
     node app.js
-
-    # debug mode
-    node inspect app.js
     ```
 
-## How to Run This Website on ubuntu (production)
+### Ubuntu (production)
 1. set up server with below commands
     ```bash
-    # install Node.js (version 12)
-    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
-    sudo apt-get install -y nodejs
-    
     # install MongoDB Community Edition (version 4.2)
     wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
     sudo apt-get install gnupg
@@ -46,15 +39,36 @@ You can manage contents with markdown text files.
     sudo apt-get update
     sudo apt-get install -y mongodb-org
     
+    # install Node.js (version 12)
+    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    sudo apt-get install -y nodejs
+    
     # install pm2
     sudo npm install pm2 -g
 
-    # install Node CMS
+    # install Node-CMS & Node-Utils
     git clone https://github.com/furimako/node-cms.git
     git clone https://github.com/furimako/node-utils.git
     cd node-cms
     npm install
+    
+    # set-up crontab
+    crontab configs/crontab/crontab.config
 
+    # set-up Let's Encrypt
+    ## Add Certbot PPA
+    sudo apt-get update
+    sudo apt-get install software-properties-common
+    sudo add-apt-repository universe
+    sudo add-apt-repository ppa:certbot/certbot
+    sudo apt-get update
+    
+    ## Install Cearbot
+    sudo apt-get install certbot
+    ## [CAUTION] Stop server before executing below command
+    sudo certbot certonly --standalone
+    sudo chmod 777 /etc/letsencrypt/live
+    sudo chmod 777 /etc/letsencrypt/archive
     ```
 1. create 'configs/mailgun-config.json'  
 1. start MongoDB
@@ -64,26 +78,6 @@ You can manage contents with markdown text files.
 1. start server
     ```bash
     npm start
-    ```
-1. set-up crontab
-    ```bash
-    crontab configs/crontab/crontab.config
-    ```
-1. set-up Let's Encrypt
-    ```bash
-    # Add Certbot PPA
-    sudo apt-get update
-    sudo apt-get install software-properties-common
-    sudo add-apt-repository universe
-    sudo add-apt-repository ppa:certbot/certbot
-    sudo apt-get update
-    
-    # Install Cearbot
-    sudo apt-get install certbot
-    # [CAUTION] Stop server before executing below command
-    sudo certbot certonly --standalone
-    sudo chmod 777 /etc/letsencrypt/live
-    sudo chmod 777 /etc/letsencrypt/archive
     ```
 
 ## How to Backup (on macOS)
@@ -108,7 +102,7 @@ crontab -l
 tail logs/cron.log
 ```
 
-## Test
+## Test Cases
 - open every Japanese & English page (including 404 page)
 - click all links in every pages (including bottom navbar)
 - input every English page URL which should be invisible
