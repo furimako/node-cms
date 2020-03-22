@@ -3,8 +3,7 @@
 The simplest CMS based on pure [Node.js](https://nodejs.org) without [Express](https://expressjs.com/).  
 You can manage contents with markdown text files.
 
-## How to Run This Website
-### local (macOS)
+## How to Run This Website on macOS (local)
 1. install Node.js (version 12)
 1. install MongoDB Community Edition (version 4.2)
 1. install pm2
@@ -32,7 +31,7 @@ You can manage contents with markdown text files.
     node inspect app.js
     ```
 
-### production (ubuntu)
+## How to Run This Website on ubuntu (production)
 1. set up server with below commands
     ```bash
     # install Node.js (version 12)
@@ -70,7 +69,6 @@ You can manage contents with markdown text files.
     ```bash
     crontab configs/crontab/crontab.config
     ```
-
 1. set-up Let's Encrypt
     ```bash
     # Add Certbot PPA
@@ -110,7 +108,7 @@ crontab -l
 tail logs/cron.log
 ```
 
-## test
+## Test
 - open every Japanese & English page (including 404 page)
 - click all links in every pages (including bottom navbar)
 - input every English page URL which should be invisible
