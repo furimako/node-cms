@@ -53,7 +53,7 @@ You can manage contents with markdown text files.
     npm install
     
     # set-up crontab
-    crontab configs/crontab/crontab.config
+    crontab configs/crontab.conf
 
     # set-up Let's Encrypt
     ## Add Certbot PPA
