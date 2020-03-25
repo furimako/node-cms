@@ -52,7 +52,7 @@ module.exports = class HttpsHandler {
                         const urlPrefix = (postData.lan === 'en') ? '/en' : ''
                         
                         // Like
-                        if (urlPath === '/post/like' && postData.key === 'furimako' && postData.lan && postData.urlPath) {
+                        if (urlPath === '/post/like' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan)) {
                             logging.info(`    L like (lan: ${postData.lan}, urlPath: ${postData.urlPath})`)
                             
                             const likeObjs = [{
@@ -70,7 +70,7 @@ module.exports = class HttpsHandler {
                         }
                         
                         // Comment
-                        if (urlPath === '/post/comment' && postData.key === 'furimako' && postData.lan && postData.urlPath && postData.name && postData.comment) {
+                        if (urlPath === '/post/comment' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan) && postData.name && postData.comment) {
                             logging.info(`    L get comment (lan: ${postData.lan}, urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment})`)
                             this.mailer.send(
                                 `get comment from '${postData.name} (lan: ${postData.lan})'`,
