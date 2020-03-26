@@ -25,8 +25,8 @@ if (env === 'production') {
         `start-up server on ${url}`
     )
 } else {
-    key = fs.readFileSync('./configs/ssl/dummy-key.pem')
-    cert = fs.readFileSync('./configs/ssl/dummy-cert.pem')
+    key = fs.readFileSync('./configs/local/ssl/dummy-key.pem')
+    cert = fs.readFileSync('./configs/local/ssl/dummy-cert.pem')
 }
 const credentials = { key, cert, ca }
 
