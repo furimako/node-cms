@@ -131,10 +131,10 @@ module.exports = class HomePage extends BasePage {
         this.viewHome.commentListPagination = {
             pageNum: pageNumValidated,
             pageTotal,
-            previousPageNum: pageNumValidated - 1,
+            previousPageNum: (pageNumValidated <= 1) ? 1 : pageNumValidated - 1,
             disabledPrevious: (pageNumValidated <= 1) ? 'disabled' : '',
-            nextPageNum: pageNumValidated + 1,
-            disabledNext: (pageNumValidated === pageTotal) ? 'disabled' : ''
+            nextPageNum: (pageNumValidated >= pageTotal) ? pageTotal : pageNumValidated + 1,
+            disabledNext: (pageNumValidated >= pageTotal) ? 'disabled' : ''
         }
         
         // from latest to oldest
