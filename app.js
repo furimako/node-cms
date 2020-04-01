@@ -4,11 +4,11 @@ const https = require('https')
 const { parse } = require('url')
 const nodeUtils = require('node-utils')
 const HttpsHandler = require('./src/https_handler')
-const mailgunConfig = require('./configs/smtp-config')
+const smtpConfig = require('./configs/smtp-config')
 
 const { logging } = nodeUtils
 const mailer = nodeUtils.createMailer(
-    mailgunConfig,
+    smtpConfig,
     {
         title: 'Fully Hatter の秘密の部屋',
         defaultFrom: '"Fully Hatter" <admin@furimako.com>'

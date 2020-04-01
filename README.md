@@ -18,7 +18,7 @@ You can manage contents with markdown text files.
     cd node-cms
     npm install
     ```
-1. create 'configs/mailgun-config.json'
+1. create 'configs/smtp-config.json'
 1. start MongoDB
     ```bash
     bash scripts/local/mongod.sh
@@ -70,7 +70,7 @@ You can manage contents with markdown text files.
     sudo chmod 777 /etc/letsencrypt/live
     sudo chmod 777 /etc/letsencrypt/archive
     ```
-1. create 'configs/mailgun-config.json'  
+1. create 'configs/smtp-config.json'  
 1. start MongoDB
     ```bash
     bash scripts/production/mongod.sh start
