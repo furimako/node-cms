@@ -2,17 +2,21 @@ const fs = require('fs')
 const http = require('http')
 const https = require('https')
 const { parse } = require('url')
-const { logging } = require('node-utils')
-
-const mailgunConfig = JSON.parse(fs.readFileSync('./configs/mailgun-config.json', 'utf8'))
-const title = 'Fully Hatter の秘密の部屋'
-const from = '"Fully Hatter" <admin@furimako.com>'
-const mailer = require('node-utils').createMailer(mailgunConfig, title, from)
+const nodeUtils = require('node-utils')
 const HttpsHandler = require('./src/https_handler')
+const mailgunConfig = require('./configs/smtp-config')
 
+const { logging } = nodeUtils
+const mailer = nodeUtils.createMailer(
+    mailgunConfig,
+    {
+        title: 'Fully Hatter の秘密の部屋',
+        defaultFrom: '"Fully Hatter" <admin@furimako.com>'
+    }
+)
 const env = process.env.NODE_ENV
-const url = (env === 'production') ? 'https://furimako.com' : 'https://localhost:8129'
-const httpsHandler = new HttpsHandler(url, mailer)
+const homeUrl = (env === 'production') ? 'https://furimako.com' : 'https://localhost:8129'
+const httpsHandler = new HttpsHandler(homeUrl, mailer)
 let key
 let cert
 let ca
@@ -20,10 +24,10 @@ if (env === 'production') {
     key = fs.readFileSync('/etc/letsencrypt/live/furimako.com/privkey.pem')
     cert = fs.readFileSync('/etc/letsencrypt/live/furimako.com/cert.pem')
     ca = fs.readFileSync('/etc/letsencrypt/live/furimako.com/chain.pem')
-    mailer.send(
-        'start-up server',
-        `start-up server on ${url}`
-    )
+    mailer.send({
+        subject: 'start-up server',
+        text: `start-up server on ${homeUrl}`
+    })
 } else {
     key = fs.readFileSync('./configs/local/ssl/dummy-key.pem')
     cert = fs.readFileSync('./configs/local/ssl/dummy-cert.pem')
@@ -41,7 +45,7 @@ const httpPort = 8128
 const httpServer = http.createServer(
     (req, res) => {
         const urlPath = parse(req.url).pathname
-        res.writeHead(302, { Location: url + urlPath })
+        res.writeHead(302, { Location: homeUrl + urlPath })
         res.end()
         logging.info(`    L redirect from http to https (url: ${urlPath})`)
     }
@@ -55,20 +59,24 @@ process.on('SIGINT', () => {
     httpServer.close((err) => {
         if (err) {
             logging.error(`failed to close http server\n\n${err}`)
-            mailer.send(
-                'ERROR',
-                `failed to close http server\n\n${err}`
-            )
+            ;(async () => {
+                await mailer.send({
+                    subject: 'ERROR',
+                    text: `failed to close http server\n\n${err}`
+                })
+            })()
             process.exit(1)
         }
     })
     httpsServer.close((err) => {
         if (err) {
             logging.error(`failed to close https server\n\n${err}`)
-            mailer.send(
-                'ERROR',
-                `failed to close https server\n\n${err}`
-            )
+            ;(async () => {
+                await mailer.send({
+                    subject: 'ERROR',
+                    text: `failed to close https server\n\n${err}`
+                })
+            })()
             process.exit(1)
         }
     })

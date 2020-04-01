@@ -1,7 +1,7 @@
 .DS_Store
 /node_modules
 /mongodb_data
-/configs/mailgun-config.json
+/configs/smtp-config.js
 /logs/**/*.log
 /logs/dumps/**/*.json
 /logs/dumps/**/*.bson

@@ -72,10 +72,10 @@ module.exports = class HttpsHandler {
                         // Comment
                         if (urlPath === '/post/comment' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan) && postData.name && postData.comment) {
                             logging.info(`    L get comment (lan: ${postData.lan}, urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment})`)
-                            this.mailer.send(
-                                `get comment from '${postData.name} (lan: ${postData.lan})'`,
-                                `URL: ${this.url + ((postData.lan === 'en') ? '/en' : '') + postData.urlPath}`
-                            )
+                            this.mailer.send({
+                                subject: `get comment from '${postData.name}' (lan: ${postData.lan})`,
+                                text: `urlPath: ${postData.urlPath}\nURL: ${this.url + ((postData.lan === 'en') ? '/en' : '') + postData.urlPath}`
+                            })
                             
                             const commentObjs = [{
                                 urlPath: postData.urlPath,
@@ -96,10 +96,10 @@ module.exports = class HttpsHandler {
                         // Message
                         if (urlPath === '/post/message' && postData.key === 'furimako' && postData.lan && postData.message) {
                             logging.info(`    L get message (lan: ${postData.lan}, message: ${postData.message})`)
-                            this.mailer.send(
-                                `get message (lan: ${postData.lan})`,
-                                `${postData.message}`
-                            )
+                            this.mailer.send({
+                                subject: `get message (lan: ${postData.lan})`,
+                                text: `${postData.message}`
+                            })
                             
                             res.writeHead(302, { Location: `${urlPrefix}/` })
                             res.end()
@@ -121,10 +121,10 @@ module.exports = class HttpsHandler {
                 res.end(html)
             } catch (err) {
                 logging.error(`unexpected error has occurred\n${err.stack}`)
-                this.mailer.send(
-                    'ERROR',
-                    `unexpected error has occurred\n${err.stack}`
-                )
+                this.mailer.send({
+                    subject: 'ERROR',
+                    text: `unexpected error has occurred\n${err.stack}`
+                })
                 res.writeHead(500, { 'Content-Type': 'text/plain' })
                 res.end('500 Internal Error')
             }
