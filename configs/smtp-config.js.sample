@@ -1,0 +1,5 @@
+module.exports = {
+    host: 'smtp.sendgrid.net',
+    user: 'apikey',
+    pass: 'input API-Key here'
+}
