@@ -36,6 +36,7 @@
             <form method="post" action="/post/comment">
                 <input type="hidden" name="key" value="furimako">
                 <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
+                <input type="hidden" name="urlPath" value="{{urlPath}}">
                 <div class="field">
                     <label class="label is-small">
                         {{#lan.ja}}名前{{/lan.ja}}
@@ -57,7 +58,6 @@
                     </label>
                     <div class="control is-small">
                         <textarea class="textarea" name="comment" placeholder={{#lan.ja}}"ご自由にどうぞ"{{/lan.ja}}{{#lan.en}}"enter your comments here"{{/lan.en}} maxlength="900" required></textarea>
-                        <input type="hidden" name="urlPath" value="{{urlPath}}">
                     </div>
                 </div>
                 <div class="field">
