@@ -107,3 +107,6 @@ tail logs/cron.log
 - click all links in every pages (including bottom navbar)
 - input every English page URL which should be invisible
 - request all POST
+
+## TODO
+- mailing list
