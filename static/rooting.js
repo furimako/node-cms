@@ -106,6 +106,10 @@ module.exports = [
                 ja: {
                     title: '自由に生きてはいけない',
                     description: '99%の人が勘違いしている「自由」の本当の姿について'
+                },
+                en: {
+                    title: 'You Should Never Live Freely',
+                    description: 'Real "Freedom" 99% of People Misunderstand'
                 }
             },
             {
