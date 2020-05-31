@@ -39,7 +39,7 @@ module.exports = class HomePage extends BasePage {
         this.view.description = this.description[lan]
         
         const summary = await mongodbDriver.findCountsForHome(lan)
-        const comments = await mongodbDriver.findComments({ lan })
+        const comments = await mongodbDriver.findComments({ urlPath: { $ne: '/temp' }, lan })
         this._updateViewHome(pageNum, summary, comments, lan)
         
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome)
