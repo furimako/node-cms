@@ -106,6 +106,10 @@ module.exports = [
                 ja: {
                     title: '「大人」について',
                     description: 'あなたは本当に「大人」ですか？ 我々が国家から自由になるために'
+                },
+                en: {
+                    title: 'On Adulthood',
+                    description: 'Questioning What Makes You Fully Matured Grown-Up to Free Yourself From Your Nation'
                 }
             },
             {
