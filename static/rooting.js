@@ -32,13 +32,6 @@ module.exports = [
                     title: 'Board',
                     description: 'The board is for all of you. You can send any messages here.'
                 }
-            },
-            {
-                urlPath: '/temp',
-                ja: {
-                    title: '特設ページ',
-                    description: '現行経済をテーマにディスカッションを行うページ'
-                }
             }
         ]
     },
