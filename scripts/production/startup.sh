@@ -7,6 +7,9 @@
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] confirm status"
 crontab -l
 
+echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] renew Certbot"
+sudo certbot renew
+
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] starting MongoDB"
 bash ~/node-cms/scripts/production/mongod.sh start
 
