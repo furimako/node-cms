@@ -45,12 +45,19 @@ module.exports = [
         styleInHome: 'world',
         elements: [
             {
+                urlPath: '/world/feminism',
+                ja: {
+                    title: '「自称フェミニスト」の叩き潰し方',
+                    description: '「フェミニズムなんてクソ喰らえ」だと思っている多くの男性へ'
+                },
+                isNew: true
+            },
+            {
                 urlPath: '/world/death-for-life',
                 ja: {
                     title: '幸せに生きるために',
                     description: '幸せに生きるには「死ぬ覚悟」が必要なのではないか、というお話'
-                },
-                isNew: true
+                }
             },
             {
                 urlPath: '/world/how-to-fail',
