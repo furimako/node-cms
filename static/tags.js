@@ -16,7 +16,8 @@ module.exports = {
             '/world/freedom',
             '/world/ideal-way-to-live-life',
             '/world/how-to-fail',
-            '/world/death-for-life'
+            '/world/death-for-life',
+            '/world/feminism'
         ]
     },
     freedom: {
