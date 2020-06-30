@@ -58,7 +58,6 @@ module.exports = class BasePage {
             urlPath: this.urlPath,
             cssPath,
             titleWithDescription,
-            isNew: this.element.isNew,
             paginationHTML,
             isMultilingual: this.title.ja && this.title.en
         }
@@ -70,6 +69,7 @@ module.exports = class BasePage {
         this.view.title = this.title[lan]
         this.view.description = this.description[lan]
         this.view.bodyHTML = this.bodyHTML[lan]
+        this.view.isNew = this.element[lan].isNew
         
         if (this.hasRelatedPages && lan === 'ja') {
             this.view.keywordTag = _getKeywordTag(this.urlPath, lan)

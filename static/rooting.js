@@ -48,9 +48,9 @@ module.exports = [
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
-                    description: '「フェミニズムなんてクソ喰らえ」だと思っている多くの男性へ'
-                },
-                isNew: true
+                    description: '「フェミニズムなんてクソ喰らえ」だと思っている多くの男性へ',
+                    isNew: true
+                }
             },
             {
                 urlPath: '/world/death-for-life',
@@ -135,6 +135,11 @@ module.exports = [
                 ja: {
                     title: 'あなたにとっての「幸せ」は？',
                     description: '「幸せ」の定義を科学しよう'
+                },
+                en: {
+                    title: 'What is Hapiness for You?',
+                    description: 'Taking Scientific Approach to Happiness',
+                    isNew: true
                 }
             },
             {

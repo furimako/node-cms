@@ -37,6 +37,7 @@ module.exports = class HomePage extends BasePage {
         this.view.lan = { [lan]: true }
         this.view.title = this.title[lan]
         this.view.description = this.description[lan]
+        this.view.isNew = this.element[lan].isNew
         
         const summary = await mongodbDriver.findCountsForHome(lan)
         const comments = await mongodbDriver.findComments({ urlPath: { $ne: '/temp' }, lan })
@@ -60,7 +61,7 @@ module.exports = class HomePage extends BasePage {
                         picturePath: `/images${e.urlPath}.jpg`,
                         title: e[lan].title,
                         description: e[lan].description,
-                        newTag: (e.isNew) ? '<span class="tag is-danger">New!</span>' : ''
+                        newTag: (e[lan].isNew) ? '<span class="tag is-danger">New!</span>' : ''
                     })
                 }
             })
