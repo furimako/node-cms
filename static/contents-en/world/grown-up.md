@@ -1,6 +1,4 @@
 
-**( Translated by [Akiko Uchida](https://twitter.com/beautifultrans6) )**
-
 > This article is related to the article below. If you haven't read it, I recommend you read it first.
 [You Should Never Live Freely](/en/world/freedom)
 
