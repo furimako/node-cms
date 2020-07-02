@@ -1,6 +1,4 @@
 
-**( Translated by [Akiko Uchida](https://twitter.com/beautifultrans6) )**
-
 You might have thought, "Ha, what kind of title this is! There is no way that I'd want to live like that".
 
 Horiemon, the famous Japanese entrepreneur, also says, "Do whatever you want to do".

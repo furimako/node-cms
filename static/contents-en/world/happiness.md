@@ -2,8 +2,6 @@
 <!-- What is Hapiness for You? -->
 <!-- Taking Scientific Approach to Happiness -->
 
-**( Translated by [Akiko Uchida](https://twitter.com/beautifultrans6) )**
-
 > This article is related to the following story. It may be better for you to read it before you read this article.
 [Don't aim for HAPPINESS](/en/world/your-goal)
 
