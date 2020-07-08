@@ -118,7 +118,8 @@ module.exports = class HomePage extends BasePage {
         }
         
         // create comment list
-        const pageTotal = Math.ceil(comments.length / 5)
+        const commentListSize = 10
+        const pageTotal = Math.ceil(comments.length / commentListSize)
         let pageNumValidated
         
         if (pageTotal === 0) {
@@ -142,27 +143,32 @@ module.exports = class HomePage extends BasePage {
         comments.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
         
         const commentListView = []
-        comments.slice(pageNumValidated * 5 - 5, pageNumValidated * 5).forEach((commentObj) => {
-            const viewObj = this.viewHome.world.find((e) => e.urlPath === commentObj.urlPath)
-            const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/(\r\n|\n|\r)/gm, ' ')
+        comments
+            .slice(
+                pageNumValidated * commentListSize - commentListSize,
+                pageNumValidated * commentListSize
+            )
+            .forEach((commentObj) => {
+                const viewObj = this.viewHome.world.find((e) => e.urlPath === commentObj.urlPath)
+                const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/(\r\n|\n|\r)/gm, ' ')
             
-            let urlPath
-            let pageTitle
-            if (lan === 'ja') {
-                urlPath = commentObj.urlPath
-                pageTitle = (viewObj) ? viewObj.title : '掲示板'
-            } else if (lan === 'en') {
-                urlPath = `/en${commentObj.urlPath}`
-                pageTitle = (viewObj) ? viewObj.title : 'Board'
-            }
-            commentListView.push({
-                date: JST.convertToDate(commentObj.date),
-                urlPath,
-                pageTitle,
-                name: commentObj.name,
-                excerptOfComment: (commentStr.length > 30) ? `${commentStr.slice(0, 30)}...` : commentStr
+                let urlPath
+                let pageTitle
+                if (lan === 'ja') {
+                    urlPath = commentObj.urlPath
+                    pageTitle = (viewObj) ? viewObj.title : '掲示板'
+                } else if (lan === 'en') {
+                    urlPath = `/en${commentObj.urlPath}`
+                    pageTitle = (viewObj) ? viewObj.title : 'Board'
+                }
+                commentListView.push({
+                    date: JST.convertToDate(commentObj.date),
+                    urlPath,
+                    pageTitle,
+                    name: commentObj.name,
+                    excerptOfComment: (commentStr.length > 30) ? `${commentStr.slice(0, 30)}...` : commentStr
+                })
             })
-        })
         this.viewHome.comments = commentListView
     }
 }
