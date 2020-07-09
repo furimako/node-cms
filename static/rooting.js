@@ -85,6 +85,11 @@ module.exports = [
                 ja: {
                     title: '一番を目指してはいけない',
                     description: 'あなたが本当に目指すべきものについて'
+                },
+                en: {
+                    title: 'Never Aim For Becoming "Number One"',
+                    description: 'What We Really Should Go After',
+                    isNew: true
                 }
             },
             {
