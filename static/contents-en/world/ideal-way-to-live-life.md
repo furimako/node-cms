@@ -11,7 +11,7 @@ You may say, yes, of course they are!
 
 Then, ask yourself following two questions:
 
-**Question #1: Suppose you have power to improve your ability to a level you can outperform everybody else in the world. Would you use the power?**
+**Question #1: Suppose you have power to make the abilities of everyone else in the world inferior to yours. Would you use the power?**
 
 **Question #2: Suppose you can choose from environments where everyone else underperforms you, and where everyone else outperforms you. Which one would you like to live in?** 
 
