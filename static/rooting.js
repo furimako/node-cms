@@ -274,7 +274,7 @@ module.exports = [
         ]
     },
     {
-        class: 'ImagePage',
+        class: 'ContentPage',
         filePathPrefix: './static',
         elements: [
             { urlPath: '/images/background-image.jpg' },
@@ -286,7 +286,8 @@ module.exports = [
             { urlPath: '/images/story/mystery/nightmare.jpg' },
             { urlPath: '/images/story/mystery/the-dark-and-cold-place.jpg' },
             { urlPath: '/images/story/comedy/baby-s-suffering.jpg' },
-            { urlPath: '/images/story/comedy/one-man.jpg' }
+            { urlPath: '/images/story/comedy/one-man.jpg' },
+            { urlPath: '/js/client.js' }
         ]
     }
 ]

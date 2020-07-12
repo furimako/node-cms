@@ -2,7 +2,7 @@ const HomePage = require('./page/home_page')
 const MarkdownPage = require('./page/markdown_page')
 const HTMLPage = require('./page/html_page')
 const CSSPage = require('./page/css_page')
-const ImagePage = require('./page/image_page')
+const ContentPage = require('./page/content_page')
 const rooting = require('../static/rooting')
 
 module.exports = class Pages {
@@ -80,8 +80,8 @@ module.exports = class Pages {
                 case 'CSSPage':
                     page = new CSSPage(pageObj)
                     break
-                case 'ImagePage':
-                    page = new ImagePage(pageObj)
+                case 'ContentPage':
+                    page = new ContentPage(pageObj)
                     break
                 default:
                     throw new Error(`rooting.js should be wrong (class: ${v.class})`)
