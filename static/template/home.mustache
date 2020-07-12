@@ -149,87 +149,81 @@
 <!-- About Modal page -->
 <div id="aboutModal" class="modal">
     <div class="modal-background" onclick="closeModal('aboutModal')"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-            <h2 class="modal-card-title">
-                {{#lan.ja}}このサイトについて{{/lan.ja}}
-                {{#lan.en}}About this website{{/lan.en}}
-            </h2>
-            <button class="delete" aria-label="close" onclick="closeModal('aboutModal')"></button>
-        </header>
-        <section class="modal-card-body">
-            <div class="content is-small">
-                {{#lan.ja}}
-                <h3>サイト・ポリシー</h3>
-                <ul>
-                    <li>あなたの知らない世界を見せよう</li>
-                    <li>このサイトを見て悲しい気持ちになる人を、なるべく減らす努力をしよう</li>
-                    <li>すべてのページに Fully Hatter オリジナルな要素を盛り込もう</li>
-                    <li>専門知識がなくても理解できる内容にしよう</li>
-                </ul>
-                <h3>登場人物</h3>
-                <p>
-                    <b>Fully Hatter</b><br>
-                    秘密の部屋の作者。人間という枠を超越した者。<br>
-                    存在自体が概念。
-                </p>
-                <p>
-                    <b>ふりまこ</b><br>
-                    Fully Hatter の友達の友達。デジタル空間上の架空の人物。<br>
-                    Twitter で変なことを呟くのが趣味。<br>
-                    Twitter アカウントは <a target="_blank" href="https://twitter.com/furimako">こちら</a>。
-                </p>
-                {{/lan.ja}}
-                {{#lan.en}}
-                <h3>Website Policy</h3>
-                <ul>
-                    <li>show you the world you have not seen</li>
-                    <li>do my best to reduce the number of people who feel sad about this website</li>
-                    <li>include Fully Hatter's originality on every page</li>
-                    <li>make all pages simple so that you can understand without advanced knowledge</li>
-                </ul>
-                <h3>Fully Hatter</h3>
-                <p>
-                    The creator of this website. He is a concept itself.<br>
-                    Twitter account is <a target="_blank" href="https://twitter.com/furimako">here</a>.
-                </p>
-                {{/lan.en}}
-            </div>
-        </section>
+    <div class="modal-content">
+        <div class="content is-small">
+            {{#lan.ja}}
+            <h2>このサイトについて</h2>
+            <h3>サイト・ポリシー</h3>
+            <ul>
+                <li>あなたの知らない世界を見せよう</li>
+                <li>このサイトを見て悲しい気持ちになる人を、なるべく減らす努力をしよう</li>
+                <li>すべてのページに Fully Hatter オリジナルな要素を盛り込もう</li>
+                <li>専門知識がなくても理解できる内容にしよう</li>
+            </ul>
+            <h3>登場人物</h3>
+            <p>
+                <b>Fully Hatter</b><br>
+                秘密の部屋の作者。人間という枠を超越した者。<br>
+                存在自体が概念。
+            </p>
+            <p>
+                <b>ふりまこ</b><br>
+                Fully Hatter の友達の友達。デジタル空間上の架空の人物。<br>
+                Twitter で変なことを呟くのが趣味。<br>
+                Twitter アカウントは <a target="_blank" href="https://twitter.com/furimako">こちら</a>。
+            </p>
+            {{/lan.ja}}
+            {{#lan.en}}
+            <h2>About this website</h2>
+            <h3>Website Policy</h3>
+            <ul>
+                <li>show you the world you have not seen</li>
+                <li>do my best to reduce the number of people who feel sad about this website</li>
+                <li>include Fully Hatter's originality on every page</li>
+                <li>make all pages simple so that you can understand without advanced knowledge</li>
+            </ul>
+            <h3>Fully Hatter</h3>
+            <p>
+                The creator of this website. He is a concept itself.<br>
+                Twitter account is <a target="_blank" href="https://twitter.com/furimako_en">here</a>.
+            </p>
+            {{/lan.en}}
+        </div>
     </div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal('messageModal')"></button>
 </div>
 
 <!-- Message Modal page -->
 <div id="messageModal" class="modal">
     <div class="modal-background" onclick="closeModal('messageModal')"></div>
-        <div class="modal-content">
-            <h2 class="title is-5">
-                {{#lan.ja}}Fully Hatter へのメッセージ{{/lan.ja}}
-                {{#lan.en}}Message to Fully Hatter{{/lan.en}}
-            </h2>
-            <p>
-                {{#lan.ja}}
-                お問い合わせ、お仕事依頼、応援メッセージ、苦情などなんでもどうぞ。<br>
-                プライバシーは最大限に尊重します。
-                {{/lan.ja}}
-                {{#lan.en}}
-                You can send a message to Fully Hatter.
-                {{/lan.en}}
-            </p>
-            <form method="post" action="/post/message">
-                <input type="hidden" name="key" value="furimako">
-                <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
-                <div class="field">
-                    <div class="control is-small">
-                        <textarea class="textarea" name="message" placeholder="{{#lan.ja}}返事が欲しい方はお名前とメールアドレスをご記載ください{{/lan.ja}}{{#lan.en}}Tell me your name and e-mail address if you would like to get a reply from Fully Hatter.{{/lan.en}}" maxlength="900" required></textarea>
-                    </div>
+    <div class="modal-content">
+        <h2 class="title is-5">
+            {{#lan.ja}}Fully Hatter へのメッセージ{{/lan.ja}}
+            {{#lan.en}}Message to Fully Hatter{{/lan.en}}
+        </h2>
+        <p>
+            {{#lan.ja}}
+            お問い合わせ、お仕事依頼、応援メッセージ、苦情などなんでもどうぞ。<br>
+            プライバシーは最大限に尊重します。
+            {{/lan.ja}}
+            {{#lan.en}}
+            You can send a message to Fully Hatter.
+            {{/lan.en}}
+        </p>
+        <form method="post" action="/post/message">
+            <input type="hidden" name="key" value="furimako">
+            <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
+            <div class="field">
+                <div class="control is-small">
+                    <textarea class="textarea" name="message" placeholder="{{#lan.ja}}返事が欲しい方はお名前とメールアドレスをご記載ください{{/lan.ja}}{{#lan.en}}Tell me your name and e-mail address if you would like to get a reply from Fully Hatter.{{/lan.en}}" maxlength="900" required></textarea>
                 </div>
-                <div class="field">
-                    <div class="control">
-                        <button class="button is-primary">{{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}</button>
-                    </div>
+            </div>
+            <div class="field">
+                <div class="control">
+                    <button class="button is-primary">{{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}</button>
                 </div>
-            </form>
-        </div>
+            </div>
+        </form>
+    </div>
     <button class="modal-close is-large" aria-label="close" onclick="closeModal('messageModal')"></button>
 </div>
