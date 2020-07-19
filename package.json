@@ -13,11 +13,12 @@
         "start": "NODE_ENV=production pm2 start configs/production/pm2.json"
     },
     "dependencies": {
-        "bulma": "^0.8.1",
+        "bulma": "^0.8.2",
+        "cookie": "^0.4.1",
         "marked": "^0.7.0",
-        "mongodb": "^3.5.5",
+        "mongodb": "^3.5.9",
         "mustache": "^3.2.1",
-        "node-sass": "^4.13.1",
+        "node-sass": "^4.14.1",
         "node-utils": "file:../node-utils"
     }
 }
