@@ -64,6 +64,11 @@ module.exports = [
                 ja: {
                     title: '人生で「失敗」するには',
                     description: '「失敗」するために生きている多くの人々へ'
+                },
+                en: {
+                    title: 'Tips for Becoming Total Failure in Your Life',
+                    description: 'To Those of You Who Are Striving to Fail',
+                    isNew: true
                 }
             },
             {
@@ -88,8 +93,7 @@ module.exports = [
                 },
                 en: {
                     title: 'Never Aim For Becoming "Number One"',
-                    description: 'What We Really Should Go After',
-                    isNew: true
+                    description: 'What We Really Should Go After'
                 }
             },
             {
@@ -143,8 +147,7 @@ module.exports = [
                 },
                 en: {
                     title: 'What is Hapiness for You?',
-                    description: 'Taking Scientific Approach to Happiness',
-                    isNew: true
+                    description: 'Taking Scientific Approach to Happiness'
                 }
             },
             {
@@ -220,6 +223,16 @@ module.exports = [
         filePathSuffix: '.html',
         elements: [
             {
+                urlPath: '/no-found',
+                ja: { title: 'No Found' }
+            // }, {
+            //     urlPath: '/login',
+            //     ja: {
+            //         title: 'ログイン',
+            //         description: '秘密の部屋の住人はこちらからログインしてください。'
+            //     }
+            },
+            {
                 urlPath: '/bookshelf/books',
                 ja: {
                     title: 'Fully Hatter の本棚',
@@ -253,10 +266,6 @@ module.exports = [
                     title: 'Fully Hatter の本棚',
                     description: 'Fully Hatterが感動したウェブサイトをご紹介。'
                 }
-            },
-            {
-                urlPath: '/no-found',
-                ja: { title: 'No Found' }
             }
         ]
     },
