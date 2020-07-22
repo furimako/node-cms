@@ -7,8 +7,6 @@ const mongodbDriver = require('../mongodb_driver')
 
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const homeTemplate = fs.readFileSync('./static/template/home.mustache', 'utf8')
-const likeStr = { ja: 'いいね！', en: 'like' }
-const commentJA = 'コメント'
 
 module.exports = class HomePage extends BasePage {
     constructor({ element }) {
@@ -34,10 +32,12 @@ module.exports = class HomePage extends BasePage {
     }
     
     async get(lan, pageNum) {
+    // async get(lan, signedIn, pageNum) {
         this.view.lan = { [lan]: true }
         this.view.title = this.title[lan]
         this.view.description = this.description[lan]
         this.view.isNew = this.element[lan].isNew
+        // this.view.signedIn = signedIn
         
         const summary = await mongodbDriver.findCountsForHome(lan)
         const comments = await mongodbDriver.findComments({ urlPath: { $ne: '/temp' }, lan })
@@ -85,8 +85,8 @@ module.exports = class HomePage extends BasePage {
             if (!this.viewHome.world[i].advertisement) {
                 const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
                 const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
-                this.viewHome.world[i].like = `${likeStr[lan]} ${likeCount}`
-                this.viewHome.world[i].comment = `${commentJA} ${commentCount}`
+                this.viewHome.world[i].numOfLikes = `${likeCount}`
+                this.viewHome.world[i].numOfComments = `${commentCount}`
             }
             
             if (i === 0) {
@@ -103,7 +103,7 @@ module.exports = class HomePage extends BasePage {
         
         for (let i = 0; i < this.viewHome.story.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.story[i].urlPath] || 0
-            this.viewHome.story[i].like = `${likeStr[lan]} ${likeCount}`
+            this.viewHome.story[i].numOfLikes = `${likeCount}`
             
             if (i === 0) {
                 this.viewHome.story[i].headHTML = '<div class="column">'
