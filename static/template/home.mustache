@@ -90,8 +90,20 @@
                         {{title}}{{#description}}　〜{{description}}〜{{/description}}
                     </a>
                     <br>
-                    {{#like}}<span class="tag is-rounded">{{like}}</span>{{/like}}
-                    {{#comment}}<span class="tag is-rounded">{{comment}}</span>{{/comment}}
+                    {{#numOfLikes}}
+                    <span class="tag is-rounded">
+                        {{#lan.ja}}いいね！{{/lan.ja}}
+                        {{#lan.en}}like{{/lan.en}}
+                        {{numOfLikes}}
+                    </span>
+                    {{/numOfLikes}}
+                    {{#numOfComments}}
+                    <span class="tag is-rounded">
+                        {{#lan.ja}}コメント{{/lan.ja}}
+                        {{#lan.en}}comments{{/lan.en}}
+                        {{numOfComments}}
+                    </span>
+                    {{/numOfComments}}
                 </div>
                 {{{footHTML}}}
             {{/world}}
@@ -115,7 +127,11 @@
                     <figcaption>
                         {{description}}
                         <br>
-                        <span class="tag is-rounded">{{like}}</span>
+                        <span class="tag is-rounded">
+                            {{#lan.ja}}いいね！{{/lan.ja}}
+                            {{#lan.en}}like{{/lan.en}}
+                            {{numOfLikes}}
+                        </span>
                     </figcaption>
                 </figure>
                 <br>
