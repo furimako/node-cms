@@ -76,14 +76,14 @@ module.exports = [
                 urlPath: '/world/nation',
                 ja: {
                     title: '理想の国家',
-                    description: 'ベーシックインカムで世界中の誰もが「本当にやりたいこと」のできる世界へ'
+                    description: 'ベーシックインカムで、世界中の誰もが「本当にやりたいこと」のできる世界へ'
                 }
             },
             {
                 urlPath: '/world/reward',
                 ja: {
                     title: '成果主義について',
-                    description: 'できる人にはお金を与えるべき？ いいチームを作るためにあなたが知るべき３つのポイント'
+                    description: '「できる人」にはお金を与えるべきだろうか？'
                 }
             },
             {
