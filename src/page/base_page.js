@@ -12,6 +12,7 @@ const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const commentsFieldTemplate = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
 const paginationTemplate = fs.readFileSync('./static/template/pagination.mustache', 'utf8')
 const relatedPagesTemplate = fs.readFileSync('./static/template/related-pages.mustache', 'utf8')
+const shareTemplate = fs.readFileSync('./static/template/share.mustache', 'utf8')
 
 module.exports = class BasePage {
     constructor({
@@ -23,7 +24,8 @@ module.exports = class BasePage {
         bodyHTML,
         hasCommentsField,
         hasLikeButton,
-        hasRelatedPages
+        hasRelatedPages,
+        needToBeShared
     }) {
         this.element = element
         this.urlPath = urlPath
@@ -34,6 +36,7 @@ module.exports = class BasePage {
         this.hasCommentsField = hasCommentsField
         this.hasLikeButton = hasLikeButton
         this.hasRelatedPages = hasRelatedPages
+        this.needToBeShared = needToBeShared
         
         // urlPathBase
         this.urlPathBase = element.urlPath
@@ -59,7 +62,8 @@ module.exports = class BasePage {
             cssPath,
             titleWithDescription,
             paginationHTML,
-            isMultilingual: this.title.ja && this.title.en
+            isMultilingual: this.title.ja && this.title.en,
+            needToBeShared: this.needToBeShared
         }
     }
     
@@ -105,7 +109,7 @@ module.exports = class BasePage {
     
     _getWithNoComments() {
         this.view.navbar = true
-        return mustache.render(template, this.view)
+        return mustache.render(template, this.view, { shareTemplate })
     }
 
     async _getWithComments(lan) {
@@ -144,7 +148,7 @@ module.exports = class BasePage {
         this.view.commentsFieldHTML = commentsFieldHTML
         this.view.navbar = true
         this.view.hasComments = true
-        return mustache.render(template, this.view)
+        return mustache.render(template, this.view, { shareTemplate })
     }
 }
 

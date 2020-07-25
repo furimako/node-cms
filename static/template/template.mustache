@@ -1,4 +1,3 @@
-
 <!DOCTYPE HTML>
 <html lang="ja">
 <head prefix="og: http://ogp.me/ns#">
@@ -14,21 +13,11 @@
     <!-- Google AdSense -->
     <script data-ad-client="ca-pub-4016317029201296" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     
-    <!-- Twitter for Websites JavaScript -->
-    <script>
-        window.twttr = (function(d, s, id) {
-            var js, fjs = d.getElementsByTagName(s)[0],
-            t = window.twttr || {};
-            if (d.getElementById(id)) return t;
-            js = d.createElement(s);
-            js.id = id;
-            js.src = "https://platform.twitter.com/widgets.js";
-            fjs.parentNode.insertBefore(js, fjs);
-            t._e = [];
-            t.ready = function(f) { t._e.push(f); };
-            return t;
-        }(document, "script", "twitter-wjs"));
-    </script>
+    <!-- Twitter -->
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    
+    <!-- LINE -->
+    <script src="https://d.line-scdn.net/r/web/social-plugin/js/thirdparty/loader.min.js" async="async" defer="defer"></script>
     
     <!-- OGP -->
     <meta property="og:title" content="{{title}} | {{#lan.ja}}Fully Hatter の秘密の部屋{{/lan.ja}}{{#lan.en}}Fully Hatter and the Chamber of Secrets{{/lan.en}}">
@@ -128,10 +117,16 @@
         </section>
     </header>
     <div class="container">
-        <div class="level">
+        <div class="level is-mobile">
             <div class="level-left">
             </div>
             <div class="level-right">
+                <!-- {{^signedIn}}
+                <div class="level-item">
+                    <a href="/login" class="button is-small is-outlined" aria-label="go to Sign-in page">ログイン</a>
+                </div>
+                {{/signedIn}} -->
+                
                 <div class="level-item">
                     <small>
                         {{#lan.ja}}
@@ -144,15 +139,63 @@
                 </div>
             </div>
         </div>
+        <div class="level is-mobile">
+            <div class="level-left">
+            </div>
+            <div class="level-right">
+                {{> shareTemplate}}
+            </div>
+        </div>
     </div>
     {{{paginationHTML}}}
     {{{bodyHTML}}}
     {{{paginationHTML}}}
+    
+    {{#needToBeShared}}
+    <hr>
+    <section class="section">
+        <div class="container">
+            <div class="content is-small">
+                {{#lan.ja}}
+                <p>
+                    もしあなたがこのサイトを「よい」ものであると知りながら、家族や友人に LINE でシェアしたり Twitter で拡散しないのであれば、それは「よくない」ことなのかもしれない。<br>
+                    心の中がどうであれ、何も行動しないのならば、あなたは「賛同していない人」とまったく同じなのだから。
+                </p>
+                <p>
+                    <b>キング牧師</b><br>
+                    最大の悲劇は、悪人の圧制や残酷さではなく、善人の沈黙である。
+                </p>
+                {{/lan.ja}}
+                {{#lan.en}}
+                <p>
+                    If you know the site is awesome, but don't share it with friends or spread it on Twitter, that's not good.<br>
+                    No matter what you think in your mind, if you do nothing, you are exactly the same as the ones who disagree with it.
+                </p>
+                <p>
+                    <b>Martin Luther King, Jr.</b><br>
+                    "The ultimate tragedy is not the oppression and cruelty by the bad people but the silence over that by the good people."
+                </p>
+                {{/lan.en}}
+            </div>
+            <div class="level is-mobile">
+                <div class="level-left">
+                    {{> shareTemplate}}
+                </div>
+            </div>
+        </div>
+    </section>
+    {{/needToBeShared}}
+    
     {{{relatedPages}}}
     {{{commentsFieldHTML}}}
     {{{relatedPages2}}}
     <footer class="footer">
         <div class="container">
+            <div class="level is-mobile">
+                <div class="level-left">
+                    {{> shareTemplate}}
+                </div>
+            </div>
             <div class="level">
                 <div class="level-left">
                     <div class="level-item">
@@ -166,9 +209,6 @@
                             <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter<br>and the Chamber of Secrets
                         </p>
                         {{/lan.en}}
-                    </div>
-                    <div class="level-item">
-                        <a class="twitter-follow-button" href="https://twitter.com/furimako{{#lan.en}}_en{{/lan.en}}">Follow @furimako{{#lan.en}}_en{{/lan.en}}</a>
                     </div>
                 </div>
             </div>

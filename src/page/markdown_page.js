@@ -12,7 +12,8 @@ module.exports = class MarkdownPage extends BasePage {
         hasLikeButton,
         hasCommentsField,
         hasRelatedPages,
-        chapter
+        chapter,
+        needToBeShared
     }) {
         const title = {}
         const description = {}
@@ -60,7 +61,8 @@ module.exports = class MarkdownPage extends BasePage {
             bodyHTML,
             hasLikeButton,
             hasCommentsField,
-            hasRelatedPages
+            hasRelatedPages,
+            needToBeShared
         })
         this.setView({
             cssPath: '/css/styles-others.css',
