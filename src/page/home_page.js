@@ -118,7 +118,7 @@ module.exports = class HomePage extends BasePage {
         }
         
         // create comment list
-        const commentListSize = 6
+        const commentListSize = 8
         const pageTotal = Math.ceil(comments.length / commentListSize)
         let pageNumValidated
         
