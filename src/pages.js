@@ -63,7 +63,8 @@ module.exports = class Pages {
                     titleWithDescription: v.styleInHome === 'world',
                     hasLikeButton: v.hasLikeButton,
                     hasCommentsField: v.hasCommentsField,
-                    hasRelatedPages: v.hasRelatedPages
+                    hasRelatedPages: v.hasRelatedPages,
+                    needToBeShared: v.needToBeShared
                 }
                 
                 let page

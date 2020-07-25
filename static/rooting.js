@@ -43,6 +43,7 @@ module.exports = [
         hasCommentsField: true,
         hasRelatedPages: true,
         styleInHome: 'world',
+        needToBeShared: true,
         elements: [
             {
                 urlPath: '/world/feminism',
