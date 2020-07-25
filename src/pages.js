@@ -22,8 +22,8 @@ module.exports = class Pages {
     }
     
     // lan = ja or en
-    async get(urlPath, lan, pageNum) {
-        return this.pages.get(urlPath).get(lan, pageNum)
+    async get(urlPath, lan, signedIn = false, pageNum = false) {
+        return this.pages.get(urlPath).get(lan, signedIn, pageNum)
     }
 
     contentType(urlPath) {

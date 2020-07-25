@@ -225,13 +225,14 @@ module.exports = [
             {
                 urlPath: '/no-found',
                 ja: { title: 'No Found' }
-            // }, {
+            },
+            // {
             //     urlPath: '/login',
             //     ja: {
             //         title: 'ログイン',
             //         description: '秘密の部屋の住人はこちらからログインしてください。'
             //     }
-            },
+            // },
             {
                 urlPath: '/bookshelf/books',
                 ja: {

@@ -64,12 +64,13 @@ module.exports = class BasePage {
     }
     
     // HTMLPage, MarkdownPage
-    async get(lan) {
+    async get(lan, signedIn) {
         this.view.lan = { [lan]: true }
         this.view.title = this.title[lan]
         this.view.description = this.description[lan]
         this.view.bodyHTML = this.bodyHTML[lan]
         this.view.isNew = this.element[lan].isNew
+        this.view.signedIn = signedIn
         
         if (this.hasRelatedPages && lan === 'ja') {
             this.view.keywordTag = _getKeywordTag(this.urlPath, lan)

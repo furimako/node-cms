@@ -24,6 +24,26 @@ module.exports = {
         logging.info(`    L inserted ${objs.length} document(s) (collection: ${collectionName})`)
     },
     
+    // async checkPassword(email, password) {
+    //     logging.info(`    L checking password (email: ${email}, password: ${password})`)
+    //     if (email.length > 50 || password.length < 8 || password.length > 20) {
+    //         logging.info('    L invalid email or password')
+    //         return false
+    //     }
+    //
+    //     const count = await this._query(
+    //         'users',
+    //         async (collection) => collection.find({ email, password }).count()
+    //     )
+    //
+    //     if (count !== 0 && count !== 1) {
+    //         throw new Error(`failed to checkPassword (count: ${count})`)
+    //     } else {
+    //         logging.info(`    L checkPassword: ${count === 1}`)
+    //     }
+    //     return count === 1
+    // },
+    
     async findLikeCount(urlPath) {
         const likeCount = await this._query(
             'likes',
