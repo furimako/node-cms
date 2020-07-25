@@ -7,7 +7,6 @@ const mongodbDriver = require('../mongodb_driver')
 
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const homeTemplate = fs.readFileSync('./static/template/home.mustache', 'utf8')
-const shareTemplate = fs.readFileSync('./static/template/share.mustache', 'utf8')
 
 module.exports = class HomePage extends BasePage {
     constructor({ element }) {
@@ -44,7 +43,7 @@ module.exports = class HomePage extends BasePage {
         this._updateViewHome(pageNum, summary, comments, lan)
         
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome)
-        return mustache.render(template, this.view, { shareTemplate })
+        return mustache.render(template, this.view)
     }
     
     _updateViewHome(pageNum, summary, comments, lan) {

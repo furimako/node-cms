@@ -117,10 +117,15 @@
         </section>
     </header>
     <div class="container">
-        <div class="level is-mobile">
+        <div class="level">
             <div class="level-left">
             </div>
             <div class="level-right">
+                <!-- Twitter follow -->
+                <div class="level-item">
+                    <a href="https://twitter.com/furimako{{#lan.en}}_en{{/lan.en}}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true">Follow @furimako{{#lan.en}}_en{{/lan.en}}</a>
+                </div>
+                
                 <!-- {{^signedIn}}
                 <div class="level-item">
                     <a href="/login" class="button is-small is-outlined" aria-label="go to Sign-in page">ログイン</a>
@@ -139,13 +144,6 @@
                 </div>
             </div>
         </div>
-        <div class="level">
-            <div class="level-left">
-            </div>
-            <div class="level-right">
-                {{> shareTemplate}}
-            </div>
-        </div>
     </div>
     {{{paginationHTML}}}
     {{{bodyHTML}}}
@@ -157,28 +155,33 @@
         <div class="container">
             <div class="content is-small">
                 {{#lan.ja}}
-                <p>
-                    この主張に賛同する方は、家族や友人に LINE でシェアしたり SNS に流してみましょう。
-                </p>
+                <p>この主張に賛同する方は、家族や友人に LINE でシェアしたり SNS に流してみましょう。</p>
                 <p>
                     <b>キング牧師</b><br>
                     最大の悲劇は、悪人の圧制や残酷さではなく、善人の沈黙である。
                 </p>
                 {{/lan.ja}}
                 {{#lan.en}}
-                <p>
-                    If you know the site is awesome, but don't share it with friends or spread it on Twitter, that's not good.<br>
-                    No matter what you think in your mind, if you do nothing, you are exactly the same as the ones who disagree with it.
-                </p>
+                <p>If you agree with it, send it to a friend or share it on SNS!</p>
                 <p>
                     <b>Martin Luther King, Jr.</b><br>
                     "The ultimate tragedy is not the oppression and cruelty by the bad people but the silence over that by the good people."
                 </p>
                 {{/lan.en}}
             </div>
-            <div class="level">
+            <div class="level is-mobile">
                 <div class="level-left">
-                    {{> shareTemplate}}
+                    <!-- LINE share -->
+                    {{#lan.ja}}
+                    <div class="level-item">
+                        <div class="line-it-button" data-lang="ja" data-type="share-a" data-ver="3" data-url="https://furimako.com{{#lan.en}}/en{{/lan.en}}{{urlPath}}" data-color="default" data-size="small" data-count="false" style="display: none;"></div>
+                    </div>
+                    {{/lan.ja}}
+                    
+                    <!-- Twitter tweet -->
+                    <div class="level-item">
+                        <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-text="{{title}}&#010;&#010;- {{#lan.ja}}Fully Hatter の秘密の部屋{{/lan.ja}}{{#lan.en}}Fully Hatter and the Chamber of Secrets{{/lan.en}} -&#010;" data-url="https://furimako.com{{#lan.en}}/en{{/lan.en}}{{urlPath}}" data-show-count="true">Tweet</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -192,11 +195,6 @@
         <div class="container">
             <div class="level">
                 <div class="level-left">
-                    {{> shareTemplate}}
-                </div>
-            </div>
-            <div class="level">
-                <div class="level-left">
                     <div class="level-item">
                         {{#lan.ja}}
                         <p class="title is-5">
@@ -208,6 +206,11 @@
                             <span class="orange-title">F</span>ully <span class="orange-title">H</span>atter<br>and the Chamber of Secrets
                         </p>
                         {{/lan.en}}
+                    </div>
+                    
+                    <!-- Twitter follow -->
+                    <div class="level-item">
+                        <a href="https://twitter.com/furimako{{#lan.en}}_en{{/lan.en}}?ref_src=twsrc%5Etfw" class="twitter-follow-button" data-show-count="true">Follow @furimako{{#lan.en}}_en{{/lan.en}}</a>
                     </div>
                 </div>
             </div>
