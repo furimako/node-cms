@@ -31,13 +31,12 @@ module.exports = class HomePage extends BasePage {
         this.setView({ cssPath: '/css/styles-home.css' })
     }
     
-    async get(lan, pageNum) {
-    // async get(lan, signedIn, pageNum) {
+    async get(lan, signedIn, pageNum) {
         this.view.lan = { [lan]: true }
         this.view.title = this.title[lan]
         this.view.description = this.description[lan]
         this.view.isNew = this.element[lan].isNew
-        // this.view.signedIn = signedIn
+        this.view.signedIn = signedIn
         
         const summary = await mongodbDriver.findCountsForHome(lan)
         const comments = await mongodbDriver.findComments({ urlPath: { $ne: '/temp' }, lan })

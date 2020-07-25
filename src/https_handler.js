@@ -1,5 +1,6 @@
 const qs = require('querystring')
 const { parse } = require('url')
+const cookie = require('cookie')
 const { logging } = require('node-utils')
 const mongodbDriver = require('./mongodb_driver')
 const Pages = require('./pages')
@@ -12,7 +13,7 @@ module.exports = class HttpsHandler {
         this.mailer = mailer
     }
     
-    get() {
+    create() {
         return async (req, res) => {
             let urlPath = parse(req.url).pathname
             const { query } = parse(req.url, true)
@@ -23,6 +24,14 @@ module.exports = class HttpsHandler {
             try {
                 // GET
                 if (req.method === 'GET') {
+                    const signedIn = false
+                    // if (req.headers.cookie) {
+                    //     const { email, password } = cookie.parse(req.headers.cookie)
+                    //     logging.info(`    L cookies (email: ${email}, password: ${password})`)
+                    //     signedIn = await mongodbDriver.checkPassword(email, password)
+                    //     logging.info(`    L signedIn: ${signedIn}`)
+                    // }
+                    
                     const pageNum = parseInt(query.page, 10) || 1
                     let lan
                     if (urlPath.startsWith('/en/')) {
@@ -35,7 +44,7 @@ module.exports = class HttpsHandler {
                     }
                     
                     if (pages.has(urlPath, lan)) {
-                        const html = await pages.get(urlPath, lan, pageNum)
+                        const html = await pages.get(urlPath, lan, signedIn, pageNum)
                         res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
                         res.end(html)
                         return
@@ -50,6 +59,31 @@ module.exports = class HttpsHandler {
                     req.on('end', async () => {
                         const postData = qs.parse(body)
                         const urlPrefix = (postData.lan === 'en') ? '/en' : ''
+                        
+                        // Sign in
+                        // if (urlPath === '/post/signin' && postData.key === 'furimako' && postData.email && postData.password) {
+                        //     const { email, password } = postData
+                        //     logging.info(`    L trying to sign-in (email: ${email}, password: ${password})`)
+                        //
+                        //     if (await mongodbDriver.checkPassword(email, password)) {
+                        //         logging.info('    L valid password')
+                        //         const cookies = []
+                        //         cookies.push(cookie.serialize('email', email))
+                        //         cookies.push(cookie.serialize('password', password))
+                        //         logging.info(`cookies: ${cookies}`)
+                        //         res.setHeader('Set-Cookie', cookies)
+                        //         logging.info(`res1: ${res.getHeader('Cookie')}`)
+                        //         res.writeHead(302, { Location: '/residents' })
+                        //         logging.info(`res2: ${res.getHeader('Cookie')}`)
+                        //         logging.info(`res3: ${res.getHeader('Location')}`)
+                        //         res.end()
+                        //         return
+                        //     }
+                        //
+                        //     res.writeHead(302, { Location: '/login?failed' })
+                        //     res.end()
+                        //     return
+                        // }
                         
                         // Like
                         if (urlPath === '/post/like' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan)) {

@@ -36,7 +36,7 @@ const credentials = { key, cert, ca }
 
 // Start HTTPS server
 const httpsPort = 8129
-const httpsServer = https.createServer(credentials, httpsHandler.get())
+const httpsServer = https.createServer(credentials, httpsHandler.create())
 httpsServer.listen(httpsPort)
 logging.info(`started HTTPS server (port: ${httpsPort})`)
 
