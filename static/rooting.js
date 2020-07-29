@@ -109,6 +109,11 @@ module.exports = [
                 ja: {
                     title: '理想の教育',
                     description: '「歴史のテスト」を憎むすべての人へ'
+                },
+                en: {
+                    title: 'Ideal Education',
+                    description: 'To Everyone Who Hates History Exams',
+                    isNew: true
                 }
             },
             {
