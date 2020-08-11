@@ -46,6 +46,14 @@ module.exports = [
         needToBeShared: true,
         elements: [
             {
+                urlPath: '/world/free-will',
+                ja: {
+                    title: '「自由意志」なんて存在しない、と思うあなたへ',
+                    description: '我々が完全に自由であることを証明しよう',
+                    isNew: true
+                }
+            },
+            {
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
