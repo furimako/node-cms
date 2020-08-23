@@ -24,14 +24,6 @@ module.exports = class HttpsHandler {
                 // GET
                 if (req.method === 'GET') {
                     const signedIn = false
-                    // console.log(`req: ${JSON.stringify(req.headers.cookie)}`)
-                    // if (req.headers.cookie) {
-                    //     const { email, password } = cookie.parse(req.headers.cookie)
-                    //     logging.info(`    L cookies (email: ${email}, password: ${password})`)
-                    //     signedIn = await mongodbDriver.checkPassword(email, password)
-                    //     logging.info(`    L signedIn: ${signedIn}`)
-                    // }
-                    
                     const pageNum = parseInt(query.page, 10) || 1
                     let lan
                     if (urlPath.startsWith('/en/')) {
@@ -59,42 +51,6 @@ module.exports = class HttpsHandler {
                     req.on('end', async () => {
                         const postData = qs.parse(body)
                         const urlPrefix = (postData.lan === 'en') ? '/en' : ''
-                        
-                        // Sign in
-                        // if (
-                        //     urlPath === '/post/signin' && postData.key === 'furimako' && postData.email && postData.password
-                        // ) {
-                        //     const { email, password } = postData
-                        //     logging.info(`    L trying to sign-in (email: ${email}, password: ${password})`)
-                        //
-                        //     if (await mongodbDriver.checkPassword(email, password)) {
-                        //         logging.info('    L valid password')
-                        //         const cookies = []
-                        //         // maxAge = 24hours
-                        //         const option = {
-                        //             secure: true,
-                        //             // httpOnly: true,
-                        //             maxAge: 60 * 60 * 24
-                        //         }
-                        //         cookies.push(cookie.serialize('email', email, option))
-                        //         cookies.push(cookie.serialize('password', password, option))
-                        //         console.log(`cookies: ${JSON.stringify(cookies)}`)
-                        //         res.setHeader('Set-Cookie', cookies)
-                        //         res.setHeader('Set-Cookie', cookie.serialize('emaile', email, option))
-                        //         console.log(JSON.stringify(res.getHeaders()))
-                        //         // res.writeHead(302, { Location: '/' })
-                        //         // res.end()
-                        //         const html = await pages.get('/', 'ja', true, null)
-                        //         res.writeHead(200, { 'Content-Type': pages.contentType('/') })
-                        //         res.end(html)
-                        //         console.log(JSON.stringify(res.getHeaders()))
-                        //         return
-                        //     }
-                        //
-                        //     res.writeHead(302, { Location: '/login?failed' })
-                        //     res.end()
-                        //     return
-                        // }
                         
                         // Like
                         if (urlPath === '/post/like' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan)) {
