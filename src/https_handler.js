@@ -1,6 +1,5 @@
 const qs = require('querystring')
 const { parse } = require('url')
-const cookie = require('cookie')
 const { logging } = require('node-utils')
 const mongodbDriver = require('./mongodb_driver')
 const Pages = require('./pages')
@@ -25,6 +24,7 @@ module.exports = class HttpsHandler {
                 // GET
                 if (req.method === 'GET') {
                     const signedIn = false
+                    // console.log(`req: ${JSON.stringify(req.headers.cookie)}`)
                     // if (req.headers.cookie) {
                     //     const { email, password } = cookie.parse(req.headers.cookie)
                     //     logging.info(`    L cookies (email: ${email}, password: ${password})`)
@@ -61,22 +61,33 @@ module.exports = class HttpsHandler {
                         const urlPrefix = (postData.lan === 'en') ? '/en' : ''
                         
                         // Sign in
-                        // if (urlPath === '/post/signin' && postData.key === 'furimako' && postData.email && postData.password) {
+                        // if (
+                        //     urlPath === '/post/signin' && postData.key === 'furimako' && postData.email && postData.password
+                        // ) {
                         //     const { email, password } = postData
                         //     logging.info(`    L trying to sign-in (email: ${email}, password: ${password})`)
                         //
                         //     if (await mongodbDriver.checkPassword(email, password)) {
                         //         logging.info('    L valid password')
                         //         const cookies = []
-                        //         cookies.push(cookie.serialize('email', email))
-                        //         cookies.push(cookie.serialize('password', password))
-                        //         logging.info(`cookies: ${cookies}`)
+                        //         // maxAge = 24hours
+                        //         const option = {
+                        //             secure: true,
+                        //             // httpOnly: true,
+                        //             maxAge: 60 * 60 * 24
+                        //         }
+                        //         cookies.push(cookie.serialize('email', email, option))
+                        //         cookies.push(cookie.serialize('password', password, option))
+                        //         console.log(`cookies: ${JSON.stringify(cookies)}`)
                         //         res.setHeader('Set-Cookie', cookies)
-                        //         logging.info(`res1: ${res.getHeader('Cookie')}`)
-                        //         res.writeHead(302, { Location: '/residents' })
-                        //         logging.info(`res2: ${res.getHeader('Cookie')}`)
-                        //         logging.info(`res3: ${res.getHeader('Location')}`)
-                        //         res.end()
+                        //         res.setHeader('Set-Cookie', cookie.serialize('emaile', email, option))
+                        //         console.log(JSON.stringify(res.getHeaders()))
+                        //         // res.writeHead(302, { Location: '/' })
+                        //         // res.end()
+                        //         const html = await pages.get('/', 'ja', true, null)
+                        //         res.writeHead(200, { 'Content-Type': pages.contentType('/') })
+                        //         res.end(html)
+                        //         console.log(JSON.stringify(res.getHeaders()))
                         //         return
                         //     }
                         //

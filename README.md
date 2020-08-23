@@ -109,4 +109,9 @@ tail logs/cron.log
 - request all POST
 
 ## TODO
-- mailing list
+authentication
+    express.js
+    ログイン失敗時の notification
+    ログイン試行時、セッション確認時に 5回を超える失敗をはじく
+    パスワードのハッシュ化
+    CSRF対策
