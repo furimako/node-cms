@@ -59,24 +59,12 @@ process.on('SIGINT', () => {
     httpServer.close((err) => {
         if (err) {
             logging.error(`failed to close http server\n\n${err}`)
-            ;(async () => {
-                await mailer.send({
-                    subject: 'ERROR',
-                    text: `failed to close http server\n\n${err}`
-                })
-            })()
             process.exit(1)
         }
     })
     httpsServer.close((err) => {
         if (err) {
             logging.error(`failed to close https server\n\n${err}`)
-            ;(async () => {
-                await mailer.send({
-                    subject: 'ERROR',
-                    text: `failed to close https server\n\n${err}`
-                })
-            })()
             process.exit(1)
         }
     })
