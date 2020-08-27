@@ -11,7 +11,8 @@ const mailer = nodeUtils.createMailer(
     smtpConfig,
     {
         title: 'Fully Hatter の秘密の部屋',
-        defaultFrom: '"Fully Hatter" <fully-hatter@furimako.com>'
+        defaultFrom: '"Fully Hatter" <fully-hatter@furimako.com>',
+        defaultTo: 'furimako@gmail.com'
     }
 )
 const env = process.env.NODE_ENV
