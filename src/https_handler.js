@@ -83,11 +83,30 @@ module.exports = class HttpsHandler {
                             }
                         }
                         
+                        let registration
+                        let email
+                        let messageSent
+                        if (query.test) {
+                            registration = {
+                                MAIL_SENT: true,
+                                ALREADY_PRE_REGISTERED: true,
+                                ALREADY_REGISTERED: true,
+                                REGISTERED: true
+                            }
+                            email = 'sample@domain.com'
+                            messageSent = true
+                        } else {
+                            registration = { [query.registration]: true }
+                            email = query.email
+                            messageSent = query.messageSent
+                        }
+                        
                         const html = await pages.get(urlPath, lan, {
                             pageNum: parseInt(query.page, 10) || 1,
                             signedIn,
-                            registration: { [query.registration]: true },
-                            email: query.email
+                            registration,
+                            email,
+                            messageSent
                         })
                         res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
                         res.end(html)
@@ -154,7 +173,7 @@ module.exports = class HttpsHandler {
                                 text: `${postData.message}`
                             })
                             
-                            res.writeHead(302, { Location: `${urlPrefix}/` })
+                            res.writeHead(302, { Location: `${urlPrefix}/?messageSent=true` })
                             res.end()
                             return
                         }

@@ -1,34 +1,62 @@
 <section class="section">
     <div class="container">
+        <!-- SENT_MESSAGE -->
+        {{#messageSent}}
+        <div class="columns">
+            <div class="column is-half">
+                <div class="notification is-link is-light">
+                    <a class="delete" href="/"></a>
+                    {{#lan.ja}}Fully Hatter へメッセージを送信しました{{/lan.ja}}
+                    {{#lan.en}}Sent a message to Fully Hatter{{/lan.en}}
+                </div>
+            </div>
+        </div>
+        {{/messageSent}}
+                
+        <!-- PRE_REGISTERED -->
         {{#registration.MAIL_SENT}}
-        <div class="notification is-link is-light">
-            <a class="delete" href="/"></a>
-            {{email}} へ住人登録の確認メールを送付しました
+        <div class="columns">
+            <div class="column is-half">
+                <div class="notification is-link is-light">
+                    <a class="delete" href="/"></a>
+                    {{email}} へ住人登録の確認メールを送付しました
+                </div>
+            </div>
         </div>
         {{/registration.MAIL_SENT}}
-        
         {{#registration.ALREADY_PRE_REGISTERED}}
-        <div class="notification is-warning is-light">
-            <a class="delete" href="/"></a>
-            {{email}} にはすでに住人登録確認メールを送付しています<br>
-            (確認メールを再送したい方は、お手数ですが <strong><a onclick="openModal('messageModal')">こちら</a></strong> よりお問い合わせください)
+        <div class="columns">
+            <div class="column is-half">
+                <div class="notification is-warning is-light">
+                    <a class="delete" href="/"></a>
+                    {{email}} にはすでに住人登録確認メールを送付しています<br>
+                    (確認メールを再送したい方は、お手数ですが <strong><a onclick="openModal('messageModal')">こちら</a></strong> よりお問い合わせください)
+                </div>
+            </div>
         </div>
         {{/registration.ALREADY_PRE_REGISTERED}}
-        
         {{#registration.ALREADY_REGISTERED}}
-        <div class="notification is-primary is-light">
-            <a class="delete" href="/"></a>
-            {{email}} はすでに住人登録が完了しています
+        <div class="columns">
+            <div class="column is-half">
+                <div class="notification is-primary is-light">
+                    <a class="delete" href="/"></a>
+                    {{email}} はすでに住人登録が完了しています
+                </div>
+            </div>
         </div>
         {{/registration.ALREADY_REGISTERED}}
         
+        <!-- REGISTERED -->
         {{#registration.REGISTERED}}
-        <div class="notification is-link">
-            <a class="delete" href="/"></a>
-            {{email}} の住人登録が完了しました
+        <div class="columns">
+            <div class="column is-half">
+                <div class="notification is-link">
+                    <a class="delete" href="/"></a>
+                    {{email}} の住人登録が完了しました
+                </div>
+            </div>
         </div>
         {{/registration.REGISTERED}}
-        
         <p>
             {{#lan.ja}}
             秘密の部屋なのでこっそりのぞいてください。<br>

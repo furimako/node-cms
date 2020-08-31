@@ -34,7 +34,7 @@ module.exports = class HomePage extends BasePage {
     async get(lan, options) {
         logging.info(`    L lan: ${lan}, options: ${JSON.stringify(options)}`)
         const {
-            pageNum, signedIn, registration, email
+            pageNum, signedIn, registration, email, messageSent
         } = options
         
         this.view.lan = { [lan]: true }
@@ -48,13 +48,13 @@ module.exports = class HomePage extends BasePage {
             'comments',
             { urlPath: { $ne: '/temp' }, lan }
         )
-        this._updateViewHome(pageNum, summary, comments, lan, registration, email)
+        this._updateViewHome(pageNum, summary, comments, lan, registration, email, messageSent)
         
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome, this.partial)
         return mustache.render(template, this.view, this.partial)
     }
     
-    _updateViewHome(pageNum, summary, comments, lan, registration, email) {
+    _updateViewHome(pageNum, summary, comments, lan, registration, email, messageSent) {
         this.viewHome = {
             world: [],
             story: []
@@ -62,6 +62,7 @@ module.exports = class HomePage extends BasePage {
         this.viewHome.lan = { [lan]: true }
         this.viewHome.registration = registration
         this.viewHome.email = email
+        this.viewHome.messageSent = messageSent
 
         rooting.forEach((v) => {
             v.elements.forEach((e) => {
