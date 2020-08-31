@@ -13,17 +13,21 @@ module.exports = class Pages {
     
     has(urlPath, lan) {
         if (this.pages.has(urlPath)) {
-            if (!this.pages.get(urlPath).element.ja && !this.pages.get(urlPath).element.en) {
+            const page = this.pages.get(urlPath)
+            if (!page.element.ja && !page.element.en) {
                 return true
             }
-            return this.pages.get(urlPath).element[lan] !== undefined
+            
+            if (page.element[lan]) {
+                return !page.element.invisible
+            }
         }
         return false
     }
     
     // lan = ja or en
-    async get(urlPath, lan, signedIn = false, pageNum = false) {
-        return this.pages.get(urlPath).get(lan, signedIn, pageNum)
+    async get(urlPath, lan, options = {}) {
+        return this.pages.get(urlPath).get(lan, options)
     }
 
     contentType(urlPath) {

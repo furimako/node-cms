@@ -1,5 +1,4 @@
 const { MongoClient } = require('mongodb')
-const assert = require('assert')
 const { logging } = require('node-utils')
 
 const url = 'mongodb://localhost:27017'
@@ -15,31 +14,49 @@ module.exports = {
         return r
     },
     
-    async insert(collectionName, objs) {
+    async insertOne(collectionName, obj) {
         const r = await this._query(
             collectionName,
-            async (collection) => collection.insertMany(objs)
+            async (collection) => collection.insertOne(obj)
         )
-        assert.equal(objs.length, r.insertedCount)
-        logging.info(`    L inserted ${objs.length} document(s) (collection: ${collectionName})`)
+        logging.info(`    L inserted 1 document (collection: ${collectionName}, _id: ${r.insertedId})`)
+        return r
     },
     
-    async findLikeCount(urlPath) {
-        const likeCount = await this._query(
-            'likes',
-            async (collection) => collection.find({ urlPath }).count()
+    async count(collectionName, filterObj) {
+        const count = await this._query(
+            collectionName,
+            async (collection) => collection.find(filterObj).count()
         )
-        logging.info(`    L found ${likeCount} likeCount`)
-        return likeCount || 0
+        logging.info(`    L found ${count} count (collection: ${collectionName}, filterObj: ${JSON.stringify(filterObj)})`)
+        return count || 0
     },
     
-    async findComments(filterObj) {
-        const comments = await this._query(
-            'comments',
+    async findOne(collectionName, filterObj) {
+        const documentObj = await this._query(
+            collectionName,
+            async (collection) => collection.findOne(filterObj)
+        )
+        logging.info(`    L findOne (collection: ${collectionName}, filterObj: ${JSON.stringify(filterObj)}, documentObj: ${JSON.stringify(documentObj)})`)
+        return documentObj
+    },
+    
+    async find(collectionName, filterObj) {
+        const result = await this._query(
+            collectionName,
             async (collection) => collection.find(filterObj).toArray() || []
         )
-        logging.info(`    L found ${comments.length} comment(s)`)
-        return comments
+        logging.info(`    L found ${result.length} comment(s) (collection: ${collectionName}, filterObj: ${JSON.stringify(filterObj)})`)
+        return result
+    },
+    
+    async updateOne(collectionName, filterObj, setObj) {
+        const result = await this._query(
+            collectionName,
+            async (collection) => collection.updateOne(filterObj, { $set: setObj })
+        )
+        logging.info(`    L update 1 document (collection: ${collectionName}, filterObj: ${JSON.stringify(filterObj)}, matchedCount: ${result.matchedCount}, modifiedCount: ${result.modifiedCount})`)
+        return result
     },
     
     async findCountsForHome(lan) {
@@ -55,7 +72,7 @@ module.exports = {
                 { $group: { _id: '$urlPath', count: { $sum: 1 } } }
             ]).toArray()
         )
-        logging.info(`    L found ${likeCountObjs.length} likeCounts`)
+        logging.info(`    L found ${likeCountObjs.length} likeCounts (lan: ${lan})`)
         likeCountObjs.forEach((obj) => { summary.likeCount[obj._id] = obj.count })
             
         const commentCountObjs = await this._query(
@@ -65,7 +82,7 @@ module.exports = {
                 { $group: { _id: '$urlPath', count: { $sum: 1 } } }
             ]).toArray()
         )
-        logging.info(`    L found ${commentCountObjs.length} commentCounts`)
+        logging.info(`    L found ${commentCountObjs.length} commentCounts (lan: ${lan})`)
         commentCountObjs.forEach((obj) => { summary.commentCount[obj._id] = obj.count })
         return summary
     }

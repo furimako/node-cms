@@ -1,6 +1,6 @@
 const fs = require('fs')
 const mustache = require('mustache')
-const { JST } = require('node-utils')
+const { logging, JST } = require('node-utils')
 const BasePage = require('./base_page')
 const rooting = require('../../static/rooting')
 const mongodbDriver = require('../mongodb_driver')
@@ -31,7 +31,12 @@ module.exports = class HomePage extends BasePage {
         this.setView({ cssPath: '/css/styles-home.css' })
     }
     
-    async get(lan, signedIn, pageNum) {
+    async get(lan, options) {
+        logging.info(`    L lan: ${lan}, options: ${JSON.stringify(options)}`)
+        const {
+            pageNum, signedIn, registration, email
+        } = options
+        
         this.view.lan = { [lan]: true }
         this.view.title = this.title[lan]
         this.view.description = this.description[lan]
@@ -39,19 +44,25 @@ module.exports = class HomePage extends BasePage {
         this.view.signedIn = signedIn
         
         const summary = await mongodbDriver.findCountsForHome(lan)
-        const comments = await mongodbDriver.findComments({ urlPath: { $ne: '/temp' }, lan })
-        this._updateViewHome(pageNum, summary, comments, lan)
+        const comments = await mongodbDriver.find(
+            'comments',
+            { urlPath: { $ne: '/temp' }, lan }
+        )
+        this._updateViewHome(pageNum, summary, comments, lan, registration, email)
         
-        this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome)
-        return mustache.render(template, this.view)
+        this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome, this.partial)
+        return mustache.render(template, this.view, this.partial)
     }
     
-    _updateViewHome(pageNum, summary, comments, lan) {
+    _updateViewHome(pageNum, summary, comments, lan, registration, email) {
         this.viewHome = {
             world: [],
             story: []
         }
         this.viewHome.lan = { [lan]: true }
+        this.viewHome.registration = registration
+        this.viewHome.email = email
+
         rooting.forEach((v) => {
             v.elements.forEach((e) => {
                 if (v.styleInHome && e[lan]) {

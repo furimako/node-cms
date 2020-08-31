@@ -1,5 +1,6 @@
 const qs = require('querystring')
 const { parse } = require('url')
+const { ObjectId } = require('mongodb')
 const { logging } = require('node-utils')
 const mongodbDriver = require('./mongodb_driver')
 const Pages = require('./pages')
@@ -24,7 +25,6 @@ module.exports = class HttpsHandler {
                 // GET
                 if (req.method === 'GET') {
                     const signedIn = false
-                    const pageNum = parseInt(query.page, 10) || 1
                     let lan
                     if (urlPath.startsWith('/en/')) {
                         // English page
@@ -36,7 +36,59 @@ module.exports = class HttpsHandler {
                     }
                     
                     if (pages.has(urlPath, lan)) {
-                        const html = await pages.get(urlPath, lan, signedIn, pageNum)
+                        logging.info(`    L responsing GET page (urlPath: ${urlPath}, lan: ${lan})`)
+                        if (signedIn) {
+                            logging.info(`        L signedIn: ${signedIn}`)
+                        }
+                        if (query) {
+                            logging.info(`        L query: ${JSON.stringify(query)}`)
+                        }
+                        
+                        if (query.residentId) {
+                            const residentObj = await mongodbDriver.findOne(
+                                'registrations',
+                                { _id: ObjectId(query.residentId), residentStatus: 'PRE_REGISTERED' }
+                            )
+                            if (residentObj) {
+                                logging.info(`    L registered (residentId: ${query.residentId}, residentObj: ${JSON.stringify(residentObj)})`)
+                                
+                                await mongodbDriver.updateOne(
+                                    'registrations',
+                                    { _id: ObjectId(query.residentId) },
+                                    { residentStatus: 'REGISTERED', registeredDate: new Date() }
+                                )
+                                
+                                this.mailer.send({
+                                    from: '"Fully Hatter" <no-reply@furimako.com>',
+                                    to: residentObj.email,
+                                    subject: '住人登録が完了しました',
+                                    headers: {
+                                        'X-Mailjet-Campaign': 'Resident Registered',
+                                        // 'X-Mailjet-DeduplicateCampaign': true,
+                                        'X-MJ-TemplateLanguage': 1,
+                                        'X-MJ-TemplateID': 1658779,
+                                        'X-MJ-TemplateErrorReporting': 'furimako@gmail.com'
+                                    }
+                                })
+                                
+                                const html = await pages.get(urlPath, lan, {
+                                    pageNum: parseInt(query.page, 10) || 1,
+                                    signedIn,
+                                    registration: { REGISTERED: true },
+                                    email: residentObj.email
+                                })
+                                res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
+                                res.end(html)
+                                return
+                            }
+                        }
+                        
+                        const html = await pages.get(urlPath, lan, {
+                            pageNum: parseInt(query.page, 10) || 1,
+                            signedIn,
+                            registration: { [query.registration]: true },
+                            email: query.email
+                        })
                         res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
                         res.end(html)
                         return
@@ -56,14 +108,14 @@ module.exports = class HttpsHandler {
                         if (urlPath === '/post/like' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan)) {
                             logging.info(`    L like (lan: ${postData.lan}, urlPath: ${postData.urlPath})`)
                             
-                            const likeObjs = [{
+                            const likeObj = {
                                 urlPath: postData.urlPath,
-                                date: new Date(),
                                 lan: postData.lan,
+                                date: new Date(),
                                 ipAddress,
                                 userAgent
-                            }]
-                            await mongodbDriver.insert('likes', likeObjs)
+                            }
+                            await mongodbDriver.insertOne('likes', likeObj)
                             
                             res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}` })
                             res.end()
@@ -78,16 +130,16 @@ module.exports = class HttpsHandler {
                                 text: `urlPath: ${postData.urlPath}\nURL: ${this.url + ((postData.lan === 'en') ? '/en' : '') + postData.urlPath}`
                             })
                             
-                            const commentObjs = [{
+                            const commentObj = {
                                 urlPath: postData.urlPath,
-                                date: new Date(),
                                 name: postData.name,
                                 comment: postData.comment,
                                 lan: postData.lan,
+                                date: new Date(),
                                 ipAddress,
                                 userAgent
-                            }]
-                            await mongodbDriver.insert('comments', commentObjs)
+                            }
+                            await mongodbDriver.insertOne('comments', commentObj)
                             
                             res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}#comments-field` })
                             res.end()
@@ -105,6 +157,56 @@ module.exports = class HttpsHandler {
                             res.writeHead(302, { Location: `${urlPrefix}/` })
                             res.end()
                             return
+                        }
+                        
+                        // Resident Registration
+                        if (urlPath === '/post/register' && postData.key === 'furimako' && postData.email) {
+                            const residentObj = await mongodbDriver.findOne('registrations', { email: postData.email })
+                            const residentStatus = ((residentObj)) ? residentObj.residentStatus : 'NONE'
+                            logging.info(`    L resident registration (email: ${postData.email}, residentStatus: ${residentStatus})`)
+                            
+                            if (residentStatus === 'NONE') {
+                                const registrationObj = {
+                                    email: postData.email,
+                                    residentStatus: 'PRE_REGISTERED',
+                                    preRegisteredDate: new Date(),
+                                    ipAddress,
+                                    userAgent
+                                }
+                                const insertResult = await mongodbDriver.insertOne('registrations', registrationObj)
+                                
+                                this.mailer.send({
+                                    from: '"Fully Hatter" <no-reply@furimako.com>',
+                                    to: postData.email,
+                                    subject: '住人登録を完了してください',
+                                    headers: {
+                                        'X-Mailjet-Campaign': 'Resident Registration',
+                                        // 'X-Mailjet-DeduplicateCampaign': true,
+                                        'X-MJ-TemplateLanguage': 1,
+                                        'X-MJ-TemplateID': 1646405,
+                                        'X-MJ-Vars': `{ "confirmation_link": "https://${(process.env.NODE_ENV === 'production') ? 'furimako.com' : 'localhost:8129'}/?residentId=${insertResult.insertedId}" }`,
+                                        'X-MJ-TemplateErrorReporting': 'furimako@gmail.com'
+                                    }
+                                })
+                                
+                                res.writeHead(302, { Location: `/?registration=MAIL_SENT&email=${postData.email}` })
+                                res.end()
+                                return
+                            }
+                            
+                            if (residentStatus === 'PRE_REGISTERED') {
+                                res.writeHead(302, { Location: `/?registration=ALREADY_PRE_REGISTERED&email=${postData.email}` })
+                                res.end()
+                                return
+                            }
+                            
+                            if (residentStatus === 'REGISTERED') {
+                                res.writeHead(302, { Location: `/?registration=ALREADY_REGISTERED&email=${postData.email}` })
+                                res.end()
+                                return
+                            }
+                            
+                            throw new Error(`should not be here (residentStatus: ${residentStatus})`)
                         }
                         
                         // invalid POST
