@@ -20,6 +20,18 @@ module.exports = [
         class: 'MarkdownPage',
         filePathPrefix: './static/contents',
         filePathSuffix: '.md',
+        elements: [
+            {
+                urlPath: '/no-found',
+                ja: { title: 'No Found' },
+                invisible: true
+            }
+        ]
+    },
+    {
+        class: 'MarkdownPage',
+        filePathPrefix: './static/contents',
+        filePathSuffix: '.md',
         hasCommentsField: true,
         elements: [
             {
@@ -236,17 +248,6 @@ module.exports = [
         filePathPrefix: './static/contents',
         filePathSuffix: '.html',
         elements: [
-            {
-                urlPath: '/no-found',
-                ja: { title: 'No Found' }
-            },
-            // {
-            //     urlPath: '/login',
-            //     ja: {
-            //         title: 'ログイン',
-            //         description: '秘密の部屋の住人はこちらからログインしてください。'
-            //     }
-            // },
             {
                 urlPath: '/bookshelf/books',
                 ja: {

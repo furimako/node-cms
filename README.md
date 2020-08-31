@@ -103,7 +103,20 @@ tail logs/cron.log
 ```
 
 ## Test Cases
-- open every Japanese & English page (including 404 page)
-- click all links in every pages (including bottom navbar)
-- input every English page URL which should be invisible
-- request all POST
+- GET (open ALL Japanese & English pages)
+    - World / Story (1 page story & multiple pages story)
+    - bookshelf
+    - Board
+    - click all links in every pages (including bottom navbar)
+    - 404 page
+    - input every English page URL which should be invisible
+- POST (request ALL POST)
+    - like
+    - comment
+    - message
+    - resident registration
+        - pre-registration
+            - NONE
+            - PRE_REGISTERED
+            - REGISTERED
+        - registration

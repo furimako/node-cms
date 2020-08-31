@@ -12,6 +12,7 @@ const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const commentsFieldTemplate = fs.readFileSync('./static/template/comments-field.mustache', 'utf8')
 const paginationTemplate = fs.readFileSync('./static/template/pagination.mustache', 'utf8')
 const relatedPagesTemplate = fs.readFileSync('./static/template/related-pages.mustache', 'utf8')
+const residentRegistrationTemplate = fs.readFileSync('./static/template/resident-registration.mustache', 'utf8')
 
 module.exports = class BasePage {
     constructor({
@@ -22,9 +23,7 @@ module.exports = class BasePage {
         description,
         bodyHTML,
         hasCommentsField,
-        hasLikeButton,
-        hasRelatedPages,
-        needToBeShared
+        hasLikeButton
     }) {
         this.element = element
         this.urlPath = urlPath
@@ -34,11 +33,12 @@ module.exports = class BasePage {
         this.bodyHTML = bodyHTML
         this.hasCommentsField = hasCommentsField
         this.hasLikeButton = hasLikeButton
-        this.hasRelatedPages = hasRelatedPages
-        this.needToBeShared = needToBeShared
         
         // urlPathBase
         this.urlPathBase = element.urlPath
+        
+        // partials
+        this.partial = { residentRegistrationTemplate }
     }
     
     setView({ cssPath, titleWithDescription, chapter }) {
@@ -96,7 +96,7 @@ module.exports = class BasePage {
         
         if (this.hasLikeButton) {
             const urlPath = (this.element.numOfChapters) ? `${this.urlPathBase}-1` : this.urlPath
-            const likeCount = await mongodbDriver.findLikeCount(urlPath)
+            const likeCount = await mongodbDriver.count('likes', { urlPath })
             this.view.likeButton = { urlPath, likeStr: likeStr[lan], likeCount }
         }
         
@@ -108,11 +108,12 @@ module.exports = class BasePage {
     
     _getWithNoComments() {
         this.view.navbar = true
-        return mustache.render(template, this.view)
+        return mustache.render(template, this.view, this.partial)
     }
 
     async _getWithComments(lan) {
-        const commentsArray = await mongodbDriver.findComments(
+        const commentsArray = await mongodbDriver.find(
+            'comments',
             { urlPath: this.urlPath, lan }
         )
         // from oldest to latest
@@ -147,7 +148,7 @@ module.exports = class BasePage {
         this.view.commentsFieldHTML = commentsFieldHTML
         this.view.navbar = true
         this.view.hasComments = true
-        return mustache.render(template, this.view)
+        return mustache.render(template, this.view, this.partial)
     }
 }
 

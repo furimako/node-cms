@@ -1,5 +1,33 @@
 <section class="section">
     <div class="container">
+        {{#registration.MAIL_SENT}}
+        <div class="notification is-link is-light">
+            <a class="delete" href="/"></a>
+            {{email}} へ住人登録の確認メールを送付しました
+        </div>
+        {{/registration.MAIL_SENT}}
+        
+        {{#registration.ALREADY_PRE_REGISTERED}}
+        <div class="notification is-warning is-light">
+            <a class="delete" href="/"></a>
+            {{email}} にはすでに住人登録確認メールを送付しています<br>
+            (確認メールを再送したい方は、お手数ですが <strong><a onclick="openModal('messageModal')">こちら</a></strong> よりお問い合わせください)
+        </div>
+        {{/registration.ALREADY_PRE_REGISTERED}}
+        
+        {{#registration.ALREADY_REGISTERED}}
+        <div class="notification is-primary is-light">
+            <a class="delete" href="/"></a>
+            {{email}} はすでに住人登録が完了しています
+        </div>
+        {{/registration.ALREADY_REGISTERED}}
+        
+        {{#registration.REGISTERED}}
+        <div class="notification is-link">
+            <a class="delete" href="/"></a>
+            {{email}} の住人登録が完了しました
+        </div>
+        {{/registration.REGISTERED}}
         <p>
             {{#lan.ja}}
             秘密の部屋なのでこっそりのぞいてください。<br>
@@ -16,6 +44,10 @@
             Click <strong><a onclick="openModal('messageModal')">here</a></strong> for sending a message to Fully Hatter.
             {{/lan.en}}
         </p>
+        {{#lan.ja}}
+        <br><br>
+        {{> residentRegistrationTemplate}}
+        {{/lan.ja}}
     </div>
 </section>
 <section class="section">
@@ -206,40 +238,5 @@
             {{/lan.en}}
         </div>
     </div>
-    <button class="modal-close is-large" aria-label="close" onclick="closeModal('messageModal')"></button>
-</div>
-
-<!-- Message Modal page -->
-<div id="messageModal" class="modal">
-    <div class="modal-background" onclick="closeModal('messageModal')"></div>
-    <div class="modal-content">
-        <h2 class="title is-5">
-            {{#lan.ja}}Fully Hatter へのメッセージ{{/lan.ja}}
-            {{#lan.en}}Message to Fully Hatter{{/lan.en}}
-        </h2>
-        <p>
-            {{#lan.ja}}
-            お問い合わせ、お仕事依頼、応援メッセージ、苦情などなんでもどうぞ。<br>
-            プライバシーは最大限に尊重します。
-            {{/lan.ja}}
-            {{#lan.en}}
-            You can send a message to Fully Hatter.
-            {{/lan.en}}
-        </p>
-        <form method="post" action="/post/message">
-            <input type="hidden" name="key" value="furimako">
-            <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
-            <div class="field">
-                <div class="control is-small">
-                    <textarea class="textarea" name="message" placeholder="{{#lan.ja}}返事が欲しい方はお名前とメールアドレスをご記載ください{{/lan.ja}}{{#lan.en}}Tell me your name and e-mail address if you would like to get a reply from Fully Hatter.{{/lan.en}}" maxlength="2000" required></textarea>
-                </div>
-            </div>
-            <div class="field">
-                <div class="control">
-                    <button class="button is-primary">{{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}</button>
-                </div>
-            </div>
-        </form>
-    </div>
-    <button class="modal-close is-large" aria-label="close" onclick="closeModal('messageModal')"></button>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal('aboutModal')"></button>
 </div>
