@@ -33,7 +33,7 @@ const homeUrl = (env === 'production') ? 'https://furimako.com' : 'https://local
         mailer.send({
             subject: 'start-up server',
             text: `start-up server on ${homeUrl}\n\n`
-                + `pre-resident: ${numOfPreResident}`
+                + `pre-resident: ${numOfPreResident}\n`
                 + `resident: ${numOfResident}`
         })
     } else {
