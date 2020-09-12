@@ -60,8 +60,8 @@ module.exports = [
             {
                 urlPath: '/world/free-will',
                 ja: {
-                    title: '「自由意志」なんて存在しない、と思うあなたへ',
-                    description: '我々が完全に自由であることを証明しよう',
+                    title: '「自由意志」の存在を証明しよう',
+                    description: '「量子力学」の見地から我々が完全に自由であることを示す試み',
                     isNew: true
                 }
             },
@@ -69,7 +69,7 @@ module.exports = [
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
-                    description: '「フェミニズムなんてクソ喰らえ」だと思っている多くの男性へ',
+                    description: '「フェミニズムなんてクソ喰らえ」だと思っている(数多くの)男性向けフェミニズム入門',
                     isNew: true
                 }
             },
@@ -128,7 +128,7 @@ module.exports = [
                 urlPath: '/world/education',
                 ja: {
                     title: '理想の教育',
-                    description: '「歴史のテスト」を憎むすべての人へ'
+                    description: '我々が本当に学ぶべきことについて'
                 },
                 en: {
                     title: 'Ideal Education',
@@ -139,8 +139,8 @@ module.exports = [
             {
                 urlPath: '/world/grown-up',
                 ja: {
-                    title: '「大人」について',
-                    description: 'あなたは本当に「大人」ですか？ 我々が国家から自由になるために'
+                    title: 'あなたは本当に「大人」ですか？',
+                    description: '我々が人間として生きるために必要な条件について'
                 },
                 en: {
                     title: 'On Adulthood',
