@@ -1,25 +1,24 @@
 <div class="columns">
-  <div class="column is-half">
-      <div class="box">
-          <form method="post" action="/post/register">
-              <input type="hidden" name="key" value="furimako">
-              <div class="field">
-                  <label class="label is-small">
-                      「秘密の部屋の住人 (メール会員)」を募集中です。<br>
-                      新着情報などをたまにメールでお知らせします。<br>
-                      住人限定の「Fully Hatter のラジオ」も計画中。<br>
-                      (登録確認メールが届かない場合は <strong><a onclick="openModal('messageModal')">お問い合わせ</a></strong> ください)
-                  </label>
-                  <div class="control is-small" style="width: 250px;">
-                      <input class="input is-small" type="email" name="email" placeholder="sample@domain.com" maxlength="50" required>
-                  </div>
-              </div>
-              <div class="field">
-                  <div class="control">
-                      <button class="button is-small is-primary">メールアドレス登録</button>
-                  </div>
-              </div>
-          </form>
-      </div>
-  </div>
+    <div class="column is-half">
+        <div class="box">
+            <form method="post" action="/post/register">
+                <input type="hidden" name="key" value="furimako">
+                <div class="field">
+                    <label class="label is-small">
+                        現在「秘密の部屋の住人 (メール会員)」を募集しています。<br>
+                        新着情報などをたまにメールでお知らせします。住人限定の企画も計画中。<br>
+                        (<strong><a onclick="openModal('TOSModal')">利用規約</a></strong> と <strong><a onclick="openModal('privacyPolicyModal')">プライバシーポリシー</a></strong> をご確認ください)
+                    </label>
+                    <div class="control is-small" style="width: 250px;">
+                        <input class="input is-small" type="email" name="email" placeholder="sample@domain.com" maxlength="50" required>
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="control">
+                        <button class="button is-small is-primary">メールアドレス登録</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
 </div>
