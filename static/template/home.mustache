@@ -62,8 +62,8 @@
             秘密の部屋なのでこっそりのぞいてください。<br>
             <strong><a href="/world/your-goal">幸せ</a></strong> や <strong><a href="/world/freedom">自由</a></strong>、<strong><a href="/world/how-to-fail">人生</a></strong> について考えるあなたのためのページです。<br>
             <br>
-            このサイトについては <strong><a onclick="openModal('aboutModal')">こちら</a></strong>。<br>
-            Fully Hatter へのお問い合わせは <strong><a onclick="openModal('messageModal')">こちら</a></strong>。
+            このサイトについては <strong><a onclick="openModal('aboutModal')">こちら</a></strong><br>
+            Fully Hatter へのお問い合わせは <strong><a onclick="openModal('messageModal')">こちら</a></strong>
             {{/lan.ja}}
             {{#lan.en}}
             This website is for everyone who think seriously about life, <strong><a href="/en/world/your-goal">happiness</a></strong> or <strong><a href="/en/world/freedom">freedom</a></strong>.<br>
@@ -210,9 +210,9 @@
         </h2>
         <p>
             {{#lan.ja}}
-            Fully Hatterの人生を変えた本や映画などは <strong><a href="/bookshelf/books">こちら</a></strong>。
+            Fully Hatterの人生を変えた本や映画などは <strong><a href="/bookshelf/books">こちら</a></strong>
             <br>
-            掲示板は <strong><a href="/board">こちら</a></strong>。
+            掲示板は <strong><a href="/board">こちら</a></strong>
             {{/lan.ja}}
             {{#lan.en}}
             <!-- Click <strong><a href="/en/bookshelf/books">here</a></strong> for the bookshelf of Fully Hatter.
@@ -226,6 +226,7 @@
 <!-- About Modal page -->
 <div id="aboutModal" class="modal">
     <div class="modal-background" onclick="closeModal('aboutModal')"></div>
+    <button class="modal-close is-large" aria-label="close" onclick="closeModal('aboutModal')"></button>
     <div class="modal-content">
         <div class="content is-small">
             {{#lan.ja}}
@@ -247,7 +248,7 @@
                 <b>ふりまこ</b><br>
                 Fully Hatter の友達の友達。デジタル空間上の架空の人物。<br>
                 Twitter で変なことを呟くのが趣味。<br>
-                Twitter アカウントは <a target="_blank" href="https://twitter.com/furimako">こちら</a>。
+                Twitter アカウントは <a target="_blank" href="https://twitter.com/furimako">こちら</a>
             </p>
             {{/lan.ja}}
             {{#lan.en}}
@@ -267,5 +268,4 @@
             {{/lan.en}}
         </div>
     </div>
-    <button class="modal-close is-large" aria-label="close" onclick="closeModal('aboutModal')"></button>
 </div>
