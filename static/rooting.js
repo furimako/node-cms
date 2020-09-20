@@ -7,7 +7,7 @@ module.exports = [
                 urlPath: '/',
                 ja: {
                     title: 'Home',
-                    description: 'キミの知らない世界を見せよう。'
+                    description: 'キミの知らない世界を見せよう'
                 },
                 en: {
                     title: 'Home',
@@ -38,7 +38,7 @@ module.exports = [
                 urlPath: '/board',
                 ja: {
                     title: '掲示板',
-                    description: 'みんなの掲示板です。どなたでもご自由に書き込んでください。'
+                    description: 'みんなの掲示板です。どなたでもご自由に書き込んでください'
                 },
                 en: {
                     title: 'Board',
@@ -200,21 +200,21 @@ module.exports = [
                 urlPath: '/story/science-fiction/dear-you',
                 ja: {
                     title: '自由なキミへ',
-                    description: '[1話 完結] 一通の謎の手紙。拾ったのはあなた。'
+                    description: '[1話 完結] 一通の謎の手紙。拾ったのはあなた'
                 }
             },
             {
                 urlPath: '/story/mystery/nightmare',
                 ja: {
                     title: 'ナイトメア',
-                    description: '[1話 完結] 遊園地が舞台のちょっと怖いお話。'
+                    description: '[1話 完結] 遊園地が舞台のちょっと怖いお話'
                 }
             },
             {
                 urlPath: '/story/science-fiction/over-the-superposition',
                 ja: {
                     title: '量子の導き',
-                    description: '[全5話] そう遠くない未来、言語がひとつに統一された頃のお話。'
+                    description: '[全5話] そう遠くない未来、言語がひとつに統一された頃のお話'
                 },
                 numOfChapters: 5
             },
@@ -222,7 +222,7 @@ module.exports = [
                 urlPath: '/story/comedy/baby-s-suffering',
                 ja: {
                     title: '稚児の苦悩',
-                    description: '[全2話] 私は赤ちゃんである。'
+                    description: '[全2話] 私は赤ちゃんである'
                 },
                 numOfChapters: 2
             },
@@ -230,7 +230,7 @@ module.exports = [
                 urlPath: '/story/comedy/one-man',
                 ja: {
                     title: 'ひとり',
-                    description: '[全3話] 彗星の日に起こる不思議な出来事。'
+                    description: '[全3話] 彗星の日に起こる不思議な出来事'
                 },
                 numOfChapters: 3
             },
@@ -238,7 +238,7 @@ module.exports = [
                 urlPath: '/story/mystery/the-dark-and-cold-place',
                 ja: {
                     title: '暗くて寒い場所',
-                    description: '[1話 完結] 部屋の明かりが消せないある女性のお話。'
+                    description: '[1話 完結] 部屋の明かりが消せないある女性のお話'
                 }
             }
         ]
@@ -252,35 +252,35 @@ module.exports = [
                 urlPath: '/bookshelf/books',
                 ja: {
                     title: 'Fully Hatter の本棚',
-                    description: 'Fully Hatterの人生を変えた本をご紹介。'
+                    description: 'Fully Hatterの人生を変えた本をご紹介'
                 }
             },
             {
                 urlPath: '/bookshelf/movies',
                 ja: {
                     title: 'Fully Hatter の本棚',
-                    description: 'Fully Hatterのお気に入りの映画をご紹介。'
+                    description: 'Fully Hatterのお気に入りの映画をご紹介'
                 }
             },
             {
                 urlPath: '/bookshelf/comics',
                 ja: {
                     title: 'Fully Hatter の本棚',
-                    description: 'Fully Hatterが愛したマンガをご紹介。'
+                    description: 'Fully Hatterが愛したマンガをご紹介'
                 }
             },
             {
                 urlPath: '/bookshelf/ted',
                 ja: {
                     title: 'Fully Hatter の本棚',
-                    description: 'Fully Hatterに衝撃を与えたTED TALKをご紹介。'
+                    description: 'Fully Hatterに衝撃を与えたTED TALKをご紹介'
                 }
             },
             {
                 urlPath: '/bookshelf/links',
                 ja: {
                     title: 'Fully Hatter の本棚',
-                    description: 'Fully Hatterが感動したウェブサイトをご紹介。'
+                    description: 'Fully Hatterが感動したウェブサイトをご紹介'
                 }
             }
         ]
