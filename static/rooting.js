@@ -1,4 +1,3 @@
-
 module.exports = [
     {
         class: 'HomePage',
@@ -69,7 +68,7 @@ module.exports = [
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
-                    description: '「フェミニストなんてクソ喰らえ」だと思っている男性向けの、世界で唯一のフェミニズム入門',
+                    description: '「フェミニストなんてクソ喰らえ」と思う男性向けの、世界で唯一のフェミニズム入門',
                     isNew: true
                 }
             },
@@ -162,7 +161,7 @@ module.exports = [
                 urlPath: '/world/tips-for-your-life',
                 ja: {
                     title: '今を生きるためのちょっとしたヒント',
-                    description: '気をつけないと忘れてしまうこと。でもとっても大切なこと'
+                    description: '気をつけないと忘れてしまうこと、でもとっても大切なこと'
                 }
             },
             {
@@ -200,7 +199,7 @@ module.exports = [
                 urlPath: '/story/science-fiction/dear-you',
                 ja: {
                     title: '自由なキミへ',
-                    description: '[1話 完結] 一通の謎の手紙。拾ったのはあなた'
+                    description: '[1話 完結] 一通の謎の手紙、拾ったのはあなた'
                 }
             },
             {
