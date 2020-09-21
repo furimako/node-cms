@@ -60,8 +60,8 @@ module.exports = [
             {
                 urlPath: '/world/free-will',
                 ja: {
-                    title: '「自由意志」の存在を証明しよう',
-                    description: '「量子力学」の見地から我々が完全に自由であることを示す試み',
+                    title: '「自由意志」なんて存在しないと思うあなたへ',
+                    description: '「量子力学」の見地から、我々が完全に自由であることを証明しよう',
                     isNew: true
                 }
             },
@@ -69,7 +69,7 @@ module.exports = [
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
-                    description: '「フェミニズムなんてクソ喰らえ」だと思っている(数多くの)男性向けフェミニズム入門',
+                    description: '「フェミニストなんてクソ喰らえ」だと思っている男性向けの、世界で唯一のフェミニズム入門',
                     isNew: true
                 }
             },
@@ -83,7 +83,7 @@ module.exports = [
             {
                 urlPath: '/world/how-to-fail',
                 ja: {
-                    title: '人生で「失敗」するには',
+                    title: '人生で失敗するには',
                     description: '「失敗」するために生きている多くの人々へ'
                 },
                 en: {
