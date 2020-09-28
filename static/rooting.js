@@ -77,6 +77,11 @@ module.exports = [
                 ja: {
                     title: '幸せに生きるために',
                     description: '幸せに生きるには「死ぬ覚悟」が必要なのではないか、というお話'
+                },
+                en: {
+                    title: 'Death for Life',
+                    description: 'Being Prepared to Die To Make Your Life Happier',
+                    isNew: true
                 }
             },
             {
@@ -87,8 +92,7 @@ module.exports = [
                 },
                 en: {
                     title: 'Tips for Becoming Total Failure in Your Life',
-                    description: 'To Those of You Who Are Striving to Fail',
-                    isNew: true
+                    description: 'To Those of You Who Are Striving to Fail'
                 }
             },
             {
@@ -112,7 +116,7 @@ module.exports = [
                     description: 'あなたが本当に目指すべきものについて'
                 },
                 en: {
-                    title: 'Never Aim For Becoming "Number One"',
+                    title: 'Never Aim for Becoming "Number One"',
                     description: 'What We Really Should Go After'
                 }
             },
@@ -131,8 +135,7 @@ module.exports = [
                 },
                 en: {
                     title: 'Ideal Education',
-                    description: 'To Everyone Who Hates History Exams',
-                    isNew: true
+                    description: 'To Everyone Who Hates History Exams'
                 }
             },
             {
