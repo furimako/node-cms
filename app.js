@@ -3,7 +3,7 @@ const http = require('http')
 const https = require('https')
 const { parse } = require('url')
 const nodeUtils = require('node-utils')
-const HttpsHandler = require('./src/https_handler')
+const HttpsHandler = require('./src/https-handler/main')
 const mongodbDriver = require('./src/mongodb_driver')
 const smtpConfig = require('./configs/smtp-config')
 
