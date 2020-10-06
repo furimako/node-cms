@@ -47,7 +47,8 @@ module.exports = async function get(req, res, options) {
         if (residentObj) {
             logging.info(`    L registered (residentId: ${query.residentId}, residentObj: ${JSON.stringify(residentObj)})`)
             
-            await mongodbDriver.updateOne(
+            // async
+            mongodbDriver.updateOne(
                 'registrations',
                 { _id: ObjectId(query.residentId) },
                 { residentStatus: 'REGISTERED', registeredDate: new Date() }
