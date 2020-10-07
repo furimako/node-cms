@@ -106,19 +106,19 @@ module.exports = async function post(req, res, options) {
                     }
                 })
                 
-                res.writeHead(302, { Location: `/?registration=MAIL_SENT&email=${postData.email}` })
+                res.writeHead(302, { Location: `/?registration=MAIL_SENT&email=${qs.escape(postData.email)}` })
                 res.end()
                 return
             }
             
             if (residentStatus === 'PRE_REGISTERED') {
-                res.writeHead(302, { Location: `/?registration=ALREADY_PRE_REGISTERED&email=${postData.email}` })
+                res.writeHead(302, { Location: `/?registration=ALREADY_PRE_REGISTERED&email=${qs.escape(postData.email)}` })
                 res.end()
                 return
             }
             
             if (residentStatus === 'REGISTERED') {
-                res.writeHead(302, { Location: `/?registration=ALREADY_REGISTERED&email=${postData.email}` })
+                res.writeHead(302, { Location: `/?registration=ALREADY_REGISTERED&email=${qs.escape(postData.email)}` })
                 res.end()
                 return
             }
