@@ -16,8 +16,9 @@
         "bulma": "^0.8.2",
         "cookie": "^0.4.1",
         "marked": "^0.7.0",
-        "mongodb": "^3.5.9",
+        "mongodb": "^3.6.2",
         "mustache": "^3.2.1",
+        "node-mailjet": "^3.3.1",
         "node-sass": "^4.14.1",
         "node-utils": "file:../node-utils"
     }
