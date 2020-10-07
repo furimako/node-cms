@@ -1,9 +1,12 @@
 const { parse } = require('url')
 const { ObjectId } = require('mongodb')
 const { logging } = require('node-utils')
+const nmailjet = require('node-mailjet')
 const mongodbDriver = require('../mongodb_driver')
 const Pages = require('../pages')
+const mailjetConfig = require('../../configs/mailjet-config')
 
+const mailjet = nmailjet.connect(mailjetConfig.MJ_APIKEY_PUBLIC, mailjetConfig.MJ_APIKEY_PRIVATE)
 const pages = new Pages()
 
 module.exports = async function get(req, res, options) {
@@ -66,6 +69,8 @@ module.exports = async function get(req, res, options) {
                     'X-MJ-TemplateErrorReporting': 'furimako@gmail.com'
                 }
             })
+
+            _addContactToList(residentObj.email, mailer)
             
             const html = await pages.get(urlPath, lan, {
                 pageNum: parseInt(query.page, 10) || 1,
@@ -106,4 +111,22 @@ module.exports = async function get(req, res, options) {
     })
     res.writeHead(200, { 'Content-Type': pages.contentType(urlPath) })
     res.end(html)
+}
+
+function _addContactToList(email, mailer) {
+    const addToListRequest = mailjet
+        .post('listrecipient', { version: 'v3' })
+        .request({ ContactAlt: email, ListID: '10246915' })
+    addToListRequest
+        .then((addToListResult) => {
+            logging.info(`contact added to list (addToListResult: ${JSON.stringify(addToListResult.body.Data)}`)
+        })
+        .catch((err) => {
+            logging.error(`addToListRequest error (err.statusCode: ${err.statusCode})`)
+            logging.error(`addToListRequest error (err.ErrorMessage: ${err.ErrorMessage})`)
+            mailer.send({
+                subject: 'ERROR',
+                text: `addToListRequest error (err.statusCode: ${err.statusCode})\n${err.ErrorMessage}`
+            })
+        })
 }
