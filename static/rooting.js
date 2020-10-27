@@ -70,6 +70,11 @@ module.exports = [
                     title: '「自称フェミニスト」の叩き潰し方',
                     description: '「フェミニストなんてクソ喰らえ」と思う男性向けの、世界で唯一のフェミニズム入門',
                     isNew: true
+                },
+                en: {
+                    title: 'How to Beat Up "Self-Proclaimed" Feminists',
+                    description: 'The One and Only Introduction to Feminism For Those Who Think Feminism is Horsecrap',
+                    isNew: true
                 }
             },
             {
