@@ -80,8 +80,8 @@ module.exports = [
             {
                 urlPath: '/world/death-for-life',
                 ja: {
-                    title: '幸せに生きるために',
-                    description: '幸せに生きるには「死ぬ覚悟」が必要なのではないか、というお話'
+                    title: '幸せに生きるには「死ぬ覚悟」が必要である、というお話',
+                    description: '認知症のおばあちゃんとの会話から見えてきた、「幸せ」になるための条件について'
                 },
                 en: {
                     title: 'Death for Life',
@@ -92,7 +92,7 @@ module.exports = [
             {
                 urlPath: '/world/how-to-fail',
                 ja: {
-                    title: '人生で失敗するには',
+                    title: '人生で失敗する方法',
                     description: '「失敗」するために生きている多くの人々へ'
                 },
                 en: {
@@ -103,15 +103,15 @@ module.exports = [
             {
                 urlPath: '/world/nation',
                 ja: {
-                    title: '理想の国家',
-                    description: 'ベーシックインカムで、世界中の誰もが「本当にやりたいこと」のできる世界へ'
+                    title: '「もう人間は働かなくてもいい」という主張',
+                    description: 'ベーシック・インカムから見る「理想の国家」の姿について'
                 }
             },
             {
                 urlPath: '/world/reward',
                 ja: {
-                    title: '成果主義について',
-                    description: '「できる人」にはお金を与えるべきだろうか？'
+                    title: '「できる人」には報酬を与えるべきか？',
+                    description: '多くの人が見落としている「成果主義」の落とし穴について'
                 }
             },
             {
@@ -128,15 +128,15 @@ module.exports = [
             {
                 urlPath: '/world/philosophy',
                 ja: {
-                    title: '哲学は無意味である (仮)',
+                    title: '哲学が無意味であることの証明',
                     description: '「この世界はどうして存在するのだろう？」私が答えましょう'
                 }
             },
             {
                 urlPath: '/world/education',
                 ja: {
-                    title: '理想の教育',
-                    description: '我々が本当に学ぶべきことについて'
+                    title: '我々が本当に学ぶべきことは何だろうか？',
+                    description: '「歴史」から見る「理想の教育」の真の姿について'
                 },
                 en: {
                     title: 'Ideal Education',
@@ -175,8 +175,8 @@ module.exports = [
             {
                 urlPath: '/world/happiness',
                 ja: {
-                    title: 'あなたにとっての「幸せ」は？',
-                    description: '「幸せ」の定義を科学しよう'
+                    title: '「幸せ」の定義を科学しよう',
+                    description: 'あなたの「幸せ」はどんな形をしていますか？'
                 },
                 en: {
                     title: 'What is Hapiness for You?',
