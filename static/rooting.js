@@ -68,7 +68,7 @@ module.exports = [
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
-                    description: '「フェミニストなんてクソ喰らえ」と思う男性向けの、世界で唯一のフェミニズム入門',
+                    description: '「フェミニストなんてクソ喰らえ」だと思う男性向けのフェミニズム入門',
                     isNew: true
                 },
                 en: {
@@ -81,7 +81,7 @@ module.exports = [
                 urlPath: '/world/death-for-life',
                 ja: {
                     title: '幸せに生きるには「死ぬ覚悟」が必要である、というお話',
-                    description: '認知症のおばあちゃんとの会話から見えてきた、「幸せ」になるための条件について'
+                    description: '認知症のおばあちゃんとの会話から見えてきた「幸せ」になるための条件について'
                 },
                 en: {
                     title: 'Death for Life',
@@ -104,7 +104,7 @@ module.exports = [
                 urlPath: '/world/nation',
                 ja: {
                     title: '「もう人間は働かなくてもいい」という主張',
-                    description: 'ベーシック・インカムから見る「理想の国家」の姿について'
+                    description: 'ベーシックインカムから見る「理想の国家」の姿について'
                 }
             },
             {
