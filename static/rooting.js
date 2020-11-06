@@ -117,7 +117,7 @@ module.exports = [
             {
                 urlPath: '/world/ideal-way-to-live-life',
                 ja: {
-                    title: '一番を目指してはいけない',
+                    title: '「一番」を目指してはいけない',
                     description: 'あなたが本当に目指すべきものについて'
                 },
                 en: {
