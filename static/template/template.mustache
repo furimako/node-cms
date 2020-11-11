@@ -1,6 +1,23 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head prefix="og: http://ogp.me/ns#">
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+    <script>
+        function onSubmitLike(token) {
+            document.getElementById("like-form").submit();
+        }
+        function onSubmitComment(token) {
+            document.getElementById("comment-form").submit();
+        }
+        function onSubmitMessage(token) {
+            document.getElementById("message-form").submit();
+        }
+        function onSubmitRegister(token) {
+            document.getElementById("register-form").submit();
+        }
+    </script>
+
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-103228670-1"></script>
     <script>
@@ -101,10 +118,11 @@
                             {{/keywordTag}}
                             {{#likeButton}}
                             <div class="level-item">
-                                <form method="post" action="/post/like">
+                                <form id="like-form" method="post" action="/post/like">
                                     <input type="hidden" name="key" value="furimako">
+                                    <input type="hidden" name="urlPath" value="{{urlPath}}">
                                     <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
-                                    <button class="button is-small is-primary is-outlined is-rounded" name="urlPath" value="{{urlPath}}">
+                                    <button class="g-recaptcha button is-small is-primary is-outlined is-rounded" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS" data-callback="onSubmitLike">
                                         {{likeStr}} {{likeCount}}
                                     </button>
                                 </form>
@@ -277,7 +295,7 @@
             You can send a message to Fully Hatter.
             {{/lan.en}}
         </p>
-        <form method="post" action="/post/message">
+        <form id="message-form" method="post" action="/post/message">
             <input type="hidden" name="key" value="furimako">
             <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
             <div class="field">
@@ -287,7 +305,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <button class="button is-primary">{{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}</button>
+                    <button class="g-recaptcha button is-primary" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS" data-callback="onSubmitMessage">{{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}</button>
                 </div>
             </div>
         </form>

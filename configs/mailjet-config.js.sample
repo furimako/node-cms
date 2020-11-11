@@ -1,4 +1,0 @@
-module.exports = {
-    MJ_APIKEY_PUBLIC: 'input public-key here',
-    MJ_APIKEY_PRIVATE: 'input private-key here'
-}

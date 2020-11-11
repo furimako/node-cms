@@ -1,8 +1,7 @@
 .DS_Store
 /node_modules
 /mongodb_data
-/configs/smtp-config.js
-/configs/mailjet-config.js
+/configs/configs.js
 /logs/**/*.log
 /logs/dumps/**/*.json
 /logs/dumps/**/*.bson
