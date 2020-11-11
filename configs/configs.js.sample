@@ -1,0 +1,14 @@
+module.exports = {
+    smtp: {
+        host: 'in-v3.mailjet.com',
+        user: 'input user here',
+        pass: 'input API-Key here'
+    },
+    mailjet: {
+        MJ_APIKEY_PUBLIC: 'input public-key here',
+        MJ_APIKEY_PRIVATE: 'input private-key here'
+    },
+    reCAPTCHA: {
+        secret: 'input secret-key here'
+    }
+}

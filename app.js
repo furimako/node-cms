@@ -5,7 +5,7 @@ const { parse } = require('url')
 const nodeUtils = require('node-utils')
 const HttpsHandler = require('./src/https-handler/main')
 const mongodbDriver = require('./src/mongodb_driver')
-const smtpConfig = require('./configs/smtp-config')
+const smtpConfig = require('./configs/configs').smtp
 
 const { logging } = nodeUtils
 const mailer = nodeUtils.createMailer(

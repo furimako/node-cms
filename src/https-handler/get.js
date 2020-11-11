@@ -4,7 +4,7 @@ const { logging } = require('node-utils')
 const nmailjet = require('node-mailjet')
 const mongodbDriver = require('../mongodb_driver')
 const Pages = require('../pages')
-const mailjetConfig = require('../../configs/mailjet-config')
+const mailjetConfig = require('../../configs/configs').mailjet
 
 const mailjet = nmailjet.connect(mailjetConfig.MJ_APIKEY_PUBLIC, mailjetConfig.MJ_APIKEY_PRIVATE)
 const pages = new Pages()
