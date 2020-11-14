@@ -41,7 +41,8 @@ module.exports = {
         targets: [
             '/world/happiness',
             '/world/philosophy',
-            '/world/free-will'
+            '/world/free-will',
+            '/world/mental-illness'
         ]
     },
     nation: {

@@ -57,19 +57,25 @@ module.exports = [
         needToBeShared: true,
         elements: [
             {
+                urlPath: '/world/mental-illness',
+                ja: {
+                    title: '「精神病」は実在するか？',
+                    description: '製薬業界の 4つの嘘を暴く (住人への手紙 2通目より)',
+                    isNew: true
+                }
+            },
+            {
                 urlPath: '/world/free-will',
                 ja: {
                     title: '「自由意志」なんて存在しないと思うあなたへ',
-                    description: '「量子力学」の見地から、我々が完全に自由であることを証明しよう',
-                    isNew: true
+                    description: '「量子力学」の見地から、我々が完全に自由であることを証明しよう'
                 }
             },
             {
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
-                    description: '「フェミニストなんてクソ喰らえ」だと思う男性向けのフェミニズム入門',
-                    isNew: true
+                    description: '「フェミニストなんてクソ喰らえ」だと思う男性向けのフェミニズム入門'
                 },
                 en: {
                     title: 'How to Beat Up "Self-Proclaimed" Feminists',
@@ -311,6 +317,10 @@ module.exports = [
         class: 'ContentPage',
         filePathPrefix: './static',
         elements: [
+            {
+                urlPath: '/images/world/mental-illness_IQ-distribution.png',
+                ja: true
+            },
             {
                 urlPath: '/images/background-image.jpg',
                 ja: true
