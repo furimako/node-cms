@@ -62,7 +62,9 @@ module.exports = class BasePage {
             titleWithDescription,
             paginationHTML,
             isMultilingual: this.title.ja && this.title.en,
-            needToBeShared: this.needToBeShared
+            needToBeShared: this.needToBeShared,
+            registerFormMain: { registerFormId: 'registerMain' },
+            registerFormFooter: { registerFormId: 'registerFooter' }
         }
     }
     

@@ -1,7 +1,7 @@
 <div class="columns">
     <div class="column is-half">
         <div class="box">
-            <form id="register-form" method="post" action="/post/register">
+            <form id="{{registerFormId}}" method="post" action="/post/register">
                 <input type="hidden" name="key" value="furimako">
                 <div class="field">
                     <label class="label is-small">
@@ -14,7 +14,7 @@
                 </div>
                 <div class="field">
                     <div class="control">
-                        <button class="g-recaptcha button is-small is-primary" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS" data-callback="onSubmitRegister">住人登録確認メールを受け取る</button>
+                        <button class="g-recaptcha button is-small is-primary" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS" data-callback="{{registerFormId}}OnSubmit">住人登録確認メールを受け取る</button>
                     </div>
                     <p class="help">
                         <br>
@@ -26,3 +26,8 @@
         </div>
     </div>
 </div>
+<script>
+    function {{registerFormId}}OnSubmit(token) {
+        document.getElementById("{{registerFormId}}").submit();
+    }
+</script>
