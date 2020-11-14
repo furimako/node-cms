@@ -1,4 +1,3 @@
-
 module.exports = {
     hapiness: {
         ja: '幸せ',
