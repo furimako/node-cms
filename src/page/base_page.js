@@ -72,23 +72,12 @@ module.exports = class BasePage {
     
     // HTMLPage, MarkdownPage
     async get() {
-        if (this.hasRelatedPages && this.lan === 'ja') {
-            this.view.keywordTag = _getKeywordTag(this.urlPath, this.lan)
-            this.view.relatedPages = _getRelatedPages(
-                this.view.keywordTag.tagItems.map((tagObj) => tagObj.tagId),
-                this.urlPath,
-                this.lan
-            )
-            this.view.relatedPages2 = _getRelatedPages(
-                this.view.keywordTag.tagItems.map((tagObj) => tagObj.tagId),
-                this.urlPath,
-                this.lan,
-                true
-            )
-        } else {
-            this.view.keywordTag = ''
-            this.view.relatedPages = ''
-            this.view.relatedPages2 = ''
+        if (this.hasRelatedPages) {
+            const relatedPagesView = _getRelatedPagesView(this.urlPath, this.lan)
+            const relatedPagesView2 = _getRelatedPagesView(this.urlPath, this.lan, true)
+            this.view.keywordTag = relatedPagesView
+            this.view.relatedPages = mustache.render(relatedPagesTemplate, relatedPagesView)
+            this.view.relatedPages2 = mustache.render(relatedPagesTemplate, relatedPagesView2)
         }
         
         if (this.hasLikeButton) {
@@ -149,28 +138,46 @@ module.exports = class BasePage {
     }
 }
 
-function _getKeywordTag(urlPath, lan) {
-    const keywordTag = { tagItems: [] }
+function _getCorrespondingTags(urlPath) {
+    const correspondingTags = []
     Object.keys(tags).forEach((key) => {
         tags[key].targets.forEach((target) => {
-            if (target === urlPath) {
-                keywordTag.tagItems.push({
-                    tagName: (lan === 'ja') ? tags[key].ja : key,
-                    tagId: key
-                })
+            if (urlPath === target) {
+                correspondingTags.push(key)
             }
         })
     })
-    return keywordTag
+    return correspondingTags
 }
 
-function _getRelatedPages(correspondingTags, thisUrlPath, lan, second = false) {
+function _getRelatedPagesView(thisUrlPath, lan, second = false) {
+    const correspondingTags = _getCorrespondingTags(thisUrlPath)
     if (correspondingTags.length === 0) {
         return ''
     }
-    const view = { tags: [] }
+
+    // relatedPagesView = {
+    //     tags: [{
+    //         tagName: '幸せ',
+    //         tagId: 'happiness',
+    //         targets: [
+    //             { urlPath, title, description, headHTML, footHTML },
+    //             { urlPath, title, description, headHTML, footHTML }
+    //         ]
+    //     }]
+    // }
+    const relatedPagesView = {
+        lan: { [lan]: true },
+        tags: []
+    }
     Object.keys(tags).forEach((key) => {
         if (!correspondingTags.includes(key)) {
+            return
+        }
+        const targetUrlPaths = tags[key].targets.filter(
+            (urlPath) => urlPath !== thisUrlPath && _hasPage(urlPath, lan)
+        )
+        if (targetUrlPaths.length === 0) {
             return
         }
         
@@ -180,7 +187,6 @@ function _getRelatedPages(correspondingTags, thisUrlPath, lan, second = false) {
             targets: []
         }
         
-        const targetUrlPaths = tags[key].targets.filter((urlPath) => urlPath !== thisUrlPath)
         for (let i = 0; i < targetUrlPaths.length; i += 1) {
             const urlPath = targetUrlPaths[i]
             const descriptions = _getDescriptions(urlPath, lan)
@@ -198,17 +204,17 @@ function _getRelatedPages(correspondingTags, thisUrlPath, lan, second = false) {
             }
             
             tag.targets.push({
-                urlPath,
+                urlPath: ((lan === 'en') ? '/en' : '') + urlPath,
                 title: descriptions.title,
                 description: descriptions.description,
                 headHTML,
                 footHTML
             })
         }
-        view.tags.push(tag)
+        relatedPagesView.tags.push(tag)
     })
     
-    return mustache.render(relatedPagesTemplate, view)
+    return relatedPagesView
 }
 
 function _getDescriptions(urlPath, lan) {
@@ -226,4 +232,16 @@ function _getDescriptions(urlPath, lan) {
         })
     })
     return descriptions
+}
+
+function _hasPage(urlPath, lan) {
+    let pageExist = false
+    rooting.forEach((v) => {
+        v.elements.forEach((e) => {
+            if (e.urlPath === urlPath) {
+                pageExist = e[lan]
+            }
+        })
+    })
+    return pageExist
 }

@@ -2,7 +2,10 @@
 <section class="section">
     <div class="container">
         {{#tags}}
-        <h2 class="title is-5" id="{{tagId}}">「{{tagName}}」に関連するページ</h2>
+        <h2 class="title is-5" id="{{tagId}}">
+            {{#lan.ja}}「{{tagName}}」に関連するページ{{/lan.ja}}
+            {{#lan.en}}Related to "{{tagName}}"{{/lan.en}}
+        </h2>
         <div class="columns">
             {{#targets}}
             {{{headHTML}}}
