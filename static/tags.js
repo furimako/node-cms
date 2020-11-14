@@ -13,7 +13,6 @@ module.exports = {
         targets: [
             '/world/your-goal',
             '/world/tips-for-your-life',
-            '/world/freedom',
             '/world/ideal-way-to-live-life',
             '/world/how-to-fail',
             '/world/death-for-life',
@@ -25,7 +24,8 @@ module.exports = {
         targets: [
             '/world/freedom',
             '/world/grown-up',
-            '/world/nation'
+            '/world/nation',
+            '/world/free-will'
         ]
     },
     philosophy: {
@@ -34,7 +34,15 @@ module.exports = {
             '/world/your-goal',
             '/world/happiness',
             '/world/philosophy',
-            '/world/death-for-life'
+            '/world/free-will'
+        ]
+    },
+    science: {
+        ja: '科学',
+        targets: [
+            '/world/happiness',
+            '/world/philosophy',
+            '/world/free-will'
         ]
     },
     nation: {
