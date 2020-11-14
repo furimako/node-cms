@@ -297,11 +297,13 @@ module.exports = [
         elements: [
             {
                 urlPath: '/css/styles-home.css',
-                filePath: './static/scss/styles-home.scss'
+                filePath: './static/scss/styles-home.scss',
+                ja: true
             },
             {
                 urlPath: '/css/styles-others.css',
-                filePath: './static/scss/styles-others.scss'
+                filePath: './static/scss/styles-others.scss',
+                ja: true
             }
         ]
     },
@@ -309,17 +311,50 @@ module.exports = [
         class: 'ContentPage',
         filePathPrefix: './static',
         elements: [
-            { urlPath: '/images/background-image.jpg' },
-            { urlPath: '/images/background-image-og.jpg' },
-            { urlPath: '/images/icons/favicon_192x192.png' },
-            { urlPath: '/images/icons/person.png' },
-            { urlPath: '/images/story/science-fiction/dear-you.jpg' },
-            { urlPath: '/images/story/science-fiction/over-the-superposition.jpg' },
-            { urlPath: '/images/story/mystery/nightmare.jpg' },
-            { urlPath: '/images/story/mystery/the-dark-and-cold-place.jpg' },
-            { urlPath: '/images/story/comedy/baby-s-suffering.jpg' },
-            { urlPath: '/images/story/comedy/one-man.jpg' },
-            { urlPath: '/js/client.js' }
+            {
+                urlPath: '/images/background-image.jpg',
+                ja: true
+            },
+            {
+                urlPath: '/images/background-image-og.jpg',
+                ja: true
+            },
+            {
+                urlPath: '/images/icons/favicon_192x192.png',
+                ja: true
+            },
+            {
+                urlPath: '/images/icons/person.png',
+                ja: true
+            },
+            {
+                urlPath: '/images/story/science-fiction/dear-you.jpg',
+                ja: true
+            },
+            {
+                urlPath: '/images/story/science-fiction/over-the-superposition.jpg',
+                ja: true
+            },
+            {
+                urlPath: '/images/story/mystery/nightmare.jpg',
+                ja: true
+            },
+            {
+                urlPath: '/images/story/mystery/the-dark-and-cold-place.jpg',
+                ja: true
+            },
+            {
+                urlPath: '/images/story/comedy/baby-s-suffering.jpg',
+                ja: true
+            },
+            {
+                urlPath: '/images/story/comedy/one-man.jpg',
+                ja: true
+            },
+            {
+                urlPath: '/js/client.js',
+                ja: true
+            }
         ]
     }
 ]

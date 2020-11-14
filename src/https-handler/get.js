@@ -12,26 +12,24 @@ const pages = new Pages()
 module.exports = async function get(req, res, options) {
     const { mailer } = options
 
-    let urlPath = parse(req.url).pathname
+    const urlPath = parse(req.url).pathname
     const { query } = parse(req.url, true)
     const ipAddress = req.headers['x-forwarded-for'] || req.connection.remoteAddress
     logging.info(`    L url: ${urlPath}, IP Address: ${ipAddress}`)
 
-    const signedIn = false
     let lan
     if (urlPath.startsWith('/en/')) {
         // English page
         lan = 'en'
-        urlPath = urlPath.slice(3)
     } else {
         // Japanese page
         lan = 'ja'
     }
     
-    if (!pages.has(urlPath, lan)) {
+    if (!pages.has(urlPath)) {
         // When pages no found
         logging.info('    L responsing no-found page')
-        const html = await pages.get('/no-found', 'ja')
+        const html = await pages.get('/no-found')
         res.writeHead(404, { 'Content-Type': 'text/html' })
         res.end(html)
         return
@@ -72,9 +70,8 @@ module.exports = async function get(req, res, options) {
 
             _addContactToList(residentObj.email, mailer)
             
-            const html = await pages.get(urlPath, lan, {
+            const html = await pages.get(urlPath, {
                 pageNum: parseInt(query.page, 10) || 1,
-                signedIn,
                 registration: { REGISTERED: true },
                 email: residentObj.email
             })
@@ -102,9 +99,8 @@ module.exports = async function get(req, res, options) {
         messageSent = query.messageSent
     }
     
-    const html = await pages.get(urlPath, lan, {
+    const html = await pages.get(urlPath, {
         pageNum: parseInt(query.page, 10) || 1,
-        signedIn,
         registration,
         email,
         messageSent

@@ -16,21 +16,17 @@ const residentRegistrationTemplate = fs.readFileSync('./static/template/resident
 
 module.exports = class BasePage {
     constructor({
+        lan,
         element,
         urlPath,
         contentType,
-        title,
-        description,
-        bodyHTML,
         hasCommentsField,
         hasLikeButton
     }) {
+        this.lan = lan
         this.element = element
         this.urlPath = urlPath
         this.contentType = contentType
-        this.title = title
-        this.description = description
-        this.bodyHTML = bodyHTML
         this.hasCommentsField = hasCommentsField
         this.hasLikeButton = hasLikeButton
         
@@ -41,7 +37,9 @@ module.exports = class BasePage {
         this.partial = { residentRegistrationTemplate }
     }
     
-    setView({ cssPath, titleWithDescription, chapter }) {
+    setView({
+        cssPath, isMultilingual, bodyHTML, titleWithDescription, chapter
+    }) {
         let paginationHTML
         if (this.element.numOfChapters && chapter) {
             const paginationView = { pagination: [] }
@@ -54,14 +52,18 @@ module.exports = class BasePage {
             }
             paginationHTML = mustache.render(paginationTemplate, paginationView)
         }
-        
         this.view = {
+            lan: { [this.lan]: true },
+            title: this.element[this.lan].title + ((chapter) ? ` ${parseInt(chapter, 10)}` : ''),
+            description: this.element[this.lan].description,
+            bodyHTML,
+            isNew: this.element[this.lan].isNew,
             url: `${url + this.urlPath}`,
             urlPath: this.urlPath,
             cssPath,
             titleWithDescription,
             paginationHTML,
-            isMultilingual: this.title.ja && this.title.en,
+            isMultilingual,
             needToBeShared: this.needToBeShared,
             registerFormMain: { registerFormId: 'registerMain' },
             registerFormFooter: { registerFormId: 'registerFooter' }
@@ -69,25 +71,18 @@ module.exports = class BasePage {
     }
     
     // HTMLPage, MarkdownPage
-    async get(lan, signedIn) {
-        this.view.lan = { [lan]: true }
-        this.view.title = this.title[lan]
-        this.view.description = this.description[lan]
-        this.view.bodyHTML = this.bodyHTML[lan]
-        this.view.isNew = this.element[lan].isNew
-        this.view.signedIn = signedIn
-        
-        if (this.hasRelatedPages && lan === 'ja') {
-            this.view.keywordTag = _getKeywordTag(this.urlPath, lan)
+    async get() {
+        if (this.hasRelatedPages && this.lan === 'ja') {
+            this.view.keywordTag = _getKeywordTag(this.urlPath, this.lan)
             this.view.relatedPages = _getRelatedPages(
                 this.view.keywordTag.tagItems.map((tagObj) => tagObj.tagId),
                 this.urlPath,
-                lan
+                this.lan
             )
             this.view.relatedPages2 = _getRelatedPages(
                 this.view.keywordTag.tagItems.map((tagObj) => tagObj.tagId),
                 this.urlPath,
-                lan,
+                this.lan,
                 true
             )
         } else {
@@ -99,11 +94,11 @@ module.exports = class BasePage {
         if (this.hasLikeButton) {
             const urlPath = (this.element.numOfChapters) ? `${this.urlPathBase}-1` : this.urlPath
             const likeCount = await mongodbDriver.count('likes', { urlPath })
-            this.view.likeButton = { urlPath, likeStr: likeStr[lan], likeCount }
+            this.view.likeButton = { urlPath, likeStr: likeStr[this.lan], likeCount }
         }
         
         if (this.hasCommentsField) {
-            return this._getWithComments(lan)
+            return this._getWithComments(this.lan)
         }
         return this._getWithNoComments()
     }

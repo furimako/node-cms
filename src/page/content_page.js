@@ -2,18 +2,18 @@ const fs = require('fs')
 const BasePage = require('./base_page')
 
 module.exports = class ContentPage extends BasePage {
-    constructor({ element, filePath }) {
+    constructor({ lan, element, filePath }) {
         let contentType
-        if (filePath.ja.match(/\.png$/)) {
+        if (filePath.match(/\.png$/)) {
             contentType = 'image/png'
-        } else if (filePath.ja.match(/\.jpg$/)) {
+        } else if (filePath.match(/\.jpg$/)) {
             contentType = 'image/jpeg'
-        } else if (filePath.ja.match(/\.js$/)) {
+        } else if (filePath.match(/\.js$/)) {
             contentType = 'text/javascript'
         }
         
-        super({ element, contentType })
-        this.content = fs.readFileSync(filePath.ja)
+        super({ lan, element, contentType })
+        this.content = fs.readFileSync(filePath)
     }
 
     async get() {

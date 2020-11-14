@@ -11,23 +11,12 @@ module.exports = class Pages {
         this._setPages()
     }
     
-    has(urlPath, lan) {
-        if (this.pages.has(urlPath)) {
-            const page = this.pages.get(urlPath)
-            if (!page.element.ja && !page.element.en) {
-                return true
-            }
-            
-            if (page.element[lan]) {
-                return !page.element.invisible
-            }
-        }
-        return false
+    has(urlPath) {
+        return this.pages.has(urlPath)
     }
     
-    // lan = ja or en
-    async get(urlPath, lan, options = {}) {
-        return this.pages.get(urlPath).get(lan, options)
+    async get(urlPath, options = {}) {
+        return this.pages.get(urlPath).get(options)
     }
 
     contentType(urlPath) {
@@ -37,63 +26,76 @@ module.exports = class Pages {
     _setPages() {
         rooting.forEach((v) => {
             v.elements.forEach((e) => {
-                if (e.numOfChapters) {
-                    for (let i = 1; i <= e.numOfChapters; i += 1) {
-                        const pageObj = {
-                            element: e,
-                            filePath: {
-                                ja: `${v.filePathPrefix}${e.urlPath}-${i}${v.filePathSuffix}`,
-                                en: `${v.filePathPrefix}-en${e.urlPath}-${i}${v.filePathSuffix}`
-                            },
-                            titleWithDescription: v.styleInHome === 'world',
-                            hasLikeButton: v.hasLikeButton,
-                            hasCommentsField: v.hasCommentsField,
-                            hasRelatedPages: v.hasRelatedPages,
-                            chapter: i
-                        }
-                        
-                        const pageWithChapters = new MarkdownPage(pageObj)
-                        this.pages.set(`${e.urlPath}-${i}`, pageWithChapters)
-                    }
-                    return
-                }
-                
-                const pageObj = {
-                    element: e,
-                    filePath: {
-                        ja: `${v.filePathPrefix}${e.urlPath}${v.filePathSuffix || ''}`,
-                        en: `${v.filePathPrefix}-en${e.urlPath}${v.filePathSuffix || ''}`
-                    },
-                    titleWithDescription: v.styleInHome === 'world',
-                    hasLikeButton: v.hasLikeButton,
-                    hasCommentsField: v.hasCommentsField,
-                    hasRelatedPages: v.hasRelatedPages,
-                    needToBeShared: v.needToBeShared
-                }
-                
+                let jaPageObj
+                let enPageObj
                 let page
-                switch (v.class) {
-                case 'HomePage':
-                    page = new HomePage(pageObj)
-                    break
-                case 'MarkdownPage':
-                    page = new MarkdownPage(pageObj)
-                    break
-                case 'HTMLPage':
-                    page = new HTMLPage(pageObj)
-                    break
-                case 'CSSPage':
-                    page = new CSSPage(pageObj)
-                    break
-                case 'ContentPage':
-                    page = new ContentPage(pageObj)
-                    break
-                default:
-                    throw new Error(`rooting.js should be wrong (class: ${v.class})`)
+                const isMultilingual = e.ja && e.en
+                if (e.ja) {
+                    jaPageObj = {
+                        lan: 'ja',
+                        isMultilingual,
+                        element: e,
+                        filePath: `${v.filePathPrefix}${e.urlPath}${v.filePathSuffix || ''}`,
+                        titleWithDescription: v.styleInHome === 'world',
+                        hasLikeButton: v.hasLikeButton,
+                        hasCommentsField: v.hasCommentsField,
+                        hasRelatedPages: v.hasRelatedPages,
+                        needToBeShared: v.needToBeShared
+                    }
+                    if (e.numOfChapters) {
+                        for (let i = 1; i <= e.numOfChapters; i += 1) {
+                            jaPageObj.filePath = `${v.filePathPrefix}${e.urlPath}-${i}${v.filePathSuffix}`
+                            jaPageObj.chapter = i
+                            page = _getPage(v.class, jaPageObj)
+                            this.pages.set(`${e.urlPath}-${i}`, page)
+                        }
+                        return
+                    }
+                    page = _getPage(v.class, jaPageObj)
+                    this.pages.set(e.urlPath, page)
                 }
-                
-                this.pages.set(e.urlPath, page)
+                if (e.en) {
+                    enPageObj = {
+                        lan: 'en',
+                        isMultilingual,
+                        element: e,
+                        filePath: `${v.filePathPrefix}-en${e.urlPath}${v.filePathSuffix || ''}`,
+                        titleWithDescription: v.styleInHome === 'world',
+                        hasLikeButton: v.hasLikeButton,
+                        hasCommentsField: v.hasCommentsField,
+                        hasRelatedPages: v.hasRelatedPages,
+                        needToBeShared: v.needToBeShared
+                    }
+                    if (e.numOfChapters) {
+                        for (let i = 1; i <= e.numOfChapters; i += 1) {
+                            enPageObj.filePath = `${v.filePathPrefix}-en${e.urlPath}-${i}${v.filePathSuffix}`
+                            enPageObj.chapter = i
+                            page = _getPage(v.class, enPageObj)
+                            this.pages.set(`/en${e.urlPath}-${i}`, page)
+                        }
+                        return
+                    }
+                    page = _getPage(v.class, enPageObj)
+                    this.pages.set(`/en${e.urlPath}`, page)
+                }
             })
         })
+    }
+}
+
+function _getPage(className, pageObj) {
+    switch (className) {
+    case 'HomePage':
+        return new HomePage(pageObj)
+    case 'MarkdownPage':
+        return new MarkdownPage(pageObj)
+    case 'HTMLPage':
+        return new HTMLPage(pageObj)
+    case 'CSSPage':
+        return new CSSPage(pageObj)
+    case 'ContentPage':
+        return new ContentPage(pageObj)
+    default:
+        throw new Error(`rooting.js should be wrong (class: ${className})`)
     }
 }
