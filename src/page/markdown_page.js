@@ -35,7 +35,6 @@ module.exports = class MarkdownPage extends BasePage {
             hasCommentsField
         })
         
-        this.hasRelatedPages = hasRelatedPages
         this.needToBeShared = needToBeShared
         
         this.setView({
@@ -43,6 +42,7 @@ module.exports = class MarkdownPage extends BasePage {
             isMultilingual,
             bodyHTML,
             titleWithDescription,
+            hasRelatedPages,
             chapter
         })
     }
