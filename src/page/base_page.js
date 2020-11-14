@@ -38,7 +38,7 @@ module.exports = class BasePage {
     }
     
     setView({
-        cssPath, isMultilingual, bodyHTML, titleWithDescription, chapter
+        cssPath, isMultilingual, bodyHTML, titleWithDescription, hasRelatedPages, chapter
     }) {
         let paginationHTML
         if (this.element.numOfChapters && chapter) {
@@ -68,18 +68,17 @@ module.exports = class BasePage {
             registerFormMain: { registerFormId: 'registerMain' },
             registerFormFooter: { registerFormId: 'registerFooter' }
         }
-    }
-    
-    // HTMLPage, MarkdownPage
-    async get() {
-        if (this.hasRelatedPages) {
+        if (hasRelatedPages) {
             const relatedPagesView = _getRelatedPagesView(this.urlPath, this.lan)
             const relatedPagesView2 = _getRelatedPagesView(this.urlPath, this.lan, true)
             this.view.keywordTag = relatedPagesView
             this.view.relatedPages = mustache.render(relatedPagesTemplate, relatedPagesView)
             this.view.relatedPages2 = mustache.render(relatedPagesTemplate, relatedPagesView2)
         }
-        
+    }
+    
+    // HTMLPage, MarkdownPage
+    async get() {
         if (this.hasLikeButton) {
             const urlPath = (this.element.numOfChapters) ? `${this.urlPathBase}-1` : this.urlPath
             const likeCount = await mongodbDriver.count('likes', { urlPath })
