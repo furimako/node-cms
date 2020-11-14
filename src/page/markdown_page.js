@@ -6,6 +6,8 @@ const BasePage = require('./base_page')
 
 module.exports = class MarkdownPage extends BasePage {
     constructor({
+        lan,
+        isMultilingual,
         element,
         filePath,
         titleWithDescription,
@@ -15,50 +17,20 @@ module.exports = class MarkdownPage extends BasePage {
         chapter,
         needToBeShared
     }) {
-        const title = {}
-        const description = {}
-        const bodyHTML = {}
-        if (element.ja) {
-            title.ja = element.ja.title
-            description.ja = element.ja.description
-            if (chapter) {
-                title.ja += ` ${parseInt(chapter, 10)}`
-            }
-            
-            const markdown = fs.readFileSync(filePath.ja, 'utf8')
-            bodyHTML.ja = '<section class="section">'
-            bodyHTML.ja += '<div class="container">'
-            bodyHTML.ja += '<div class="content is-small">'
-            bodyHTML.ja += marked(markdown)
-            bodyHTML.ja += '</div>'
-            bodyHTML.ja += '</div>'
-            bodyHTML.ja += '</section>'
-        }
-        
-        if (element.en) {
-            title.en = element.en.title
-            description.en = element.en.description
-            if (chapter) {
-                title.en += ` ${parseInt(chapter, 10)}`
-            }
-            
-            const markdown = fs.readFileSync(filePath.en, 'utf8')
-            bodyHTML.en = '<section class="section">'
-            bodyHTML.en += '<div class="container">'
-            bodyHTML.en += '<div class="content is-small">'
-            bodyHTML.en += marked(markdown)
-            bodyHTML.en += '</div>'
-            bodyHTML.en += '</div>'
-            bodyHTML.en += '</section>'
-        }
+        const markdown = fs.readFileSync(filePath, 'utf8')
+        let bodyHTML = '<section class="section">'
+        bodyHTML += '<div class="container">'
+        bodyHTML += '<div class="content is-small">'
+        bodyHTML += marked(markdown)
+        bodyHTML += '</div>'
+        bodyHTML += '</div>'
+        bodyHTML += '</section>'
         
         super({
+            lan,
             element,
             urlPath: (chapter) ? `${element.urlPath}-${parseInt(chapter, 10)}` : element.urlPath,
             contentType: 'text/html',
-            title,
-            description,
-            bodyHTML,
             hasLikeButton,
             hasCommentsField
         })
@@ -68,6 +40,8 @@ module.exports = class MarkdownPage extends BasePage {
         
         this.setView({
             cssPath: '/css/styles-others.css',
+            isMultilingual,
+            bodyHTML,
             titleWithDescription,
             chapter
         })

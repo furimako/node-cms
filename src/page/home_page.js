@@ -9,46 +9,31 @@ const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const homeTemplate = fs.readFileSync('./static/template/home.mustache', 'utf8')
 
 module.exports = class HomePage extends BasePage {
-    constructor({ element }) {
-        const title = {}
-        const description = {}
-        if (element.ja) {
-            title.ja = element.ja.title
-            description.ja = element.ja.description
-        }
-        if (element.en) {
-            title.en = element.en.title
-            description.en = element.en.description
-        }
-        
+    constructor({ lan, isMultilingual, element }) {
         super({
+            lan,
             element,
             urlPath: element.urlPath,
-            contentType: 'text/html',
-            title,
-            description
+            contentType: 'text/html'
         })
-        this.setView({ cssPath: '/css/styles-home.css' })
+        this.setView({
+            cssPath: '/css/styles-home.css',
+            isMultilingual
+        })
     }
     
-    async get(lan, options) {
-        logging.info(`    L lan: ${lan}, options: ${JSON.stringify(options)}`)
+    async get(options) {
+        logging.info(`    L lan: ${this.lan}, options: ${JSON.stringify(options)}`)
         const {
-            pageNum, signedIn, registration, email, messageSent
+            pageNum, registration, email, messageSent
         } = options
         
-        this.view.lan = { [lan]: true }
-        this.view.title = this.title[lan]
-        this.view.description = this.description[lan]
-        this.view.isNew = this.element[lan].isNew
-        this.view.signedIn = signedIn
-        
-        const summary = await mongodbDriver.findCountsForHome(lan)
+        const summary = await mongodbDriver.findCountsForHome(this.lan)
         const comments = await mongodbDriver.find(
             'comments',
-            { urlPath: { $ne: '/temp' }, lan }
+            { urlPath: { $ne: '/temp' }, lan: this.lan }
         )
-        this._updateViewHome(pageNum, summary, comments, lan, registration, email, messageSent)
+        this._updateViewHome(pageNum, summary, comments, this.lan, registration, email, messageSent)
         
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome, this.partial)
         return mustache.render(template, this.view, this.partial)
