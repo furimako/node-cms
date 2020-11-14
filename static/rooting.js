@@ -127,7 +127,7 @@ module.exports = [
                     description: 'あなたが本当に目指すべきものについて'
                 },
                 en: {
-                    title: 'Don\'t aim for "number one"',
+                    title: 'Don\'t aim for becoming "number one"',
                     description: 'what we really should go after'
                 }
             },
