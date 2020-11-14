@@ -21,6 +21,47 @@ module.exports = async function post(req, res, options) {
     
     req.on('end', async () => {
         const postData = qs.parse(body)
+        const urlPrefix = (postData.lan === 'en') ? '/en' : ''
+
+        // Like
+        if (urlPath === '/post/like' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan)) {
+            logging.info(`    L like (lan: ${postData.lan}, urlPath: ${postData.urlPath})`)
+    
+            const likeObj = {
+                urlPath: postData.urlPath,
+                lan: postData.lan,
+                date: new Date(),
+                ipAddress,
+                userAgent
+            }
+            await mongodbDriver.insertOne('likes', likeObj)
+    
+            res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}` })
+            res.end()
+            return
+        }
+
+        // Comment
+        if (urlPath === '/post/comment' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan) && postData.name && postData.comment) {
+            logging.info(`    L get comment (lan: ${postData.lan}, urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment})`)
+            mailer.send({
+                subject: `get comment from '${postData.name}' (lan: ${postData.lan})`,
+                text: `urlPath: ${postData.urlPath}\nURL: ${url + ((postData.lan === 'en') ? '/en' : '') + postData.urlPath}`
+            })
+            const commentObj = {
+                urlPath: postData.urlPath,
+                name: postData.name,
+                comment: postData.comment,
+                lan: postData.lan,
+                date: new Date(),
+                ipAddress,
+                userAgent
+            }
+            await mongodbDriver.insertOne('comments', commentObj)
+            res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}#comments-field` })
+            res.end()
+            return
+        }
 
         // Google reCAPTCHA
         const recaptchaClientRes = postData['g-recaptcha-response']
@@ -50,50 +91,7 @@ module.exports = async function post(req, res, options) {
                 }
 
                 logging.info(`    L recaptcha succeeded (recaptchaData.success: ${recaptchaData.success})`)
-                const urlPrefix = (postData.lan === 'en') ? '/en' : ''
-        
-                // Like
-                if (urlPath === '/post/like' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan)) {
-                    logging.info(`    L like (lan: ${postData.lan}, urlPath: ${postData.urlPath})`)
-            
-                    const likeObj = {
-                        urlPath: postData.urlPath,
-                        lan: postData.lan,
-                        date: new Date(),
-                        ipAddress,
-                        userAgent
-                    }
-                    await mongodbDriver.insertOne('likes', likeObj)
-            
-                    res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}` })
-                    res.end()
-                    return
-                }
-        
-                // Comment
-                if (urlPath === '/post/comment' && postData.key === 'furimako' && pages.has(postData.urlPath, postData.lan) && postData.name && postData.comment) {
-                    logging.info(`    L get comment (lan: ${postData.lan}, urlPath: ${postData.urlPath}, name: ${postData.name}, comment: ${postData.comment})`)
-                    mailer.send({
-                        subject: `get comment from '${postData.name}' (lan: ${postData.lan})`,
-                        text: `urlPath: ${postData.urlPath}\nURL: ${url + ((postData.lan === 'en') ? '/en' : '') + postData.urlPath}`
-                    })
-            
-                    const commentObj = {
-                        urlPath: postData.urlPath,
-                        name: postData.name,
-                        comment: postData.comment,
-                        lan: postData.lan,
-                        date: new Date(),
-                        ipAddress,
-                        userAgent
-                    }
-                    await mongodbDriver.insertOne('comments', commentObj)
-            
-                    res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}#comments-field` })
-                    res.end()
-                    return
-                }
-        
+
                 // Message
                 if (urlPath === '/post/message' && postData.key === 'furimako' && postData.lan && postData.message) {
                     logging.info(`    L get message (lan: ${postData.lan}, message: ${postData.message})`)

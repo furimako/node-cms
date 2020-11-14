@@ -33,7 +33,7 @@
                 {{/lan.en}}
             </p>
             <br>
-            <form id="comment-form" method="post" action="/post/comment">
+            <form method="post" action="/post/comment">
                 <input type="hidden" name="key" value="furimako">
                 <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
                 <input type="hidden" name="urlPath" value="{{urlPath}}">
@@ -62,7 +62,7 @@
                 </div>
                 <div class="field">
                     <div class="control">
-                        <button class="g-recaptcha button is-primary" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS" data-callback="onSubmitComment">
+                        <button class="button is-primary">
                             {{#lan.ja}}送信{{/lan.ja}}
                             {{#lan.en}}send{{/lan.en}}
                         </button>
