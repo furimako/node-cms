@@ -4,12 +4,6 @@
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
-        function onSubmitLike(token) {
-            document.getElementById("like-form").submit();
-        }
-        function onSubmitComment(token) {
-            document.getElementById("comment-form").submit();
-        }
         function onSubmitMessage(token) {
             document.getElementById("message-form").submit();
         }
@@ -118,11 +112,11 @@
                             {{/keywordTag}}
                             {{#likeButton}}
                             <div class="level-item">
-                                <form id="like-form" method="post" action="/post/like">
+                                <form method="post" action="/post/like">
                                     <input type="hidden" name="key" value="furimako">
                                     <input type="hidden" name="urlPath" value="{{urlPath}}">
                                     <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
-                                    <button class="g-recaptcha button is-small is-primary is-outlined is-rounded" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS" data-callback="onSubmitLike">
+                                    <button class="button is-small is-primary is-outlined is-rounded">
                                         {{likeStr}} {{likeCount}}
                                     </button>
                                 </form>
