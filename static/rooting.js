@@ -78,8 +78,8 @@ module.exports = [
                     description: '「フェミニストなんてクソ喰らえ」だと思う男性向けのフェミニズム入門'
                 },
                 en: {
-                    title: 'How to Beat Up "Self-Proclaimed" Feminists',
-                    description: 'The One and Only Introduction to Feminism For Those Who Think Feminism is Horsecrap',
+                    title: 'How to beat up "self-proclaimed" feminists',
+                    description: 'an introduction to feminism for men who think "feminism is horsecrap"',
                     isNew: true
                 }
             },
@@ -90,8 +90,8 @@ module.exports = [
                     description: '認知症のおばあちゃんとの会話から見えてきた「幸せ」になるための条件について'
                 },
                 en: {
-                    title: 'Death for Life',
-                    description: 'Being Prepared to Die To Make Your Life Happier',
+                    title: 'You need to be prepared to die to live happily',
+                    description: 'about the conditions for becoming happy from the conversation with my grandmother with dementia',
                     isNew: true
                 }
             },
@@ -102,8 +102,8 @@ module.exports = [
                     description: '「失敗」するために生きている多くの人々へ'
                 },
                 en: {
-                    title: 'Tips for Becoming Total Failure in Your Life',
-                    description: 'To Those of You Who Are Striving to Fail'
+                    title: 'How to fail in your life',
+                    description: 'to those of you who are striving to fail'
                 }
             },
             {
@@ -127,8 +127,8 @@ module.exports = [
                     description: 'あなたが本当に目指すべきものについて'
                 },
                 en: {
-                    title: 'Never Aim for Becoming "Number One"',
-                    description: 'What We Really Should Go After'
+                    title: 'Don\'t aim for "number one"',
+                    description: 'what we really should go after'
                 }
             },
             {
@@ -145,8 +145,8 @@ module.exports = [
                     description: '「歴史」から見る「理想の教育」の真の姿について'
                 },
                 en: {
-                    title: 'Ideal Education',
-                    description: 'To Everyone Who Hates History Exams'
+                    title: 'What should we learn?',
+                    description: 'about the ideal education from the viewpoint of history'
                 }
             },
             {
@@ -156,8 +156,8 @@ module.exports = [
                     description: '我々が人間として生きるために必要な条件について'
                 },
                 en: {
-                    title: 'On Adulthood',
-                    description: 'Questioning What Makes You Fully Matured Grown-Up to Free Yourself From Your Nation'
+                    title: 'Are you really an "adult"?',
+                    description: 'about the conditions we need to live as humans'
                 }
             },
             {
@@ -167,8 +167,8 @@ module.exports = [
                     description: '99%の人が勘違いしている「自由」の本当の姿について'
                 },
                 en: {
-                    title: 'You Should Never Live Freely',
-                    description: 'Real "Freedom" 99% of People Misunderstand'
+                    title: 'You should never live freely',
+                    description: 'real "freedom" 99% of people misunderstand'
                 }
             },
             {
@@ -185,8 +185,8 @@ module.exports = [
                     description: 'あなたの「幸せ」はどんな形をしていますか？'
                 },
                 en: {
-                    title: 'What is Hapiness for You?',
-                    description: 'Taking Scientific Approach to Happiness'
+                    title: 'What is the definition of happiness?',
+                    description: 'taking scientific approach to happiness'
                 }
             },
             {
@@ -196,8 +196,8 @@ module.exports = [
                     description: 'あなたが見落としている「幸せ」よりも大切なものについて'
                 },
                 en: {
-                    title: 'Don\'t aim for HAPPINESS',
-                    description: 'The most important thing you should care about for your life'
+                    title: 'Don\'t aim for "happiness"',
+                    description: 'what is more important than "happiness" for your life'
                 }
             }
         ]
