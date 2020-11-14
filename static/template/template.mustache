@@ -4,11 +4,8 @@
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
     <script>
-        function onSubmitMessage(token) {
+        function messageOnSubmit(token) {
             document.getElementById("message-form").submit();
-        }
-        function onSubmitRegister(token) {
-            document.getElementById("register-form").submit();
         }
     </script>
 
@@ -191,7 +188,9 @@
                 </div>
             </div>
             {{#lan.ja}}
+            {{#registerFormMain}}
             {{> residentRegistrationTemplate}}
+            {{/registerFormMain}}
             {{/lan.ja}}
         </div>
     </section>
@@ -238,7 +237,9 @@
                 </small>
             </p>
             {{#lan.ja}}
+            {{#registerFormFooter}}
             {{> residentRegistrationTemplate}}
+            {{/registerFormFooter}}
             {{/lan.ja}}
             <p>
                 <small>
@@ -304,7 +305,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <button class="g-recaptcha button is-primary" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS" data-callback="onSubmitMessage">{{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}</button>
+                    <button class="g-recaptcha button is-primary" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS" data-callback="messageOnSubmit">{{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}</button>
                 </div>
             </div>
         </form>

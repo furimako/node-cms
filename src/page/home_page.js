@@ -63,6 +63,7 @@ module.exports = class HomePage extends BasePage {
         this.viewHome.registration = registration
         this.viewHome.email = email
         this.viewHome.messageSent = messageSent
+        this.viewHome.registerFormHome = { registerFormId: 'registerHome' }
 
         rooting.forEach((v) => {
             v.elements.forEach((e) => {

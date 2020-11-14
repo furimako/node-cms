@@ -110,11 +110,11 @@ tail logs/cron.log
     - click all links in every pages (including bottom navbar)
     - 404 page
     - input every English page URL which should be invisible
-- POST (request ALL POST)
+- POST (request ALL POST in ALL Japanese & English pages)
     - like
     - comment
     - message
-    - resident registration
+    - resident registration (3 pattern: main, footer, home)
         - pre-registration
             - NONE
             - PRE_REGISTERED
