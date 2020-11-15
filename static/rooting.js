@@ -60,7 +60,8 @@ module.exports = [
                 urlPath: '/world/mental-illness',
                 ja: {
                     title: '「精神病」は実在するか？',
-                    description: '製薬業界の 4つの嘘を暴く (住人への手紙 2通目より)',
+                    description: '製薬業界の 4つの嘘を暴く',
+                    letter: '住人への手紙 2通目',
                     isNew: true
                 }
             },

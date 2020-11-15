@@ -58,7 +58,8 @@ module.exports = class HomePage extends BasePage {
                         picturePath: `/images${e.urlPath}.jpg`,
                         title: e[lan].title,
                         description: e[lan].description,
-                        newTag: (e[lan].isNew) ? '<span class="tag is-danger">New!</span>' : ''
+                        isNew: e[lan].isNew,
+                        letter: e[lan].letter
                     })
                 }
             })
