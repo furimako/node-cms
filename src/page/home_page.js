@@ -59,7 +59,10 @@ module.exports = class HomePage extends BasePage {
                         title: e[lan].title,
                         description: e[lan].description,
                         isNew: e[lan].isNew,
-                        letter: e[lan].letter
+                        letter: e[lan].letter,
+                        hasTitleTags() {
+                            return this.isNew || this.letter
+                        }
                     })
                 }
             })
