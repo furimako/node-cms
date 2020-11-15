@@ -149,9 +149,15 @@
             {{#world}}
                 {{{headHTML}}}
                 <div class="box">
-                    {{{newTag}}}
+                    {{#isNew}}
+                    <span class="tag is-danger">New!</span>
+                    {{/isNew}}
                     <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}">
-                        {{title}}<br>
+                        {{title}}
+                        {{#letter}}
+                        <span class="tag is-danger is-light">{{letter}}</span>
+                        {{/letter}}
+                        <br>
                         {{#description}}〜{{description}}〜{{/description}}
                     </a>
                     <br>

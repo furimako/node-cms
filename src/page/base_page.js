@@ -58,6 +58,7 @@ module.exports = class BasePage {
             description: this.element[this.lan].description,
             bodyHTML,
             isNew: this.element[this.lan].isNew,
+            letter: this.element[this.lan].letter,
             url: `${url + this.urlPath}`,
             urlPath: this.urlPath,
             cssPath,
