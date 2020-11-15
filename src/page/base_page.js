@@ -67,7 +67,10 @@ module.exports = class BasePage {
             isMultilingual,
             needToBeShared: this.needToBeShared,
             registerFormMain: { registerFormId: 'registerMain' },
-            registerFormFooter: { registerFormId: 'registerFooter' }
+            registerFormFooter: { registerFormId: 'registerFooter' },
+            hasTitleTags() {
+                return this.isNew || this.letter
+            }
         }
         if (hasRelatedPages) {
             const relatedPagesView = _getRelatedPagesView(this.urlPath, this.lan)
