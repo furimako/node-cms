@@ -91,8 +91,8 @@ module.exports = [
                     description: '認知症のおばあちゃんとの会話から見えてきた「幸せ」になるための条件について'
                 },
                 en: {
-                    title: 'You need to be prepared to die to live happily',
-                    description: 'about the conditions for becoming happy from the conversation with my grandmother with dementia',
+                    title: 'You need to be prepared to die for happiness',
+                    description: 'from a conversation with my grandma with dementia',
                     isNew: true
                 }
             },
@@ -129,7 +129,7 @@ module.exports = [
                 },
                 en: {
                     title: 'Don\'t aim for becoming "number one"',
-                    description: 'what we really should go after'
+                    description: 'what should we really go after?'
                 }
             },
             {
@@ -158,7 +158,7 @@ module.exports = [
                 },
                 en: {
                     title: 'Are you really an "adult"?',
-                    description: 'about the conditions we need to live as humans'
+                    description: 'about the conditions we need to live as human beings'
                 }
             },
             {
@@ -169,7 +169,7 @@ module.exports = [
                 },
                 en: {
                     title: 'You should never live freely',
-                    description: 'real "freedom" 99% of people misunderstand'
+                    description: 'real "freedom" 99% of you don\'t understand'
                 }
             },
             {
