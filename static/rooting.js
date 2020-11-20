@@ -135,7 +135,7 @@ module.exports = [
             {
                 urlPath: '/world/philosophy',
                 ja: {
-                    title: '哲学が無意味であることの証明',
+                    title: '哲学は無意味である',
                     description: '「この世界はどうして存在するのだろう？」私が答えましょう'
                 }
             },
