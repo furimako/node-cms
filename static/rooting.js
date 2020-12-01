@@ -69,7 +69,7 @@ module.exports = [
                 urlPath: '/world/mental-illness',
                 ja: {
                     title: '「精神病」は実在するか？',
-                    description: '製薬、医療業界の 4つの矛盾から見えてくる「うつ病」や「統合失調症」の真の姿',
+                    description: '製薬業界の 4つの矛盾と「うつ病」や「統合失調症」の真の姿',
                     letter: '住人への手紙 2通目',
                     isNew: true
                 }
@@ -78,7 +78,7 @@ module.exports = [
                 urlPath: '/world/free-will',
                 ja: {
                     title: '「自由意志」なんて存在しないと思うあなたへ',
-                    description: '「量子力学」の見地から、我々が完全に自由であることを証明しよう'
+                    description: '「量子力学」の見地から我々が自由であることを証明しよう'
                 }
             },
             {
@@ -97,7 +97,7 @@ module.exports = [
                 urlPath: '/world/death-for-life',
                 ja: {
                     title: '幸せに生きるには「死ぬ覚悟」が必要である、というお話',
-                    description: '認知症のおばあちゃんとの会話から見えてきた「幸せ」になるための条件について'
+                    description: '認知症のおばあちゃんとの会話より'
                 },
                 en: {
                     title: 'You need to be prepared to die for happiness',
@@ -120,21 +120,21 @@ module.exports = [
                 urlPath: '/world/nation',
                 ja: {
                     title: '「もう人間は働かなくてもいい」という主張',
-                    description: 'ベーシックインカムを通じて「理想の国家」の条件を探る'
+                    description: 'ベーシックインカムと「理想の国家」'
                 }
             },
             {
                 urlPath: '/world/reward',
                 ja: {
                     title: '「できる人」には報酬を与えるべきか？',
-                    description: '多くの人が見落としている「成果主義」の落とし穴'
+                    description: '「成果主義」の落とし穴について'
                 }
             },
             {
                 urlPath: '/world/ideal-way-to-live-life',
                 ja: {
                     title: '「一番」を目指してはいけない',
-                    description: 'あなたが本当に目指すべきものについて'
+                    description: 'あなたが目指すべきものについて'
                 },
                 en: {
                     title: 'Don\'t aim for becoming "number one"',
@@ -152,7 +152,7 @@ module.exports = [
                 urlPath: '/world/education',
                 ja: {
                     title: '我々が本当に学ぶべきことは何だろうか？',
-                    description: '「歴史」から見る「理想の教育」の真の姿'
+                    description: '「歴史」から探る理想の教育'
                 },
                 en: {
                     title: 'What should we learn?',
@@ -163,7 +163,7 @@ module.exports = [
                 urlPath: '/world/grown-up',
                 ja: {
                     title: 'あなたは本当に「大人」ですか？',
-                    description: '我々が人間として生きるために必要な条件について'
+                    description: '我々が人間として生きるために'
                 },
                 en: {
                     title: 'Are you really an "adult"?',
@@ -174,7 +174,7 @@ module.exports = [
                 urlPath: '/world/freedom',
                 ja: {
                     title: '自由に生きてはいけない',
-                    description: '99%の人が勘違いしている「自由」の本当の形'
+                    description: '「自由」の本当の形について'
                 },
                 en: {
                     title: 'You should never live freely',
@@ -197,7 +197,7 @@ module.exports = [
                 urlPath: '/world/happiness',
                 ja: {
                     title: '「幸せ」の定義を科学しよう',
-                    description: 'あなたの「幸せ」はどんな形をしていますか？'
+                    description: 'あなたの「幸せ」はどんな形ですか？'
                 },
                 en: {
                     title: 'What is the definition of happiness?',
