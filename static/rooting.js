@@ -68,8 +68,8 @@ module.exports = [
             {
                 urlPath: '/world/mental-illness',
                 ja: {
-                    title: '「精神病」は実在するか？',
-                    description: '製薬業界の 4つの矛盾と「うつ病」や「統合失調症」の真の姿',
+                    title: '精神病は実在するか？',
+                    description: '製薬業界の 4つの矛盾から見えてくる「うつ病」や「統合失調症」の真の姿について',
                     letter: '住人への手紙 2通目',
                     isNew: true
                 }
@@ -119,7 +119,7 @@ module.exports = [
             {
                 urlPath: '/world/nation',
                 ja: {
-                    title: '「もう人間は働かなくてもいい」という主張',
+                    title: 'もう人間は働かなくてもいい、という主張',
                     description: 'ベーシックインカムと「理想の国家」'
                 }
             },
@@ -127,7 +127,7 @@ module.exports = [
                 urlPath: '/world/reward',
                 ja: {
                     title: '「できる人」には報酬を与えるべきか？',
-                    description: '「成果主義」の落とし穴について'
+                    description: '「成果主義」の落とし穴'
                 }
             },
             {
