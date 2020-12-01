@@ -52,7 +52,7 @@ module.exports = class HomePage extends BasePage {
 
         rooting.forEach((v) => {
             v.elements.forEach((e) => {
-                if (v.styleInHome && e[lan]) {
+                if (v.styleInHome && e[lan] && !e[lan].hidden) {
                     this.viewHome[v.styleInHome].push({
                         urlPath: (e.numOfChapters) ? `${e.urlPath}-1` : e.urlPath,
                         picturePath: `/images${e.urlPath}.jpg`,
