@@ -60,7 +60,7 @@ module.exports = [
                 urlPath: '/world/democracy',
                 ja: {
                     title: '「民主主義」は正しいのか？',
-                    description: '誰もが見落としている現行制度の盲点について',
+                    description: '現行制度の盲点について',
                     isNew: true,
                     hidden: true
                 }
