@@ -57,10 +57,19 @@ module.exports = [
         needToBeShared: true,
         elements: [
             {
+                urlPath: '/world/democracy',
+                ja: {
+                    title: '「民主主義」は正しいのか？',
+                    description: '誰もが見落としている現行制度の盲点について',
+                    isNew: true,
+                    hidden: true
+                }
+            },
+            {
                 urlPath: '/world/mental-illness',
                 ja: {
                     title: '「精神病」は実在するか？',
-                    description: '製薬業界の 4つの嘘を暴く',
+                    description: '製薬、医療業界の 4つの矛盾から見えてくる「うつ病」や「統合失調症」の真の姿',
                     letter: '住人への手紙 2通目',
                     isNew: true
                 }
@@ -111,14 +120,14 @@ module.exports = [
                 urlPath: '/world/nation',
                 ja: {
                     title: '「もう人間は働かなくてもいい」という主張',
-                    description: 'ベーシックインカムから見る「理想の国家」の姿について'
+                    description: 'ベーシックインカムを通じて「理想の国家」の条件を探る'
                 }
             },
             {
                 urlPath: '/world/reward',
                 ja: {
                     title: '「できる人」には報酬を与えるべきか？',
-                    description: '多くの人が見落としている「成果主義」の落とし穴について'
+                    description: '多くの人が見落としている「成果主義」の落とし穴'
                 }
             },
             {
@@ -143,7 +152,7 @@ module.exports = [
                 urlPath: '/world/education',
                 ja: {
                     title: '我々が本当に学ぶべきことは何だろうか？',
-                    description: '「歴史」から見る「理想の教育」の真の姿について'
+                    description: '「歴史」から見る「理想の教育」の真の姿'
                 },
                 en: {
                     title: 'What should we learn?',
@@ -165,7 +174,7 @@ module.exports = [
                 urlPath: '/world/freedom',
                 ja: {
                     title: '自由に生きてはいけない',
-                    description: '99%の人が勘違いしている「自由」の本当の姿について'
+                    description: '99%の人が勘違いしている「自由」の本当の形'
                 },
                 en: {
                     title: 'You should never live freely',
@@ -177,6 +186,11 @@ module.exports = [
                 ja: {
                     title: '今を生きるためのちょっとしたヒント',
                     description: '気をつけないと忘れてしまうこと、でもとっても大切なこと'
+                // },
+                // en: {
+                //     title: 'Tips for living better life',
+                //     description: 'important things we tend to forget',
+                //     isNew: true
                 }
             },
             {
