@@ -49,7 +49,8 @@ module.exports = {
         ja: '国家',
         targets: [
             '/world/grown-up',
-            '/world/nation'
+            '/world/nation',
+            '/world/democracy'
         ]
     },
     education: {
