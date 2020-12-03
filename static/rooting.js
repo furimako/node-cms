@@ -60,9 +60,8 @@ module.exports = [
                 urlPath: '/world/democracy',
                 ja: {
                     title: '「民主主義」は正しいのか？',
-                    description: '現行制度の盲点について',
-                    isNew: true,
-                    hidden: true
+                    description: '投票制度の盲点と、その改良のための 3つの提案',
+                    isNew: true
                 }
             },
             {
