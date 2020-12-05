@@ -84,7 +84,7 @@ module.exports = [
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
-                    description: '「フェミニストなんてクソ喰らえ」だと思う男性向けのフェミニズム入門'
+                    description: 'フェミニストが嫌いな男性向けフェミニズム入門'
                 },
                 en: {
                     title: 'How to beat up "self-proclaimed" feminists',
