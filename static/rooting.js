@@ -84,7 +84,7 @@ module.exports = [
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
-                    description: 'フェミニストが嫌いな男性向けフェミニズム入門'
+                    description: 'フェミニストが嫌いな男性向けのフェミニズム入門'
                 },
                 en: {
                     title: 'How to beat up "self-proclaimed" feminists',
@@ -144,7 +144,7 @@ module.exports = [
                 urlPath: '/world/philosophy',
                 ja: {
                     title: '哲学は無意味である',
-                    description: '科学(数学、物理学)の世界から見た「哲学」'
+                    description: '科学 (数学・物理学) の世界から見た「哲学」'
                 }
             },
             {
