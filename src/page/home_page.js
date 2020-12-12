@@ -28,18 +28,16 @@ module.exports = class HomePage extends BasePage {
             pageNum, registration, email, messageSent
         } = options
         
-        const summary = await mongodbDriver.findCountsForHome(this.lan)
-        const comments = await mongodbDriver.find(
-            'comments',
-            { urlPath: { $ne: '/temp' }, lan: this.lan }
-        )
-        this._updateViewHome(pageNum, summary, comments, this.lan, registration, email, messageSent)
-        
+        const numOfResidents = await mongodbDriver.count('registrations', { residentStatus: 'REGISTERED' })
+
+        await this._updateViewHome(pageNum, registration, email, messageSent, numOfResidents)
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome, this.partial)
+        this.view.numOfResidents = numOfResidents
         return mustache.render(template, this.view, this.partial)
     }
     
-    _updateViewHome(pageNum, summary, comments, lan, registration, email, messageSent) {
+    async _updateViewHome(pageNum, registration, email, messageSent, numOfResidents) {
+        const { lan } = this
         this.viewHome = {
             world: [],
             story: []
@@ -49,6 +47,7 @@ module.exports = class HomePage extends BasePage {
         this.viewHome.email = email
         this.viewHome.messageSent = messageSent
         this.viewHome.registerFormHome = { registerFormId: 'registerHome' }
+        this.viewHome.numOfResidents = numOfResidents
 
         rooting.forEach((v) => {
             v.elements.forEach((e) => {
@@ -68,6 +67,11 @@ module.exports = class HomePage extends BasePage {
             })
         })
         
+        const summary = await mongodbDriver.findCountsForHome(this.lan)
+        const comments = await mongodbDriver.find(
+            'comments',
+            { urlPath: { $ne: '/temp' }, lan: this.lan }
+        )
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
             if (!this.viewHome.world[i].advertisement) {
                 const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0

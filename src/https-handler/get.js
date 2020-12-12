@@ -36,7 +36,7 @@ module.exports = async function get(req, res, options) {
     }
 
     logging.info(`    L responsing GET page (urlPath: ${urlPath}, lan: ${lan})`)
-    if (query) {
+    if (JSON.stringify(query) !== '{}') {
         logging.info(`        L query: ${JSON.stringify(query)}`)
     }
     

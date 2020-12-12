@@ -83,6 +83,7 @@ module.exports = class BasePage {
     
     // HTMLPage, MarkdownPage
     async get() {
+        this.view.numOfResidents = await mongodbDriver.count('registrations', { residentStatus: 'REGISTERED' })
         if (this.hasLikeButton) {
             const urlPath = (this.element.numOfChapters) ? `${this.urlPathBase}-1` : this.urlPath
             const likeCount = await mongodbDriver.count('likes', { urlPath })
