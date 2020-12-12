@@ -81,7 +81,8 @@ module.exports = [
                 // },
                 // en: {
                 //     title: 'Does "Free Will" exist?',
-                //     description: 'let's prove that we are completely free by quantum physics'
+                //     description: 'let's prove that we are completely free by quantum physics',
+                //     isNew: true
                 }
             },
             {
