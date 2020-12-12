@@ -78,6 +78,10 @@ module.exports = [
                 ja: {
                     title: '「自由意志」なんて存在しないと思うあなたへ',
                     description: '「量子力学」の見地から我々が自由であることを証明しよう'
+                // },
+                // en: {
+                //     title: 'Does "Free Will" exist?',
+                //     description: 'let's prove that we are completely free by quantum physics'
                 }
             },
             {

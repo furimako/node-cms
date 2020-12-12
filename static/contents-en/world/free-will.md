@@ -1,5 +1,5 @@
-# To Those of You Who Think That There Is No Such Thing as "Free Will"
-〜Let's Prove That We Are Completely Free〜
+<!-- Does "Free Will" exist? -->
+<!-- 〜let's prove that we are completely free from the world of quantum physics〜 -->
 
 Do you believe in the existence of "free will"?
 
@@ -15,8 +15,8 @@ We also believe that we are choosing which one of these options to actually put 
 
 But are we really making choices on our free will? This is what I would like to question today.
 
-## Questioning "Free Will"
 
+## Questioning "Free Will"
 You might say, "I am always choosing what I put into action. Therefore, free will DO exists, and that's it".
 
 Well, let's use our imagination. Suppose that you have an enemy you have to knock down.
@@ -43,8 +43,8 @@ In other words, it's possible to think that our entire future, that is, having a
 
 If you think that way, the existence of "free will", which is usually accepted without any doubt, may be just a fantasy we invented in our head, because our deeds would be merely following the predetermined paths, according to the logic I described above.
 
-## Preparatory Introduction
 
+## Preparatory Introduction
 I have just briefly explained how we can question the existence of "free will".
 
 What did you think? Did you feel somewhat uncomfortable, thinking about the possibility of non-existence of "free will"?
@@ -65,8 +65,7 @@ As another example, (though I know I might sound totally out of my mind,) a quan
 
 Although I can't explain every strange property of these particles, I am going to introduce you some of them, particularly those pertinent to "free will."
 
-## Quantum World: "Quantum Superposition"
-
+### Quantum World: "Quantum Superposition"
 One of the most important quantum properties in this context is "quantum superposition".
 
 The small particles in the quantum world can take one of two states.
@@ -83,8 +82,7 @@ For example, assume that you removed your hand and the coin was sitting heads up
 
 Let's consider another example. Suppose that your coin has a white color on the head side, and has a black color on the tail side. If you toss the coin, the result can only be either white or black. However, in the quantum world, the coin remains "gray" until we make a measurement of the result. (There are many more differences between these worlds, including "negative probability", which we cannot intuitively understand.)
 
-## Quantum World: "Uncertainty Principle"
-
+### Quantum World: "Uncertainty Principle"
 Another one of the important quantum properties is "uncertainty principle".
 
 We believe that anything you can touch is measurable. We are not only able to count the number of clothes you have in your closet, to calculate the weight of your watch in grams and the speed of a bullet train in kilometers per hour, but also even to calculate the weight of the Earth.
@@ -102,7 +100,6 @@ Through extremely precise mathematical descriptions, it has been proven that it 
 The fundamental constituents making up our beings are, in principle, not measurable.
 
 ## Introduction
-
 You may then ask me, "How does that quantum thing have anything to do with the free will?"
 
 If you have a good intuition, you may have realized that some of our preconditions have already been refuted, before we get into a serious discussion of the "free will".
@@ -114,7 +111,6 @@ First of all, the behaviors of quantum elements, which are our constituents, are
 Secondly, even if we set aside the fact that the quantum particles behave probabilistically, it's not possible for us to make accurate measurements of their behaviors (remember the "uncertainty principle"). Therefore, we fail to even satisfy preconditions for making predictions about our future.  Not only we are impossible to predict our future, but we are also impossible to, in principle, even get a grasp of this instantaneous moment.
 
 ## Proving Existence of "Free Will"
-
 Although these properties almost ensure our freedom (there is no way to prove that we are unfree), but I would like to prove the existence of "free will", just to make it doubly sure.
 
 Actually, our free exists in the quantum world.
@@ -124,11 +120,8 @@ Every day we make a choice like either A or B, but we make these decisions quant
 I will explain how this mechanism works, using an analogy of choosing "soup" or "salad" in a restaurant.
 
 **The sequence how we handle our order in a restaurant**
-
 1) Consider your options of soup and salad (Make the quantum superposition in your head, with your choice being 50% soup AND 50% salad).
-
 2) Choose "soup" using your will power (At this point in time, your choice does not affect the physical world at all; that is, the quantum state remains as 50% soup AND 50% salad).
-
 3) Say "soup please" to your server, using your voice (the quantum state settles to "100% soup", which is chosen at Step 2)).
 
 It is very important for you to make the quantum superposition at Step 1).
@@ -140,8 +133,8 @@ Also note that nothing happens in the physical world as a result of the Step 2),
 
 It may appear that your choice will would introduce some kind of statistical inconsistency, because it forcibly changes the probabilities to 100% for soup and 0% for salad, which were originally 50% for salad and 50% for soup. However, such an inconsistency does not occur, because your will power has a very special nature that its effect remains local and statistically random.
 
-## Conclusion
 
+## Conclusion
 I've proven the existence of free will.
 
 Well, do you say I proved nothing?
@@ -168,9 +161,8 @@ Of course, neither philosophy nor physics gives you such an answer.
 
 Then, there is only one thing we should do: just go ahead and live our future, believing that our life IS meaningful.
 
---------------------
 
-Translator's Note:
+## (Translator's Note)
 While I was translating this text, I realized, as a linguistic practitioner, that the English words "quantum" and "particle" have different connotations from the Japanese counterparts ("量子 (child-sized amount)" and "粒子 (child-sized grains)").
 
 Etymologically speaking, the English word "quantum" came from a Latin word *quantum* (portion, share), and  the "particle" has the same root as those of words such as "part", "particular", and "portion".  
