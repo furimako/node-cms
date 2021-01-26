@@ -93,8 +93,7 @@ module.exports = [
                 },
                 en: {
                     title: 'How to beat up "self-proclaimed" feminists',
-                    description: 'an introduction to feminism for men who think "feminism is horsecrap"',
-                    isNew: true
+                    description: 'an introduction to feminism for men who think "feminism is horsecrap"'
                 }
             },
             {
@@ -105,8 +104,7 @@ module.exports = [
                 },
                 en: {
                     title: 'You need to be prepared to die for happiness',
-                    description: 'from a conversation with my grandma with dementia',
-                    isNew: true
+                    description: 'from a conversation with my grandma with dementia'
                 }
             },
             {
@@ -190,11 +188,11 @@ module.exports = [
                 ja: {
                     title: '今を生きるためのちょっとしたヒント',
                     description: '気をつけないと忘れてしまうこと、でもとっても大切なこと'
-                // },
-                // en: {
-                //     title: 'Tips for living better life',
-                //     description: 'important things we tend to forget',
-                //     isNew: true
+                },
+                en: {
+                    title: 'Tips for living better life',
+                    description: 'important things we tend to forget',
+                    isNew: true
                 }
             },
             {
