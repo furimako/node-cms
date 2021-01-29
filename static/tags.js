@@ -1,3 +1,4 @@
+// Max 3 tags per page
 module.exports = {
     hapiness: {
         ja: '幸せ',
@@ -15,7 +16,8 @@ module.exports = {
             '/world/ideal-way-to-live-life',
             '/world/how-to-fail',
             '/world/death-for-life',
-            '/world/feminism'
+            '/world/feminism',
+            '/world/sex-education'
         ]
     },
     freedom: {
@@ -24,7 +26,8 @@ module.exports = {
             '/world/freedom',
             '/world/grown-up',
             '/world/nation',
-            '/world/free-will'
+            '/world/free-will',
+            '/world/sex-education'
         ]
     },
     philosophy: {
@@ -57,7 +60,8 @@ module.exports = {
         ja: '教育',
         targets: [
             '/world/education',
-            '/world/reward'
+            '/world/reward',
+            '/world/sex-education'
         ]
     }
 }
