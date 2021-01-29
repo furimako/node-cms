@@ -57,11 +57,18 @@ module.exports = [
         needToBeShared: true,
         elements: [
             {
+                urlPath: '/world/sex-education',
+                ja: {
+                    title: '「性教育」はするべきなのか？',
+                    description: '「性教育」を盲信するあなたへ',
+                    isNew: true
+                }
+            },
+            {
                 urlPath: '/world/democracy',
                 ja: {
                     title: '「民主主義 (民主制)」は正しいのか？',
-                    description: '投票制度の盲点と、その改良のための 3つの提案',
-                    isNew: true
+                    description: '投票制度の盲点と、その改良のための 3つの提案'
                 }
             },
             {
@@ -69,8 +76,7 @@ module.exports = [
                 ja: {
                     title: '精神病は実在するか？',
                     description: '製薬業界の 4つの矛盾から見えてくる「うつ病」や「統合失調症」の真の姿について',
-                    letter: '住人への手紙 2通目',
-                    isNew: true
+                    letter: '住人への手紙 2通目'
                 }
             },
             {
