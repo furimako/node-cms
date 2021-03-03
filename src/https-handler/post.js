@@ -58,7 +58,7 @@ module.exports = async function post(req, res, options) {
                 userAgent
             }
             await mongodbDriver.insertOne('comments', commentObj)
-            res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}#comments-field` })
+            res.writeHead(302, { Location: `${urlPrefix}${postData.urlPath}#comments-form` })
             res.end()
             return
         }

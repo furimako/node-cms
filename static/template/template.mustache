@@ -119,11 +119,18 @@
                                 <form method="post" action="/post/like">
                                     <input type="hidden" name="key" value="furimako">
                                     <input type="hidden" name="urlPath" value="{{urlPath}}">
-                                    <input type="hidden" name="lan" value={{#lan.ja}}"ja"{{/lan.ja}}{{#lan.en}}"en"{{/lan.en}}>
+                                    <input type="hidden" name="lan" value="{{#lan.ja}}ja{{/lan.ja}}{{#lan.en}}en{{/lan.en}}">
                                     <button class="button is-small is-primary is-outlined is-rounded">
                                         {{likeStr}} {{likeCount}}
                                     </button>
                                 </form>
+                                {{#numOfComments}}
+                                <a class="button is-small is-rounded" href="#comments-field">
+                                    {{#lan.ja}}コメント{{/lan.ja}}
+                                    {{#lan.en}}comments{{/lan.en}}
+                                    {{numOfComments}}
+                                </a>
+                                {{/numOfComments}}
                             </div>
                             {{/likeButton}}
                         </div>
@@ -272,7 +279,7 @@
                 </a>
             </div>
             {{#hasComments}}
-            <a class="navbar-item" href="#comments-field">
+            <a class="navbar-item" href="#comments-form">
                 {{#lan.ja}}コメントする{{/lan.ja}}
                 {{#lan.en}}comment{{/lan.en}}
             </a>
