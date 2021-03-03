@@ -87,7 +87,14 @@ module.exports = class BasePage {
         if (this.hasLikeButton) {
             const urlPath = (this.element.numOfChapters) ? `${this.urlPathBase}-1` : this.urlPath
             const likeCount = await mongodbDriver.count('likes', { urlPath })
-            this.view.likeButton = { urlPath, likeStr: likeStr[this.lan], likeCount }
+            const numOfComments = await mongodbDriver.count('comments', { urlPath })
+            
+            this.view.likeButton = {
+                urlPath,
+                likeStr: likeStr[this.lan],
+                likeCount,
+                numOfComments
+            }
         }
         
         if (this.hasCommentsField) {
