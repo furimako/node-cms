@@ -33,6 +33,7 @@ module.exports = class HomePage extends BasePage {
         await this._updateViewHome(pageNum, registration, email, messageSent, numOfResidents)
         this.view.bodyHTML = mustache.render(homeTemplate, this.viewHome, this.partial)
         this.view.numOfResidents = numOfResidents
+        this.view.isDuplicatePage = (pageNum !== 1)
         return mustache.render(template, this.view, this.partial)
     }
     
@@ -124,7 +125,7 @@ module.exports = class HomePage extends BasePage {
         this.viewHome.commentListPagination = {
             pageNum: pageNumValidated,
             pageTotal,
-            previousPageNum: (pageNumValidated <= 1) ? 1 : pageNumValidated - 1,
+            previousPageNum: (pageNumValidated <= 2) ? false : pageNumValidated - 1,
             disabledPrevious: (pageNumValidated <= 1) ? 'disabled' : '',
             nextPageNum: (pageNumValidated >= pageTotal) ? pageTotal : pageNumValidated + 1,
             disabledNext: (pageNumValidated >= pageTotal) ? 'disabled' : ''
