@@ -88,10 +88,10 @@
             {{#lan.ja}}Fully Hatter の頭の中{{/lan.ja}}
             {{#lan.en}}World{{/lan.en}}
         </h2>
-        <h3 class="title is-6" id="commentList">
+        <strong id="commentList">
             {{#lan.ja}}最近のコメント{{/lan.ja}}
             {{#lan.en}}Recent Comments{{/lan.en}}
-        </h3>
+        </strong>
         <div class="content is-small">
             <small>
                 <table>
@@ -143,6 +143,7 @@
             </ul>
         </nav>
         {{/commentListPagination}}
+
         <br>
         <br>
         <div class="columns">
@@ -182,32 +183,31 @@
                 {{{footHTML}}}
             {{/world}}
         </div>
+
+        {{#pickedUpComments}}
+            <br>
+            <br>
+            <h3 class="title is-5">
+                {{#lan.ja}}Fully Hatter のコメント{{/lan.ja}}
+                {{#lan.en}}Picked Up Comments{{/lan.en}}
+            </h3>
+            <div class="columns">
+                {{#commentsList}}
+                    {{{headHTML}}}
+                    <div class="box">
+                        <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}#comment{{commentNumber}}">
+                            {{title}}<br>
+                            ({{description}})
+                        </a>
+                        <br>
+                    </div>
+                    {{{footHTML}}}
+                {{/commentsList}}
+            </div>
+        {{/pickedUpComments}}
     </div>
 </section>
 
-{{#pickedUpComments}}
-<section class="section">
-    <div class="container">
-        <h2 class="title is-4">
-            {{#lan.ja}}Fully Hatter のコメント{{/lan.ja}}
-            {{#lan.en}}Picked Up Comments{{/lan.en}}
-        </h2>
-        <div class="columns">
-            {{#commentsList}}
-                {{{headHTML}}}
-                <div class="box">
-                    <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}#comment{{commentNumber}}">
-                        {{title}}<br>
-                        ({{description}})
-                    </a>
-                    <br>
-                </div>
-                {{{footHTML}}}
-            {{/commentsList}}
-        </div>
-    </div>
-</section>
-{{/pickedUpComments}}
 
 {{#lan.ja}}
 <section class="section">
