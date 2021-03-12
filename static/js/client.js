@@ -1,8 +1,14 @@
 var commentsElement = document.querySelectorAll('#comments-field > div > div.box');
-for (var i = 0; i < commentsElement.length; i += 1) {
-    commentsElement[i].setAttribute('id', `comment${i + 1}`);
+if (commentsElement) {
+    for (var i = 0; i < commentsElement.length; i += 1) {
+        commentsElement[i].setAttribute('id', `comment${i + 1}`);
+    }
+    
+    var hashElement = document.querySelector(window.location.hash)
+    if (hashElement) {
+        hashElement.scrollIntoView({ behavior: 'smooth' });
+    }
 }
-document.querySelector(window.location.hash).scrollIntoView({ behavior: 'smooth' });
 
 function openModal(id) {
     var element = document.getElementById(id);
