@@ -122,11 +122,11 @@ module.exports = class HomePage extends BasePage {
                 if (i === 0) {
                     this.viewHome.pickedUpComments.commentsList[i].headHTML = '<div class="column">'
                 }
-                if (i === Math.floor((this.viewHome.pickedUpComments.commentsList.length - 1) / 2)) {
+                if (i === Math.floor((pickedUpComments[this.lan].length - 1) / 2)) {
                     this.viewHome.pickedUpComments.commentsList[i].footHTML = '</div>'
                     this.viewHome.pickedUpComments.commentsList[i].footHTML += '<div class="column">'
                 }
-                if (i === this.viewHome.pickedUpComments.commentsList.length - 1) {
+                if (i === pickedUpComments[this.lan].length - 1) {
                     this.viewHome.pickedUpComments.commentsList[i].footHTML = '</div>'
                 }
             }
