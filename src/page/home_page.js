@@ -38,12 +38,11 @@ module.exports = class HomePage extends BasePage {
     }
     
     async _updateViewHome(pageNum, registration, email, messageSent, numOfResidents) {
-        const { lan } = this
         this.viewHome = {
             world: [],
             story: []
         }
-        this.viewHome.lan = { [lan]: true }
+        this.viewHome.lan = { [this.lan]: true }
         this.viewHome.registration = registration
         this.viewHome.email = email
         this.viewHome.messageSent = messageSent
@@ -52,14 +51,14 @@ module.exports = class HomePage extends BasePage {
 
         rooting.forEach((v) => {
             v.elements.forEach((e) => {
-                if (v.styleInHome && e[lan] && !e[lan].hidden) {
+                if (v.styleInHome && e[this.lan] && !e[this.lan].hidden) {
                     this.viewHome[v.styleInHome].push({
                         urlPath: (e.numOfChapters) ? `${e.urlPath}-1` : e.urlPath,
                         picturePath: `/images${e.urlPath}.jpg`,
-                        title: e[lan].title,
-                        description: e[lan].description,
-                        isNew: e[lan].isNew,
-                        letter: e[lan].letter,
+                        title: e[this.lan].title,
+                        description: e[this.lan].description,
+                        isNew: e[this.lan].isNew,
+                        letter: e[this.lan].letter,
                         hasTitleTags() {
                             return this.isNew || this.letter
                         }
@@ -69,10 +68,6 @@ module.exports = class HomePage extends BasePage {
         })
         
         const summary = await mongodbDriver.findCountsForHome(this.lan)
-        const comments = await mongodbDriver.find(
-            'comments',
-            { urlPath: { $ne: '/temp' }, lan: this.lan }
-        )
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
             if (!this.viewHome.world[i].advertisement) {
                 const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
@@ -108,8 +103,11 @@ module.exports = class HomePage extends BasePage {
                 this.viewHome.story[i].footHTML = '</div>'
             }
         }
-        
-        // create comment list
+
+        const comments = await mongodbDriver.find(
+            'comments',
+            { urlPath: { $ne: '/temp' }, lan: this.lan }
+        )
         const commentListSize = 6
         const pageTotal = Math.ceil(comments.length / commentListSize)
         let pageNumValidated
@@ -130,7 +128,10 @@ module.exports = class HomePage extends BasePage {
             nextPageNum: (pageNumValidated >= pageTotal) ? pageTotal : pageNumValidated + 1,
             disabledNext: (pageNumValidated >= pageTotal) ? 'disabled' : ''
         }
-        
+        this.viewHome.comments = await this._getCommentListView(comments, commentListSize, pageNumValidated)
+    }
+
+    async _getCommentListView(comments, commentListSize, pageNumValidated) {
         // from latest to oldest
         comments.sort((obj1, obj2) => obj2.date.getTime() - obj1.date.getTime())
         
@@ -146,10 +147,10 @@ module.exports = class HomePage extends BasePage {
             
                 let urlPath
                 let pageTitle
-                if (lan === 'ja') {
+                if (this.lan === 'ja') {
                     urlPath = commentObj.urlPath
                     pageTitle = (viewObj) ? viewObj.title : '掲示板'
-                } else if (lan === 'en') {
+                } else if (this.lan === 'en') {
                     urlPath = `/en${commentObj.urlPath}`
                     pageTitle = (viewObj) ? viewObj.title : 'Board'
                 }
@@ -161,6 +162,6 @@ module.exports = class HomePage extends BasePage {
                     excerptOfComment: (commentStr.length > 30) ? `${commentStr.slice(0, 30)}...` : commentStr
                 })
             })
-        this.viewHome.comments = commentListView
+        return commentListView
     }
 }
