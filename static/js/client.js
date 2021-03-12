@@ -3,8 +3,12 @@ if (commentsElement) {
     for (var i = 0; i < commentsElement.length; i += 1) {
         commentsElement[i].setAttribute('id', `comment${i + 1}`);
     }
-    
-    var hashElement = document.querySelector(window.location.hash)
+
+    var hash = window.location.hash;
+    var hashElement = false;
+    if (hash) {
+        hashElement = document.querySelector(hash)
+    }
     if (hashElement) {
         hashElement.scrollIntoView({ behavior: 'smooth' });
     }
