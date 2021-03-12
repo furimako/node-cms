@@ -184,6 +184,30 @@
         </div>
     </div>
 </section>
+
+{{#pickedUpComments}}
+<section class="section">
+    <div class="container">
+        <h2 class="title is-4">
+            {{#lan.ja}}Fully Hatter のコメント{{/lan.ja}}
+            {{#lan.en}}Picked Up Comments{{/lan.en}}
+        </h2>
+        <div class="columns">
+            {{#commentsList}}
+                {{{headHTML}}}
+                <div class="box">
+                    <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}#comment{{commentNumber}}">
+                        {{title}} ({{description}})
+                    </a>
+                    <br>
+                </div>
+                {{{footHTML}}}
+            {{/commentsList}}
+        </div>
+    </div>
+</section>
+{{/pickedUpComments}}
+
 {{#lan.ja}}
 <section class="section">
     <div class="container">
