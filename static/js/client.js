@@ -7,10 +7,10 @@ if (commentsElement) {
     var hash = window.location.hash;
     var hashElement = false;
     if (hash) {
-        hashElement = document.querySelector(hash)
+        hashElement = document.querySelector(hash);
     }
     if (hashElement) {
-        hashElement.scrollIntoView({ behavior: 'smooth' });
+        hashElement.scrollIntoView();
     }
 }
 
