@@ -3,6 +3,7 @@ const mustache = require('mustache')
 const { logging, JST } = require('node-utils')
 const BasePage = require('./base_page')
 const rooting = require('../../static/rooting')
+const pickedUpComments = require('../../static/picked-up-comments')
 const mongodbDriver = require('../mongodb_driver')
 
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
@@ -68,13 +69,13 @@ module.exports = class HomePage extends BasePage {
         })
         
         const summary = await mongodbDriver.findCountsForHome(this.lan)
+
+        // update viewHome for World
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
-            if (!this.viewHome.world[i].advertisement) {
-                const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
-                const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
-                this.viewHome.world[i].numOfLikes = `${likeCount}`
-                this.viewHome.world[i].numOfComments = `${commentCount}`
-            }
+            const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
+            const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
+            this.viewHome.world[i].numOfLikes = `${likeCount}`
+            this.viewHome.world[i].numOfComments = `${commentCount}`
             
             if (i === 0) {
                 this.viewHome.world[i].headHTML = '<div class="column">'
@@ -88,6 +89,7 @@ module.exports = class HomePage extends BasePage {
             }
         }
         
+        // update viewHome for Story
         for (let i = 0; i < this.viewHome.story.length; i += 1) {
             const likeCount = summary.likeCount[this.viewHome.story[i].urlPath] || 0
             this.viewHome.story[i].numOfLikes = `${likeCount}`
@@ -104,6 +106,33 @@ module.exports = class HomePage extends BasePage {
             }
         }
 
+        // update viewHome for Picked Up Comments
+        if (pickedUpComments[this.lan]) {
+            this.viewHome.pickedUpComments = { commentsList: [] }
+            for (let i = 0; i < pickedUpComments[this.lan].length; i += 1) {
+                const commentObj = pickedUpComments[this.lan][i]
+
+                this.viewHome.pickedUpComments.commentsList.push({
+                    title: commentObj.title,
+                    urlPath: commentObj.urlPath,
+                    description: _getTitle(commentObj.urlPath, this.lan),
+                    commentNumber: commentObj.commentNumber
+                })
+
+                if (i === 0) {
+                    this.viewHome.pickedUpComments.commentsList[i].headHTML = '<div class="column">'
+                }
+                if (i === Math.floor((this.viewHome.pickedUpComments.commentsList.length - 1) / 2)) {
+                    this.viewHome.pickedUpComments.commentsList[i].footHTML = '</div>'
+                    this.viewHome.pickedUpComments.commentsList[i].footHTML += '<div class="column">'
+                }
+                if (i === this.viewHome.pickedUpComments.commentsList.length - 1) {
+                    this.viewHome.pickedUpComments.commentsList[i].footHTML = '</div>'
+                }
+            }
+        }
+
+        // update viewHome for recent comments
         const comments = await mongodbDriver.find(
             'comments',
             { urlPath: { $ne: '/temp' }, lan: this.lan }
@@ -128,7 +157,11 @@ module.exports = class HomePage extends BasePage {
             nextPageNum: (pageNumValidated >= pageTotal) ? pageTotal : pageNumValidated + 1,
             disabledNext: (pageNumValidated >= pageTotal) ? 'disabled' : ''
         }
-        this.viewHome.comments = await this._getCommentListView(comments, commentListSize, pageNumValidated)
+        this.viewHome.comments = await this._getCommentListView(
+            comments,
+            commentListSize,
+            pageNumValidated
+        )
     }
 
     async _getCommentListView(comments, commentListSize, pageNumValidated) {
@@ -164,4 +197,16 @@ module.exports = class HomePage extends BasePage {
             })
         return commentListView
     }
+}
+
+function _getTitle(urlPath, lan) {
+    let title = ''
+    rooting.forEach((v) => {
+        v.elements.forEach((e) => {
+            if (urlPath === e.urlPath) {
+                title = e[lan].title
+            }
+        })
+    })
+    return title
 }
