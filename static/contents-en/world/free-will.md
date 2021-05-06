@@ -1,5 +1,5 @@
 <!-- Does "Free Will" exist? -->
-<!-- 〜let's prove that we are completely free from the world of quantum physics〜 -->
+<!-- 〜let's prove that we are completely free by quantum physics〜 -->
 
 Do you believe in the existence of "free will"?
 
