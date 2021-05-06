@@ -197,8 +197,7 @@ module.exports = [
                 },
                 en: {
                     title: 'Tips for living better life',
-                    description: 'important things we tend to forget',
-                    isNew: true
+                    description: 'important things we tend to forget'
                 }
             },
             {
