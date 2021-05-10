@@ -8,7 +8,7 @@ const mongodbDriver = require('../mongodb_driver')
 
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const homeTemplate = fs.readFileSync('./static/template/home.mustache', 'utf8')
-const commentLength = 50
+const commentLength = 40
 
 module.exports = class HomePage extends BasePage {
     constructor({ lan, isMultilingual, element }) {
