@@ -8,6 +8,7 @@ const mongodbDriver = require('../mongodb_driver')
 
 const template = fs.readFileSync('./static/template/template.mustache', 'utf8')
 const homeTemplate = fs.readFileSync('./static/template/home.mustache', 'utf8')
+const commentLength = 50
 
 module.exports = class HomePage extends BasePage {
     constructor({ lan, isMultilingual, element }) {
@@ -192,7 +193,7 @@ module.exports = class HomePage extends BasePage {
                     urlPath,
                     pageTitle,
                     name: commentObj.name,
-                    excerptOfComment: (commentStr.length > 30) ? `${commentStr.slice(0, 30)}...` : commentStr
+                    excerptOfComment: (commentStr.length > commentLength) ? `${commentStr.slice(0, commentLength)}...` : commentStr
                 })
             })
         return commentListView
