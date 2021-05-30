@@ -10,7 +10,7 @@ You can manage contents with markdown text files.
 ## How to Run This Website
 ### macOS (local)
 1. install [MongoDB Community Edition (version 4.2)](https://www.mongodb.com/download-center/community)
-1. install [Node.js (version 12)](https://nodejs.org/en/download/)
+1. install [Node.js (version 14)](https://nodejs.org/en/download/)
 1. install Node-CMS & Node-Utils
     ```bash
     git clone https://github.com/furimako/node-cms.git
@@ -39,8 +39,8 @@ You can manage contents with markdown text files.
     sudo apt-get update
     sudo apt-get install -y mongodb-org
     
-    # install Node.js (version 12)
-    curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+    # install Node.js (version 14)
+    curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
     sudo apt-get install -y nodejs
     
     # install pm2
