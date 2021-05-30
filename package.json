@@ -6,7 +6,7 @@
     "license": "MIT",
     "repository": "github:furimako/node-cms",
     "engines": {
-        "node": ">=12.13.1 <13.0.0"
+        "node": ">=14.0.0 <15.0.0"
     },
     "scripts": {
         "prestart": "bash scripts/production/iptables.sh",
