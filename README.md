@@ -8,7 +8,7 @@ You can manage contents with markdown text files.
 - make the most of server side (Node.js) power
 
 ## How to Run This Website
-### macOS (local)
+### Local (macOS)
 1. install [MongoDB Community Edition (version 4.2)](https://www.mongodb.com/download-center/community)
 1. install [Node.js (version 14)](https://nodejs.org/en/download/)
 1. install Node-CMS & Node-Utils
@@ -28,9 +28,12 @@ You can manage contents with markdown text files.
     node app.js
     ```
 
-### Ubuntu (production)
+### Production (Ubuntu 20.04)
 1. set up server with below commands
     ```bash
+    sudo apt update
+    sudo apt -y dist-upgrade
+
     # install MongoDB Community Edition (version 4.2)
     wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
     sudo apt-get install gnupg
