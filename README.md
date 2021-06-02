@@ -62,9 +62,6 @@ You can manage contents with markdown text files.
     cd node-cms
     npm install
     
-    # set-up crontab
-    crontab configs/production/crontab.conf
-
     # set-up Let's Encrypt
     ## Add Certbot PPA
     sudo apt-get update
@@ -88,6 +85,10 @@ You can manage contents with markdown text files.
 1. start server
     ```bash
     npm start
+    ```
+1. set-up crontab
+    ```bash
+    crontab configs/production/crontab.conf
     ```
 
 ## How to Backup (on macOS)
