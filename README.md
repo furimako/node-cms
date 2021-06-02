@@ -13,8 +13,11 @@ You can manage contents with markdown text files.
 1. install [Node.js (version 14)](https://nodejs.org/en/download/)
 1. install Node-CMS & Node-Utils
     ```bash
-    git clone https://github.com/furimako/node-cms.git
     git clone https://github.com/furimako/node-utils.git
+    cd node-utils
+    npm install
+    cd ..
+    git clone https://github.com/furimako/node-cms.git
     cd node-cms
     npm install
     ```
@@ -50,8 +53,11 @@ You can manage contents with markdown text files.
     sudo npm install pm2 -g
 
     # install Node-CMS & Node-Utils
-    git clone https://github.com/furimako/node-cms.git
     git clone https://github.com/furimako/node-utils.git
+    cd node-utils
+    npm install
+    cd ..
+    git clone https://github.com/furimako/node-cms.git
     cd node-cms
     npm install
     
