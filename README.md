@@ -34,6 +34,7 @@ You can manage contents with markdown text files.
 ### Production (Ubuntu 20.04)
 1. set up server with below commands
     ```bash
+    sudo timedatectl set-timezone Asia/Tokyo
     sudo apt update
     sudo apt -y dist-upgrade
 
