@@ -34,6 +34,7 @@ You can manage contents with markdown text files.
 ### Production (Ubuntu 20.04)
 1. set up server with below commands
     ```bash
+    sudo hostnamectl set-hostname automation
     sudo timedatectl set-timezone Asia/Tokyo
     sudo apt update
     sudo apt -y dist-upgrade
@@ -63,19 +64,16 @@ You can manage contents with markdown text files.
     npm install
     
     # set-up Let's Encrypt
-    ## Add Certbot PPA
-    sudo apt-get update
-    sudo apt-get install software-properties-common
-    sudo add-apt-repository universe
-    sudo add-apt-repository ppa:certbot/certbot
-    sudo apt-get update
-    
-    ## Install Cearbot
-    sudo apt-get install certbot
+    ## ensure that your version of snapd is up to date
+    sudo snap install core; sudo snap refresh core
+    ## install Certbot
+    sudo snap install --classic certbot
+    ## prepare the Certbot command
+    sudo ln -s /snap/bin/certbot /usr/bin/certbot
+    ## get a certificate
     ## [CAUTION] Stop server before executing below command
     sudo certbot certonly --standalone
-    sudo chmod 777 /etc/letsencrypt/live
-    sudo chmod 777 /etc/letsencrypt/archive
+    sudo chmod 770 -R /etc/letsencrypt/live
     ```
 1. create 'configs/configs.json'  
 1. start MongoDB
