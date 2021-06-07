@@ -74,6 +74,8 @@ You can manage contents with markdown text files.
     ## [CAUTION] Stop server before executing below command
     sudo certbot certonly --standalone
     sudo chmod 770 -R /etc/letsencrypt/live
+    ## test automatic renewal for your certificates by running this command
+    sudo certbot renew --dry-run
     ```
 1. create 'configs/configs.json'  
 1. start MongoDB
