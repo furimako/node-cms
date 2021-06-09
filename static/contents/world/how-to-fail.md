@@ -42,7 +42,7 @@
 次に、交友関係に注意を払いましょう。
 当たり前のことですが、成功しそうな人を友だちに持ってはいけません。
 そして、意外かもしれませんが到底成功しなさそうな人とも縁を切りましょう。
-[ハーバードの研究 (Good genes are nice, but joy is better)](https://news.harvard.edu/gazette/story/2017/04/over-nearly-80-years-harvard-study-has-been-showing-how-to-live-a-healthy-and-happy-life/)で、人生の幸福に最も影響があるのは人との良好な関係であることが分かっています。
+[ハーバードの研究 (Good genes are nice, but joy is better)](https://news.harvard.edu/gazette/story/2017/04/over-nearly-80-years-harvard-study-has-been-showing-how-to-live-a-healthy-and-happy-life/) で、人生の幸福に最も影響があるのは人との良好な関係であることが分かっています。
 なるべく人との接触を避けること、人と関係を持ったとしてもなるべくすぐに疎遠になることを徹底しましょう。
 
 そして最後に、なるべく身を危険に晒しましょう。
