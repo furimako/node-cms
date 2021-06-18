@@ -4,6 +4,7 @@
 # Ubuntu
 #
 
+echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] starting startup.sh"
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] confirm status"
 crontab -l
 

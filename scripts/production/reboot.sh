@@ -1,10 +1,10 @@
-
 #!/bin/sh
 
 #
 # Ubuntu
 #
 
+echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] starting reboot.sh"
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] update packages"
 sudo apt-get update
 sudo apt-get -y dist-upgrade
