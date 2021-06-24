@@ -189,7 +189,7 @@ module.exports = class HomePage extends BasePage {
                     pageTitle = (viewObj) ? viewObj.title : 'Board'
                 }
                 commentListView.push({
-                    date: JST.convertToDate(commentObj.date),
+                    date: JST.convertToDateStr(commentObj.date),
                     urlPath,
                     pageTitle,
                     name: commentObj.name,
