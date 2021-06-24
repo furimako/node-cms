@@ -124,7 +124,7 @@ module.exports = class BasePage {
             comments.push({
                 id,
                 name: comment.name,
-                timestamp: JST.convertToDatetime(comment.date),
+                timestamp: JST.convertToDatetimeStr(comment.date),
                 comment: mustache.render('{{raw}}', { raw: comment.comment }).replace(/(\r\n|\n|\r)/gm, '<br>')
             })
             commentIds.push({
