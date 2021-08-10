@@ -42,6 +42,7 @@ module.exports = class HomePage extends BasePage {
     async _updateViewHome(pageNum, registration, email, messageSent, numOfResidents) {
         this.viewHome = {
             world: [],
+            column: [],
             story: []
         }
         this.viewHome.lan = { [this.lan]: true }
@@ -87,6 +88,25 @@ module.exports = class HomePage extends BasePage {
             }
             if (i === this.viewHome.world.length - 1) {
                 this.viewHome.world[i].footHTML = '</div>'
+            }
+        }
+
+        // update viewHome for Column
+        for (let i = 0; i < this.viewHome.column.length; i += 1) {
+            const likeCount = summary.likeCount[this.viewHome.column[i].urlPath] || 0
+            const commentCount = summary.commentCount[this.viewHome.column[i].urlPath] || 0
+            this.viewHome.column[i].numOfLikes = `${likeCount}`
+            this.viewHome.column[i].numOfComments = `${commentCount}`
+            
+            if (i === 0) {
+                this.viewHome.column[i].headHTML = '<div class="column">'
+            }
+            if (i === Math.floor((this.viewHome.column.length - 1) / 2)) {
+                this.viewHome.column[i].footHTML = '</div>'
+                this.viewHome.column[i].footHTML += '<div class="column">'
+            }
+            if (i === this.viewHome.column.length - 1) {
+                this.viewHome.column[i].footHTML = '</div>'
             }
         }
         
@@ -176,7 +196,10 @@ module.exports = class HomePage extends BasePage {
                 pageNumValidated * commentListSize
             )
             .forEach((commentObj) => {
-                const viewObj = this.viewHome.world.find((e) => e.urlPath === commentObj.urlPath)
+                let viewObj = this.viewHome.world.find((e) => e.urlPath === commentObj.urlPath)
+                if (!viewObj) {
+                    viewObj = this.viewHome.column.find((e) => e.urlPath === commentObj.urlPath)
+                }
                 const commentStr = mustache.render('{{raw}}', { raw: commentObj.comment }).replace(/(\r\n|\n|\r)/gm, ' ')
             
                 let urlPath

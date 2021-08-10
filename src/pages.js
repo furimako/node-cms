@@ -36,7 +36,7 @@ module.exports = class Pages {
                         isMultilingual,
                         element: e,
                         filePath: `${v.filePathPrefix}${e.urlPath}${v.filePathSuffix || ''}`,
-                        titleWithDescription: v.styleInHome === 'world',
+                        titleWithDescription: v.styleInHome === 'world' || v.styleInHome === 'column',
                         hasLikeButton: v.hasLikeButton,
                         hasCommentsField: v.hasCommentsField,
                         hasRelatedPages: v.hasRelatedPages,
