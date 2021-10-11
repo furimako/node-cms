@@ -32,18 +32,17 @@ You can manage contents with markdown text files.
     ```
 
 ### Production (Ubuntu 20.04)
+1. create DNS for the server
 1. set up server with below commands
     ```bash
-    sudo hostnamectl set-hostname automation
+    sudo hostnamectl set-hostname furimako
     sudo timedatectl set-timezone Asia/Tokyo
     sudo apt update
     sudo apt -y dist-upgrade
 
-    # install MongoDB Community Edition (version 4.2)
-    wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-    sudo apt-get install gnupg
-    wget -qO - https://www.mongodb.org/static/pgp/server-4.2.asc | sudo apt-key add -
-    echo "deb [ arch=amd64 ] https://repo.mongodb.org/apt/ubuntu bionic/mongodb-org/4.2 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.2.list
+    # install MongoDB Community Edition (version 5.0)
+    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
     sudo apt-get update
     sudo apt-get install -y mongodb-org
     
@@ -73,7 +72,7 @@ You can manage contents with markdown text files.
     ## get a certificate
     ## [CAUTION] Stop server before executing below command
     sudo certbot certonly --standalone
-    sudo chmod 770 -R /etc/letsencrypt/live
+    sudo chmod 555 -R /etc/letsencrypt
     ## test automatic renewal for your certificates by running this command
     sudo certbot renew --dry-run
     ```
