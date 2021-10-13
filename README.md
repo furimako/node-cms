@@ -45,6 +45,7 @@ You can manage contents with markdown text files.
     echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
     sudo apt-get update
     sudo apt-get install -y mongodb-org
+    sudo systemctl enable mongod.service
     
     # install Node.js (version 14)
     curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
