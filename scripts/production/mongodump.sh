@@ -5,4 +5,4 @@
 #
 
 echo "$(date +'%Y-%m-%dT%H:%M:%S')+09:00 [INFO] starting mongodump.sh"
-sudo mongodump --out ~/node-cms/logs/dumps/$(date +%Y%m%d-%H%M%S)/
+mongodump --out ~/node-cms/logs/dumps/$(date +%Y%m%d-%H%M%S)/
