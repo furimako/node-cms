@@ -88,11 +88,11 @@
             </div>
             <div class="hero-body">
                 <div class="container">
-                    {{#titleTag}}
+                    {{#isNew}}
                     <div class="tags">
-                        <span class="tag {{titleTag.color}}">{{titleTag.text}}</span>
+                        <span class="tag is-danger">{{isNew}}</span>
                     </div>
-                    {{/titleTag}}
+                    {{/isNew}}
                     <h1 class="title is-4">{{title}}</h1>
                     {{#titleWithDescription}}
                     <div class="subtitle is-6">〜{{description}}〜</div>

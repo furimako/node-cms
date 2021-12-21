@@ -57,6 +57,7 @@ module.exports = class BasePage {
             title: this.element[this.lan].title + ((chapter) ? ` ${parseInt(chapter, 10)}` : ''),
             description: this.element[this.lan].description,
             bodyHTML,
+            isNew: this.element[this.lan].isNew,
             titleTag: this.element[this.lan].titleTag,
             url: `${url + this.urlPath}`,
             urlPath: this.urlPath,

@@ -55,12 +55,17 @@ module.exports = class HomePage extends BasePage {
         rooting.forEach((v) => {
             v.elements.forEach((e, i) => {
                 if (v.styleInHome && e[this.lan] && !e[this.lan].hidden) {
+                    const { titleTag } = e[this.lan]
+                    if (titleTag) {
+                        titleTag[titleTag.length - 1].linebreak = '<br>'
+                    }
                     this.viewHome[v.styleInHome].push({
                         urlPath: (e.numOfChapters) ? `${e.urlPath}-1` : e.urlPath,
                         picturePath: `/images${e.urlPath}.jpg`,
                         title: `#${v.elements.length - i} ${e[this.lan].title}`,
                         description: e[this.lan].description,
-                        titleTag: e[this.lan].titleTag
+                        isNew: e[this.lan].isNew,
+                        titleTag
                     })
                 }
             })
