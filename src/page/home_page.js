@@ -60,11 +60,7 @@ module.exports = class HomePage extends BasePage {
                         picturePath: `/images${e.urlPath}.jpg`,
                         title: e[this.lan].title,
                         description: e[this.lan].description,
-                        isNew: e[this.lan].isNew,
-                        letter: e[this.lan].letter,
-                        hasTitleTags() {
-                            return this.isNew || this.letter
-                        }
+                        titleTag: e[this.lan].titleTag
                     })
                 }
             })
