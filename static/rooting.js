@@ -106,8 +106,8 @@ module.exports = [
                     title: '「自称フェミニスト」の叩き潰し方',
                     description: 'フェミニストが嫌いな男性向けのフェミニズム入門',
                     titleTag: [
-                        { color: 'is-link', text: '閲覧数 No.1' },
-                        { color: 'is-primary', text: 'コメント数 No.2' }
+                        { color: 'is-primary', text: 'コメント数 No.2' },
+                        { color: 'is-link', text: '閲覧数 No.1' }
                     ]
                 },
                 en: {
