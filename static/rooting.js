@@ -61,10 +61,9 @@ module.exports = [
                 ja: {
                     title: '「性教育」はするべきなのか？',
                     description: '「性教育」を盲信するあなたへ',
-                    titleTag: {
-                        color: 'is-danger',
-                        text: 'New!'
-                    }
+                    titleTag: [
+                        { color: 'is-danger', text: 'New!' }
+                    ]
                 }
             },
             {
@@ -79,32 +78,37 @@ module.exports = [
                 ja: {
                     title: '精神病は実在するか？',
                     description: '製薬業界の 4つの矛盾から見えてくる「うつ病」や「統合失調症」の真の姿について',
-                    titleTag: {
-                        color: 'is-danger is-light',
-                        text: '住人への手紙 2通目'
-                    }
+                    titleTag: [
+                        { color: 'is-danger is-light', text: '住人への手紙 2通目' }
+                    ]
                 }
             },
             {
                 urlPath: '/world/free-will',
                 ja: {
                     title: '「自由意志」なんて存在しないと思うあなたへ',
-                    description: '「量子力学」の見地から我々が自由であることを証明しよう'
+                    description: '「量子力学」の見地から我々が自由であることを証明しよう',
+                    titleTag: [
+                        { color: 'is-link', text: '閲覧数 No.3' }
+                    ]
                 },
                 en: {
                     title: 'Does "Free Will" exist?',
                     description: 'let\'s prove that we are completely free by quantum physics',
-                    titleTag: {
-                        color: 'is-danger',
-                        text: 'New!'
-                    }
+                    titleTag: [
+                        { color: 'is-danger', text: 'New!' }
+                    ]
                 }
             },
             {
                 urlPath: '/world/feminism',
                 ja: {
                     title: '「自称フェミニスト」の叩き潰し方',
-                    description: 'フェミニストが嫌いな男性向けのフェミニズム入門'
+                    description: 'フェミニストが嫌いな男性向けのフェミニズム入門',
+                    titleTag: [
+                        { color: 'is-link', text: '閲覧数 No.1' },
+                        { color: 'is-primary', text: 'コメント数 No.2' }
+                    ]
                 },
                 en: {
                     title: 'How to beat up "self-proclaimed" feminists',
@@ -137,7 +141,10 @@ module.exports = [
                 urlPath: '/world/nation',
                 ja: {
                     title: 'もう人間は働かなくてもいい、という主張',
-                    description: 'ベーシックインカムと「理想の国家」'
+                    description: 'ベーシックインカムと「理想の国家」',
+                    titleTag: [
+                        { color: 'is-link', text: '閲覧数 No.2' }
+                    ]
                 }
             },
             {
@@ -162,14 +169,20 @@ module.exports = [
                 urlPath: '/world/philosophy',
                 ja: {
                     title: '哲学は無意味である',
-                    description: '「この世界はどうして存在するのだろう？」私が答えましょう'
+                    description: '「この世界はどうして存在するのだろう？」私が答えましょう',
+                    titleTag: [
+                        { color: 'is-primary', text: 'コメント数 No.1' }
+                    ]
                 }
             },
             {
                 urlPath: '/world/education',
                 ja: {
                     title: '「歴史」は教育するな',
-                    description: '我々が本当に学ぶべきことについて'
+                    description: '我々が本当に学ぶべきことについて',
+                    titleTag: [
+                        { color: 'is-danger', text: 'Update!' }
+                    ]
                 },
                 en: {
                     title: 'What should we learn?',
@@ -213,7 +226,10 @@ module.exports = [
                 urlPath: '/world/happiness',
                 ja: {
                     title: '「幸せ」の定義を科学しよう',
-                    description: 'あなたの「幸せ」はどんな形ですか？'
+                    description: 'あなたの「幸せ」はどんな形ですか？',
+                    titleTag: [
+                        { color: 'is-primary', text: 'コメント数 No.3' }
+                    ]
                 },
                 en: {
                     title: 'What is the definition of happiness?',

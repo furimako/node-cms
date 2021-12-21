@@ -152,18 +152,16 @@
                 {{{headHTML}}}
                 <div class="box">
                     {{#titleTag}}
-                    <span class="tag {{titleTag.color}}">{{titleTag.text}}</span>
-                    <br>
+                    <span class="tag {{color}}">{{text}}</span>
                     {{/titleTag}}
+                    <br>
                     <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}">{{title}}</a>
-                    {{#numOfComments}}
                     <br>
                     <span class="tag is-rounded">
                         {{#lan.ja}}コメント{{/lan.ja}}
                         {{#lan.en}}comments{{/lan.en}}
                         {{numOfComments}}
                     </span>
-                    {{/numOfComments}}
                 </div>
                 {{{footHTML}}}
             {{/world}}
