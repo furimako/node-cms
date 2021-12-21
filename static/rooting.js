@@ -61,7 +61,10 @@ module.exports = [
                 ja: {
                     title: '「性教育」はするべきなのか？',
                     description: '「性教育」を盲信するあなたへ',
-                    isNew: true
+                    titleTag: {
+                        color: 'is-danger',
+                        text: 'New!'
+                    }
                 }
             },
             {
@@ -76,7 +79,10 @@ module.exports = [
                 ja: {
                     title: '精神病は実在するか？',
                     description: '製薬業界の 4つの矛盾から見えてくる「うつ病」や「統合失調症」の真の姿について',
-                    letter: '住人への手紙 2通目'
+                    titleTag: {
+                        color: 'is-danger is-light',
+                        text: '住人への手紙 2通目'
+                    }
                 }
             },
             {
@@ -88,7 +94,10 @@ module.exports = [
                 en: {
                     title: 'Does "Free Will" exist?',
                     description: 'let\'s prove that we are completely free by quantum physics',
-                    isNew: true
+                    titleTag: {
+                        color: 'is-danger',
+                        text: 'New!'
+                    }
                 }
             },
             {
@@ -159,8 +168,8 @@ module.exports = [
             {
                 urlPath: '/world/education',
                 ja: {
-                    title: '我々が本当に学ぶべきことは何だろうか？',
-                    description: '「歴史」から探る理想の教育'
+                    title: '「歴史」は教育するな',
+                    description: '我々が本当に学ぶべきことについて'
                 },
                 en: {
                     title: 'What should we learn?',
