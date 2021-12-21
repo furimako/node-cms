@@ -151,6 +151,14 @@
             {{#world}}
                 {{{headHTML}}}
                 <div class="box">
+                    {{#isNew}}
+                    <span class="tag is-danger">{{isNew}}</span>
+                    <br>
+                    {{/isNew}}
+                    {{#titleTag}}
+                    <span class="tag {{color}}">{{text}}</span>
+                    {{{linebreak}}}
+                    {{/titleTag}}
                     <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}">{{title}}</a>
                     <br>
                     <span class="tag is-rounded">
@@ -158,9 +166,6 @@
                         {{#lan.en}}comments{{/lan.en}}
                         {{numOfComments}}
                     </span>
-                    {{#titleTag}}
-                    <span class="tag {{color}}">{{text}}</span>
-                    {{/titleTag}}
                 </div>
                 {{{footHTML}}}
             {{/world}}

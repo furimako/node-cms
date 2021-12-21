@@ -61,9 +61,7 @@ module.exports = [
                 ja: {
                     title: '「性教育」はするべきなのか？',
                     description: '「性教育」を盲信するあなたへ',
-                    titleTag: [
-                        { color: 'is-danger', text: 'New!' }
-                    ]
+                    isNew: 'New!'
                 }
             },
             {
@@ -95,9 +93,7 @@ module.exports = [
                 en: {
                     title: 'Does "Free Will" exist?',
                     description: 'let\'s prove that we are completely free by quantum physics',
-                    titleTag: [
-                        { color: 'is-danger', text: 'New!' }
-                    ]
+                    isNew: 'New!'
                 }
             },
             {
@@ -106,8 +102,8 @@ module.exports = [
                     title: '「自称フェミニスト」の叩き潰し方',
                     description: 'フェミニストが嫌いな男性向けのフェミニズム入門',
                     titleTag: [
-                        { color: 'is-primary', text: 'コメント数 No.2' },
-                        { color: 'is-link', text: '閲覧数 No.1' }
+                        { color: 'is-link', text: '閲覧数 No.1' },
+                        { color: 'is-primary', text: 'コメント数 No.2' }
                     ]
                 },
                 en: {
@@ -180,9 +176,7 @@ module.exports = [
                 ja: {
                     title: '「歴史」は教育するな',
                     description: '我々が本当に学ぶべきことについて',
-                    titleTag: [
-                        { color: 'is-danger', text: 'Update!' }
-                    ]
+                    isNew: 'Update!'
                 },
                 en: {
                     title: 'What should we learn?',
