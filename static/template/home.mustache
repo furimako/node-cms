@@ -151,15 +151,10 @@
             {{#world}}
                 {{{headHTML}}}
                 <div class="box">
-                    {{#hasTitleTags}}
-                    {{#isNew}}
-                    <span class="tag is-danger">New!</span>
-                    {{/isNew}}
-                    {{#letter}}
-                    <span class="tag is-danger is-light">{{letter}}</span>
-                    {{/letter}}
+                    {{#titleTag}}
+                    <span class="tag {{titleTag.color}}">{{titleTag.text}}</span>
                     <br>
-                    {{/hasTitleTags}}
+                    {{/titleTag}}
                     <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}">
                         {{title}}
                         <br>
@@ -210,45 +205,6 @@
 </section>
 
 {{#lan.ja}}
-<section class="section">
-    <div class="container">
-        <h2 class="title is-3">Column</h2>
-        <div class="columns">
-            {{#column}}
-                {{{headHTML}}}
-                <div class="box">
-                    {{#hasTitleTags}}
-                    {{#isNew}}
-                    <span class="tag is-danger">New!</span>
-                    {{/isNew}}
-                    <br>
-                    {{/hasTitleTags}}
-                    <a href="{{#lan.en}}/en{{/lan.en}}{{urlPath}}">
-                        {{title}}
-                        <br>
-                        {{#description}}〜{{description}}〜{{/description}}
-                    </a>
-                    <br>
-                    {{#numOfLikes}}
-                    <span class="tag is-rounded">
-                        {{#lan.ja}}いいね！{{/lan.ja}}
-                        {{#lan.en}}like{{/lan.en}}
-                        {{numOfLikes}}
-                    </span>
-                    {{/numOfLikes}}
-                    {{#numOfComments}}
-                    <span class="tag is-rounded">
-                        {{#lan.ja}}コメント{{/lan.ja}}
-                        {{#lan.en}}comments{{/lan.en}}
-                        {{numOfComments}}
-                    </span>
-                    {{/numOfComments}}
-                </div>
-                {{{footHTML}}}
-            {{/column}}
-        </div>
-    </div>
-</section>
 <section class="section">
     <div class="container">
         <h2 class="title is-3">Story</h2>

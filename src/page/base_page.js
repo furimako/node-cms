@@ -57,8 +57,7 @@ module.exports = class BasePage {
             title: this.element[this.lan].title + ((chapter) ? ` ${parseInt(chapter, 10)}` : ''),
             description: this.element[this.lan].description,
             bodyHTML,
-            isNew: this.element[this.lan].isNew,
-            letter: this.element[this.lan].letter,
+            titleTag: this.element[this.lan].titleTag,
             url: `${url + this.urlPath}`,
             urlPath: this.urlPath,
             cssPath,
@@ -67,10 +66,7 @@ module.exports = class BasePage {
             isMultilingual,
             needToBeShared: this.needToBeShared,
             registerFormMain: { registerFormId: 'registerMain' },
-            registerFormFooter: { registerFormId: 'registerFooter' },
-            hasTitleTags() {
-                return this.isNew || this.letter
-            }
+            registerFormFooter: { registerFormId: 'registerFooter' }
         }
         if (hasRelatedPages) {
             const relatedPagesView = _getRelatedPagesView(this.urlPath, this.lan)
