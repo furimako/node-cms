@@ -53,12 +53,12 @@ module.exports = class HomePage extends BasePage {
         this.viewHome.numOfResidents = numOfResidents
 
         rooting.forEach((v) => {
-            v.elements.forEach((e) => {
+            v.elements.forEach((e, i) => {
                 if (v.styleInHome && e[this.lan] && !e[this.lan].hidden) {
                     this.viewHome[v.styleInHome].push({
                         urlPath: (e.numOfChapters) ? `${e.urlPath}-1` : e.urlPath,
                         picturePath: `/images${e.urlPath}.jpg`,
-                        title: e[this.lan].title,
+                        title: `#${v.elements.length - i} ${e[this.lan].title}`,
                         description: e[this.lan].description,
                         titleTag: e[this.lan].titleTag
                     })
@@ -70,9 +70,7 @@ module.exports = class HomePage extends BasePage {
 
         // update viewHome for World
         for (let i = 0; i < this.viewHome.world.length; i += 1) {
-            const likeCount = summary.likeCount[this.viewHome.world[i].urlPath] || 0
             const commentCount = summary.commentCount[this.viewHome.world[i].urlPath] || 0
-            this.viewHome.world[i].numOfLikes = `${likeCount}`
             this.viewHome.world[i].numOfComments = `${commentCount}`
             
             if (i === 0) {
