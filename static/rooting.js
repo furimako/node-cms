@@ -60,7 +60,7 @@ module.exports = [
                 urlPath: '/how-to-beat-intellectual-giant/horiemon',
                 ja: {
                     title: 'ホリエモンの倒し方 (難易度: Normal)',
-                    description: 'IT界の「知の巨人」堀江貴文氏への戯言',
+                    description: 'ビジネス界の「知の巨人」堀江貴文氏への戯言',
                     titleTag: [
                         { color: 'is-primary is-light', text: '「知の巨人」の倒し方シリーズ' }
                     ],
