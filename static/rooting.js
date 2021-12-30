@@ -57,21 +57,11 @@ module.exports = [
         needToBeShared: true,
         elements: [
             {
-                urlPath: '/how-to-beat-intellectual-giant/horiemon',
-                ja: {
-                    title: 'ホリエモンの倒し方 (難易度: Normal)',
-                    description: 'ビジネス界の「知の巨人」堀江貴文氏への戯言',
-                    titleTag: [
-                        { color: 'is-primary is-light', text: '「知の巨人」の倒し方シリーズ' }
-                    ],
-                    isNew: 'New!'
-                }
-            },
-            {
                 urlPath: '/world/sex-education',
                 ja: {
                     title: '「性教育」はするべきなのか？',
-                    description: '「性教育」を盲信するあなたへ'
+                    description: '「性教育」を盲信するあなたへ',
+                    isNew: 'New!'
                 }
             },
             {
