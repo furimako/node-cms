@@ -10,6 +10,8 @@ module.exports = class ContentPage extends BasePage {
             contentType = 'image/jpeg'
         } else if (filePath.match(/\.js$/)) {
             contentType = 'text/javascript'
+        } else {
+            contentType = 'text/plain'
         }
         
         super({ lan, element, contentType })

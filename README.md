@@ -103,6 +103,11 @@ You can manage contents with markdown text files.
     ```
 1. delete unneeded logs in server
 
+## How to renew certbot
+```bash
+sudo certbot certonly --manual
+```
+
 ## Error check
 ```bash
 # MongoDB

@@ -405,6 +405,10 @@ module.exports = [
             {
                 urlPath: '/js/client.js',
                 ja: true
+            },
+            {
+                urlPath: '/.well-known/acme-challenge/J07btePIGxMh6PDEIRskcO2i1gr2E7ziIlxKtlkRrac',
+                ja: true
             }
         ]
     }
