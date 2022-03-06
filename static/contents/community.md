@@ -5,11 +5,11 @@
 一般住人・プレミアム住人は 30日間無料ですので、ご興味がある方はぜひお気軽にどうぞ。(30日以内に解約すれば料金は一切かかりません)
 <br>
 
-|住人種別|料金(月額)|おしゃべり会|ふりまこコンサル|カメラOFF権|お申込みはこちらから|
-|---|:---:|---|:---:|:---:|---|
-|一般住人|<b>30日間無料！</b><br>(以降は500円/月)|○ (発言必須)||オプション<br>(+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込ページへ</button>|
-|ROM専住人|1,000円/月|○ (発言は任意)||○|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">ROM専住人の申込ページへ</button>|
-|プレミアム住人|<b>30日間無料！</b><br>(以降は10,000円/月)|○ (発言は任意)|週1回 30分|○|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">プレミアム住人の申込ページへ</button>|
+|住人種別|料金(月額)|特典|お申込みはこちらから|
+|---|:---:|---|---|
+|一般住人|<b>30日間無料！</b><br>(以降は500円/月)|・カメラOFF権 (+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込</button>|
+|ROM専住人|1,000円/月|・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">ROM専住人の申込</button>|
+|プレミアム住人|<b>30日間無料！</b><br>(以降は10,000円/月)|・<b>ふりまこコンサル</b><br>・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">プレミアム住人の申込</button>|
 
 <img src="/images/community/view_payment_normal.png" alt="一般住人の支払い画面" width="400"/>
 <br>
@@ -25,7 +25,7 @@
 
 
 ### コンテンツ①: ちょっと深イイおしゃべり会
-毎週木曜21:00~22:00、参加いただいた住人の皆さまといっしょに、その日のテーマに沿ってダラダラおしゃべりする会です。
+毎週木曜21:00~22:00、参加いただいた住人の皆さまといっしょに、その日のテーマに沿ってまったりとおしゃべりする会です。
 
 その日の優秀賞の受賞者には住人権 1ヶ月分の無料チケットをご進呈します。
 
