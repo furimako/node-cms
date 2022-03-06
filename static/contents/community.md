@@ -2,14 +2,14 @@
 ### 「秘密の部屋のコミュニティ」をスタートします！
 「明日の自分」が「今日の自分」よりもほんの少しだけ良い自分になれる、そんなコミュニティ作りを目指すまったり企画です。ふりまこも顔出しします。
 
-一般住人・プレミアム住人は 30日間無料ですので、ご興味がある方はぜひお気軽にどうぞ。(30日以内に解約すれば料金は一切かかりません)
+一般住人・VIP住人は 30日間無料ですので、ご興味がある方はぜひお気軽にどうぞ。(30日以内に解約すれば料金は一切かかりません)
 <br>
 
 |住人種別|料金(月額)|特典|お申込みはこちらから|
 |---|:---:|---|---|
 |一般住人|<b>30日間無料！</b><br>(以降は500円/月)|・カメラOFF権 (+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込</button>|
 |ROM専住人|1,000円/月|・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">ROM専住人の申込</button>|
-|プレミアム住人|<b>30日間無料！</b><br>(以降は10,000円/月)|・<b>ふりまこコンサル</b><br>・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">プレミアム住人の申込</button>|
+|VIP住人|<b>30日間無料！</b><br>(以降は10,000円/月)|・<b>ふりまこコンサル</b><br>・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">VIP住人の申込</button>|
 
 <img src="/images/community/view_payment_normal.png" alt="一般住人の支払い画面" width="400"/>
 <br>
@@ -34,7 +34,7 @@
 詳細未定 (不定期開催)
 
 
-### コンテンツ③: 【プレミアム住人限定】ふりまこコンサル
+### コンテンツ③: 【VIP住人限定】ふりまこコンサル
 初回に 30分ほど、現在の状況や目指したいもの、趣味嗜好などをヒアリングさせていただき、それらの情報をもとに今後のプランをふりまこの方から提案させていただきます。
 
 それ以降は毎週30分の枠で、1週間の活動の振り返りと次の 1週間でやるべきことの確認をいたします。
@@ -44,10 +44,10 @@
 「てめぇに何ができるんだ？」とお思いの方は、トップページの「お問い合わせ」よりその旨お知らせください。ふりまこの過去の経歴と経験をもとに、あなたのお役に立つためのプランをご提案させていただきます。
 <br>
 
-|住人種別|料金(月額)|ちょっと深イイおしゃべり会|ふりまこコンサル|カメラOFF権|お申込みはこちらから|
-|---|:---:|---|:---:|:---:|---|
-|一般住人|<b>30日間無料！</b><br>(以降は500円/月)|○ (発言必須)||オプション<br>(+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">【30日間無料】一般住人の申込ページへ</button>|
-|ROM専住人|1,000円/月|○ (発言は任意)||○|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">ROM専住人の申込ページへ</button>|
-|プレミアム住人|<b>30日間無料！</b><br>(以降は10,000円/月)|○ (発言は任意)|週1回 30分|○|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">【30日間無料】プレミアム住人の申込ページへ</button>|
+|住人種別|料金(月額)|特典|お申込みはこちらから|
+|---|:---:|---|---|
+|一般住人|<b>30日間無料！</b><br>(以降は500円/月)|・カメラOFF権 (+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込</button>|
+|ROM専住人|1,000円/月|・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">ROM専住人の申込</button>|
+|VIP住人|<b>30日間無料！</b><br>(以降は10,000円/月)|・<b>ふりまこコンサル</b><br>・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">VIP住人の申込</button>|
 
 <img src="/images/community/view_payment_normal.png" alt="一般住人の支払い画面" width="400"/>
