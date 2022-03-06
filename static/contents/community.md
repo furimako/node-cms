@@ -7,9 +7,9 @@
 
 |住人種別|料金(月額)|特典|お申込みはこちらから|
 |---|:---:|---|---|
-|一般住人|<b>30日間無料！</b><br>(以降は500円/月)|・カメラOFF権 (+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込</button>|
+|一般住人|<b>30日間無料！</b><br>(500円/月)|・カメラOFF権 (+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込</button>|
 |ROM専住人|1,000円/月|・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">ROM専住人の申込</button>|
-|VIP住人|<b>30日間無料！</b><br>(以降は10,000円/月)|・<b>ふりまこコンサル</b><br>・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">VIP住人の申込</button>|
+|VIP住人|<b>30日間無料！</b><br>(10,000円/月)|・<b>ふりまこコンサル</b><br>・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">VIP住人の申込</button>|
 
 <img src="/images/community/view_payment_normal.png" alt="一般住人の支払い画面" width="400"/>
 <br>
@@ -46,8 +46,8 @@
 
 |住人種別|料金(月額)|特典|お申込みはこちらから|
 |---|:---:|---|---|
-|一般住人|<b>30日間無料！</b><br>(以降は500円/月)|・カメラOFF権 (+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込</button>|
+|一般住人|<b>30日間無料！</b><br>(500円/月)|・カメラOFF権 (+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込</button>|
 |ROM専住人|1,000円/月|・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">ROM専住人の申込</button>|
-|VIP住人|<b>30日間無料！</b><br>(以降は10,000円/月)|・<b>ふりまこコンサル</b><br>・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">VIP住人の申込</button>|
+|VIP住人|<b>30日間無料！</b><br>(10,000円/月)|・<b>ふりまこコンサル</b><br>・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">VIP住人の申込</button>|
 
 <img src="/images/community/view_payment_normal.png" alt="一般住人の支払い画面" width="400"/>
