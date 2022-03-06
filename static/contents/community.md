@@ -8,8 +8,8 @@
 |住人|料金|特典|申込|
 |---|:---:|---|:---:|
 |一般住人|<b>30日間無料</b><br>(500円/月)|カメラOFF権<br>(+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">申込</button>|
-|ROM専住人|1,000円/月|ROM専権<br>カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">申込</button>|
-|VIP住人|<b>30日間無料</b><br>(5,000円/月)|<b>ふりまこコンサル</b><br>ROM専権<br>カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/6oEaET3sxe93dAQ9AD">申込</button>|
+|聞き専住人|1,000円/月|聞き専権<br>カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">申込</button>|
+|VIP住人|<b>30日間無料</b><br>(5,000円/月)|<b>ふりまこコンサル</b><br>聞き専権<br>カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/6oEaET3sxe93dAQ9AD">申込</button>|
 
 <img src="/images/community/view_payment_normal.png" alt="一般住人の支払い画面" width="400"/>
 <br>
@@ -47,7 +47,7 @@
 |住人|料金|特典|申込|
 |---|:---:|---|:---:|
 |一般住人|<b>30日間無料</b><br>(500円/月)|カメラOFF権<br>(+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">申込</button>|
-|ROM専住人|1,000円/月|ROM専権<br>カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">申込</button>|
-|VIP住人|<b>30日間無料</b><br>(5,000円/月)|<b>ふりまこコンサル</b><br>ROM専権<br>カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/6oEaET3sxe93dAQ9AD">申込</button>|
+|聞き専住人|1,000円/月|聞き専権<br>カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">申込</button>|
+|VIP住人|<b>30日間無料</b><br>(5,000円/月)|<b>ふりまこコンサル</b><br>聞き専権<br>カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/6oEaET3sxe93dAQ9AD">申込</button>|
 
 <img src="/images/community/view_payment_normal.png" alt="一般住人の支払い画面" width="400"/>
