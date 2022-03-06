@@ -5,7 +5,7 @@
 一般住人・VIP住人は 30日間無料ですので、ご興味がある方はぜひお気軽にどうぞ。(30日以内に解約すれば料金は一切かかりません)
 <br>
 
-|住人|料金|特典|お申込みはこちら|
+|住人|料金|特典|お申込み|
 |---|:---:|---|---|
 |一般住人|<b>30日間無料！</b><br>(500円/月)|・カメラOFF権<br>&nbsp;&nbsp;&nbsp;(+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">申込</button>|
 |ROM専住人|1,000円/月|・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">申込</button>|
@@ -44,7 +44,7 @@
 「てめぇに何ができるんだ？」とお思いの方は、トップページの「お問い合わせ」よりその旨お知らせください。ふりまこの過去の経歴と経験をもとに、あなたのお役に立つためのプランをご提案させていただきます。
 <br>
 
-|住人|料金|特典|お申込みはこちら|
+|住人|料金|特典|お申込み|
 |---|:---:|---|---|
 |一般住人|<b>30日間無料！</b><br>(500円/月)|・カメラOFF権<br>&nbsp;&nbsp;&nbsp;(+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">申込</button>|
 |ROM専住人|1,000円/月|・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">申込</button>|
