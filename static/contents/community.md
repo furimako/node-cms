@@ -5,9 +5,9 @@
 一般住人・VIP住人は 30日間無料ですので、ご興味がある方はぜひお気軽にどうぞ。(30日以内に解約すれば料金は一切かかりません)
 <br>
 
-|住人種別|料金(月額)|特典|お申込みはこちらから|
+|住人種別|料金|特典|お申込みはこちら|
 |---|:---:|---|---|
-|一般住人|<b>30日間無料！</b><br>(500円/月)|・カメラOFF権 (+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込</button>|
+|一般住人|<b>30日間無料！</b><br>(500円/月)|・カメラOFF権<br>&nbsp;&nbsp;&nbsp;(+300円/月)|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人の申込</button>|
 |ROM専住人|1,000円/月|・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVadR57IN1mh8gw4gh">ROM専住人の申込</button>|
 |VIP住人|<b>30日間無料！</b><br>(10,000円/月)|・<b>ふりまこコンサル</b><br>・ROM専権<br>・カメラOFF権|<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/eVacN12ot9SNaoE5km">VIP住人の申込</button>|
 
