@@ -12,7 +12,7 @@
 **『ちょっと深イイおしゃべり会』**に加え、不定期開催の住人限定の企画 (詳細未定) にも参加できます。
 (おしゃべり会には参加したいけど、カメラONや発言することに抵抗のある方は「聞き専住人」として申込みください)
 
-<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">一般住人へのお申込みはこちら</a>
+<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/dR66oDgfj2qlfIYaEE">【30日間無料】一般住人へのお申込みはこちら</a>
 <br>
 
 ↓ お申込みページはこんな感じ
@@ -35,7 +35,7 @@
 一般住人の特典、聞き専権に加えて、毎週 15分ふりまこと 1対1 でお話できるふりまこコンサルを受けられるプレミアム特典付きです。
 (詳細はこのページの下の方に記載)
 
-<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/6oEaET3sxe93dAQ9AD">プレミアム住人へのお申込みはこちら</a>
+<a target="_blank" class="button is-small is-primary is-light" href="https://buy.stripe.com/6oEaET3sxe93dAQ9AD">【30日間無料】プレミアム住人へのお申込みはこちら</a>
 
 
 ### 参加条件
