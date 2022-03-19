@@ -117,7 +117,7 @@ module.exports = [
                     description: 'フェミニストが嫌いな男性向けのフェミニズム入門',
                     titleTag: [
                         { color: 'is-link', text: '閲覧数 No.1' },
-                        { color: 'is-primary', text: 'コメント数 No.2' }
+                        { color: 'is-primary', text: 'コメント数 No.3' }
                     ]
                 },
                 en: {
@@ -234,10 +234,7 @@ module.exports = [
                 urlPath: '/world/happiness',
                 ja: {
                     title: '「幸せ」の定義を科学しよう',
-                    description: 'あなたの「幸せ」はどんな形ですか？',
-                    titleTag: [
-                        { color: 'is-primary', text: 'コメント数 No.3' }
-                    ]
+                    description: 'あなたの「幸せ」はどんな形ですか？'
                 },
                 en: {
                     title: 'What is the definition of happiness?',
@@ -248,7 +245,10 @@ module.exports = [
                 urlPath: '/world/your-goal',
                 ja: {
                     title: '「幸せ」を目指してはいけない',
-                    description: 'あなたが見落としている「幸せ」よりも大切なものについて'
+                    description: 'あなたが見落としている「幸せ」よりも大切なものについて',
+                    titleTag: [
+                        { color: 'is-primary', text: 'コメント数 No.2' }
+                    ]
                 },
                 en: {
                     title: 'Don\'t aim for "happiness"',
