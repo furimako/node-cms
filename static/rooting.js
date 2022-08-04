@@ -101,7 +101,7 @@ module.exports = [
                     title: '「自由意志」なんて存在しないと思うあなたへ',
                     description: '「量子力学」の見地から我々が自由であることを証明しよう',
                     titleTag: [
-                        { color: 'is-link', text: '閲覧数 No.3' }
+                        { color: 'is-link', text: '閲覧数 No.1' }
                     ]
                 },
                 en: {
@@ -116,7 +116,7 @@ module.exports = [
                     title: '「自称フェミニスト」の叩き潰し方',
                     description: 'フェミニストが嫌いな男性向けのフェミニズム入門',
                     titleTag: [
-                        { color: 'is-link', text: '閲覧数 No.1' },
+                        { color: 'is-link', text: '閲覧数 No.2' },
                         { color: 'is-primary', text: 'コメント数 No.3' }
                     ]
                 },
@@ -153,7 +153,7 @@ module.exports = [
                     title: 'もう人間は働かなくてもいい、という主張',
                     description: 'ベーシックインカムと「理想の国家」',
                     titleTag: [
-                        { color: 'is-link', text: '閲覧数 No.2' }
+                        { color: 'is-link', text: '閲覧数 No.3' }
                     ]
                 }
             },
@@ -247,7 +247,7 @@ module.exports = [
                     title: '「幸せ」を目指してはいけない',
                     description: 'あなたが見落としている「幸せ」よりも大切なものについて',
                     titleTag: [
-                        { color: 'is-primary', text: 'コメント数 No.2' }
+                        { color: 'is-primary', text: 'コメント数 No.1' }
                     ]
                 },
                 en: {
