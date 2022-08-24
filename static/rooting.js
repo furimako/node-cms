@@ -425,7 +425,7 @@ module.exports = [
                 ja: true
             },
             {
-                urlPath: '/.well-known/acme-challenge/RX3ia_JXi2r3VGLpDUhjeTch59CbA5_UM2oD_awdYDM',
+                urlPath: '/.well-known/acme-challenge/TOP1PtbbzzHRUElpa50YUNGbYwEaZw5_Hn1JJ9Mx8lg',
                 ja: true
             }
         ]

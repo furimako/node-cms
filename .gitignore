@@ -2,7 +2,6 @@
 /node_modules
 /mongodb_data
 /configs/configs.js
-/static/.well-known
 /logs/**/*.log
 /logs/dumps/**/*.json
 /logs/dumps/**/*.bson
