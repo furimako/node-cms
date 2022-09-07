@@ -71,11 +71,18 @@ module.exports = [
         needToBeShared: true,
         elements: [
             {
+                urlPath: '/world/religion',
+                ja: {
+                    title: 'Fully Hatter の宗教観',
+                    description: '哲学的・宗教的な疑問に科学の力で答えを出す試み',
+                    isNew: 'New!'
+                }
+            },
+            {
                 urlPath: '/world/sex-education',
                 ja: {
                     title: '「性教育」はするべきなのか？',
-                    description: '「性教育」を盲信するあなたへ',
-                    isNew: 'New!'
+                    description: '「性教育」を盲信するあなたへ'
                 }
             },
             {
