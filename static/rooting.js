@@ -74,7 +74,7 @@ module.exports = [
                 urlPath: '/world/religion',
                 ja: {
                     title: 'Fully Hatter の宗教観',
-                    description: '哲学的・宗教的な疑問に科学の力で答えを出す試み',
+                    description: '哲学的・宗教的な問いに科学の力で答えを出す試み',
                     isNew: 'New!'
                 }
             },
