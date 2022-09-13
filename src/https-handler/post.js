@@ -77,20 +77,26 @@ module.exports = async function post(req, res, options) {
             method: 'GET'
         }
         const recaptchaServerReq = https.request(recaptchaOptions, (recaptchaServerRes) => {
-            logging.info(`    L statusCode: ${recaptchaServerRes.statusCode}, headers: ${recaptchaServerRes.headers}`)
+            logging.info(`    L statusCode: ${recaptchaServerRes.statusCode}, headers: ${JSON.stringify(recaptchaServerRes.headers)}`)
             let recaptchaBody = ''
             recaptchaServerRes.on('data', (data) => {
                 recaptchaBody += data
             })
             recaptchaServerRes.on('end', async () => {
-                const recaptchaData = qs.parse(recaptchaBody)
-                if (recaptchaData.success !== undefined && !recaptchaData.success) {
-                    logging.info(`    L recaptcha failed (recaptchaData: ${recaptchaData})`)
+                if (!recaptchaBody) {
+                    logging.info(`    L recaptcha failed (recaptchaBody: ${recaptchaBody})`)
                     _updateResWith400(res, postData)
                     return
                 }
 
-                logging.info(`    L recaptcha succeeded (recaptchaData.success: ${recaptchaData.success})`)
+                const recaptchaData = JSON.parse(recaptchaBody)
+                if (!recaptchaData.success) {
+                    logging.info(`    L recaptcha failed (recaptchaData: ${JSON.stringify(recaptchaData)})`)
+                    _updateResWith400(res, postData)
+                    return
+                }
+
+                logging.info(`    L recaptcha succeeded (recaptchaData: ${JSON.stringify(recaptchaData)})`)
 
                 // Message
                 if (urlPath === '/post/message' && postData.key === 'furimako' && postData.lan && postData.message) {
