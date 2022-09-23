@@ -50,20 +50,6 @@ module.exports = [
         class: 'MarkdownPage',
         filePathPrefix: './static/contents',
         filePathSuffix: '.md',
-        elements: [
-            {
-                urlPath: '/community',
-                ja: {
-                    title: '「秘密の部屋のコミュニティ」に参加しよう',
-                    description: '「明日の自分」が「今日の自分」よりもほんの少しだけ良い自分になれる、そんなコミュニティ作りを目指すまったり企画です'
-                }
-            }
-        ]
-    },
-    {
-        class: 'MarkdownPage',
-        filePathPrefix: './static/contents',
-        filePathSuffix: '.md',
         hasLikeButton: true,
         hasCommentsField: true,
         hasRelatedPages: true,
@@ -397,10 +383,6 @@ module.exports = [
             },
             {
                 urlPath: '/images/icons/person.png',
-                ja: true
-            },
-            {
-                urlPath: '/images/community/view_payment_normal.png',
                 ja: true
             },
             {
