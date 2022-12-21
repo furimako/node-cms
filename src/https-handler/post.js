@@ -62,6 +62,56 @@ module.exports = async function post(req, res, options) {
             res.end()
             return
         }
+        
+        // Resident Registration
+        if (urlPath === '/post/register' && postData.key === 'furimako' && postData.email) {
+            const residentObj = await mongodbDriver.findOne('registrations', { email: postData.email })
+            const residentStatus = ((residentObj)) ? residentObj.residentStatus : 'NONE'
+            logging.info(`    L resident registration (email: ${postData.email}, residentStatus: ${residentStatus})`)
+            
+            if (residentStatus === 'NONE') {
+                const registrationObj = {
+                    email: postData.email,
+                    residentStatus: 'PRE_REGISTERED',
+                    preRegisteredDate: new Date(),
+                    ipAddress,
+                    userAgent
+                }
+                const insertResult = await mongodbDriver.insertOne('registrations', registrationObj)
+                
+                mailer.send({
+                    from: '"Fully Hatter" <no-reply@furimako.com>',
+                    to: postData.email,
+                    subject: '住人登録を完了してください',
+                    headers: {
+                        'X-Mailjet-Campaign': 'Resident Registration',
+                        // 'X-Mailjet-DeduplicateCampaign': true,
+                        'X-MJ-TemplateLanguage': 1,
+                        'X-MJ-TemplateID': 1646405,
+                        'X-MJ-Vars': `{ "confirmation_link": "https://${(process.env.NODE_ENV === 'production') ? 'furimako.com' : 'localhost:8129'}/?residentId=${insertResult.insertedId}" }`,
+                        'X-MJ-TemplateErrorReporting': 'furimako@gmail.com'
+                    }
+                })
+                
+                res.writeHead(302, { Location: `/?registration=MAIL_SENT&email=${qs.escape(postData.email)}` })
+                res.end()
+                return
+            }
+            
+            if (residentStatus === 'PRE_REGISTERED') {
+                res.writeHead(302, { Location: `/?registration=ALREADY_PRE_REGISTERED&email=${qs.escape(postData.email)}` })
+                res.end()
+                return
+            }
+            
+            if (residentStatus === 'REGISTERED') {
+                res.writeHead(302, { Location: `/?registration=ALREADY_REGISTERED&email=${qs.escape(postData.email)}` })
+                res.end()
+                return
+            }
+            
+            throw new Error(`should not be here (residentStatus: ${residentStatus})`)
+        }
 
         // Google reCAPTCHA
         const recaptchaClientRes = postData['g-recaptcha-response']
@@ -110,57 +160,7 @@ module.exports = async function post(req, res, options) {
                     res.end()
                     return
                 }
-        
-                // Resident Registration
-                if (urlPath === '/post/register' && postData.key === 'furimako' && postData.email) {
-                    const residentObj = await mongodbDriver.findOne('registrations', { email: postData.email })
-                    const residentStatus = ((residentObj)) ? residentObj.residentStatus : 'NONE'
-                    logging.info(`    L resident registration (email: ${postData.email}, residentStatus: ${residentStatus})`)
-            
-                    if (residentStatus === 'NONE') {
-                        const registrationObj = {
-                            email: postData.email,
-                            residentStatus: 'PRE_REGISTERED',
-                            preRegisteredDate: new Date(),
-                            ipAddress,
-                            userAgent
-                        }
-                        const insertResult = await mongodbDriver.insertOne('registrations', registrationObj)
-                
-                        mailer.send({
-                            from: '"Fully Hatter" <no-reply@furimako.com>',
-                            to: postData.email,
-                            subject: '住人登録を完了してください',
-                            headers: {
-                                'X-Mailjet-Campaign': 'Resident Registration',
-                                // 'X-Mailjet-DeduplicateCampaign': true,
-                                'X-MJ-TemplateLanguage': 1,
-                                'X-MJ-TemplateID': 1646405,
-                                'X-MJ-Vars': `{ "confirmation_link": "https://${(process.env.NODE_ENV === 'production') ? 'furimako.com' : 'localhost:8129'}/?residentId=${insertResult.insertedId}" }`,
-                                'X-MJ-TemplateErrorReporting': 'furimako@gmail.com'
-                            }
-                        })
-                
-                        res.writeHead(302, { Location: `/?registration=MAIL_SENT&email=${qs.escape(postData.email)}` })
-                        res.end()
-                        return
-                    }
-            
-                    if (residentStatus === 'PRE_REGISTERED') {
-                        res.writeHead(302, { Location: `/?registration=ALREADY_PRE_REGISTERED&email=${qs.escape(postData.email)}` })
-                        res.end()
-                        return
-                    }
-            
-                    if (residentStatus === 'REGISTERED') {
-                        res.writeHead(302, { Location: `/?registration=ALREADY_REGISTERED&email=${qs.escape(postData.email)}` })
-                        res.end()
-                        return
-                    }
-            
-                    throw new Error(`should not be here (residentStatus: ${residentStatus})`)
-                }
-        
+
                 // invalid POST
                 _updateResWith400(res, postData)
             })
