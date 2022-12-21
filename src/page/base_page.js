@@ -65,9 +65,7 @@ module.exports = class BasePage {
             titleWithDescription,
             paginationHTML,
             isMultilingual,
-            needToBeShared: this.needToBeShared,
-            registerFormMain: { registerFormId: 'registerMain' },
-            registerFormFooter: { registerFormId: 'registerFooter' }
+            needToBeShared: this.needToBeShared
         }
         if (hasRelatedPages) {
             const relatedPagesView = _getRelatedPagesView(this.urlPath, this.lan)

@@ -3,11 +3,6 @@
 <head prefix="og: http://ogp.me/ns#">
     <!-- Google reCAPTCHA -->
     <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-    <script>
-        function messageOnSubmit(token) {
-            document.getElementById("message-form").submit();
-        }
-    </script>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-103228670-1"></script>
@@ -244,9 +239,7 @@
                 </small>
             </p>
             {{#lan.ja}}
-            {{#registerFormFooter}}
             {{> residentRegistrationTemplate}}
-            {{/registerFormFooter}}
             {{/lan.ja}}
             <p>
                 <small>
