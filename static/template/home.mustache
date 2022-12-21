@@ -80,9 +80,7 @@
 
         {{#lan.ja}}
         <br>
-        {{#registerFormHome}}
         {{> residentRegistrationTemplate}}
-        {{/registerFormHome}}
         {{/lan.ja}}
     </div>
 </section>
@@ -330,7 +328,10 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <button class="g-recaptcha button is-primary" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS" data-callback="messageOnSubmit">{{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}</button>
+                    <button class="g-recaptcha button is-primary" data-sitekey="6LdkaJYjAAAAAL0_FZ2Rvl7wrWfksHNL12HbfAjh">
+                    <!-- <button class="g-recaptcha button is-primary" data-sitekey="6LcYo-EZAAAAALyPZ7XT7fOQNGJV5Xs8OfWAKPpS"> -->
+                        {{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}
+                    </button>
                 </div>
             </div>
         </form>
