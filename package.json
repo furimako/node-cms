@@ -6,7 +6,7 @@
     "license": "MIT",
     "repository": "github:furimako/node-cms",
     "engines": {
-        "node": ">=14.0.0 <15.0.0"
+        "node": ">=16.0.0"
     },
     "scripts": {
         "start": "NODE_ENV=production pm2 start configs/production/pm2.json"
@@ -14,11 +14,11 @@
     "dependencies": {
         "bulma": "^0.8.2",
         "cookie": "^0.4.1",
-        "marked": "^0.7.0",
+        "marked": "^4.2.4",
         "mongodb": "^3.7.2",
         "mustache": "^3.2.1",
         "node-mailjet": "^3.0.5",
-        "node-sass": "^4.14.0",
+        "node-sass": "^8.0.0",
         "node-utils": "file:../node-utils"
     }
 }

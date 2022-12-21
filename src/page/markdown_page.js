@@ -21,7 +21,7 @@ module.exports = class MarkdownPage extends BasePage {
         let bodyHTML = '<section class="section">'
         bodyHTML += '<div class="container">'
         bodyHTML += '<div class="content is-small">'
-        bodyHTML += marked(markdown)
+        bodyHTML += marked.parse(markdown)
         bodyHTML += '</div>'
         bodyHTML += '</div>'
         bodyHTML += '</section>'
