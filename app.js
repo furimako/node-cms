@@ -46,7 +46,7 @@ const homeUrl = (env === 'production') ? 'https://furimako.com' : 'https://local
     const httpsPort = 8129
     const httpsServer = https.createServer(credentials, httpsHandler.create())
     httpsServer.listen(httpsPort)
-    logging.info(`started HTTPS server (port: ${httpsPort})`)
+    logging.info(`started HTTPS server ${homeUrl} (port: ${httpsPort})`)
 
     // Start HTTP server
     const httpPort = 8128

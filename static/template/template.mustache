@@ -1,9 +1,6 @@
 <!DOCTYPE HTML>
 <html lang="ja">
 <head prefix="og: http://ogp.me/ns#">
-    <!-- Google reCAPTCHA -->
-    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-103228670-1"></script>
     <script>
@@ -110,7 +107,6 @@
                             {{#likeButton}}
                             <div class="level-item">
                                 <form method="post" action="/post/like">
-                                    <input type="hidden" name="key" value="furimako">
                                     <input type="hidden" name="urlPath" value="{{urlPath}}">
                                     <input type="hidden" name="lan" value="{{#lan.ja}}ja{{/lan.ja}}{{#lan.en}}en{{/lan.en}}">
                                     <button class="button is-small is-primary is-outlined is-rounded">
@@ -249,8 +245,7 @@
                     <a target="_blank" href="https://nodejs.org">Node.js</a>,
                     <a target="_blank" href="https://www.mongodb.com/">MongoDB</a>,
                     <a target="_blank" href="https://bulma.io/">Bulma</a>
-                    and <a target="_blank" href="https://www.pakutaso.com/">ぱくたそ</a>.<br>
-                    This site is protected by reCAPTCHA and the Google <a target="_blank" href="https://policies.google.com/privacy">Privacy Policy</a> and <a target="_blank" href="https://policies.google.com/terms">Terms of Service</a> apply.
+                    and <a target="_blank" href="https://www.pakutaso.com/">ぱくたそ</a>.
                 </small>
             </p>
         </div>
