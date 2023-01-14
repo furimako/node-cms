@@ -35,6 +35,7 @@ module.exports = async function post(req, res, options) {
         // Message
         if (urlPath === '/post/fmessage' && postData.lan && postData.message) {
             await handleMessage(res, postData, mailer)
+            return
         }
         
         // Resident Registration
