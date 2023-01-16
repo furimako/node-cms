@@ -3,6 +3,7 @@ const { parse } = require('url')
 const { logging } = require('node-utils')
 const mongodbDriver = require('../mongodb_driver')
 const Pages = require('../pages')
+const spamTextList = require('../../configs/spam_text_list')
 
 const pages = new Pages()
 
@@ -84,14 +85,23 @@ async function handleComment(res, postData, ipAddress, userAgent, url, mailer) {
 }
 
 async function handleMessage(res, postData, mailer) {
-    logging.info(`    L get message (lan: ${postData.lan}, message: ${postData.message})`)
-    mailer.send({
-        subject: `get message (lan: ${postData.lan})`,
-        text: `${postData.message}`
-    })
+    const message = postData.message
+    logging.info(`    L get message (lan: ${postData.lan}, message: ${message})`)
 
-    res.writeHead(302, { Location: `${_getUrlPrefix(postData.lan)}/?messageSent=true` })
-    res.end()
+    if (!_isSpamMessage(message)) {
+        mailer.send({
+            subject: `get message (lan: ${postData.lan})`,
+            text: `${message}`
+        })
+        res.writeHead(302, { Location: `${_getUrlPrefix(postData.lan)}/?messageSent=true` })
+        res.end()
+    } else {
+        mailer.send({
+            subject: `get SPAM message (lan: ${postData.lan})`,
+            text: `${message}`
+        })
+        updateResWith400(res, postData)
+    }
 }
 
 async function handleResidentRegistration(res, postData, ipAddress, userAgent, mailer) {
@@ -146,12 +156,25 @@ async function handleResidentRegistration(res, postData, ipAddress, userAgent, m
     }
 }
 
-function updateResWith400(res, postData, error) {
-    logging.info(`    L get invalid POST (error: ${error}, postData: ${JSON.stringify(postData)})`)
+function updateResWith400(res, postData) {
+    logging.info(`    L get invalid POST (postData: ${JSON.stringify(postData)})`)
     res.writeHead(400, { 'Content-Type': 'text/plain' })
     res.end('400 Bad Request')
 }
 
 function _getUrlPrefix(lan) {
     return (lan === 'en') ? '/en' : ''
+}
+
+function _isSpamMessage(message) {
+    const messageStr = message.toLowerCase()
+    for (const spamText of spamTextList) {
+        if (messageStr.includes(spamText.toLowerCase())) {
+            logging.info(`    L the message is SPAM ${message}`)
+            return true
+        }
+    }
+
+    logging.info(`    L the message is NOT spam ${message}`)
+    return false
 }
