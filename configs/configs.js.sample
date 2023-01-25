@@ -10,7 +10,6 @@ module.exports = {
     },
     recaptcha: {
         siteKey: 'your-site-key',
-        secretKey: 'your-secret-key',
-        ssl: false
+        secretKey: 'your-secret-key'
     }
 }
