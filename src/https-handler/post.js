@@ -1,8 +1,10 @@
 const qs = require('querystring')
 const { parse } = require('url')
+const axios = require('axios')
 const { logging } = require('node-utils')
 const mongodbDriver = require('../mongodb_driver')
 const Pages = require('../pages')
+const recaptchaConfig = require('../../configs/configs').recaptcha
 const spamTextList = require('../../configs/spam_text_list')
 
 const pages = new Pages()
@@ -20,6 +22,7 @@ module.exports = async function post(req, res, options) {
     
     req.on('end', async () => {
         const postData = qs.parse(body)
+        logging.info(`    L postData: ${JSON.stringify(postData)})`)
 
         // Like
         if (urlPath === '/post/like' && pages.has(postData.urlPath) && postData.lan) {
@@ -30,6 +33,13 @@ module.exports = async function post(req, res, options) {
         // Comment
         if (urlPath === '/post/comment' && pages.has(postData.urlPath) && postData.lan && postData.name && postData.comment) {
             await handleComment(res, postData, ipAddress, userAgent, url, mailer)
+            return
+        }
+        
+        // reCAPTCHA challenge
+        const reCAPTCHAResult = await checkRequest(postData['g-recaptcha-response'])
+        if (!reCAPTCHAResult) {
+            updateResWith400(res, postData)
             return
         }
 
@@ -48,6 +58,18 @@ module.exports = async function post(req, res, options) {
         // invalid POST
         updateResWith400(res, postData)
     })
+}
+
+async function checkRequest(responseKey) {
+    if (!responseKey) {
+        logging.info(`    L checkRequest failed (responseKey: ${responseKey})`)
+        return false
+    }
+
+    const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaConfig.secretKey}&response=${responseKey}`
+    const response = await axios.post(verificationUrl)
+    logging.info(`    L finished checkRequest. response.data: ${JSON.stringify(response.data)}`)
+    return response.data.success
 }
 
 async function handleLike(res, postData, ipAddress, userAgent) {

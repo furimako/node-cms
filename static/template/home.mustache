@@ -329,7 +329,7 @@
             </div>
             <div class="field">
                 <div class="control">
-                    <button class="button is-primary">
+                    <button class="button is-primary g-recaptcha" data-sitekey="6LfxYSQkAAAAAOuG7XpQzmkVxQ2rQIZi1RjH6g0n" data-callback="messageOnSubmit">
                         {{#lan.ja}}送信{{/lan.ja}}{{#lan.en}}send{{/lan.en}}
                     </button>
                 </div>
@@ -337,3 +337,8 @@
         </form>
     </div>
 </div>
+<script>
+    function messageOnSubmit(token) {
+        document.getElementById("message-form").submit();
+    }
+</script>

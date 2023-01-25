@@ -9,7 +9,7 @@
     </div> -->
     <div class="column is-half">
         <div class="box">
-            <form method="post" action="/post/fregister">
+            <form id="resident-registration" method="post" action="/post/fregister">
                 <div class="field">
                     <label class="label is-small">
                         以下より「秘密の部屋の住人 (メルマガ会員)」になれます。<br>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="field">
                     <div class="control">
-                        <button class="button is-small is-primary">住人登録確認メールを受け取る</button>
+                        <button class="button is-small is-primary g-recaptcha" data-sitekey="6LfxYSQkAAAAAOuG7XpQzmkVxQ2rQIZi1RjH6g0n" data-callback="registrationOnSubmit">住人登録確認メールを受け取る</button>
                     </div>
                     <p class="help">
                         <strong><a onclick="openModal('TOSModal')">利用規約</a></strong> と <strong><a onclick="openModal('privacyPolicyModal')">プライバシーポリシー</a></strong> を確認ください
@@ -32,3 +32,8 @@
         </div>
     </div>
 </div>
+<script>
+    function registrationOnSubmit(token) {
+        document.getElementById("resident-registration").submit();
+    }
+</script>
