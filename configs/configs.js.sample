@@ -7,5 +7,10 @@ module.exports = {
     mailjet: {
         MJ_APIKEY_PUBLIC: 'input public-key here',
         MJ_APIKEY_PRIVATE: 'input private-key here'
+    },
+    recaptcha: {
+        siteKey: 'your-site-key',
+        secretKey: 'your-secret-key',
+        ssl: false
     }
 }
