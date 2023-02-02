@@ -69,7 +69,7 @@ module.exports = async function get(req, res, options) {
         // when click registration button
         const residentObj = await mongodbDriver.findOne(
             'registrations',
-            { _id: ObjectId(query.residentId), residentStatus: 'PRE_REGISTERED' }
+            { _id: new ObjectId(query.residentId), residentStatus: 'PRE_REGISTERED' }
         )
         if (residentObj) {
             logging.info(`    L registered (residentId: ${query.residentId}, residentObj: ${JSON.stringify(residentObj)})`)
@@ -138,7 +138,7 @@ function _getAcmeChallengeFileName(urlPath) {
 async function registerNewResident(mailer, residentId, email) {
     await mongodbDriver.updateOne(
         'registrations',
-        { _id: ObjectId(residentId) },
+        { _id: new ObjectId(residentId) },
         { residentStatus: 'REGISTERED', registeredDate: new Date() }
     )
     
