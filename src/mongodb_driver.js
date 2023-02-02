@@ -26,7 +26,7 @@ module.exports = {
     async count(collectionName, filterObj) {
         const count = await this._query(
             collectionName,
-            async (collection) => collection.find(filterObj).countDocuments()
+            async (collection) => collection.countDocuments(filterObj)
         )
         logging.info(`    L found ${count} count (collection: ${collectionName}, filterObj: ${JSON.stringify(filterObj)})`)
         return count || 0
