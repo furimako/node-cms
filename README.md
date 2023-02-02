@@ -9,8 +9,8 @@ You can manage contents with markdown text files.
 
 ## How to Run This Website
 ### Local (macOS)
-1. install [MongoDB Community Edition (version 4.2)](https://www.mongodb.com/download-center/community)
-1. install [Node.js (version 14)](https://nodejs.org/en/download/)
+1. install [MongoDB Community Edition (version 6.0)](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/)
+1. install [Node.js (version 18)](https://nodejs.org/en/download/)
 1. install Node-CMS & Node-Utils
     ```bash
     git clone https://github.com/furimako/node-utils.git
@@ -40,12 +40,19 @@ You can manage contents with markdown text files.
     sudo apt update
     sudo apt -y dist-upgrade
 
-    # install MongoDB Community Edition (version 5.0)
-    wget -qO - https://www.mongodb.org/static/pgp/server-5.0.asc | sudo apt-key add -
-    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/5.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-5.0.list
+    # install MongoDB Community Edition (version 6.0)
+    wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+    sudo apt-get install gnupg
+    wget -qO - https://www.mongodb.org/static/pgp/server-6.0.asc | sudo apt-key add -
+    echo "deb [ arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/6.0 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-6.0.list
     sudo apt-get update
     sudo apt-get install -y mongodb-org
-    sudo systemctl enable mongod.service
+    echo "mongodb-org hold" | sudo dpkg --set-selections
+    echo "mongodb-org-database hold" | sudo dpkg --set-selections
+    echo "mongodb-org-server hold" | sudo dpkg --set-selections
+    echo "mongodb-mongosh hold" | sudo dpkg --set-selections
+    echo "mongodb-org-mongos hold" | sudo dpkg --set-selections
+    echo "mongodb-org-tools hold" | sudo dpkg --set-selections
     
     # install Node.js (version 18)
     curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&\
