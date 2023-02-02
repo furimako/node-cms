@@ -6,7 +6,7 @@ const dbName = 'node-cms'
 
 module.exports = {
     async _query(collectionName, executor) {
-        const client = new MongoClient(url, { useNewUrlParser: true, useUnifiedTopology: true })
+        const client = new MongoClient(url, { family: 4 })
         await client.connect()
         const collection = client.db(dbName).collection(collectionName)
         const r = await executor(collection)
