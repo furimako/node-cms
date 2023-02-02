@@ -5,3 +5,9 @@
 /logs/**/*.log
 /logs/dumps/**/*.json
 /logs/dumps/**/*.bson
+
+# Let's Encrypt
+/static/.well-known/*
+!/static/.well-known/acme-challenge
+/static/.well-known/acme-challenge/*
+!/static/.well-known/acme-challenge/.gitkeep
