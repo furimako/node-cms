@@ -47,10 +47,10 @@ You can manage contents with markdown text files.
     sudo apt-get install -y mongodb-org
     sudo systemctl enable mongod.service
     
-    # install Node.js (version 14)
-    curl -fsSL https://deb.nodesource.com/setup_14.x | sudo -E bash -
+    # install Node.js (version 18)
+    curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash - &&\
     sudo apt-get install -y nodejs
-    
+
     # install pm2
     sudo npm install pm2 -g
 
