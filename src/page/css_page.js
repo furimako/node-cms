@@ -1,5 +1,5 @@
 const fs = require('fs')
-const sass = require('node-sass')
+const sass = require('sass')
 const BasePage = require('./base_page')
 
 module.exports = class CSSPage extends BasePage {
