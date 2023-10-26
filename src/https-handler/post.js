@@ -108,21 +108,25 @@ async function handleComment(res, postData, ipAddress, userAgent, url, mailer) {
 
 async function handleMessage(res, postData, mailer) {
     const message = postData.message
-    logging.info(`    L get message (lan: ${postData.lan}, message: ${message})`)
+    const isSpam = _isSpamMessage(message)
+    logging.info(`    L get message (lan: ${postData.lan}, message: ${message}, isSpam: ${isSpam})`)
 
-    if (!_isSpamMessage(message)) {
+    if (!isSpam) {
         mailer.send({
             subject: `get message (lan: ${postData.lan})`,
             text: `${message}`
         })
+        logging.info('    L email sent')
         res.writeHead(302, { Location: `${_getUrlPrefix(postData.lan)}/?messageSent=true` })
         res.end()
+        logging.info('    L 302 response')
     } else {
-        mailer.send({
-            subject: `get SPAM message (lan: ${postData.lan})`,
-            text: `${message}`
-        })
+        // mailer.send({
+        //     subject: `get SPAM message (lan: ${postData.lan})`,
+        //     text: `${message}`
+        // })
         updateResWith400(res, postData)
+        logging.info('    L 400 response')
     }
 }
 
@@ -192,11 +196,9 @@ function _isSpamMessage(message) {
     const messageStr = message.toLowerCase()
     for (const spamText of spamTextList) {
         if (messageStr.includes(spamText.toLowerCase())) {
-            logging.info(`    L the message is SPAM ${message}`)
             return true
         }
     }
 
-    logging.info(`    L the message is NOT spam ${message}`)
     return false
 }
