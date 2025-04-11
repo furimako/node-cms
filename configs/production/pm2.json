@@ -2,6 +2,7 @@
     "apps": [{
         "name": "node-cms",
         "script": "./app.js",
+        "node_args": "--trace-warnings",
         "out_file": "./logs/app.log",
         "error_file": "./logs/app-err.log",
         "merge_logs": true

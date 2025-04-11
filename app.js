@@ -45,6 +45,7 @@ const homeUrl = (env === 'production') ? 'https://furimako.com' : 'https://local
     // Start HTTPS server
     const httpsPort = 8129
     const httpsServer = https.createServer(credentials, httpsHandler.create())
+    httpsServer.on('clientError', (err, socket) => { socket.destroy() })
     httpsServer.listen(httpsPort)
     logging.info(`started HTTPS server ${homeUrl} (port: ${httpsPort})`)
 
@@ -58,6 +59,7 @@ const homeUrl = (env === 'production') ? 'https://furimako.com' : 'https://local
             logging.info(`    L redirect from http to https (url: ${urlPath})`)
         }
     )
+    httpServer.on('clientError', (err, socket) => { socket.destroy() })
     httpServer.listen(httpPort)
     logging.info(`started HTTP server (port: ${httpPort})`)
 
