@@ -62,6 +62,7 @@ HTTPS は 8129、HTTP は 8128 (8129 へ 302 リダイレクト)。ローカル�
 
 ### その他
 - 共通の小物は `src/utils/` にある。`logging.js` (JST 時刻付きの console 出力)、`jst.js` (Date → JST 文字列)、`mailer.js` (nodemailer のラッパー。件名に `【title】` を付け、本番以外は ` (dev)` を足す)
+- 外部 API (reCAPTCHA の検証、Mailjet のリスト追加) は Node 組み込みの `fetch` で呼ぶ。SDK や HTTP クライアントは入れない
 - `src/mongodb_driver.js` はクエリごとに `MongoClient` を接続・切断する。コレクションは `likes` / `comments` / `registrations`
 - certbot (ACME チャレンジ) は `src/acme_challenge.js` が担当し、rooting.js に無い URL でも `/.well-known/acme-challenge/` だけは応答する
     - ページと違い **リクエストごとに** `static/.well-known/acme-challenge/` を読む。certbot の `--webroot` が書いたファイルを再起動なしで返すため

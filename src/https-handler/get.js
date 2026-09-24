@@ -1,13 +1,12 @@
 const { parse } = require('url')
 const { ObjectId } = require('mongodb')
 const logging = require('../utils/logging')
-const nmailjet = require('node-mailjet')
 const acmeChallenge = require('../acme_challenge')
 const mongodbDriver = require('../mongodb_driver')
 const Pages = require('../pages')
 const mailjetConfig = require('../../configs/configs').mailjet
 
-const mailjet = nmailjet.connect(mailjetConfig.MJ_APIKEY_PUBLIC, mailjetConfig.MJ_APIKEY_PRIVATE)
+const mailjetAuth = Buffer.from(`${mailjetConfig.MJ_APIKEY_PUBLIC}:${mailjetConfig.MJ_APIKEY_PRIVATE}`).toString('base64')
 const pages = new Pages()
 
 module.exports = async function get(req, res, options) {
@@ -123,14 +122,29 @@ async function registerNewResident(mailer, residentId, email) {
 }
 
 function _addContactToList(email, mailer) {
-    const addToListRequest = mailjet
-        .post('listrecipient', { version: 'v3' })
-        .request({ ContactAlt: email, ListID: '10246915' })
+    const addToListRequest = fetch('https://api.mailjet.com/v3/REST/listrecipient', {
+        method: 'POST',
+        headers: {
+            Authorization: `Basic ${mailjetAuth}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ ContactAlt: email, ListID: '10246915' })
+    })
     addToListRequest
-        .then((addToListResult) => {
-            logging.info(`contact added to list (addToListResult: ${JSON.stringify(addToListResult.body.Data)}`)
+        .then(async (response) => {
+            // the body of an error response can be empty (e.g. 401)
+            const body = await response.json().catch(() => ({}))
+            if (!response.ok) {
+                const err = new Error(body.ErrorMessage)
+                err.statusCode = response.status
+                err.ErrorMessage = body.ErrorMessage
+                throw err
+            }
+            logging.info(`contact added to list (addToListResult: ${JSON.stringify(body.Data)}`)
         })
         .catch((err) => {
+            // network errors have no statusCode or ErrorMessage
+            err.ErrorMessage = err.ErrorMessage || err.message
             logging.error(`addToListRequest error (err.statusCode: ${err.statusCode})`)
             logging.error(`addToListRequest error (err.ErrorMessage: ${err.ErrorMessage})`)
             mailer.send({

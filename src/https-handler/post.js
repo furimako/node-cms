@@ -1,6 +1,5 @@
 const qs = require('querystring')
 const { parse } = require('url')
-const axios = require('axios')
 const logging = require('../utils/logging')
 const mongodbDriver = require('../mongodb_driver')
 const Pages = require('../pages')
@@ -67,9 +66,10 @@ async function checkRequest(responseKey) {
     }
 
     const verificationUrl = `https://www.google.com/recaptcha/api/siteverify?secret=${recaptchaConfig.secretKey}&response=${responseKey}`
-    const response = await axios.post(verificationUrl)
-    logging.info(`    L finished checkRequest. response.data: ${JSON.stringify(response.data)}`)
-    return response.data.success
+    const response = await fetch(verificationUrl, { method: 'POST' })
+    const data = await response.json()
+    logging.info(`    L finished checkRequest. response.data: ${JSON.stringify(data)}`)
+    return data.success
 }
 
 async function handleLike(res, postData, ipAddress, userAgent) {
