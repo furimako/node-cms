@@ -3,6 +3,7 @@ const http = require('http')
 const https = require('https')
 const { parse } = require('url')
 const nodeUtils = require('node-utils')
+const acmeChallenge = require('./src/acme_challenge')
 const HttpsHandler = require('./src/https-handler/main')
 const mongodbDriver = require('./src/mongodb_driver')
 const smtpConfig = require('./configs/configs').smtp
@@ -25,9 +26,16 @@ const homeUrl = (env === 'production') ? 'https://furimako.com' : 'https://local
     let cert
     let ca
     if (env === 'production') {
-        key = fs.readFileSync('/etc/letsencrypt/live/furimako.com/privkey.pem')
-        cert = fs.readFileSync('/etc/letsencrypt/live/furimako.com/cert.pem')
-        ca = fs.readFileSync('/etc/letsencrypt/live/furimako.com/chain.pem')
+        // placed by scripts/production/certbot-deploy-hook.sh
+        let sslDir = './configs/production/ssl'
+        if (!fs.existsSync(`${sslDir}/privkey.pem`)) {
+            // before the deploy hook has been executed for the first time
+            sslDir = '/etc/letsencrypt/live/furimako.com'
+            logging.info(`certificate no found in ./configs/production/ssl (fallback: ${sslDir})`)
+        }
+        key = fs.readFileSync(`${sslDir}/privkey.pem`)
+        cert = fs.readFileSync(`${sslDir}/cert.pem`)
+        ca = fs.readFileSync(`${sslDir}/chain.pem`)
         const numOfPreResident = await mongodbDriver.count('registrations', { residentStatus: 'PRE_REGISTERED' })
         const numOfResident = await mongodbDriver.count('registrations', { residentStatus: 'REGISTERED' })
         mailer.send({
@@ -54,6 +62,12 @@ const homeUrl = (env === 'production') ? 'https://furimako.com' : 'https://local
     const httpServer = http.createServer(
         (req, res) => {
             const urlPath = parse(req.url).pathname
+
+            // for certbot (respond without redirecting to https)
+            if (acmeChallenge.isAcmeChallenge(urlPath) && acmeChallenge.respond(res, urlPath)) {
+                return
+            }
+
             res.writeHead(302, { Location: homeUrl + urlPath })
             res.end()
             logging.info(`    L redirect from http to https (url: ${urlPath})`)

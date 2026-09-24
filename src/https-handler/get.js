@@ -1,28 +1,11 @@
-const fs = require('fs')
 const { parse } = require('url')
 const { ObjectId } = require('mongodb')
 const { logging } = require('node-utils')
 const nmailjet = require('node-mailjet')
+const acmeChallenge = require('../acme_challenge')
 const mongodbDriver = require('../mongodb_driver')
 const Pages = require('../pages')
 const mailjetConfig = require('../../configs/configs').mailjet
-
-const acmeChallengeBasePath = '/.well-known/acme-challenge/'
-const fileNamesForAcmeChallenge = fs.readdirSync(`./static${acmeChallengeBasePath}`)
-logging.info(`finished setup fileNamesForAcmeChallenge: ${JSON.stringify(fileNamesForAcmeChallenge)}`)
-
-/*
-    fileContents = {
-        fileName1: 'FILE CONTENT1',
-        fileName2: 'FILE CONTENT2',
-          :
-    }
- */
-const fileContents = {}
-for (const fileName of fileNamesForAcmeChallenge) {
-    const fileContent = fs.readFileSync(`./static${acmeChallengeBasePath}${fileName}`)
-    fileContents[fileName] = fileContent
-}
 
 const mailjet = nmailjet.connect(mailjetConfig.MJ_APIKEY_PUBLIC, mailjetConfig.MJ_APIKEY_PRIVATE)
 const pages = new Pages()
@@ -46,9 +29,7 @@ module.exports = async function get(req, res, options) {
     
     if (!pages.has(urlPath)) {
         // for certbot
-        if (isAcmeChallenge(urlPath)) {
-            const fileName = _getAcmeChallengeFileName(urlPath)
-            res.end(fileContents[fileName])
+        if (acmeChallenge.isAcmeChallenge(urlPath) && acmeChallenge.respond(res, urlPath)) {
             return
         }
 
@@ -117,22 +98,6 @@ function getPageOptions(query) {
         email,
         messageSent
     }
-}
-
-function isAcmeChallenge(urlPath) {
-    if (!urlPath.startsWith(acmeChallengeBasePath)) {
-        logging.info(`    L is NOT acme-challenge (urlPath: ${urlPath})`)
-        return false
-    }
-
-    const selectedFileName = _getAcmeChallengeFileName(urlPath)
-    const result = fileNamesForAcmeChallenge.includes(selectedFileName)
-    logging.info(`    L isAcmeChallenge (urlPath: ${urlPath}, selectedFileName: ${selectedFileName}, result: ${result})`)
-    return result
-}
-
-function _getAcmeChallengeFileName(urlPath) {
-    return urlPath.replace(`${acmeChallengeBasePath}`, '')
 }
 
 async function registerNewResident(mailer, residentId, email) {

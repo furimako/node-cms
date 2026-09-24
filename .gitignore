@@ -2,6 +2,8 @@
 /node_modules
 /mongodb_data
 /configs/configs.js
+/configs/production/ssl/*
+!/configs/production/ssl/.gitkeep
 /logs/**/*.log
 /logs/dumps/**/*.json
 /logs/dumps/**/*.bson

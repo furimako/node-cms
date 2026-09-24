@@ -21,7 +21,7 @@ You can manage contents with markdown text files.
     cd node-cms
     npm install
     ```
-1. create 'configs/configs.json'
+1. create 'configs/configs.js' (copy 'configs/configs.js.sample')
 1. start MongoDB
     ```bash
     bash scripts/local/mongod.sh
@@ -85,19 +85,22 @@ You can manage contents with markdown text files.
     ## get a certificate
     ## [CAUTION] Stop server before executing below command
     sudo certbot certonly --standalone
-    sudo chmod 555 -R /etc/letsencrypt
-    ## test automatic renewal for your certificates by running this command
-    sudo certbot renew --dry-run
     ```
-1. create 'configs/configs.json'  
+1. create 'configs/configs.js' (copy 'configs/configs.js.sample')
 1. start MongoDB
     ```bash
     bash scripts/production/mongod.sh start
+    ```
+1. place the certificate where the app reads it
+    ```bash
+    ## the restart is skipped here because the app is not running yet
+    sudo bash ~/node-cms/scripts/production/certbot-deploy-hook.sh
     ```
 1. start server
     ```bash
     npm start
     ```
+1. set up automatic renewal (see 'How to renew certbot')
 1. set-up crontab
     ```bash
     crontab configs/production/crontab.conf
@@ -111,8 +114,70 @@ You can manage contents with markdown text files.
 1. delete unneeded logs in server
 
 ## How to renew certbot
+The certificate is renewed automatically.
+The app serves the ACME challenge files from 'static/.well-known/acme-challenge/' on every request, so certbot can use the '--webroot' plugin without any manual work.
+The snap version of certbot runs 'certbot renew' twice a day with 'snap.certbot.renew.timer', and 'scripts/production/certbot-deploy-hook.sh' copies the renewed certificate into 'configs/production/ssl/' and restarts the app.
+
+### Set-up (once per server)
+The order matters. 'certbot reconfigure' does not issue a certificate, so the deploy hook has to be executed by hand first to place the current certificate into 'configs/production/ssl/'.
+The hook assumes the user 'furimako' and the path '/home/furimako/node-cms'. Edit the variables at the top of the hook when they differ.
+
 ```bash
-sudo certbot certonly --manual
+## place the current certificate and restart the app
+## (skip this on a new server, it is already done in 'Production (Ubuntu 20.04)')
+sudo bash ~/node-cms/scripts/production/certbot-deploy-hook.sh
+
+## make certbot renew with the '--webroot' plugin and run the deploy hook
+## (it validates the new config with a dry-run before applying it)
+sudo certbot reconfigure --cert-name furimako.com \
+    --authenticator webroot \
+    --webroot-path ~/node-cms/static \
+    --deploy-hook ~/node-cms/scripts/production/certbot-deploy-hook.sh
+```
+
+### Migration from the manual set-up (once)
+On the server which still renews the certificate with 'certbot certonly --manual', do the below before the set-up above.
+```bash
+## deploy the code
+cd ~/node-cms
+git pull
+```
+And after the set-up, make /etc/letsencrypt root-only again ('chmod 555 -R /etc/letsencrypt' is not needed anymore).
+```bash
+sudo chmod -R u+rwX,go-rwx /etc/letsencrypt/archive /etc/letsencrypt/live /etc/letsencrypt/keys
+```
+Delete the challenge files left in 'static/.well-known/acme-challenge/' as well.
+
+### Monitoring
+Let's Encrypt stopped sending expiration notices in June 2025, and certbot has no hook for a failed renewal, so 'scripts/production/check-cert.js' is the only thing which notices a broken renewal.
+It is run daily by cron, checks the certificate which furimako.com actually serves, and sends an email when the certificate expires in less than 20 days or when it cannot be checked at all.
+Looking at the served certificate (not the file) covers every failure: a renewal error, a stopped 'snap.certbot.renew.timer', a failed deploy hook and a missing restart.
+
+It also sends an email every monday even when everything is fine, so that a broken notification path (cron, node or SMTP) shows up as a missing email within a week.
+Note that nothing is sent when the server itself is down; that is a different thing to monitor.
+
+```bash
+## make sure the email is delivered (do this once after the set-up)
+NODE_ENV=production node ~/node-cms/scripts/production/check-cert.js --test
+```
+
+### Check
+```bash
+## 'reconfigure' needs certbot 2.3.0 or later
+sudo certbot --version
+
+## the expiry date and the certificate path
+sudo certbot certificates
+
+## 'authenticator = webroot' and the deploy hook are recorded
+sudo cat /etc/letsencrypt/renewal/furimako.com.conf
+
+## the challenge is served correctly (deploy hooks are NOT executed on dry-run)
+sudo certbot renew --dry-run
+
+## the timer is active
+systemctl list-timers | grep certbot
+tail /var/log/letsencrypt/letsencrypt.log
 ```
 
 ## Error check
