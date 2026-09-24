@@ -1,5 +1,5 @@
 /*
-    Checks the certificate which furimako.com actually serves, and reports by email.
+    Checks the certificate which the app actually serves, and reports by email.
 
     Let's Encrypt stopped sending expiration notices in June 2025, and certbot has
     no hook for a failed renewal, so looking at the served certificate is the only
@@ -24,8 +24,19 @@ const mailer = nodeUtils.createMailer(
     }
 )
 
-const host = 'furimako.com'
-const port = 443
+/*
+    Connects to the port the app listens on, NOT to furimako.com:443.
+
+    The iptables rule which redirects :443 to :8129 sits in 'nat PREROUTING -i eth0',
+    and locally generated packets go through OUTPUT instead of PREROUTING, so
+    'furimako.com:443' is refused when it is called on the server itself.
+
+    'serverName' keeps the hostname verification working: node checks the certificate
+    against 'options.servername || options.host'.
+ */
+const host = '127.0.0.1'
+const port = 8129
+const serverName = 'furimako.com'
 const thresholdDays = 20
 const timeoutMsec = 10000
 const maxAttempts = 3
@@ -45,21 +56,22 @@ const mode = process.argv[2]
     }
 
     if (err) {
-        logging.error(`failed to get the certificate of ${host}\n${err.stack}`)
+        logging.error(`failed to get the certificate of ${serverName} (${host}:${port})\n${err.stack}`)
         await send(
             'ERROR: failed to check the certificate',
-            `could not get the certificate which ${host}:${port} serves\n\n${err.stack}`
+            `could not get the certificate which ${serverName} serves (${host}:${port})\n\n${err.stack}`,
+            true
         )
         return
     }
 
     const restDays = Math.floor((expiry.getTime() - Date.now()) / (24 * 60 * 60 * 1000))
-    logging.info(`certificate of ${host} expires on ${expiry.toISOString()} (rest: ${restDays} days, mode: ${mode})`)
+    logging.info(`certificate of ${serverName} expires on ${expiry.toISOString()} (rest: ${restDays} days, mode: ${mode})`)
 
     if (mode === '--renewed') {
         await send(
             'renewed the certificate',
-            `${host} serves the renewed certificate\n\n`
+            `${serverName} serves the renewed certificate\n\n`
                 + `expiry: ${expiry.toISOString()}\n`
                 + `rest: ${restDays} days`
         )
@@ -79,9 +91,10 @@ const mode = process.argv[2]
     if (restDays < thresholdDays) {
         await send(
             `ERROR: the certificate expires in ${restDays} days`,
-            `${host} still serves the certificate which expires on ${expiry.toISOString()}\n\n`
+            `${serverName} still serves the certificate which expires on ${expiry.toISOString()}\n\n`
                 + 'certbot renews it 30 days before the expiry, so the renewal is NOT working.\n'
-                + 'see README.md (How to renew certbot) to find out what has broken.'
+                + 'see README.md (How to renew certbot) to find out what has broken.',
+            true
         )
         return
     }
@@ -89,7 +102,7 @@ const mode = process.argv[2]
     if (new Date().getDay() === reportDay) {
         await send(
             'the certificate is up to date',
-            `${host} serves the certificate which expires on ${expiry.toISOString()}\n\n`
+            `${serverName} serves the certificate which expires on ${expiry.toISOString()}\n\n`
                 + `rest: ${restDays} days`
         )
         return
@@ -118,7 +131,7 @@ async function getServedCertExpiry() {
 
 function _connectAndGetExpiry() {
     return new Promise((resolve, reject) => {
-        const socket = tls.connect({ host, port, servername: host }, () => {
+        const socket = tls.connect({ host, port, servername: serverName }, () => {
             const cert = socket.getPeerCertificate()
             socket.end()
             if (!cert || !cert.valid_to) {
@@ -147,7 +160,7 @@ function _wait(msec) {
     return new Promise((resolve) => { setTimeout(resolve, msec) })
 }
 
-async function send(subject, text) {
+async function send(subject, text, isError = false) {
     try {
         await mailer.send({ subject, text })
         logging.info(`    L sent the email (subject: ${subject})`)
@@ -156,5 +169,6 @@ async function send(subject, text) {
         // nodemailer keeps the connection, so the process does not exit by itself
         process.exit(1)
     }
-    process.exit(0)
+    // exit with an error so that certbot and cron.log also record it
+    process.exit((isError) ? 1 : 0)
 }

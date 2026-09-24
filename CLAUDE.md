@@ -68,6 +68,7 @@ HTTPS は 8129、HTTP は 8128 (8129 へ 302 リダイレクト)。ローカル�
     - HTTP サーバ (8128) でもリダイレクトの前に応答する
     - 本番の証明書は `configs/production/ssl/` から読む (無ければ `/etc/letsencrypt/live/` にフォールバック)。配置と更新後の再起動は `scripts/production/certbot-deploy-hook.sh` (certbot の deploy hook) が行う
     - 更新失敗の検知は `scripts/production/check-cert.js`。日次 cron で **実際に配信されている証明書**の残り日数を見る (certbot には失敗用フックが無く、Let's Encrypt の期限切れ通知も終了しているため)
+        - 接続先は `127.0.0.1:8129` (アプリの待ち受けポート)。iptables の `:443` リダイレクトは `PREROUTING -i eth0` にあり、サーバ自身が出す通信には適用されないため `furimako.com:443` では繋がらない
 
 ## ページを追加するとき
 - `static/contents/<path>.md` を置く (英語版は `static/contents-en/<path>.md`)

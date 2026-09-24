@@ -150,11 +150,14 @@ Delete the challenge files left in 'static/.well-known/acme-challenge/' as well.
 
 ### Monitoring
 Let's Encrypt stopped sending expiration notices in June 2025, and certbot has no hook for a failed renewal, so 'scripts/production/check-cert.js' is the only thing which notices a broken renewal.
-It is run daily by cron, checks the certificate which furimako.com actually serves, and sends an email when the certificate expires in less than 20 days or when it cannot be checked at all.
+It is run daily by cron, checks the certificate which the app actually serves, and sends an email when the certificate expires in less than 20 days or when it cannot be checked at all.
 Looking at the served certificate (not the file) covers every failure: a renewal error, a stopped 'snap.certbot.renew.timer', a failed deploy hook and a missing restart.
 
+It connects to 127.0.0.1:8129, which is the port the app listens on, NOT to furimako.com:443.
+The iptables rule which redirects :443 to :8129 sits in 'nat PREROUTING -i eth0', and locally generated packets go through OUTPUT instead of PREROUTING, so furimako.com:443 is refused when it is called on the server itself.
+
 It also sends an email every monday even when everything is fine, so that a broken notification path (cron, node or SMTP) shows up as a missing email within a week.
-Note that nothing is sent when the server itself is down; that is a different thing to monitor.
+Note that nothing is sent when the server itself is down, and that a broken iptables rule (the site is unreachable from the outside while the app is fine) is not detected either; those are different things to monitor.
 
 ```bash
 ## make sure the email is delivered (do this once after the set-up)
