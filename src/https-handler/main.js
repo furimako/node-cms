@@ -1,4 +1,4 @@
-const { logging } = require('node-utils')
+const logging = require('../utils/logging')
 const get = require('./get')
 const post = require('./post')
 

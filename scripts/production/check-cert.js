@@ -11,11 +11,11 @@
         node check-cert.js --test     checks that the email gets delivered (always mails)
  */
 const tls = require('tls')
-const nodeUtils = require('node-utils')
+const logging = require('../../src/utils/logging')
+const Mailer = require('../../src/utils/mailer')
 const smtpConfig = require('../../configs/configs').smtp
 
-const { logging } = nodeUtils
-const mailer = nodeUtils.createMailer(
+const mailer = new Mailer(
     smtpConfig,
     {
         title: 'Fully Hatter の秘密の部屋',

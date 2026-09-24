@@ -1,5 +1,5 @@
 const fs = require('fs')
-const { logging } = require('node-utils')
+const logging = require('./utils/logging')
 
 const basePath = '/.well-known/acme-challenge/'
 const dirPath = `./static${basePath}`

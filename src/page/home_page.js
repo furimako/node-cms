@@ -1,6 +1,7 @@
 const fs = require('fs')
 const mustache = require('mustache')
-const { logging, JST } = require('node-utils')
+const logging = require('../utils/logging')
+const JST = require('../utils/jst')
 const BasePage = require('./base_page')
 const rooting = require('../../static/rooting')
 const pickedUpComments = require('../../static/picked-up-comments')

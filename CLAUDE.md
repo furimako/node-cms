@@ -14,7 +14,6 @@ Express を使わず素の Node.js で furimako.com を配信する自作 CMS。
 
 ### ローカル起動
 - 事前に `configs/configs.js.sample` をコピーして `configs/configs.js` を作る (gitignore 対象)
-- 兄弟ディレクトリ `../node-utils` に file 依存している (`logging` / `JST` / `createMailer`)。クローンして `npm install` されていないと起動しない
 
 ```bash
 bash scripts/local/mongod.sh   # MongoDB を ./mongodb_data で起動
@@ -62,6 +61,7 @@ HTTPS は 8129、HTTP は 8128 (8129 へ 302 リダイレクト)。ローカル�
 - 住人登録は 2段階: POST で `PRE_REGISTERED` を作成 → Mailjet テンプレートのメールで `/?residentId=<ObjectId>` へ誘導 → GET 側で `REGISTERED` に更新し Mailjet のリストに追加
 
 ### その他
+- 共通の小物は `src/utils/` にある。`logging.js` (JST 時刻付きの console 出力)、`jst.js` (Date → JST 文字列)、`mailer.js` (nodemailer のラッパー。件名に `【title】` を付け、本番以外は ` (dev)` を足す)
 - `src/mongodb_driver.js` はクエリごとに `MongoClient` を接続・切断する。コレクションは `likes` / `comments` / `registrations`
 - certbot (ACME チャレンジ) は `src/acme_challenge.js` が担当し、rooting.js に無い URL でも `/.well-known/acme-challenge/` だけは応答する
     - ページと違い **リクエストごとに** `static/.well-known/acme-challenge/` を読む。certbot の `--webroot` が書いたファイルを再起動なしで返すため

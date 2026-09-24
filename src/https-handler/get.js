@@ -1,6 +1,6 @@
 const { parse } = require('url')
 const { ObjectId } = require('mongodb')
-const { logging } = require('node-utils')
+const logging = require('../utils/logging')
 const nmailjet = require('node-mailjet')
 const acmeChallenge = require('../acme_challenge')
 const mongodbDriver = require('../mongodb_driver')

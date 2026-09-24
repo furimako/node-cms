@@ -1,7 +1,7 @@
 const qs = require('querystring')
 const { parse } = require('url')
 const axios = require('axios')
-const { logging } = require('node-utils')
+const logging = require('../utils/logging')
 const mongodbDriver = require('../mongodb_driver')
 const Pages = require('../pages')
 const recaptchaConfig = require('../../configs/configs').recaptcha

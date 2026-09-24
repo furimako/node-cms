@@ -1,5 +1,5 @@
 const { MongoClient } = require('mongodb')
-const { logging } = require('node-utils')
+const logging = require('./utils/logging')
 
 const url = 'mongodb://localhost:27017'
 const dbName = 'node-cms'

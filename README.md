@@ -11,12 +11,8 @@ You can manage contents with markdown text files.
 ### Local (macOS)
 1. install [MongoDB Community Edition (version 6.0)](https://www.mongodb.com/docs/manual/tutorial/install-mongodb-on-os-x/)
 1. install [Node.js (version 18)](https://nodejs.org/en/download/)
-1. install Node-CMS & Node-Utils
+1. install Node-CMS
     ```bash
-    git clone https://github.com/furimako/node-utils.git
-    cd node-utils
-    npm install
-    cd ..
     git clone https://github.com/furimako/node-cms.git
     cd node-cms
     npm install
@@ -61,11 +57,7 @@ You can manage contents with markdown text files.
     # install pm2
     sudo npm install pm2 -g
 
-    # install Node-CMS & Node-Utils
-    git clone https://github.com/furimako/node-utils.git
-    cd node-utils
-    npm install
-    cd ..
+    # install Node-CMS
     git clone https://github.com/furimako/node-cms.git
     cd node-cms
     npm install

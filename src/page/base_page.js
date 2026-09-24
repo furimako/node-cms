@@ -1,6 +1,6 @@
 const fs = require('fs')
 const mustache = require('mustache')
-const { JST } = require('node-utils')
+const JST = require('../utils/jst')
 const rooting = require('../../static/rooting')
 const tags = require('../../static/tags')
 const mongodbDriver = require('../mongodb_driver')

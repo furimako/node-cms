@@ -19,7 +19,7 @@
         "mongodb": "^5.0.0",
         "mustache": "^3.2.1",
         "node-mailjet": "^3.0.5",
-        "node-utils": "file:../node-utils",
+        "nodemailer": "^9.0.1",
         "sass": "^1.58.0"
     }
 }

@@ -2,14 +2,14 @@ const fs = require('fs')
 const http = require('http')
 const https = require('https')
 const { parse } = require('url')
-const nodeUtils = require('node-utils')
+const logging = require('./src/utils/logging')
+const Mailer = require('./src/utils/mailer')
 const acmeChallenge = require('./src/acme_challenge')
 const HttpsHandler = require('./src/https-handler/main')
 const mongodbDriver = require('./src/mongodb_driver')
 const smtpConfig = require('./configs/configs').smtp
 
-const { logging } = nodeUtils
-const mailer = nodeUtils.createMailer(
+const mailer = new Mailer(
     smtpConfig,
     {
         title: 'Fully Hatter の秘密の部屋',
