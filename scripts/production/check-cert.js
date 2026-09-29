@@ -15,14 +15,11 @@ const logging = require('../../src/utils/logging')
 const Mailer = require('../../src/utils/mailer')
 const smtpConfig = require('../../configs/configs').smtp
 
-const mailer = new Mailer(
-    smtpConfig,
-    {
-        title: 'Fully Hatter の秘密の部屋',
-        defaultFrom: '"Fully Hatter" <fully-hatter@furimako.com>',
-        defaultTo: 'furimako@gmail.com'
-    }
-)
+const mailer = new Mailer(smtpConfig, {
+    title: 'Fully Hatter の秘密の部屋',
+    defaultFrom: '"Fully Hatter" <fully-hatter@furimako.com>',
+    defaultTo: 'furimako@gmail.com',
+})
 
 /*
     Connects to the port the app listens on, NOT to furimako.com:443.
@@ -56,24 +53,28 @@ const mode = process.argv[2]
     }
 
     if (err) {
-        logging.error(`failed to get the certificate of ${serverName} (${host}:${port})\n${err.stack}`)
+        logging.error(
+            `failed to get the certificate of ${serverName} (${host}:${port})\n${err.stack}`,
+        )
         await send(
             'ERROR: failed to check the certificate',
             `could not get the certificate which ${serverName} serves (${host}:${port})\n\n${err.stack}`,
-            true
+            true,
         )
         return
     }
 
     const restDays = Math.floor((expiry.getTime() - Date.now()) / (24 * 60 * 60 * 1000))
-    logging.info(`certificate of ${serverName} expires on ${expiry.toISOString()} (rest: ${restDays} days, mode: ${mode})`)
+    logging.info(
+        `certificate of ${serverName} expires on ${expiry.toISOString()} (rest: ${restDays} days, mode: ${mode})`,
+    )
 
     if (mode === '--renewed') {
         await send(
             'renewed the certificate',
-            `${serverName} serves the renewed certificate\n\n`
-                + `expiry: ${expiry.toISOString()}\n`
-                + `rest: ${restDays} days`
+            `${serverName} serves the renewed certificate\n\n` +
+                `expiry: ${expiry.toISOString()}\n` +
+                `rest: ${restDays} days`,
         )
         return
     }
@@ -81,9 +82,9 @@ const mode = process.argv[2]
     if (mode === '--test') {
         await send(
             'test of the certificate check',
-            `this email is sent by 'check-cert.js --test'\n\n`
-                + `expiry: ${expiry.toISOString()}\n`
-                + `rest: ${restDays} days`
+            `this email is sent by 'check-cert.js --test'\n\n` +
+                `expiry: ${expiry.toISOString()}\n` +
+                `rest: ${restDays} days`,
         )
         return
     }
@@ -91,10 +92,10 @@ const mode = process.argv[2]
     if (restDays < thresholdDays) {
         await send(
             `ERROR: the certificate expires in ${restDays} days`,
-            `${serverName} still serves the certificate which expires on ${expiry.toISOString()}\n\n`
-                + 'certbot renews it 30 days before the expiry, so the renewal is NOT working.\n'
-                + 'see README.md (How to renew certbot) to find out what has broken.',
-            true
+            `${serverName} still serves the certificate which expires on ${expiry.toISOString()}\n\n` +
+                'certbot renews it 30 days before the expiry, so the renewal is NOT working.\n' +
+                'see README.md (How to renew certbot) to find out what has broken.',
+            true,
         )
         return
     }
@@ -102,8 +103,8 @@ const mode = process.argv[2]
     if (new Date().getDay() === reportDay) {
         await send(
             'the certificate is up to date',
-            `${serverName} serves the certificate which expires on ${expiry.toISOString()}\n\n`
-                + `rest: ${restDays} days`
+            `${serverName} serves the certificate which expires on ${expiry.toISOString()}\n\n` +
+                `rest: ${restDays} days`,
         )
         return
     }
@@ -120,7 +121,9 @@ async function getServedCertExpiry() {
             return await _connectAndGetExpiry()
         } catch (err) {
             lastErr = err
-            logging.info(`    L failed to connect (attempt: ${i}/${maxAttempts}, err: ${err.message})`)
+            logging.info(
+                `    L failed to connect (attempt: ${i}/${maxAttempts}, err: ${err.message})`,
+            )
             if (i < maxAttempts) {
                 await _wait(retryIntervalMsec)
             }
@@ -157,7 +160,9 @@ function _connectAndGetExpiry() {
 }
 
 function _wait(msec) {
-    return new Promise((resolve) => { setTimeout(resolve, msec) })
+    return new Promise((resolve) => {
+        setTimeout(resolve, msec)
+    })
 }
 
 async function send(subject, text, isError = false) {
@@ -170,5 +175,5 @@ async function send(subject, text, isError = false) {
         process.exit(1)
     }
     // exit with an error so that certbot and cron.log also record it
-    process.exit((isError) ? 1 : 0)
+    process.exit(isError ? 1 : 0)
 }
