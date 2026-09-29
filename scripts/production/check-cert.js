@@ -102,7 +102,7 @@ const mode = process.argv[2]
 
     if (new Date().getDay() === reportDay) {
         await send(
-            'the certificate is up to date',
+            `the certificate is valid for ${restDays} days`,
             `${serverName} serves the certificate which expires on ${expiry.toISOString()}\n\n` +
                 `rest: ${restDays} days`,
         )
