@@ -208,3 +208,26 @@ tail logs/cron.log
             - PRE_REGISTERED
             - REGISTERED
         - registration
+
+## サーバーの初期設定 (Linode - Ubuntu 20.04)
+- [Ubuntu 上で root として] ユーザーを追加する
+  ```bash
+  apt update && apt upgrade
+  adduser (ユーザー名)
+  adduser (ユーザー名) sudo
+  ```
+- [ローカルマシンで] SSH 鍵を作り、サーバーにコピーする
+  ```bash
+  ssh-keygen -b 4096  # 初回だけ実行する
+  ssh-copy-id (ユーザー名)@(パブリック IP アドレス)
+  ```
+- [Ubuntu 上で (ユーザー名) として] PasswordAuthentication を "no" にする
+  ```bash
+  sudo nano /etc/ssh/sshd_config  # PasswordAuthentication を "no" にする
+  sudo systemctl restart sshd
+  ```
+- メールを送れるように、Linode のサポートチケットを起票する
+    - 詳しい手順は[こちら](https://www.linode.com/community/questions/19082/i-just-created-my-first-linode-and-i-cant-send-emails-why)
+
+## 自動アップデートの有効化 (Ubuntu 20.04)
+- 手順は[こちら](https://linoxide.com/enable-automatic-updates-on-ubuntu-20-04/)
