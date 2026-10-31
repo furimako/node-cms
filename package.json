@@ -17,7 +17,7 @@
         "marked": "^4.2.4",
         "mongodb": "^6.21.0",
         "mustache": "^3.2.1",
-        "nodemailer": "^9.0.1",
+        "nodemailer": "^10.0.9",
         "sass": "^1.58.0"
     }
 }
